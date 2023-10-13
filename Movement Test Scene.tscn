@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://ch5f7obaoddin"]
+
+[ext_resource type="Script" path="res://Scripts/2DMovement.gd" id="1_8wxqu"]
+[ext_resource type="Texture2D" uid="uid://cu82ovp4p6ny6" path="res://Sprites/Tilles.png" id="1_grxkj"]
+[ext_resource type="Texture2D" uid="uid://gclnaeh12ghs" path="res://Sprites/icon.svg" id="2_58qj3"]
+[ext_resource type="Script" path="res://Scripts/ChessBoard.gd" id="2_iei3f"]
+[ext_resource type="Texture2D" uid="uid://bm4vmrb0j0oyc" path="res://Sprites/TillesIsometric.png" id="2_wkprm"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i74v8"]
+texture = ExtResource("1_grxkj")
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hklkr"]
+texture = ExtResource("2_wkprm")
+texture_region_size = Vector2i(16, 13)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_gsm5n"]
+tile_size = Vector2i(16, 13)
+sources/2 = SubResource("TileSetAtlasSource_i74v8")
+sources/3 = SubResource("TileSetAtlasSource_hklkr")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7c6vt"]
+size = Vector2(12, 12)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4.67, 4.67)
+
+[node name="ChessBoard" type="TileMap" parent="."]
+texture_filter = 3
+tile_set = SubResource("TileSet_gsm5n")
+format = 2
+layer_0/tile_data = PackedInt32Array(196605, 65539, 0, 196607, 65539, 0, 131073, 65539, 0, 65536, 65539, 0, 131070, 65539, 0, 65533, 65539, 0, 65535, 65539, 0, 1, 65539, 0, -65536, 65539, 0, -2, 65539, 0, -65539, 65539, 0, -65537, 65539, 0, -131071, 65539, 0, -196608, 65539, 0, -131074, 65539, 0, -196611, 65539, 0, -196609, 65539, 0, -262143, 65539, 0, -131075, 3, 0, -3, 3, 0, 131069, 3, 0, 196606, 3, 0, 65534, 3, 0, -65538, 3, 0, -196610, 3, 0, -131073, 3, 0, -1, 3, 0, 131071, 3, 0, 131072, 3, 0, 65537, 3, 0, 0, 3, 0, -65535, 3, 0, -131072, 3, 0, -196607, 3, 0, -262144, 3, 0, 262142, 65539, 0, 196608, 65539, 0, 196609, 3, 0, 262143, 3, 0, 262141, 3, 0, -262142, 3, 0, -196606, 65539, 0, -131070, 3, 0, -65534, 65539, 0, 2, 3, 0, 65538, 65539, 0, 131074, 3, 0, 196610, 65539, 0, -262141, 65539, 0, -196605, 3, 0, -131069, 65539, 0, -65533, 3, 0, 3, 65539, 0, 65539, 3, 0, 131075, 65539, 0, 196611, 3, 0, -196612, 3, 0, -131076, 65539, 0, -65540, 3, 0, -4, 65539, 0, 65532, 3, 0, 131068, 65539, 0, 196604, 3, 0, 262140, 65539, 0, 327676, 65539, 1, 327678, 65539, 1, 262144, 65539, 1, 262146, 65539, 1, 262147, 3, 1, 262145, 3, 1, 327679, 3, 1, 327677, 3, 1)
+script = ExtResource("2_iei3f")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="ChessBoard"]
+position = Vector2(8, 45)
+script = ExtResource("1_8wxqu")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessBoard/CharacterBody2D"]
+z_index = 5
+scale = Vector2(0.09375, 0.0908203)
+texture = ExtResource("2_58qj3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessBoard/CharacterBody2D"]
+shape = SubResource("RectangleShape2D_7c6vt")

@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://ch5f7obaoddin"]
+
+[ext_resource type="Script" path="res://Scripts/2DMovement.gd" id="1_8wxqu"]
+[ext_resource type="Texture2D" uid="uid://cu82ovp4p6ny6" path="res://Sprites/Tilles.png" id="1_grxkj"]
+[ext_resource type="Texture2D" uid="uid://gclnaeh12ghs" path="res://Sprites/icon.svg" id="2_58qj3"]
+[ext_resource type="Script" path="res://Scripts/ChessBoard.gd" id="2_iei3f"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i74v8"]
+texture = ExtResource("1_grxkj")
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_gsm5n"]
+sources/2 = SubResource("TileSetAtlasSource_i74v8")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lo2si"]
+size = Vector2(16, 16)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4.67, 4.67)
+
+[node name="ChessBoard" type="TileMap" parent="."]
+texture_filter = 3
+position = Vector2(-16, 16)
+tile_set = SubResource("TileSet_gsm5n")
+format = 2
+layer_0/tile_data = PackedInt32Array(196605, 65538, 0, 196607, 65538, 0, 131073, 65538, 0, 131075, 65538, 0, 65540, 65538, 0, 65538, 65538, 0, 65536, 65538, 0, 131070, 65538, 0, 65533, 65538, 0, 65535, 65538, 0, 1, 65538, 0, 3, 65538, 0, -65532, 65538, 0, -65534, 65538, 0, -65536, 65538, 0, -2, 65538, 0, -65539, 65538, 0, -65537, 65538, 0, -131071, 65538, 0, -131069, 65538, 0, -196604, 65538, 0, -196606, 65538, 0, -196608, 65538, 0, -131074, 65538, 0, -196611, 65538, 0, -196609, 65538, 0, -262143, 65538, 0, -262141, 65538, 0, -262146, 65538, 0, -327680, 65538, 0, -327678, 65538, 0, -327676, 65538, 0, -262147, 2, 0, -131075, 2, 0, -3, 2, 0, 131069, 2, 0, 196606, 2, 0, 65534, 2, 0, -65538, 2, 0, -196610, 2, 0, -262145, 2, 0, -131073, 2, 0, -1, 2, 0, 131071, 2, 0, 131072, 2, 0, 65537, 2, 0, 0, 2, 0, -65535, 2, 0, -131072, 2, 0, -196607, 2, 0, -262144, 2, 0, -327679, 2, 0, -327677, 2, 0, -262142, 2, 0, -262140, 2, 0, -196605, 2, 0, -131070, 2, 0, -131068, 2, 0, -65533, 2, 0, 2, 2, 0, 4, 2, 0, 65539, 2, 0, 131074, 2, 0, 131076, 2, 0)
+script = ExtResource("2_iei3f")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="ChessBoard"]
+position = Vector2(7, 40)
+script = ExtResource("1_8wxqu")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessBoard/CharacterBody2D"]
+z_index = 5
+position = Vector2(1, 0)
+scale = Vector2(0.125, 0.128906)
+texture = ExtResource("2_58qj3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessBoard/CharacterBody2D"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_lo2si")
