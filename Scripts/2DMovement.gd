@@ -5,20 +5,19 @@ var direction = Vector2.ZERO
 
 var tileWidth = 16
 var tileHeight = 13
+var inputs = {"Right": Vector2.RIGHT,
+			"Left": Vector2.LEFT,
+			"Up": Vector2.UP,
+			"Down": Vector2.DOWN}
 
 func _ready():
 	speedVec.x = tileWidth
 	speedVec.y = tileHeight
 
-func get_input():
-	direction = Input.get_vector("Left", "Right", "Up", "Down")
-
 func _unhandled_input(event):
-	direction = Input.get_vector("Left", "Right", "Up", "Down")
-	move(direction)
-	
+	for dir in inputs.keys():
+		if event.is_action_pressed(dir):
+			move(dir)
+
 func move(dir):
-	if (dir.x != 0 && dir.y != 0):
-		position += dir * speedVec * sqrt(2)
-	else:
-		position += dir * speedVec
+	position += inputs[dir] * speedVec
