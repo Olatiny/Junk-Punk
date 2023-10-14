@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://ch5f7obaoddin"]
 
-[ext_resource type="Script" path="res://Scripts/2DMovement.gd" id="1_8wxqu"]
 [ext_resource type="Texture2D" uid="uid://cu82ovp4p6ny6" path="res://Sprites/Tilles.png" id="1_grxkj"]
 [ext_resource type="Texture2D" uid="uid://gclnaeh12ghs" path="res://Sprites/icon.svg" id="2_58qj3"]
 [ext_resource type="Script" path="res://Scripts/ChessBoard.gd" id="2_iei3f"]
 [ext_resource type="Texture2D" uid="uid://bm4vmrb0j0oyc" path="res://Sprites/TillesIsometric.png" id="2_wkprm"]
+[ext_resource type="Script" path="res://Scripts/MovementManager.cs" id="4_p8yvq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i74v8"]
 texture = ExtResource("1_grxkj")
@@ -41,7 +41,7 @@ script = ExtResource("2_iei3f")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="ChessBoard"]
 position = Vector2(8, 45)
-script = ExtResource("1_8wxqu")
+script = ExtResource("4_p8yvq")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessBoard/CharacterBody2D"]
 z_index = 5

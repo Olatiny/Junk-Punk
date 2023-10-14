@@ -16,7 +16,7 @@ func get_input():
 func _unhandled_input(event):
 	direction = Input.get_vector("Left", "Right", "Up", "Down")
 	move(direction)
-	
+
 func move(dir):
 	if (dir.x != 0 && dir.y != 0):
 		position += dir * speedVec * sqrt(2)
