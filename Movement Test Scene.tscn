@@ -51,7 +51,7 @@ size = Vector2(12, 12)
 position = Vector2(64, 52)
 zoom = Vector2(4.67, 4.67)
 
-[node name="ChessBoard" type="TileMap" parent="." node_paths=PackedStringArray("Player1Node", "Player2Node")]
+[node name="ChessBoard" type="TileMap" parent="." node_paths=PackedStringArray("playerList")]
 texture_filter = 3
 tile_set = SubResource("TileSet_gsm5n")
 format = 2
@@ -71,14 +71,12 @@ layer_2/y_sort_origin = 0
 layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array()
 script = ExtResource("3_hx7t2")
-Player1Node = NodePath("Player1")
-Player1Location = Vector2i(4, 7)
-Player2Node = NodePath("Player2")
-Player2Location = Vector2i(4, 0)
+playerList = [NodePath("Player1"), NodePath("Player2")]
 
 [node name="Player1" type="Area2D" parent="ChessBoard"]
 position = Vector2(-21, 10)
 script = ExtResource("5_avr5u")
+gridPosition = Vector2i(4, 7)
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessBoard/Player1"]
 z_index = 5
@@ -90,6 +88,8 @@ shape = SubResource("RectangleShape2D_nws6i")
 
 [node name="Player2" type="Area2D" parent="ChessBoard"]
 position = Vector2(-21, 25)
+script = ExtResource("5_avr5u")
+gridPosition = Vector2i(4, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessBoard/Player2"]
 modulate = Color(1, 0, 0, 1)

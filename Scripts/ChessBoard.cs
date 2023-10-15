@@ -14,13 +14,8 @@ public partial class ChessBoard : TileMap
 	[Export] Vector2I tileSize = new(16, 13);
 	[Export(PropertyHint.None, "Offset so that objects are placed at the center of tiles")] Vector2I tileOffset = new Vector2I(8, 6);
 
-	[ExportSubgroup("Player 1 Information")]
-	[Export] Node2D Player1Node;
-	[Export] Vector2I Player1Location = new(0, 0);
-
-	[ExportSubgroup("Player 2 Information")]
-	[Export] Node2D Player2Node;
-	[Export] Vector2I Player2Location = new(0, 0);
+	[ExportSubgroup("Player Information")]
+	[Export] Array<PlayerController> playerList;
 
 	Array<Vector2I> validTileCoords;
 	Vector2I mouseOverCell;
@@ -31,11 +26,10 @@ public partial class ChessBoard : TileMap
 		Grid = new Node2D[gridSize.X, gridSize.Y];
 		validTileCoords = new Array<Vector2I>();
 
-		Grid[Player1Location.X, Player1Location.Y] = Player1Node;
-		SetNodePosition(Player1Node, Player1Location);
-
-		Grid[Player2Location.X, Player2Location.Y] = Player2Node;
-		SetNodePosition(Player2Node, Player2Location);
+		foreach (PlayerController player in playerList)
+		{
+			SetNodeGridPosition(player, player.gridPosition);
+		}
 	}
 
 	public override void _Process(double delta)
@@ -43,32 +37,32 @@ public partial class ChessBoard : TileMap
 		UpdateMouseOverHighlight();
 	}
 
-	public void GetValidMoves()
+	public void GetValidMoves(PlayerController player)
 	{
 		ClearValidTiles();
 
-		GetValidBasicMoveTiles();
+		GetValidBasicMoveTiles(player);
 
 		HighlightValidTiles();
 	}
 
-	private void GetValidBasicMoveTiles()
+	private void GetValidBasicMoveTiles(PlayerController player)
 	{
 		//left
-		if (CanMoveToTile(Player1Location - new Vector2I(1, 0)))
-			validTileCoords.Add(LocalToMap(GetCellPosition(Player1Location - new Vector2I(1, 0))));
+		if (CanMoveToTile(player.gridPosition - new Vector2I(1, 0)))
+			validTileCoords.Add(LocalToMap(GetTileWorldPosition(player.gridPosition - new Vector2I(1, 0))));
 
 		//right
-		if (CanMoveToTile(Player1Location + new Vector2I(1, 0)))
-			validTileCoords.Add(LocalToMap(GetCellPosition(Player1Location + new Vector2I(1, 0))));
+		if (CanMoveToTile(player.gridPosition + new Vector2I(1, 0)))
+			validTileCoords.Add(LocalToMap(GetTileWorldPosition(player.gridPosition + new Vector2I(1, 0))));
 
 		//bottom
-		if (CanMoveToTile(Player1Location + new Vector2I(0, 1)))
-			validTileCoords.Add(LocalToMap(GetCellPosition(Player1Location + new Vector2I(0, 1))));
+		if (CanMoveToTile(player.gridPosition + new Vector2I(0, 1)))
+			validTileCoords.Add(LocalToMap(GetTileWorldPosition(player.gridPosition + new Vector2I(0, 1))));
 
 		//top
-		if (CanMoveToTile(Player1Location - new Vector2I(0, 1)))
-			validTileCoords.Add(LocalToMap(GetCellPosition(Player1Location - new Vector2I(0, 1))));
+		if (CanMoveToTile(player.gridPosition - new Vector2I(0, 1)))
+			validTileCoords.Add(LocalToMap(GetTileWorldPosition(player.gridPosition - new Vector2I(0, 1))));
 	}
 
 	private void HighlightValidTiles()
@@ -105,22 +99,24 @@ public partial class ChessBoard : TileMap
 		{
 			if (mouseMapPos.X == validTile.X && mouseMapPos.Y == validTile.Y)
 			{
-				Grid[Player1Location.X, Player1Location.Y] = null;
-				Grid[mouseMapPos.X, mouseMapPos.Y] = Player1Node;
-				Player1Location = mouseMapPos;
-				SetNodePosition(Player1Node, Player1Location);
+				Vector2I playerPos = player.gridPosition;
+				Grid[playerPos.X, playerPos.Y] = null;
+				Grid[mouseMapPos.X, mouseMapPos.Y] = player;
+				player.gridPosition = mouseMapPos;
+
+				SetNodeGridPosition(player, player.gridPosition);
 				ClearValidTiles();
 				break;
 			}
 		}
 	}
 
-	private void SetNodePosition(Node2D node, Vector2I cellLocation)
+	private void SetNodeGridPosition(Node2D node, Vector2I cellLocation)
 	{
 		node.Position = (cellLocation * tileSize) + tileOffset;
 	}
 
-	private Vector2 GetCellPosition(Vector2I cellLocation)
+	private Vector2 GetTileWorldPosition(Vector2I cellLocation)
 	{
 		return cellLocation * tileSize + tileOffset;
 	}
