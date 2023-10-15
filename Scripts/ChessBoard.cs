@@ -2,6 +2,7 @@ using Godot;
 using Godot.Collections;
 using Godot.NativeInterop;
 using System;
+using System.Diagnostics;
 
 public partial class ChessBoard : TileMap
 {
@@ -21,81 +22,117 @@ public partial class ChessBoard : TileMap
 	[Export] Node2D Player2Node;
 	[Export] Vector2I Player2Location = new(0, 0);
 
+	Array<Vector2I> validTileCoords;
+	Vector2I mouseOverCell;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		Grid = new Node2D[gridSize.X, gridSize.Y];
+		validTileCoords = new Array<Vector2I>();
 
 		Grid[Player1Location.X, Player1Location.Y] = Player1Node;
-		UpdateNodePosition(Player1Node, Player1Location);
+		SetNodePosition(Player1Node, Player1Location);
 
 		Grid[Player2Location.X, Player2Location.Y] = Player2Node;
-		UpdateNodePosition(Player2Node, Player2Location);
+		SetNodePosition(Player2Node, Player2Location);
 	}
 
-	public override void _Input(InputEvent @event)
+	public override void _Process(double delta)
 	{
-		if (@event is InputEventMouseButton mouseEvent)
-		{
+		UpdateMouseOverHighlight();
+	}
 
+	public void GetValidMoves()
+	{
+		ClearValidTiles();
+
+		GetValidBasicMoveTiles();
+
+		HighlightValidTiles();
+	}
+
+	private void GetValidBasicMoveTiles()
+	{
+		//left
+		if (CanMoveToTile(Player1Location - new Vector2I(1, 0)))
+			validTileCoords.Add(LocalToMap(GetCellPosition(Player1Location - new Vector2I(1, 0))));
+
+		//right
+		if (CanMoveToTile(Player1Location + new Vector2I(1, 0)))
+			validTileCoords.Add(LocalToMap(GetCellPosition(Player1Location + new Vector2I(1, 0))));
+
+		//bottom
+		if (CanMoveToTile(Player1Location + new Vector2I(0, 1)))
+			validTileCoords.Add(LocalToMap(GetCellPosition(Player1Location + new Vector2I(0, 1))));
+
+		//top
+		if (CanMoveToTile(Player1Location - new Vector2I(0, 1)))
+			validTileCoords.Add(LocalToMap(GetCellPosition(Player1Location - new Vector2I(0, 1))));
+	}
+
+	private void HighlightValidTiles()
+	{
+		foreach (Vector2I tile in validTileCoords)
+		{
+			SetCell(1, tile, 1, new Vector2I(1, 0));
 		}
 	}
 
-	public void RequestMove(String direction)
+	public void ClearValidTiles()
 	{
-		switch (direction)
+		foreach (Vector2I tile in validTileCoords)
 		{
-			case "Up":
-				if (!(Player1Location.Y - 1 < 0 || IsCellOccupied(new Vector2I(Player1Location.X, Player1Location.Y - 1))))
-				{
-					Grid[Player1Location.X, Player1Location.Y] = null;
-					Grid[Player1Location.X, Player1Location.Y - 1] = Player1Node;
-					Player1Location.Y--;
-				}
-
-				break;
-			case "Down":
-				if (!(Player1Location.Y + 1 >= gridSize.Y || IsCellOccupied(new Vector2I(Player1Location.X, Player1Location.Y + 1))))
-				{
-					Grid[Player1Location.X, Player1Location.Y] = null;
-					Grid[Player1Location.X, Player1Location.Y + 1] = Player1Node;
-					Player1Location.Y++;
-				}
-
-				break;
-			case "Left":
-				if (!(Player1Location.X - 1 < 0 || IsCellOccupied(new Vector2I(Player1Location.X - 1, Player1Location.Y))))
-				{
-					Grid[Player1Location.X, Player1Location.Y] = null;
-					Grid[Player1Location.X - 1, Player1Location.Y] = Player1Node;
-					Player1Location.X--;
-				}
-
-				break;
-			case "Right":
-				if (!(Player1Location.X + 1 >= gridSize.X || IsCellOccupied(new Vector2I(Player1Location.X + 1, Player1Location.Y))))
-				{
-					Grid[Player1Location.X, Player1Location.Y] = null;
-					Grid[Player1Location.X + 1, Player1Location.Y] = Player1Node;
-					Player1Location.X++;
-				}
-
-				break;
-			case "Default":
-				break;
+			EraseCell(1, tile);
 		}
 
-		// Move player to new position, calculated as cell coords * tile-size, and add offset to ensure centered on cell.
-		UpdateNodePosition(Player1Node, Player1Location);
+		validTileCoords.Clear();
 	}
 
-	private void UpdateNodePosition(Node2D node, Vector2I cellLocation)
+	private void UpdateMouseOverHighlight()
+	{
+		EraseCell(2, mouseOverCell);
+		mouseOverCell = LocalToMap(GetLocalMousePosition());
+		if (GetCellTileData(0, mouseOverCell) != null && !Input.IsMouseButtonPressed(MouseButton.Left))
+			SetCell(2, mouseOverCell, 1, new Vector2I(0, 0));
+	}
+
+	public void RequestMove(PlayerController player, Vector2 mouseCoordinates)
+	{
+		Vector2I mouseMapPos = LocalToMap(mouseCoordinates);
+
+		foreach (Vector2I validTile in validTileCoords)
+		{
+			if (mouseMapPos.X == validTile.X && mouseMapPos.Y == validTile.Y)
+			{
+				Grid[Player1Location.X, Player1Location.Y] = null;
+				Grid[mouseMapPos.X, mouseMapPos.Y] = Player1Node;
+				Player1Location = mouseMapPos;
+				SetNodePosition(Player1Node, Player1Location);
+				ClearValidTiles();
+				break;
+			}
+		}
+	}
+
+	private void SetNodePosition(Node2D node, Vector2I cellLocation)
 	{
 		node.Position = (cellLocation * tileSize) + tileOffset;
 	}
 
-	private bool IsCellOccupied(Vector2I cellLocation)
+	private Vector2 GetCellPosition(Vector2I cellLocation)
 	{
-		return Grid[cellLocation.X, cellLocation.Y] != null;
+		return cellLocation * tileSize + tileOffset;
+	}
+
+	private bool CanMoveToTile(Vector2I cellLocation)
+	{
+		if (cellLocation.X < 0 || cellLocation.X >= gridSize.X)
+			return false;
+
+		if (cellLocation.Y < 0 || cellLocation.Y >= gridSize.Y)
+			return false;
+
+		return Grid[cellLocation.X, cellLocation.Y] == null;
 	}
 }
