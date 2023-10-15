@@ -2,6 +2,7 @@ using Godot;
 using Godot.Collections;
 using Godot.NativeInterop;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 public partial class ChessBoard : TileMap
@@ -12,19 +13,21 @@ public partial class ChessBoard : TileMap
 	[ExportSubgroup("Grid Definitions")]
 	[Export] Vector2I gridSize = new(8, 8);
 	[Export] Vector2I tileSize = new(16, 13);
-	[Export(PropertyHint.None, "Offset so that objects are placed at the center of tiles")] Vector2I tileOffset = new Vector2I(8, 6);
+	[Export] Vector2I tileOffset = new(8, 6);
 
 	[ExportSubgroup("Player Information")]
 	[Export] Array<PlayerController> playerList;
 
-	Array<Vector2I> validTileCoords;
+	HashSet<Vector2I> validTileCoords;
+	int validPlayerID = -1;
+
 	Vector2I mouseOverCell;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		Grid = new Node2D[gridSize.X, gridSize.Y];
-		validTileCoords = new Array<Vector2I>();
+		validTileCoords = new HashSet<Vector2I>();
 
 		foreach (PlayerController player in playerList)
 		{
@@ -40,8 +43,10 @@ public partial class ChessBoard : TileMap
 	public void GetValidMoves(PlayerController player)
 	{
 		ClearValidTiles();
+		validPlayerID = player.playerId;
 
 		GetValidBasicMoveTiles(player);
+		GetValidModMoveTiles(player);
 
 		HighlightValidTiles();
 	}
@@ -65,6 +70,17 @@ public partial class ChessBoard : TileMap
 			validTileCoords.Add(LocalToMap(GetTileWorldPosition(player.gridPosition - new Vector2I(0, 1))));
 	}
 
+	private void GetValidModMoveTiles(PlayerController player)
+	{
+		foreach (Array<string> path in player.modMovement)
+		{
+			foreach (string direction in path)
+			{
+
+			}
+		}
+	}
+
 	private void HighlightValidTiles()
 	{
 		foreach (Vector2I tile in validTileCoords)
@@ -75,6 +91,8 @@ public partial class ChessBoard : TileMap
 
 	public void ClearValidTiles()
 	{
+		validPlayerID = -1;
+
 		foreach (Vector2I tile in validTileCoords)
 		{
 			EraseCell(1, tile);
@@ -87,24 +105,23 @@ public partial class ChessBoard : TileMap
 	{
 		EraseCell(2, mouseOverCell);
 		mouseOverCell = LocalToMap(GetLocalMousePosition());
-		if (GetCellTileData(0, mouseOverCell) != null && !Input.IsMouseButtonPressed(MouseButton.Left))
+		TileData tileData = GetCellTileData(0, mouseOverCell);
+		if (tileData != null && tileData.GetCustomData("highlightable").AsBool() && !Input.IsMouseButtonPressed(MouseButton.Left))
 			SetCell(2, mouseOverCell, 1, new Vector2I(0, 0));
 	}
 
 	public bool RequestMove(PlayerController player, Vector2 mouseCoordinates)
 	{
+		if (player.playerId != validPlayerID)
+			return false;
+
 		Vector2I mouseMapPos = LocalToMap(mouseCoordinates);
 
 		foreach (Vector2I validTile in validTileCoords)
 		{
 			if (mouseMapPos.X == validTile.X && mouseMapPos.Y == validTile.Y)
 			{
-				Vector2I playerPos = player.gridPosition;
-				Grid[playerPos.X, playerPos.Y] = null;
-				Grid[mouseMapPos.X, mouseMapPos.Y] = player;
-				player.gridPosition = mouseMapPos;
-
-				SetNodeGridPosition(player, player.gridPosition);
+				SetNodeGridPosition(player, player.gridPosition, mouseMapPos);
 				ClearValidTiles();
 				return true;
 			}
@@ -113,9 +130,26 @@ public partial class ChessBoard : TileMap
 		return false;
 	}
 
-	private void SetNodeGridPosition(Node2D node, Vector2I cellLocation)
+	/**
+	 * If newLocation is null, just set position globally and ensure node is in grid.
+	 * 
+	 * if newLocatrion is not null, update the position of the node to reflect new position in grid and in world. 
+	 * and, if it's a player, update it's gridPosition field.
+	 */
+	private void SetNodeGridPosition(Node2D node, Vector2I oldLocation, Vector2I? newLocation = null)
 	{
-		node.Position = (cellLocation * tileSize) + tileOffset;
+		if (!newLocation.HasValue)
+			Grid[oldLocation.X, oldLocation.Y] = node;
+		else
+		{
+			Grid[oldLocation.X, oldLocation.Y] = null;
+			Grid[newLocation.Value.X, newLocation.Value.Y] = node;
+
+			if (node is PlayerController player)
+				player.gridPosition = newLocation.Value;
+		}
+
+		node.Position = newLocation.HasValue ? (newLocation.Value * tileSize) + tileOffset : (oldLocation * tileSize) + tileOffset;
 	}
 
 	private Vector2 GetTileWorldPosition(Vector2I cellLocation)
@@ -123,14 +157,14 @@ public partial class ChessBoard : TileMap
 		return cellLocation * tileSize + tileOffset;
 	}
 
-	private bool CanMoveToTile(Vector2I cellLocation)
+	private bool CanMoveToTile(Vector2I tileLocation)
 	{
-		if (cellLocation.X < 0 || cellLocation.X >= gridSize.X)
+		if (tileLocation.X < 0 || tileLocation.X >= gridSize.X)
 			return false;
 
-		if (cellLocation.Y < 0 || cellLocation.Y >= gridSize.Y)
+		if (tileLocation.Y < 0 || tileLocation.Y >= gridSize.Y)
 			return false;
 
-		return Grid[cellLocation.X, cellLocation.Y] == null;
+		return Grid[tileLocation.X, tileLocation.Y] == null;
 	}
 }

@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -7,6 +8,9 @@ public partial class PlayerController : Area2D
 	[ExportCategory("Player Information")]
 	[Export] public Vector2I gridPosition = new(0, 0);
 	[Export] public int playerId = -1;
+
+	public Array<Array<string>> modMovement = new() { new Array<string> {"Forward", "Forward", "Left"},
+													  new Array<string> {"Forward", "Forward", "Right"}};
 
 	private bool mouseOver = false;
 	private bool primedToMove = false;
@@ -32,7 +36,6 @@ public partial class PlayerController : Area2D
 					if (GetParent<ChessBoard>().RequestMove(this, GetGlobalMousePosition()))
 						primedToMove = false;
 				}
-
 			}
 		}
 

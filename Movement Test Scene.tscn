@@ -27,10 +27,12 @@ texture = ExtResource("2_vc0a0")
 texture_region_size = Vector2i(16, 13)
 0:0/next_alternative_id = 3
 0:0/0 = 0
+0:0/0/custom_data_0 = true
 0:0/1 = 1
 0:0/1/modulate = Color(1, 0, 0, 1)
 1:0/next_alternative_id = 3
 1:0/0 = 0
+1:0/0/custom_data_0 = true
 1:0/2 = 2
 1:0/2/modulate = Color(1, 0, 0, 1)
 0:1/0 = 0
@@ -38,6 +40,8 @@ texture_region_size = Vector2i(16, 13)
 
 [sub_resource type="TileSet" id="TileSet_gsm5n"]
 tile_size = Vector2i(16, 13)
+custom_data_layer_0/name = "highlightable"
+custom_data_layer_0/type = 1
 sources/2 = SubResource("TileSetAtlasSource_i74v8")
 sources/3 = SubResource("TileSetAtlasSource_hklkr")
 sources/1 = SubResource("TileSetAtlasSource_0vkjt")
@@ -77,6 +81,7 @@ playerList = [NodePath("Player1"), NodePath("Player2")]
 position = Vector2(-21, 10)
 script = ExtResource("5_avr5u")
 gridPosition = Vector2i(4, 7)
+playerId = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessBoard/Player1"]
 z_index = 5
@@ -90,6 +95,7 @@ shape = SubResource("RectangleShape2D_nws6i")
 position = Vector2(-21, 25)
 script = ExtResource("5_avr5u")
 gridPosition = Vector2i(4, 0)
+playerId = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessBoard/Player2"]
 modulate = Color(1, 0, 0, 1)
