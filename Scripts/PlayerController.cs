@@ -9,7 +9,6 @@ public partial class PlayerController : Area2D
 	[Export] public int playerId = -1;
 
 	private bool mouseOver = false;
-
 	private bool primedToMove = false;
 
 	public override void _Input(InputEvent @event)
@@ -28,10 +27,10 @@ public partial class PlayerController : Area2D
 					GetParent<ChessBoard>().ClearValidTiles();
 					primedToMove = false;
 				}
-				else if (primedToMove)
+				else if (!mouseOver && primedToMove)
 				{
-					GetParent<ChessBoard>().RequestMove(this, GetGlobalMousePosition());
-					primedToMove = false;
+					if (GetParent<ChessBoard>().RequestMove(this, GetGlobalMousePosition()))
+						primedToMove = false;
 				}
 
 			}

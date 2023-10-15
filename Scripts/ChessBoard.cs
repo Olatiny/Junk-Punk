@@ -91,7 +91,7 @@ public partial class ChessBoard : TileMap
 			SetCell(2, mouseOverCell, 1, new Vector2I(0, 0));
 	}
 
-	public void RequestMove(PlayerController player, Vector2 mouseCoordinates)
+	public bool RequestMove(PlayerController player, Vector2 mouseCoordinates)
 	{
 		Vector2I mouseMapPos = LocalToMap(mouseCoordinates);
 
@@ -106,9 +106,11 @@ public partial class ChessBoard : TileMap
 
 				SetNodeGridPosition(player, player.gridPosition);
 				ClearValidTiles();
-				break;
+				return true;
 			}
 		}
+
+		return false;
 	}
 
 	private void SetNodeGridPosition(Node2D node, Vector2I cellLocation)
