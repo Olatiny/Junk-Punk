@@ -85,6 +85,7 @@ position = Vector2(-21, 10)
 script = ExtResource("5_avr5u")
 gridPosition = Vector2i(4, 7)
 playerId = 1
+modMovement = Array[Array]([["Forward", "Forward"], ["Forward", "Forward", "Forward"]])
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessBoard/Player1"]
 z_index = 5

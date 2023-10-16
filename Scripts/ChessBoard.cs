@@ -84,27 +84,19 @@ public partial class ChessBoard : TileMap
 			{
 				//Check going up
 				if (canGoUp && !UseDirectionIfValid(direction, new(0, 1), new(-1, 0), new(1, 0), ref currUpLocation))
-				{
 					canGoUp = false;
-				}
 
 				//Check going down
 				if (canGoDown && !UseDirectionIfValid(direction, new(0, -1), new(1, 0), new(-1, 0), ref currDownLocation))
-				{
 					canGoDown = false;
-				}
 
 				//Check going left
 				if (canGoLeft && !UseDirectionIfValid(direction, new(-1, 0), new(0, 1), new(0, -1), ref currLeftLocation))
-				{
 					canGoLeft = false;
-				}
 
 				//Check going right
 				if (canGoRight && !UseDirectionIfValid(direction, new(1, 0), new(0, -1), new(0, 1), ref currRightLocation))
-				{
 					canGoRight = false;
-				}
 			}
 
 			if (canGoUp)

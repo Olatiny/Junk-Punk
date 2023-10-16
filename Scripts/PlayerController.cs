@@ -8,11 +8,10 @@ public partial class PlayerController : Area2D
 	[ExportCategory("Player Information")]
 	[Export] public Vector2I gridPosition = new(0, 0);
 	[Export] public int playerId = -1;
-
-	[Export] 
-	public Array<Array<String>> modMovement = new() { new Array<String> {"Forward", "Forward"},
-													  new Array<String> {"Forward", "Forward", "Forward"}};
-	// [Export(PropertyHint.Enum, "Forward,Left,Right")]  Array<String> testStrs;
+	[Export] public int health = 10;
+	[Export] public int baseAttack = 1;
+	[Export] public Array<Array<String>> modMovement;
+	// [Export(PropertyHint.Enum, "Forward,Left,Right")] public Array<String> testStr;
 
 	private bool mouseOver = false;
 	private bool primedToMove = false;
