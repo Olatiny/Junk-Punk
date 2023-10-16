@@ -18,7 +18,8 @@ public partial class ChessBoard : TileMap
 	[ExportSubgroup("Player Information")]
 	[Export] Array<PlayerController> playerList;
 
-	HashSet<Vector2I> validTileCoords;
+	HashSet<Vector2I> validBasicTileCoords;
+	HashSet<Vector2I> validModTileCoords;
 	int validPlayerID = -1;
 
 	Vector2I mouseOverCell;
@@ -27,7 +28,8 @@ public partial class ChessBoard : TileMap
 	public override void _Ready()
 	{
 		Grid = new Node2D[gridSize.X, gridSize.Y];
-		validTileCoords = new HashSet<Vector2I>();
+		validBasicTileCoords = new HashSet<Vector2I>();
+		validModTileCoords = new HashSet<Vector2I>();
 
 		foreach (PlayerController player in playerList)
 		{
@@ -55,37 +57,116 @@ public partial class ChessBoard : TileMap
 	{
 		//left
 		if (CanMoveToTile(player.gridPosition - new Vector2I(1, 0)))
-			validTileCoords.Add(LocalToMap(GetTileWorldPosition(player.gridPosition - new Vector2I(1, 0))));
+			validBasicTileCoords.Add(LocalToMap(GetTileWorldPosition(player.gridPosition - new Vector2I(1, 0))));
 
 		//right
 		if (CanMoveToTile(player.gridPosition + new Vector2I(1, 0)))
-			validTileCoords.Add(LocalToMap(GetTileWorldPosition(player.gridPosition + new Vector2I(1, 0))));
+			validBasicTileCoords.Add(LocalToMap(GetTileWorldPosition(player.gridPosition + new Vector2I(1, 0))));
 
 		//bottom
 		if (CanMoveToTile(player.gridPosition + new Vector2I(0, 1)))
-			validTileCoords.Add(LocalToMap(GetTileWorldPosition(player.gridPosition + new Vector2I(0, 1))));
+			validBasicTileCoords.Add(LocalToMap(GetTileWorldPosition(player.gridPosition + new Vector2I(0, 1))));
 
 		//top
 		if (CanMoveToTile(player.gridPosition - new Vector2I(0, 1)))
-			validTileCoords.Add(LocalToMap(GetTileWorldPosition(player.gridPosition - new Vector2I(0, 1))));
+			validBasicTileCoords.Add(LocalToMap(GetTileWorldPosition(player.gridPosition - new Vector2I(0, 1))));
 	}
 
 	private void GetValidModMoveTiles(PlayerController player)
 	{
 		foreach (Array<string> path in player.modMovement)
 		{
+			bool canGoUp = true, canGoDown = true, canGoLeft = true, canGoRight = true;
+			Vector2I currUpLocation, currDownLocation, currLeftLocation, currRightLocation;
+			currUpLocation = currDownLocation = currLeftLocation = currRightLocation = player.gridPosition;
+
 			foreach (string direction in path)
 			{
+				//Check going up
+				if (canGoUp && !UseDirectionIfValid(direction, new(0, 1), new(-1, 0), new(1, 0), ref currUpLocation))
+				{
+					canGoUp = false;
+				}
 
+				//Check going down
+				if (canGoDown && !UseDirectionIfValid(direction, new(0, -1), new(1, 0), new(-1, 0), ref currDownLocation))
+				{
+					canGoDown = false;
+				}
+
+				//Check going left
+				if (canGoLeft && !UseDirectionIfValid(direction, new(-1, 0), new(0, 1), new(0, -1), ref currLeftLocation))
+				{
+					canGoLeft = false;
+				}
+
+				//Check going right
+				if (canGoRight && !UseDirectionIfValid(direction, new(1, 0), new(0, -1), new(0, 1), ref currRightLocation))
+				{
+					canGoRight = false;
+				}
 			}
+
+			if (canGoUp)
+				validModTileCoords.Add(LocalToMap(GetTileWorldPosition(currUpLocation)));
+
+			if (canGoDown)
+				validModTileCoords.Add(LocalToMap(GetTileWorldPosition(currDownLocation)));
+
+			if (canGoLeft)
+				validModTileCoords.Add(LocalToMap(GetTileWorldPosition(currLeftLocation)));
+
+			if (canGoRight)
+				validModTileCoords.Add(LocalToMap(GetTileWorldPosition(currRightLocation)));
+		}
+	}
+
+	private bool UseDirectionIfValid(String direction, Vector2I forwardDirection, Vector2I leftDirection, Vector2I rightDirection, ref Vector2I outCurrLocation)
+	{
+		switch (direction)
+		{
+			case "Forward":
+				if (CanMoveToTile(outCurrLocation + forwardDirection))
+				{
+					outCurrLocation += forwardDirection;
+					return true;
+				}
+				else
+					return false;
+
+			case "Left":
+				if (CanMoveToTile(outCurrLocation + leftDirection))
+				{
+					outCurrLocation += leftDirection;
+					return true;
+				}
+				else
+					return false;
+
+			case "Right":
+				if (CanMoveToTile(outCurrLocation + rightDirection))
+				{
+					outCurrLocation += rightDirection;
+					return true;
+				}
+				else
+					return false;
+
+			default:
+				return false;
 		}
 	}
 
 	private void HighlightValidTiles()
 	{
-		foreach (Vector2I tile in validTileCoords)
+		foreach (Vector2I tile in validBasicTileCoords)
 		{
 			SetCell(1, tile, 1, new Vector2I(1, 0));
+		}
+
+		foreach (Vector2I tile in validModTileCoords)
+		{
+			SetCell(1, tile, 1, new Vector2I(0, 0), 1);
 		}
 	}
 
@@ -93,12 +174,18 @@ public partial class ChessBoard : TileMap
 	{
 		validPlayerID = -1;
 
-		foreach (Vector2I tile in validTileCoords)
+		foreach (Vector2I tile in validBasicTileCoords)
 		{
 			EraseCell(1, tile);
 		}
 
-		validTileCoords.Clear();
+		foreach (Vector2I tile in validModTileCoords)
+		{
+			EraseCell(1, tile);
+		}
+
+		validBasicTileCoords.Clear();
+		validModTileCoords.Clear();
 	}
 
 	private void UpdateMouseOverHighlight()
@@ -117,7 +204,17 @@ public partial class ChessBoard : TileMap
 
 		Vector2I mouseMapPos = LocalToMap(mouseCoordinates);
 
-		foreach (Vector2I validTile in validTileCoords)
+		foreach (Vector2I validTile in validBasicTileCoords)
+		{
+			if (mouseMapPos.X == validTile.X && mouseMapPos.Y == validTile.Y)
+			{
+				SetNodeGridPosition(player, player.gridPosition, mouseMapPos);
+				ClearValidTiles();
+				return true;
+			}
+		}
+
+		foreach (Vector2I validTile in validModTileCoords)
 		{
 			if (mouseMapPos.X == validTile.X && mouseMapPos.Y == validTile.Y)
 			{

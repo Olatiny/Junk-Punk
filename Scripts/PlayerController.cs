@@ -9,8 +9,10 @@ public partial class PlayerController : Area2D
 	[Export] public Vector2I gridPosition = new(0, 0);
 	[Export] public int playerId = -1;
 
-	public Array<Array<string>> modMovement = new() { new Array<string> {"Forward", "Forward", "Left"},
-													  new Array<string> {"Forward", "Forward", "Right"}};
+	[Export] 
+	public Array<Array<String>> modMovement = new() { new Array<String> {"Forward", "Forward"},
+													  new Array<String> {"Forward", "Forward", "Forward"}};
+	// [Export(PropertyHint.Enum, "Forward,Left,Right")]  Array<String> testStrs;
 
 	private bool mouseOver = false;
 	private bool primedToMove = false;
