@@ -74,71 +74,126 @@ public partial class ChessBoard : TileMap
 
 	private void GetValidModMoveTiles(PlayerController player)
 	{
-		foreach (Array<string> path in player.modMovement)
+		LegMod legMod = player.legMod;
+
+		foreach (Array<string> path in player.legMod.modPaths)
 		{
-			bool canGoUp = true, canGoDown = true, canGoLeft = true, canGoRight = true;
-			Vector2I currUpLocation, currDownLocation, currLeftLocation, currRightLocation;
-			currUpLocation = currDownLocation = currLeftLocation = currRightLocation = player.gridPosition;
+			bool canGoUp = (legMod.pathDirections & 1) != 0, 
+			canGoDown = (legMod.pathDirections & 2) != 0,
+			canGoLeft = (legMod.pathDirections & 4) != 0, 
+			canGoRight = (legMod.pathDirections & 8) != 0;
+
+			bool isPathContinuous = legMod.isPathContinuous;
+			
+			Array<Vector2I> currUpLocations = new() {player.gridPosition}, 
+			currDownLocations = new() {player.gridPosition},
+			currLeftLocations = new() {player.gridPosition}, 
+			currRightLocations = new() {player.gridPosition};
 
 			foreach (string direction in path)
 			{
 				//Check going up
-				if (canGoUp && !UseDirectionIfValid(direction, new(0, 1), new(-1, 0), new(1, 0), ref currUpLocation))
+				if (canGoUp && !UseDirectionIfValid(direction, Vector2I.Up, Vector2I.Right, Vector2I.Left, ref currUpLocations))
 					canGoUp = false;
 
 				//Check going down
-				if (canGoDown && !UseDirectionIfValid(direction, new(0, -1), new(1, 0), new(-1, 0), ref currDownLocation))
+				if (canGoDown && !UseDirectionIfValid(direction, Vector2I.Down, Vector2I.Left, Vector2I.Right, ref currDownLocations))
 					canGoDown = false;
 
 				//Check going left
-				if (canGoLeft && !UseDirectionIfValid(direction, new(-1, 0), new(0, 1), new(0, -1), ref currLeftLocation))
+				if (canGoLeft && !UseDirectionIfValid(direction, Vector2I.Left, Vector2I.Down, Vector2I.Up, ref currLeftLocations))
 					canGoLeft = false;
 
 				//Check going right
-				if (canGoRight && !UseDirectionIfValid(direction, new(1, 0), new(0, -1), new(0, 1), ref currRightLocation))
+				if (canGoRight && !UseDirectionIfValid(direction, Vector2I.Right, Vector2I.Up, Vector2I.Down, ref currRightLocations))
 					canGoRight = false;
 			}
 
-			if (canGoUp)
-				validModTileCoords.Add(LocalToMap(GetTileWorldPosition(currUpLocation)));
+			if (isPathContinuous)
+			{
+				for (int i = 1; i < currUpLocations.Count; validModTileCoords.Add(currUpLocations[i]), i++);
 
-			if (canGoDown)
-				validModTileCoords.Add(LocalToMap(GetTileWorldPosition(currDownLocation)));
+				for (int i = 1; i < currDownLocations.Count; validModTileCoords.Add(currDownLocations[i]), i++);
 
-			if (canGoLeft)
-				validModTileCoords.Add(LocalToMap(GetTileWorldPosition(currLeftLocation)));
+				for (int i = 1; i < currLeftLocations.Count; validModTileCoords.Add(currLeftLocations[i]), i++);
 
-			if (canGoRight)
-				validModTileCoords.Add(LocalToMap(GetTileWorldPosition(currRightLocation)));
+				for (int i = 1; i < currRightLocations.Count; validModTileCoords.Add(currRightLocations[i]), i++);
+			}
+			else
+			{
+				if (canGoUp)
+					validModTileCoords.Add(currUpLocations[^1]);
+
+				if (canGoDown)
+					validModTileCoords.Add(currDownLocations[^1]);
+
+				if (canGoLeft)
+					validModTileCoords.Add(currLeftLocations[^1]);
+
+				if (canGoRight)
+					validModTileCoords.Add(currRightLocations[^1]);
+			}
+		}
+
+		foreach (Vector2I jump in player.legMod.modJumps)
+		{
+			Vector2I gridPos = player.gridPosition + jump;
+
+			if (CanMoveToTile(gridPos))
+				validModTileCoords.Add(gridPos);
 		}
 	}
 
-	private bool UseDirectionIfValid(String direction, Vector2I forwardDirection, Vector2I leftDirection, Vector2I rightDirection, ref Vector2I outCurrLocation)
+	private bool UseDirectionIfValid(String direction, Vector2I forwardDirection, Vector2I leftDirection, Vector2I rightDirection, ref Array<Vector2I> outCurrLocations)
 	{
-		switch (direction)
+        Vector2I currLocation = new()
+        {
+            X = outCurrLocations[^1].X,
+            Y = outCurrLocations[^1].Y
+        };
+
+        switch (direction)
 		{
 			case "Forward":
-				if (CanMoveToTile(outCurrLocation + forwardDirection))
+				if (CanMoveToTile(currLocation += forwardDirection))
 				{
-					outCurrLocation += forwardDirection;
+					outCurrLocations.Add(currLocation);
 					return true;
 				}
 				else
 					return false;
 
 			case "Left":
-				if (CanMoveToTile(outCurrLocation + leftDirection))
+				if (CanMoveToTile(currLocation += leftDirection))
 				{
-					outCurrLocation += leftDirection;
+					outCurrLocations.Add(currLocation);
+					return true;
+				}
+				else
+					return false;
+			
+			case "LeftDiagonal":
+				if (CanMoveToTile(currLocation += leftDirection + forwardDirection))
+				{
+					outCurrLocations.Add(currLocation);
 					return true;
 				}
 				else
 					return false;
 
 			case "Right":
-				if (CanMoveToTile(outCurrLocation + rightDirection))
+				if (CanMoveToTile(currLocation += rightDirection))
 				{
-					outCurrLocation += rightDirection;
+					outCurrLocations.Add(currLocation);
+					return true;
+				}
+				else
+					return false;
+
+			case "RightDiagonal":
+				if (CanMoveToTile(currLocation += rightDirection + forwardDirection))
+				{
+					outCurrLocations.Add(currLocation);
 					return true;
 				}
 				else

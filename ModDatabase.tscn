@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dp4qmsga8nsyq"]
+
+[ext_resource type="Script" path="res://Scripts/ModDatabase.cs" id="1_vf0gi"]
+[ext_resource type="PackedScene" uid="uid://irltfneno0ft" path="res://Prefabs (wink)/leg_mod_template.res" id="2_3t650"]
+
+[node name="ModDatabase" type="Node2D"]
+visible = false
+script = ExtResource("1_vf0gi")
+
+[node name="horsey" parent="." instance=ExtResource("2_3t650")]
+isPathContinuous = true
+pathDirections = 15
+modPaths = [["Forward", "Forward", "Right"], ["Forward", "Forward", "Left"]]
+uid = "horsey"
+
+[node name="bishop" parent="." instance=ExtResource("2_3t650")]
+modJumps = [Vector2i(1, 1), Vector2i(2, 2), Vector2i(3, 3), Vector2i(-1, 1), Vector2i(-2, 2), Vector2i(-3, 3), Vector2i(1, -1), Vector2i(2, -2), Vector2i(3, -3), Vector2i(-1, -1), Vector2i(-2, -2), Vector2i(-3, -3)]
+uid = "bishop"
+
+[node name="bishop2" parent="." instance=ExtResource("2_3t650")]
+isPathContinuous = true
+pathDirections = 15
+modPaths = [["LeftDiagonal", "LeftDiagonal", "LeftDiagonal"], ["RightDiagonal", "RightDiagonal", "RightDiagonal"]]
+uid = "bishop2"

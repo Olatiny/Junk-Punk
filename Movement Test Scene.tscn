@@ -62,15 +62,16 @@ zoom = Vector2(4.67, 4.67)
 texture_filter = 3
 tile_set = SubResource("TileSet_gsm5n")
 format = 2
+layer_0/name = "Board"
 layer_0/tile_data = PackedInt32Array(0, 3, 0, 1, 65539, 0, 2, 3, 0, 3, 65539, 0, 4, 3, 0, 5, 65539, 0, 6, 3, 0, 7, 65539, 0, 65536, 65539, 0, 131072, 3, 0, 196608, 65539, 0, 262144, 3, 0, 327680, 65539, 0, 393216, 3, 0, 458752, 65539, 0, 524288, 65539, 1, 65537, 3, 0, 131073, 65539, 0, 196609, 3, 0, 262145, 65539, 0, 327681, 3, 0, 393217, 65539, 0, 458753, 3, 0, 524289, 3, 1, 65538, 65539, 0, 131074, 3, 0, 196610, 65539, 0, 262146, 3, 0, 327682, 65539, 0, 393218, 3, 0, 458754, 65539, 0, 524290, 65539, 1, 65539, 3, 0, 131075, 65539, 0, 196611, 3, 0, 262147, 65539, 0, 327683, 3, 0, 393219, 65539, 0, 458755, 3, 0, 524291, 3, 1, 65540, 65539, 0, 131076, 3, 0, 196612, 65539, 0, 262148, 3, 0, 327684, 65539, 0, 393220, 3, 0, 458756, 65539, 0, 524292, 65539, 1, 65541, 3, 0, 131077, 65539, 0, 196613, 3, 0, 262149, 65539, 0, 327685, 3, 0, 393221, 65539, 0, 458757, 3, 0, 524293, 3, 1, 65542, 65539, 0, 131078, 3, 0, 196614, 65539, 0, 262150, 3, 0, 327686, 65539, 0, 393222, 3, 0, 458758, 65539, 0, 524294, 65539, 1, 65543, 3, 0, 131079, 65539, 0, 196615, 3, 0, 262151, 65539, 0, 327687, 3, 0, 393223, 65539, 0, 458759, 3, 0, 524295, 3, 1)
-layer_1/name = ""
+layer_1/name = "Highlights"
 layer_1/enabled = true
 layer_1/modulate = Color(1, 1, 1, 1)
 layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array()
-layer_2/name = ""
+layer_2/name = "Cursor"
 layer_2/enabled = true
 layer_2/modulate = Color(1, 1, 1, 1)
 layer_2/y_sort_enabled = false
@@ -85,7 +86,6 @@ position = Vector2(-21, 10)
 script = ExtResource("5_avr5u")
 gridPosition = Vector2i(4, 7)
 playerId = 1
-modMovement = Array[Array]([["Forward", "Forward"], ["Forward", "Forward", "Forward"]])
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessBoard/Player1"]
 z_index = 5
@@ -100,7 +100,6 @@ position = Vector2(-21, 25)
 script = ExtResource("5_avr5u")
 gridPosition = Vector2i(4, 0)
 playerId = 2
-modMovement = [["Forward", "Forward", "Right"], ["Forward", "Forward", "Left"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessBoard/Player2"]
 modulate = Color(1, 0, 0, 1)

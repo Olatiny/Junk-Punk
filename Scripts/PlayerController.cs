@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Collections;
 using System.Runtime.CompilerServices;
 
 public partial class PlayerController : Area2D
@@ -10,17 +11,42 @@ public partial class PlayerController : Area2D
 	[Export] public int playerId = -1;
 	[Export] public int health = 10;
 	[Export] public int baseAttack = 1;
-	[Export] public Array<Array<String>> modMovement;
-	// [Export(PropertyHint.Enum, "Forward,Left,Right")] public Array<String> testStr;
+	// [Export] public Array<Array<String>> modMovement;
+	// // [Export(PropertyHint.Enum, "Forward,Left,Right")] public Array<String> testStr;
+
+	public LegMod legMod;
 
 	private bool mouseOver = false;
 	private bool primedToMove = false;
+
+	private ModDatabase modDatabase;
+
+	public override void _Ready()
+	{
+		modDatabase = GetNode<ModDatabase>("/root/ModDatabase");
+
+		switch (playerId)
+		{
+			case 1:
+				Mod horsey = modDatabase.GetMod("horsey");
+				legMod = horsey.type == Mod.Type.Leg ? (LegMod) horsey : null;
+
+				break;
+			case 2:
+				Mod bishop = modDatabase.GetMod("bishop2");
+				legMod = bishop.type == Mod.Type.Leg ? (LegMod) bishop : null;
+
+				break;
+			default:
+				break;
+		}
+	}
 
 	public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventMouseButton mouseEvent)
 		{
-			if (mouseEvent.IsPressed())
+			if (mouseEvent.IsPressed() && mouseEvent.ButtonIndex == MouseButton.Left) 
 			{
 				if (mouseOver && !primedToMove)
 				{
