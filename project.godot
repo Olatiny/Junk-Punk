@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Junk Punk"
-run/main_scene="res://Movement Test Scene.tscn"
+run/main_scene="res://Scenes/GameTestScene.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
 
 [autoload]
 
-ModDatabase="*res://ModDatabase.tscn"
+ModDatabase="*res://Scenes/ModDatabase.tscn"
+GameManager="*res://Scripts/GameManager.cs"
 
 [display]
 

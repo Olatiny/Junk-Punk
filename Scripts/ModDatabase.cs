@@ -6,49 +6,52 @@ using System.Security.Cryptography.X509Certificates;
 
 public partial class ModDatabase : Node
 {
-	// // [Export]
-	// // Array<Mod> modExports;
+	Dictionary<string, Mod> mods;
 
-	// [Export]
-	// Dictionary<String, Mod> mods;
+	public ModDatabase()
+	{
+		mods = new();
+	}
 
-	// Initializes all mods available in the game
-	// public override void _Ready()
-	// {
-	// 	Array<Node> children = GetChildren();
-
-	// 	foreach(Node child in children)
-	// 	{
-	// 		if (child is Mod mod)
-	// 			mods.Add(mod.uid, mod);
-	// 	}
-	// }
-
-	// private void InitMods()
-	// {
-	// 	LegMod horseyMod = new("horsey");
-	// 	horseyMod.AddPath(new Array<string> { "Forward", "Forward", "Left" });
-	// 	horseyMod.AddPath(new Array<string> { "Forward", "Forward", "Right" });
-	// 	mods.Add(horseyMod.uid, horseyMod);
-
-	// 	LegMod bishopMod = new("bishop");
-	// 	bishopMod.AddJumps(new(-1, -1), new(-2, -2), new(-3, -3), 
-	// 					   new(-1, 1), new(-2, 2), new(-3, 3),
-	// 					   new(1, -1), new(2, -2), new(3, -3),
-	// 					   new(1, 1), new(2, 2), new(3, 3));
-	// 	mods.Add(bishopMod.uid, bishopMod);
-	// }
-
-	public Mod GetMod(string modId)
+	private void InitMods()
 	{
 		Array<Node> children = GetChildren();
 
-		foreach(Node child in children)
+		foreach (Node child in children)
 		{
-			if (child is Mod mod && mod.uid == modId)
-				return mod;
+			if (child is Mod mod)
+				mods.Add(mod.uid, mod);
 		}
+	}
+
+	public Mod GetMod(string modId)
+	{
+		if (mods.Count <= 0)
+			InitMods();
+
+		return mods[modId];
+	}
+
+	public Mod GetRandomMod()
+	{
+		Node child = GetChildren().PickRandom();
+
+		if (child is Mod mod)
+			return mod;
 
 		return null;
+	}
+
+	public /*HeadMod*/void GetRandomModOfType(Mod.Type aModType)
+	{
+		Array<Node> children = GetChildren();
+		Mod child = (Mod) children.PickRandom();
+
+		while (child.type != aModType)
+		{
+			child = (Mod) children.PickRandom();
+		}
+
+		//return child;
 	}
 }
