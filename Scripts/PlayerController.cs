@@ -40,10 +40,18 @@ public partial class PlayerController : Area2D
 				Mod horsey = modDatabase.GetMod("horsey");
 				legMods[0] = horsey.type == Mod.Type.Leg ? (LegMod)horsey : null;
 
+				Mod gun = modDatabase.GetMod("gun");
+				armMods[0] = gun.type == Mod.Type.Arm ? (ArmMod)gun : null;
+				activeAttackModIdx = 0;
+
 				break;
 			case 2:
 				Mod bishop = modDatabase.GetMod("rook");
 				legMods[0] = bishop.type == Mod.Type.Leg ? (LegMod)bishop : null;
+
+				Mod cone = modDatabase.GetMod("cone");
+				armMods[0] = cone.type == Mod.Type.Arm ? (ArmMod)cone : null;
+				activeAttackModIdx = 0;
 
 				break;
 			default:
@@ -64,7 +72,7 @@ public partial class PlayerController : Area2D
 				}
 				else if (primedToAttack)
 				{
-					if (GetParent<ChessBoard>().RequestMove(this, GetGlobalMousePosition()))
+					if (GetParent<ChessBoard>().RequestAttack(this, GetGlobalMousePosition()))
 						primedToAttack = false;
 				}
 			}
@@ -125,6 +133,11 @@ public partial class PlayerController : Area2D
 	{
 		primedToMove = false;
 		primedToAttack = true;
+	}
+
+	public void UnPrime()
+	{
+		primedToAttack = primedToMove = false;
 	}
 
 	public override void _MouseEnter()

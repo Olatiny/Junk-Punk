@@ -111,7 +111,7 @@ shape = SubResource("RectangleShape2D_nws6i")
 [node name="Player2" type="Area2D" parent="GameManager/ChessBoard"]
 position = Vector2(-21, 25)
 script = ExtResource("5_vcp8c")
-gridPosition = Vector2i(4, 0)
+gridPosition = Vector2i(4, 5)
 playerId = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player2"]
@@ -196,7 +196,9 @@ scale = Vector2(0.2, 0.2)
 theme_override_fonts/normal_font = ExtResource("7_mqhok")
 theme_override_font_sizes/normal_font_size = 25
 text = "Player: 1
-Round: 1"
+Round: 1
+Player 1 HP:
+Player 2 HP:"
 
 [connection signal="pressed" from="GameManager/GUI/End Turn" to="GameManager" method="EndTurn"]
 [connection signal="pressed" from="GameManager/GUI/Move" to="GameManager" method="GetValidMoveTiles"]

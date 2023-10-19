@@ -34,7 +34,7 @@ public partial class GameManager : Node
 		gameState = GameState.Playing;
 		turnPhase = TurnPhase.Upkeep;
 
-		roundText.Text = $"Player: {players?[currentPlayerIdx].playerId} HP: {players?[currentPlayerIdx].health}\nRound: {round}";
+		UpdateRoundText();
 	}
 
 	public override void _Process(double delta)
@@ -125,8 +125,10 @@ public partial class GameManager : Node
 		movementUsed = true;
 		movementButton.Disabled = true;
 
-		if (actionUsed)
-			EndTurn();
+		UpdateRoundText();
+
+		// if (actionUsed)
+		// 	EndTurn();
 	}
 
 	public void PlayerActioned()
@@ -134,25 +136,34 @@ public partial class GameManager : Node
 		actionUsed = true;
 		actionButton.Disabled = true;
 
-		if (movementUsed)
-			EndTurn();
+		UpdateRoundText();
+		// if (movementUsed)
+		// 	EndTurn();
 	}
 
 	public void EndTurn()
 	{
+		players[currentPlayerIdx].UnPrime();
 		currentPlayerIdx++;
 		if (currentPlayerIdx >= players?.Count)
 			currentPlayerIdx = 0;
 
 		if (currentPlayerIdx == 0)
 			round++;
-
-		roundText.Text = $"Player: {players?[currentPlayerIdx].playerId} HP: {players?[currentPlayerIdx].health}\nRound: {round}";
+		
+		board.ClearValidTiles();
+		UpdateRoundText();
 		turnPhase = TurnPhase.Upkeep;
+	}
+
+	public void UpdateRoundText()
+	{
+		if (roundText != null)
+			roundText.Text = $"Player: {players?[currentPlayerIdx].playerId}\nRound: {round}\n\nPlayer 1 HP: {players?[0].health}\nPlayer 2 HP: {players?[1].health}";
 	}
 
 	public void DeclareVictory()
 	{
-
+		// TODO: GameOver victory/defeat screen!
 	}
 }

@@ -31,6 +31,12 @@ pathFlags = 31
 modPaths = [["Forward", "Forward", "Forward"]]
 uid = "rook"
 
-[node name="punchyFist" parent="." instance=ExtResource("4_5ijuj")]
+[node name="burningHands" parent="." instance=ExtResource("4_5ijuj")]
+aoe = [Vector2i(0, -1), Vector2i(1, -2), Vector2i(0, -2), Vector2i(-1, -2)]
+bonusDmg = 1
+uid = "cone"
+
+[node name="gun" parent="." instance=ExtResource("4_5ijuj")]
 range = 3
 bonusDmg = 1
+uid = "gun"

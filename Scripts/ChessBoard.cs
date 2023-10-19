@@ -255,8 +255,9 @@ public partial class ChessBoard : TileMap
 	{
 		ArmMod mod = player.GetActiveAttackMod();
 		Array<Node2D> possibleTargets = GetAllNodesOnBoard();
+		possibleTargets.Remove(player);
 
-		if (mod.range > 0)
+		if (mod?.range > 0)
 		{
 			foreach (Node2D possibleTarget in possibleTargets)
 			{
@@ -267,7 +268,7 @@ public partial class ChessBoard : TileMap
 						validModTileCoords.Add(otherPlayer.gridPosition);
 				}
 
-				// TODO: Scrap
+				// TODO: Implement Scrap
 				// if (possibleTarget is Scrap scrap)
 				// {
 				// 	Vector2I dist = scrap.gridPosition - player.gridPosition;
@@ -277,7 +278,7 @@ public partial class ChessBoard : TileMap
 			}
 		}
 
-		if (mod.aoe.Count > 0)
+		if (mod?.aoe?.Count > 0)
 		{
 			foreach (Vector2I aoeTile in mod.aoe)
 			{
