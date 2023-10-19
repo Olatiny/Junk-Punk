@@ -10,10 +10,13 @@ public partial class PlayerController : Area2D
 	[Export] public Vector2I gridPosition = new(0, 0);
 	[Export] public int playerId = -1;
 	[Export] public int health = 10;
-	[Export] public int baseAttack = 1;
+	[Export] public int baseAttackDmg = 1;
+	[Export] public int baseAttackRange = 1;
+	[Export] public int currentScrap = 0;
+	[Export] public int scrapIncome = 10;
 
 	//public HeadMod headMod = new HeadMod;
-	//public ArmMod[] armMods = new ArmMod[2];
+	public ArmMod[] armMods = new ArmMod[2];
 	public LegMod[] legMods = new LegMod[2];
 
 	public Mod[] inventory = new Mod[5];
@@ -21,6 +24,7 @@ public partial class PlayerController : Area2D
 	private bool mouseOver = false;
 	private bool primedToMove = false;
 	private bool primedToAttack = false;
+	private int activeAttackModIdx = -1;
 
 	private ModDatabase modDatabase;
 
@@ -60,24 +64,9 @@ public partial class PlayerController : Area2D
 				}
 				else if (primedToAttack)
 				{
-					// TODO: Attack Stuff
+					if (GetParent<ChessBoard>().RequestMove(this, GetGlobalMousePosition()))
+						primedToAttack = false;
 				}
-
-				// if (mouseOver && !primedToMove)
-				// {
-				// 	GetParent<ChessBoard>().GetValidMoves(this);
-				// 	primedToMove = true;
-				// }
-				// else if (mouseOver && primedToMove)
-				// {
-				// 	GetParent<ChessBoard>().ClearValidTiles();
-				// 	primedToMove = false;
-				// }
-				// else if (!mouseOver && primedToMove)
-				// {
-				// 	if (GetParent<ChessBoard>().RequestMove(this, GetGlobalMousePosition()))
-				// 		primedToMove = false;
-				// }
 			}
 		}
 
@@ -92,6 +81,39 @@ public partial class PlayerController : Area2D
 	{
 		// TODO: Implement This
 	}
+
+	public void SetActiveAttackMod(Mod mod)
+	{
+		if (mod == null || mod is not ArmMod)
+			return;
+
+		if (mod.uid == armMods[0].uid)
+			activeAttackModIdx = 0;
+		else if (mod.uid == armMods[1].uid)
+			activeAttackModIdx = 1;
+	}
+
+	public ArmMod GetActiveAttackMod()
+	{
+		if (activeAttackModIdx == -1 || armMods[activeAttackModIdx] == null)
+			return null;
+
+		return armMods[activeAttackModIdx];
+	}
+
+	// returns true if player is killed, they still take damage if false
+	public bool TakeDamage(int damage)
+	{
+		health -= damage;
+
+		return damage <= 0;
+	}
+
+	// TODO: Implement Scrap
+	// public bool HarvestScrap(Scrap scrap)
+	// {
+	// 	currentScrap += scrap.value;
+	// }
 
 	public void PrimeToMove()
 	{

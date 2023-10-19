@@ -18,7 +18,7 @@ public partial class LegMod : Mod
 	public LegMod() : base()
 	{ }
 
-	public LegMod(String modUID) : base(modUID)
+	public LegMod(String modUID, int modDurability) : base(modUID, modDurability)
 	{
 		type = Type.Leg;
 		modPaths = new();

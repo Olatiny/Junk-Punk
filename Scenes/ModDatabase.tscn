@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b156h0pm1h6oe"]
+[gd_scene load_steps=5 format=3 uid="uid://b156h0pm1h6oe"]
 
 [ext_resource type="Script" path="res://Scripts/ModDatabase.cs" id="1_s4t44"]
 [ext_resource type="PackedScene" uid="uid://irltfneno0ft" path="res://Prefabs (wink)/leg_mod_template.res" id="2_dm7ej"]
 [ext_resource type="Texture2D" uid="uid://gclnaeh12ghs" path="res://Sprites/icon.svg" id="3_y33bu"]
+[ext_resource type="PackedScene" uid="uid://dpdux2gm1lrp6" path="res://Prefabs (wink)/arm_mod_template.res" id="4_5ijuj"]
 
 [node name="ModDatabase" type="Node2D"]
 visible = false
@@ -26,6 +27,10 @@ uid = "bishop"
 
 [node name="rook" parent="." instance=ExtResource("2_dm7ej")]
 texture = ExtResource("3_y33bu")
-modPaths = [["Forward", "Forward", "Forward"]]
 pathFlags = 31
+modPaths = [["Forward", "Forward", "Forward"]]
 uid = "rook"
+
+[node name="punchyFist" parent="." instance=ExtResource("4_5ijuj")]
+range = 3
+bonusDmg = 1

@@ -11,7 +11,7 @@ public partial class ArmMod : Mod
 	public ArmMod() : base()
 	{ }
 	
-	public ArmMod(String modUID, int modDurability) : base(modUID, int modDurability)
+	public ArmMod(String modUID, int modDurability) : base(modUID, modDurability)
 	{
 		type = Type.Arm;
 		range = new();

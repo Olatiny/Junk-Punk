@@ -34,7 +34,7 @@ public partial class GameManager : Node
 		gameState = GameState.Playing;
 		turnPhase = TurnPhase.Upkeep;
 
-		roundText.Text = $"Player: {players?[currentPlayerIdx].playerId}\nRound: {round}";
+		roundText.Text = $"Player: {players?[currentPlayerIdx].playerId} HP: {players?[currentPlayerIdx].health}\nRound: {round}";
 	}
 
 	public override void _Process(double delta)
@@ -114,6 +114,12 @@ public partial class GameManager : Node
 		players[currentPlayerIdx].PrimeToMove();
 	}
 
+	public void GetValidAttackTiles()
+	{
+		board.GetValidAttacks(players[currentPlayerIdx]);
+		players[currentPlayerIdx].PrimeToAttack();
+	}
+
 	public void PlayerMoved()
 	{
 		movementUsed = true;
@@ -141,7 +147,12 @@ public partial class GameManager : Node
 		if (currentPlayerIdx == 0)
 			round++;
 
-		roundText.Text = $"Player: {players?[currentPlayerIdx].playerId}\nRound: {round}";
+		roundText.Text = $"Player: {players?[currentPlayerIdx].playerId} HP: {players?[currentPlayerIdx].health}\nRound: {round}";
 		turnPhase = TurnPhase.Upkeep;
+	}
+
+	public void DeclareVictory()
+	{
+
 	}
 }
