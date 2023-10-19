@@ -26,6 +26,6 @@ uid = "bishop"
 
 [node name="rook" parent="." instance=ExtResource("2_dm7ej")]
 texture = ExtResource("3_y33bu")
-pathFlags = 31
 modPaths = [["Forward", "Forward", "Forward"]]
+pathFlags = 31
 uid = "rook"

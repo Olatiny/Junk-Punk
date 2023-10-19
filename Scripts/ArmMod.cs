@@ -11,9 +11,9 @@ public partial class ArmMod : Mod
 	public ArmMod() : base()
 	{ }
 	
-	public ArmMod(String modUID) : base(modUID)
+	public ArmMod(String modUID, int modDurability) : base(modUID, int modDurability)
 	{
-		type = Type.Arm
+		type = Type.Arm;
 		range = new();
 		aoe = new();
 		bonusDmg = new();
