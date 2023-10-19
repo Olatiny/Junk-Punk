@@ -38,7 +38,7 @@ public partial class PlayerController : Area2D
 
 				break;
 			case 2:
-				Mod bishop = modDatabase.GetMod("bishop");
+				Mod bishop = modDatabase.GetMod("rook");
 				legMods[0] = bishop.type == Mod.Type.Leg ? (LegMod)bishop : null;
 
 				break;
