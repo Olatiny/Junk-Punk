@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b156h0pm1h6oe"]
 
 [ext_resource type="Script" path="res://Scripts/ModDatabase.cs" id="1_s4t44"]
-[ext_resource type="PackedScene" path="res://Prefabs (wink)/leg_mod_template.res" id="2_dm7ej"]
+[ext_resource type="PackedScene" uid="uid://irltfneno0ft" path="res://Prefabs (wink)/leg_mod_template.res" id="2_dm7ej"]
 [ext_resource type="Texture2D" uid="uid://gclnaeh12ghs" path="res://Sprites/icon.svg" id="3_y33bu"]
 
 [node name="ModDatabase" type="Node2D"]
@@ -21,6 +21,11 @@ modulate = Color(0, 1, 0, 1)
 position = Vector2(-24, 32)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_y33bu")
-pathFlags = 31
 modPaths = [["RightDiagonal", "RightDiagonal", "RightDiagonal"]]
 uid = "bishop"
+
+[node name="rook" parent="." instance=ExtResource("2_dm7ej")]
+texture = ExtResource("3_y33bu")
+pathFlags = 31
+modPaths = [["Forward", "Forward", "Forward"]]
+uid = "rook"
