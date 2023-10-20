@@ -22,8 +22,8 @@ public partial class PlayerController : Area2D
 	public Mod[] inventory = new Mod[5];
 
 	private bool mouseOver = false;
-	private bool primedToMove = false;
-	private bool primedToAttack = false;
+	public bool primedToMove { get; private set; } = false;
+	public bool primedToAttack { get; private set; } = false;
 	private int activeAttackModIdx = -1;
 
 	private ModDatabase modDatabase;

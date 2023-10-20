@@ -16,6 +16,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_y33bu")
 modJumps = [Vector2i(2, 1), Vector2i(2, -1), Vector2i(-2, 1), Vector2i(-2, -1), Vector2i(1, 2), Vector2i(1, -2), Vector2i(-1, 2), Vector2i(-1, -2)]
 uid = "horsey"
+durability = 0
 
 [node name="bishop" parent="." instance=ExtResource("2_dm7ej")]
 modulate = Color(0, 1, 0, 1)
@@ -24,19 +25,23 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_y33bu")
 modPaths = [["RightDiagonal", "RightDiagonal", "RightDiagonal"]]
 uid = "bishop"
+durability = 0
 
 [node name="rook" parent="." instance=ExtResource("2_dm7ej")]
 texture = ExtResource("3_y33bu")
 pathFlags = 31
 modPaths = [["Forward", "Forward", "Forward"]]
 uid = "rook"
+durability = 0
 
 [node name="burningHands" parent="." instance=ExtResource("4_5ijuj")]
-aoe = [Vector2i(0, -1), Vector2i(1, -2), Vector2i(0, -2), Vector2i(-1, -2)]
+aoe = [Vector2i(0, -1), Vector2i(1, -2), Vector2i(0, -2), Vector2i(-1, -2), Vector2i(1, -1), Vector2i(-1, -1)]
 bonusDmg = 1
 uid = "cone"
+durability = 0
 
 [node name="gun" parent="." instance=ExtResource("4_5ijuj")]
 range = 3
 bonusDmg = 1
 uid = "gun"
+durability = 0

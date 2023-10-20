@@ -156,6 +156,11 @@ public partial class GameManager : Node
 		turnPhase = TurnPhase.Upkeep;
 	}
 
+	public PlayerController GetCurrentPlayer()
+	{
+		return players?[currentPlayerIdx];
+	}
+
 	public void UpdateRoundText()
 	{
 		if (roundText != null)

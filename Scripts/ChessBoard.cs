@@ -19,6 +19,7 @@ public partial class ChessBoard : TileMap
 
 	HashSet<Vector2I> validBasicTileCoords;
 	HashSet<Vector2I> validModTileCoords;
+	HashSet<Vector2I> rotatedAOECoords;
 	Vector2I mouseOverCell;
 
 	// Called when the node enters the scene tree for the first time.
@@ -30,6 +31,7 @@ public partial class ChessBoard : TileMap
 		Grid = new Node2D[gridSize.X, gridSize.Y];
 		validBasicTileCoords = new HashSet<Vector2I>();
 		validModTileCoords = new HashSet<Vector2I>();
+		rotatedAOECoords = new HashSet<Vector2I>();
 
 		foreach (PlayerController player in gameManager.players)
 		{
@@ -41,7 +43,52 @@ public partial class ChessBoard : TileMap
 	{
 		base._Process(delta);
 
-		UpdateMouseOverHighlight();
+		// UpdateMouseOverHighlight();
+
+		PlayerController player = gameManager.GetCurrentPlayer();
+		if (player.primedToAttack && player?.GetActiveAttackMod()?.aoe?.Count > 0 && validModTileCoords.Count > 0)
+			UpdateAOEOrientation(player);
+	}
+
+	// Orients the AOE towards the mouse.	
+	private void UpdateAOEOrientation(PlayerController player)
+	{
+		Vector2 pivot = player.Position;
+		Vector2 mousePos = GetLocalMousePosition() - pivot;
+		float angle = (float)Math.Atan2(mousePos.Y - Vector2.Up.Y, mousePos.X - Vector2.Up.X) + (Mathf.Pi / 2.0f);
+
+		angle = Mathf.Round(angle / (Mathf.Pi / 2.0f)) * (Mathf.Pi / 2.0f);
+
+		float sin = (float)Math.Sin(angle);
+		float cos = (float)Math.Cos(angle);
+
+		foreach (Vector2I tile in rotatedAOECoords)
+		{
+			EraseCell(1, tile);
+		}
+
+		rotatedAOECoords.Clear();
+
+		foreach (Vector2I tile in validModTileCoords)
+		{
+			Vector2 worldSpaceTile = GetTileWorldPosition(tile);
+			worldSpaceTile -= pivot;
+			Vector2 newVec = new(worldSpaceTile.X * cos - worldSpaceTile.Y * sin, worldSpaceTile.X * sin + worldSpaceTile.Y * cos);
+			worldSpaceTile = newVec + pivot;
+			Vector2I rotatedTileCoords = LocalToMap(worldSpaceTile);
+			if (IsTileInBounds(rotatedTileCoords))
+				rotatedAOECoords.Add(rotatedTileCoords);
+		}
+
+		foreach (Vector2I tile in validModTileCoords)
+		{
+			EraseCell(1, tile);
+		}
+
+		foreach (Vector2I tile in rotatedAOECoords)
+		{
+			SetCell(1, tile, 1, new Vector2I(0, 0), 1);
+		}
 	}
 
 	public void GetValidMoves(PlayerController player)
@@ -315,8 +362,14 @@ public partial class ChessBoard : TileMap
 			EraseCell(1, tile);
 		}
 
+		foreach (Vector2I tile in rotatedAOECoords)
+		{
+			EraseCell(1, tile);
+		}
+
 		validBasicTileCoords.Clear();
 		validModTileCoords.Clear();
+		rotatedAOECoords.Clear();
 	}
 
 	private void UpdateMouseOverHighlight()
@@ -378,7 +431,7 @@ public partial class ChessBoard : TileMap
 				if (node is PlayerController enemy)
 				{
 					// returns true if enemy is killed, they still take damage if false
-					if (enemy.TakeDamage(player.baseAttackDmg)) 
+					if (enemy.TakeDamage(player.baseAttackDmg))
 						gameManager.DeclareVictory();
 				}
 
@@ -392,26 +445,51 @@ public partial class ChessBoard : TileMap
 			}
 		}
 
-		foreach (Vector2I validTile in validModTileCoords)
+		if (player.GetActiveAttackMod().aoe.Count > 0)
 		{
-			if (mouseMapPos == validTile)
+			foreach (Vector2I validTile in rotatedAOECoords)
 			{
 				Node2D node = Grid[validTile.X, validTile.Y];
 
 				if (node is PlayerController enemy)
 				{
 					// returns true if enemy is killed, they still take damage if false
-					if (enemy.TakeDamage(player.baseAttackDmg + player.GetActiveAttackMod().bonusDmg)) 
+					if (enemy.TakeDamage(player.baseAttackDmg + player.GetActiveAttackMod().bonusDmg))
 						gameManager.DeclareVictory();
 				}
 
 				// TODO: Implement Scrap
 				// if (node is Scrap scrap)
 				// 	player.HarvestScrap(scrap);
+			}
 
-				ClearValidTiles();
-				gameManager.PlayerActioned();
-				return true;
+			ClearValidTiles();
+			gameManager.PlayerActioned();
+			return true;
+		}
+		else
+		{
+			foreach (Vector2I validTile in validModTileCoords)
+			{
+				if (mouseMapPos == validTile)
+				{
+					Node2D node = Grid[validTile.X, validTile.Y];
+
+					if (node is PlayerController enemy)
+					{
+						// returns true if enemy is killed, they still take damage if false
+						if (enemy.TakeDamage(player.baseAttackDmg + player.GetActiveAttackMod().bonusDmg))
+							gameManager.DeclareVictory();
+					}
+
+					// TODO: Implement Scrap
+					// if (node is Scrap scrap)
+					// 	player.HarvestScrap(scrap);
+
+					ClearValidTiles();
+					gameManager.PlayerActioned();
+					return true;
+				}
 			}
 		}
 
