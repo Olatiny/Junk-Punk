@@ -114,7 +114,7 @@ public partial class PlayerController : Area2D
 	{
 		health -= damage;
 
-		return damage <= 0;
+		return health <= 0;
 	}
 
 	// TODO: Implement Scrap

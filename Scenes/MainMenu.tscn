@@ -1,0 +1,265 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6cvpakd0o55m"]
+
+[ext_resource type="Script" path="res://Scripts/MainMenu.cs" id="1_mf03i"]
+[ext_resource type="FontFile" uid="uid://bsynkeioac1v" path="res://Quinquefive-ALoRM.ttf" id="2_xwuon"]
+
+[sub_resource type="Gradient" id="Gradient_c7vkc"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nwhpi"]
+gradient = SubResource("Gradient_c7vkc")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jqyhv"]
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(64, 52)
+zoom = Vector2(4.6, 4.6)
+
+[node name="Main Menu GUI" type="Control" parent="." node_paths=PackedStringArray("mainMenu", "creditsMenu", "settingsMenu")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_mf03i")
+mainMenu = NodePath("Main Menu")
+creditsMenu = NodePath("Credits")
+settingsMenu = NodePath("Settings")
+
+[node name="Main Menu" type="Control" parent="Main Menu GUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Main Menu GUI/Main Menu"]
+modulate = Color(1, 1, 1, 0.443137)
+offset_left = -64.0
+offset_top = -20.0
+offset_right = 192.0
+offset_bottom = 125.0
+texture = SubResource("GradientTexture1D_nwhpi")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Main Menu GUI/Main Menu"]
+texture_filter = 1
+offset_left = -61.0
+offset_top = -27.0
+offset_right = 1189.0
+offset_bottom = 108.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/normal_font = ExtResource("2_xwuon")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]
+Main Menu
+[/center]
+"
+scroll_active = false
+
+[node name="Start" type="Button" parent="Main Menu GUI/Main Menu"]
+texture_filter = 1
+offset_left = 15.0
+offset_top = 38.0
+offset_right = 505.0
+offset_bottom = 113.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_xwuon")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jqyhv")
+text = "START"
+
+[node name="Settings" type="Button" parent="Main Menu GUI/Main Menu"]
+texture_filter = 1
+offset_left = 15.0
+offset_top = 57.0
+offset_right = 505.0
+offset_bottom = 132.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_xwuon")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jqyhv")
+text = "SETTINGS"
+
+[node name="Credits" type="Button" parent="Main Menu GUI/Main Menu"]
+texture_filter = 1
+offset_left = 15.0
+offset_top = 77.0
+offset_right = 505.0
+offset_bottom = 152.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_xwuon")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jqyhv")
+text = "Credits"
+
+[node name="Quit" type="Button" parent="Main Menu GUI/Main Menu"]
+texture_filter = 1
+offset_left = 15.0
+offset_top = 97.0
+offset_right = 505.0
+offset_bottom = 172.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_xwuon")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jqyhv")
+text = "Quit"
+
+[node name="Credits" type="Control" parent="Main Menu GUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Main Menu GUI/Credits"]
+modulate = Color(1, 1, 1, 0.443137)
+offset_left = -64.0
+offset_top = -20.0
+offset_right = 192.0
+offset_bottom = 125.0
+texture = SubResource("GradientTexture1D_nwhpi")
+
+[node name="Label" type="RichTextLabel" parent="Main Menu GUI/Credits"]
+texture_filter = 1
+offset_left = -61.0
+offset_top = -27.0
+offset_right = 1189.0
+offset_bottom = 108.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/normal_font = ExtResource("2_xwuon")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]
+Credits
+[/center]
+"
+scroll_active = false
+
+[node name="Credits" type="RichTextLabel" parent="Main Menu GUI/Credits"]
+texture_filter = 1
+offset_left = -51.0
+offset_top = 1.0
+offset_right = 1104.0
+offset_bottom = 456.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/normal_font = ExtResource("2_xwuon")
+theme_override_fonts/bold_font = ExtResource("2_xwuon")
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[center][b]Project Management:[/b]
+Adam Imbert
+
+[b]Programming:[/b]
+Thomas Gelman
+Adam Imbert
+Adam Malik
+
+[b]Art:[/b]
+Lainey Harding
+Max Eddington
+
+[b]Music:[/b]
+Landon SUgar
+[/center]
+"
+scroll_active = false
+
+[node name="Back" type="Button" parent="Main Menu GUI/Credits"]
+texture_filter = 1
+offset_left = 15.0
+offset_top = 97.0
+offset_right = 505.0
+offset_bottom = 172.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_xwuon")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jqyhv")
+text = "Back"
+
+[node name="Settings" type="Control" parent="Main Menu GUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Main Menu GUI/Settings"]
+modulate = Color(1, 1, 1, 0.443137)
+offset_left = -64.0
+offset_top = -20.0
+offset_right = 192.0
+offset_bottom = 125.0
+texture = SubResource("GradientTexture1D_nwhpi")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Main Menu GUI/Settings"]
+texture_filter = 1
+offset_left = -61.0
+offset_top = -23.0
+offset_right = 1189.0
+offset_bottom = 117.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/normal_font = ExtResource("2_xwuon")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]
+Settings
+[/center]
+"
+scroll_active = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Main Menu GUI/Settings"]
+texture_filter = 1
+offset_left = 23.0
+offset_top = 41.0
+offset_right = 428.0
+offset_bottom = 81.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/normal_font = ExtResource("2_xwuon")
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "[center]Master Volume
+[/center]
+"
+scroll_active = false
+
+[node name="HSlider" type="HSlider" parent="Main Menu GUI/Settings"]
+layout_mode = 0
+offset_top = 46.0
+offset_right = 240.0
+offset_bottom = 86.0
+scale = Vector2(0.5, 0.5)
+min_value = -80.0
+max_value = 0.0
+
+[node name="Back" type="Button" parent="Main Menu GUI/Settings"]
+texture_filter = 1
+offset_left = 15.0
+offset_top = 97.0
+offset_right = 505.0
+offset_bottom = 172.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_xwuon")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jqyhv")
+text = "Back"
+
+[connection signal="pressed" from="Main Menu GUI/Main Menu/Start" to="Main Menu GUI" method="StartGame"]
+[connection signal="pressed" from="Main Menu GUI/Main Menu/Settings" to="Main Menu GUI" method="OpenSettings"]
+[connection signal="pressed" from="Main Menu GUI/Main Menu/Credits" to="Main Menu GUI" method="OpenCredits"]
+[connection signal="pressed" from="Main Menu GUI/Main Menu/Quit" to="Main Menu GUI" method="Quit"]
+[connection signal="pressed" from="Main Menu GUI/Credits/Back" to="Main Menu GUI" method="BackToMain"]
+[connection signal="value_changed" from="Main Menu GUI/Settings/HSlider" to="Main Menu GUI" method="ChangeVolume"]
+[connection signal="pressed" from="Main Menu GUI/Settings/Back" to="Main Menu GUI" method="BackToMain"]

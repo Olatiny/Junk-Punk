@@ -16,10 +16,15 @@ public partial class GameManager : Node
 	[Export] public ChessBoard board;
 
 	[ExportSubgroup("UI")]
+	[Export] Control playingCtrl;
+	[Export] Control pausedCtrl;
+	[Export] Control gameOverCtrl;
 	[Export] Button movementButton;
 	[Export] Button actionButton;
 	[Export] Button endTurnButton;
 	[Export] RichTextLabel roundText;
+	[Export] RichTextLabel pausedText;
+	[Export] RichTextLabel gameOverText;
 
 	public int round { get; private set; } = 1;
 
@@ -33,6 +38,9 @@ public partial class GameManager : Node
 
 		gameState = GameState.Playing;
 		turnPhase = TurnPhase.Upkeep;
+
+		playingCtrl.Visible = true;
+		pausedCtrl.Visible = gameOverCtrl.Visible = false;
 
 		UpdateRoundText();
 	}
@@ -58,10 +66,10 @@ public partial class GameManager : Node
 		}
 	}
 
-	/**
+    /**
 	 * Handles everything needed to do for upkeep. Should only take 1 loop.
 	 */
-	public void DoUpkeep()
+    public void DoUpkeep()
 	{
 		movementUsed = actionUsed = false;
 
@@ -167,8 +175,37 @@ public partial class GameManager : Node
 			roundText.Text = $"Player: {players?[currentPlayerIdx].playerId}\nRound: {round}\n\nPlayer 1 HP: {players?[0].health}\nPlayer 2 HP: {players?[1].health}";
 	}
 
+	public void Pause()
+	{
+		gameState = GameState.Paused;
+		pausedText.Text = $"[center]Player {currentPlayerIdx + 1}'s turn\n\n\nPaused[/center]";
+		pausedCtrl.Visible = true;
+		playingCtrl.Visible = gameOverCtrl.Visible = false;
+	}
+
+	public void Resume()
+	{
+		gameState = GameState.Playing;
+		playingCtrl.Visible = true;
+		pausedCtrl.Visible = gameOverCtrl.Visible = false;
+	}
+
 	public void DeclareVictory()
 	{
 		// TODO: GameOver victory/defeat screen!
+		gameState = GameState.GameOver;
+		pausedText.Text = $"[center]Player {currentPlayerIdx + 1} Wins!\n\n\nGame Over[/center]";
+		gameOverCtrl.Visible = true;
+		pausedCtrl.Visible = playingCtrl.Visible = false;
+	}
+
+	public void ReturnToMain()
+	{
+		GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
+	}
+
+	public void Restart()
+	{
+		GetTree().ChangeSceneToFile("Scenes/GameTestScene.tscn");
 	}
 }

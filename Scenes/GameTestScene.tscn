@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cnxvss6ffw3q6"]
+[gd_scene load_steps=17 format=3 uid="uid://cnxvss6ffw3q6"]
 
 [ext_resource type="Texture2D" uid="uid://cb4g6t2q8bkhn" path="res://Sprites/TileHighlights.png" id="1_fqqti"]
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_hioff"]
@@ -56,20 +56,32 @@ size = Vector2(120, 120)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrgj1"]
 
+[sub_resource type="Gradient" id="Gradient_bxcu0"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y1224"]
+gradient = SubResource("Gradient_bxcu0")
+
 [node name="GameTestScene" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(64, 52)
 zoom = Vector2(4.6, 4.6)
 
-[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "movementButton", "actionButton", "endTurnButton", "roundText")]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "playingCtrl", "pausedCtrl", "gameOverCtrl", "movementButton", "actionButton", "endTurnButton", "roundText", "pausedText", "gameOverText")]
 script = ExtResource("1_hioff")
 players = [NodePath("ChessBoard/Player1"), NodePath("ChessBoard/Player2")]
 board = NodePath("ChessBoard")
-movementButton = NodePath("GUI/Move")
-actionButton = NodePath("GUI/Attack")
-endTurnButton = NodePath("GUI/End Turn")
-roundText = NodePath("GUI/RichTextLabel")
+playingCtrl = NodePath("GUI/Playing GUI")
+pausedCtrl = NodePath("GUI/Pause GUI")
+gameOverCtrl = NodePath("GUI/Game Over GUI")
+movementButton = NodePath("GUI/Playing GUI/Move")
+actionButton = NodePath("GUI/Playing GUI/Attack")
+endTurnButton = NodePath("GUI/Playing GUI/End Turn")
+roundText = NodePath("GUI/Playing GUI/TurnInfoText")
+pausedText = NodePath("GUI/Pause GUI/pauseText")
+gameOverText = NodePath("GUI/Game Over GUI/gameOverText")
 
 [node name="ChessBoard" type="TileMap" parent="GameManager"]
 texture_filter = 3
@@ -100,7 +112,7 @@ gridPosition = Vector2i(4, 7)
 playerId = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player1"]
-z_index = 5
+z_index = 1
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("6_qiwh8")
 
@@ -116,7 +128,7 @@ playerId = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player2"]
 modulate = Color(1, 0, 0, 1)
-z_index = 5
+z_index = 1
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("6_qiwh8")
 
@@ -125,28 +137,39 @@ scale = Vector2(0.1, 0.1)
 shape = SubResource("RectangleShape2D_nws6i")
 
 [node name="GUI" type="Control" parent="GameManager"]
+z_index = 5
+layout_direction = 1
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="End Turn" type="Button" parent="GameManager/GUI"]
-texture_filter = 1
+[node name="Playing GUI" type="Control" parent="GameManager/GUI"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="End Turn" type="Button" parent="GameManager/GUI/Playing GUI"]
+texture_filter = 1
+layout_mode = 1
 offset_left = 132.0
 offset_top = 96.0
 offset_right = 380.0
 offset_bottom = 134.0
-grow_horizontal = 2
-grow_vertical = 2
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("7_mqhok")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
 text = "End Turn"
 
-[node name="Move" type="Button" parent="GameManager/GUI"]
+[node name="Move" type="Button" parent="GameManager/GUI/Playing GUI"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -164,34 +187,25 @@ theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
 text = "Move"
 
-[node name="Attack" type="Button" parent="GameManager/GUI"]
+[node name="Attack" type="Button" parent="GameManager/GUI/Playing GUI"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = 132.0
 offset_top = 86.0
 offset_right = 320.0
 offset_bottom = 124.0
-grow_horizontal = 2
-grow_vertical = 2
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("7_mqhok")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
 text = "Attack"
+metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GameManager/GUI"]
+[node name="TurnInfoText" type="RichTextLabel" parent="GameManager/GUI/Playing GUI"]
 texture_filter = 1
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = 129.0
 offset_right = 404.0
 offset_bottom = 212.0
-grow_horizontal = 2
-grow_vertical = 2
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/normal_font = ExtResource("7_mqhok")
 theme_override_font_sizes/normal_font_size = 25
@@ -200,6 +214,145 @@ Round: 1
 Player 1 HP:
 Player 2 HP:"
 
-[connection signal="pressed" from="GameManager/GUI/End Turn" to="GameManager" method="EndTurn"]
-[connection signal="pressed" from="GameManager/GUI/Move" to="GameManager" method="GetValidMoveTiles"]
-[connection signal="pressed" from="GameManager/GUI/Attack" to="GameManager" method="GetValidAttackTiles"]
+[node name="Pause" type="Button" parent="GameManager/GUI/Playing GUI"]
+texture_filter = 1
+offset_left = 134.0
+offset_top = -14.0
+offset_right = 382.0
+offset_bottom = 24.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("7_mqhok")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
+text = "Pause"
+
+[node name="Game Over GUI" type="Control" parent="GameManager/GUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="GameManager/GUI/Game Over GUI"]
+modulate = Color(1, 1, 1, 0.443137)
+layout_mode = 0
+offset_left = -64.0
+offset_top = -20.0
+offset_right = 192.0
+offset_bottom = 125.0
+texture = SubResource("GradientTexture1D_y1224")
+
+[node name="gameOverText" type="RichTextLabel" parent="GameManager/GUI/Game Over GUI"]
+texture_filter = 1
+layout_mode = 1
+offset_left = -61.0
+offset_top = -18.0
+offset_right = 1189.0
+offset_bottom = 682.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/normal_font = ExtResource("7_mqhok")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]
+Player N WINS!
+
+
+GAME OVER
+[/center]
+"
+scroll_active = false
+
+[node name="Main Menu" type="Button" parent="GameManager/GUI/Game Over GUI"]
+texture_filter = 1
+offset_left = 15.0
+offset_top = 70.0
+offset_right = 505.0
+offset_bottom = 145.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("7_mqhok")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
+text = "Main Menu"
+
+[node name="Start Over" type="Button" parent="GameManager/GUI/Game Over GUI"]
+texture_filter = 1
+offset_left = 15.0
+offset_top = 89.0
+offset_right = 505.0
+offset_bottom = 164.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("7_mqhok")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
+text = "Start OVer
+"
+
+[node name="Pause GUI" type="Control" parent="GameManager/GUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="GameManager/GUI/Pause GUI"]
+modulate = Color(1, 1, 1, 0.443137)
+offset_left = -64.0
+offset_top = -20.0
+offset_right = 192.0
+offset_bottom = 125.0
+texture = SubResource("GradientTexture1D_y1224")
+
+[node name="pauseText" type="RichTextLabel" parent="GameManager/GUI/Pause GUI"]
+texture_filter = 1
+offset_left = -61.0
+offset_top = -18.0
+offset_right = 1189.0
+offset_bottom = 682.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/normal_font = ExtResource("7_mqhok")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]
+Player 1's Turn
+
+
+PAUSED
+[/center]"
+scroll_active = false
+
+[node name="Resume" type="Button" parent="GameManager/GUI/Pause GUI"]
+texture_filter = 1
+offset_left = 15.0
+offset_top = 70.0
+offset_right = 505.0
+offset_bottom = 145.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("7_mqhok")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
+text = "RESUME"
+
+[node name="Main Menu" type="Button" parent="GameManager/GUI/Pause GUI"]
+texture_filter = 1
+offset_left = 15.0
+offset_top = 89.0
+offset_right = 505.0
+offset_bottom = 164.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("7_mqhok")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
+text = "MAIN MENU"
+
+[connection signal="pressed" from="GameManager/GUI/Playing GUI/End Turn" to="GameManager" method="EndTurn"]
+[connection signal="pressed" from="GameManager/GUI/Playing GUI/Move" to="GameManager" method="GetValidMoveTiles"]
+[connection signal="pressed" from="GameManager/GUI/Playing GUI/Attack" to="GameManager" method="GetValidAttackTiles"]
+[connection signal="pressed" from="GameManager/GUI/Playing GUI/Pause" to="GameManager" method="Pause"]
+[connection signal="pressed" from="GameManager/GUI/Game Over GUI/Main Menu" to="GameManager" method="ReturnToMain"]
+[connection signal="pressed" from="GameManager/GUI/Game Over GUI/Start Over" to="GameManager" method="Restart"]
+[connection signal="pressed" from="GameManager/GUI/Pause GUI/Resume" to="GameManager" method="Resume"]
+[connection signal="pressed" from="GameManager/GUI/Pause GUI/Main Menu" to="GameManager" method="ReturnToMain"]

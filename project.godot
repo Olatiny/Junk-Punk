@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Junk Punk"
-run/main_scene="res://Scenes/GameTestScene.tscn"
+run/main_scene="res://Scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
 
@@ -19,6 +19,7 @@ config/icon="res://Sprites/icon.svg"
 
 ModDatabase="*res://Scenes/ModDatabase.tscn"
 GameManager="*res://Scripts/GameManager.cs"
+Settings="*res://Scripts/Settings.cs"
 
 [display]
 
