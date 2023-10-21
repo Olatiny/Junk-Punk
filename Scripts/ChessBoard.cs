@@ -53,8 +53,9 @@ public partial class ChessBoard : TileMap
 	// Orients the AOE towards the mouse.	
 	private void UpdateAOEOrientation(PlayerController player)
 	{
-		Vector2 pivot = player.Position;
-		Vector2 mousePos = GetLocalMousePosition() - pivot;
+		Vector2 playerWorldPos = player.Position;
+		Vector2I pivot = player.gridPosition;
+		Vector2 mousePos = GetLocalMousePosition() - playerWorldPos;
 		float angle = (float)Math.Atan2(mousePos.Y - Vector2.Up.Y, mousePos.X - Vector2.Up.X) + (Mathf.Pi / 2.0f);
 
 		angle = Mathf.Round(angle / (Mathf.Pi / 2.0f)) * (Mathf.Pi / 2.0f);
@@ -71,11 +72,16 @@ public partial class ChessBoard : TileMap
 
 		foreach (Vector2I tile in validModTileCoords)
 		{
-			Vector2 worldSpaceTile = GetTileWorldPosition(tile);
-			worldSpaceTile -= pivot;
-			Vector2 newVec = new(worldSpaceTile.X * cos - worldSpaceTile.Y * sin, worldSpaceTile.X * sin + worldSpaceTile.Y * cos);
-			worldSpaceTile = newVec + pivot;
-			Vector2I rotatedTileCoords = LocalToMap(worldSpaceTile);
+			// Vector2 worldSpaceTile = GetTileWorldPosition(tile);
+			// worldSpaceTile -= playerWorldPos;
+			// Vector2 newVec = new(worldSpaceTile.X * cos - worldSpaceTile.Y * sin, worldSpaceTile.X * sin + worldSpaceTile.Y * cos);
+			// worldSpaceTile = newVec + playerWorldPos;
+			// Vector2I rotatedTileCoords = LocalToMap(worldSpaceTile);
+			Vector2 tilePos = tile;
+			tilePos -= pivot;
+			Vector2 newVec = new(tilePos.X * cos - tilePos.Y * sin, tilePos.X * sin + tilePos.Y * cos);
+			newVec += pivot;
+			Vector2I rotatedTileCoords = new(Mathf.RoundToInt(newVec.X),Mathf.RoundToInt(newVec.Y));
 			if (IsTileInBounds(rotatedTileCoords))
 				rotatedAOECoords.Add(rotatedTileCoords);
 		}
@@ -87,7 +93,7 @@ public partial class ChessBoard : TileMap
 
 		foreach (Vector2I tile in rotatedAOECoords)
 		{
-			SetCell(1, tile, 1, new Vector2I(0, 0), 1);
+			SetCell(1, tile, 1, new Vector2I(1, 0));
 		}
 	}
 
@@ -341,12 +347,12 @@ public partial class ChessBoard : TileMap
 	{
 		foreach (Vector2I tile in validModTileCoords)
 		{
-			SetCell(1, tile, 1, new Vector2I(0, 0), 1);
+			SetCell(1, tile, 1, new Vector2I(1, 0));
 		}
 
 		foreach (Vector2I tile in validBasicTileCoords)
 		{
-			SetCell(1, tile, 1, new Vector2I(1, 0));
+			SetCell(1, tile, 1, new Vector2I(1, 1));
 		}
 	}
 
@@ -378,7 +384,7 @@ public partial class ChessBoard : TileMap
 		mouseOverCell = LocalToMap(GetLocalMousePosition());
 		TileData tileData = GetCellTileData(0, mouseOverCell);
 		if (tileData != null && tileData.GetCustomData("highlightable").AsBool() && !Input.IsMouseButtonPressed(MouseButton.Left))
-			SetCell(2, mouseOverCell, 1, new Vector2I(0, 0));
+			SetCell(2, mouseOverCell, 1, new Vector2I(0, 1));
 	}
 
 	public bool RequestMove(PlayerController player, Vector2 mouseCoordinates)

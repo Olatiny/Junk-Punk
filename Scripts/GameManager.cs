@@ -15,16 +15,32 @@ public partial class GameManager : Node
 	[Export] public Array<PlayerController> players;
 	[Export] public ChessBoard board;
 
-	[ExportSubgroup("UI")]
-	[Export] Control playingCtrl;
+	[ExportSubgroup("Level Objects")]
+	[Export] Camera2D camera;
+	[Export] Vector2I cameraStartPos;
+	[Export] int cameraLerpDistance;
+
+	[ExportCategory("UI")]
+	[ExportGroup("Control Groups")]
+	[Export] Control playerUI;
 	[Export] Control pausedCtrl;
 	[Export] Control gameOverCtrl;
+
+	[ExportGroup("Buttons")]
 	[Export] Button movementButton;
 	[Export] Button actionButton;
 	[Export] Button endTurnButton;
-	[Export] RichTextLabel roundText;
+
+	[ExportGroup("Text")]
 	[Export] RichTextLabel pausedText;
 	[Export] RichTextLabel gameOverText;
+
+	[ExportGroup("Scoreboard")]
+	[Export] TextureRect turnIndicator;
+	[Export] TextureRect leftOnes;
+	[Export] TextureRect leftTens;
+	[Export] TextureRect rightOnes;
+	[Export] TextureRect rightTens;
 
 	public int round { get; private set; } = 1;
 
@@ -39,10 +55,13 @@ public partial class GameManager : Node
 		gameState = GameState.Playing;
 		turnPhase = TurnPhase.Upkeep;
 
-		playingCtrl.Visible = true;
-		pausedCtrl.Visible = gameOverCtrl.Visible = false;
+		if (playerUI != null && pausedCtrl != null && gameOverCtrl != null)
+		{
+			playerUI.Visible = true;
+			pausedCtrl.Visible = gameOverCtrl.Visible = false;
+		}
 
-		UpdateRoundText();
+		UpdateScoreBoard();
 	}
 
 	public override void _Process(double delta)
@@ -51,6 +70,26 @@ public partial class GameManager : Node
 
 		if (gameState != GameState.Playing)
 			return;
+
+		if (playerUI != null)
+		{
+			bool player1turn = currentPlayerIdx == 0;
+
+			if (player1turn)
+			{
+				playerUI.SetPosition(playerUI.Position.MoveToward(new (0, playerUI.Position.Y), 5));
+				// camera.Position = camera.Position.MoveToward(cameraStartPos, 5);
+				// playerUI.SetPosition(new Vector2((float) Mathf.Lerp(playerUI.Position.X, 0, delta * 4), playerUI.Position.Y));
+				camera.Position = new Vector2((float) Mathf.Lerp(camera.Position.X, cameraStartPos.X, delta * 4), camera.Position.Y);
+			}
+			else
+			{
+				playerUI.SetPosition(playerUI.Position.MoveToward(new(-90, playerUI.Position.Y), 5));
+				// camera.Position = camera.Position.MoveToward(cameraStartPos + new Vector2(cameraLerpDistance, 0), 5);
+				// playerUI.SetPosition(new Vector2((float) Mathf.Lerp(playerUI.Position.X, -90, delta * 4), playerUI.Position.Y));
+				camera.Position = new Vector2((float) Mathf.Lerp(camera.Position.X, cameraStartPos.X + cameraLerpDistance, delta * 4), camera.Position.Y);
+			}
+		}
 
 		switch (turnPhase)
 		{
@@ -66,10 +105,18 @@ public partial class GameManager : Node
 		}
 	}
 
-    /**
+	public override void _Input(InputEvent @event)
+	{
+		base._Input(@event);
+   
+		if (Input.IsKeyPressed(Key.Escape))
+			Pause();
+	}
+
+	/**
 	 * Handles everything needed to do for upkeep. Should only take 1 loop.
 	 */
-    public void DoUpkeep()
+	public void DoUpkeep()
 	{
 		movementUsed = actionUsed = false;
 
@@ -133,7 +180,7 @@ public partial class GameManager : Node
 		movementUsed = true;
 		movementButton.Disabled = true;
 
-		UpdateRoundText();
+		UpdateScoreBoard();
 
 		// if (actionUsed)
 		// 	EndTurn();
@@ -144,7 +191,7 @@ public partial class GameManager : Node
 		actionUsed = true;
 		actionButton.Disabled = true;
 
-		UpdateRoundText();
+		UpdateScoreBoard();
 		// if (movementUsed)
 		// 	EndTurn();
 	}
@@ -158,9 +205,9 @@ public partial class GameManager : Node
 
 		if (currentPlayerIdx == 0)
 			round++;
-		
+
 		board.ClearValidTiles();
-		UpdateRoundText();
+		UpdateScoreBoard();
 		turnPhase = TurnPhase.Upkeep;
 	}
 
@@ -169,10 +216,27 @@ public partial class GameManager : Node
 		return players?[currentPlayerIdx];
 	}
 
-	public void UpdateRoundText()
+	public void UpdateScoreBoard()
 	{
-		if (roundText != null)
-			roundText.Text = $"Player: {players?[currentPlayerIdx].playerId}\nRound: {round}\n\nPlayer 1 HP: {players?[0].health}\nPlayer 2 HP: {players?[1].health}";
+		if (leftOnes == null || rightOnes == null || players == null || turnIndicator == null)
+			return;
+
+		turnIndicator.FlipH = currentPlayerIdx == 0;
+
+		int player1hp = players[0].health;
+		int player2hp = players[1].health;
+
+		int leftOnesPlace  = player1hp % 10;
+		int leftTensPlace = player1hp / 10;
+
+		int rightOnesPlace = player2hp % 10;
+		int rightTensPlace = player2hp / 10;
+
+		((AtlasTexture)leftOnes.Texture).Region = new Rect2(leftOnesPlace * 15, 0, 15, 16);
+		((AtlasTexture)leftTens.Texture).Region = new Rect2(leftTensPlace * 15, 0, 15, 16);
+
+		((AtlasTexture)rightOnes.Texture).Region = new Rect2(rightOnesPlace * 15, 0, 15, 16);
+		((AtlasTexture)rightTens.Texture).Region = new Rect2(rightTensPlace * 15, 0, 15, 16);
 	}
 
 	public void Pause()
@@ -180,13 +244,13 @@ public partial class GameManager : Node
 		gameState = GameState.Paused;
 		pausedText.Text = $"[center]Player {currentPlayerIdx + 1}'s turn\n\n\nPaused[/center]";
 		pausedCtrl.Visible = true;
-		playingCtrl.Visible = gameOverCtrl.Visible = false;
+		playerUI.Visible = gameOverCtrl.Visible = false;
 	}
 
 	public void Resume()
 	{
 		gameState = GameState.Playing;
-		playingCtrl.Visible = true;
+		playerUI.Visible = true;
 		pausedCtrl.Visible = gameOverCtrl.Visible = false;
 	}
 
@@ -196,7 +260,7 @@ public partial class GameManager : Node
 		gameState = GameState.GameOver;
 		pausedText.Text = $"[center]Player {currentPlayerIdx + 1} Wins!\n\n\nGame Over[/center]";
 		gameOverCtrl.Visible = true;
-		pausedCtrl.Visible = playingCtrl.Visible = false;
+		pausedCtrl.Visible = playerUI.Visible = false;
 	}
 
 	public void ReturnToMain()
