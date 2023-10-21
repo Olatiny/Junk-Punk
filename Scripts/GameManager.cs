@@ -258,7 +258,7 @@ public partial class GameManager : Node
 	{
 		// TODO: GameOver victory/defeat screen!
 		gameState = GameState.GameOver;
-		pausedText.Text = $"[center]Player {currentPlayerIdx + 1} Wins!\n\n\nGame Over[/center]";
+		gameOverText.Text = $"[center]Player {currentPlayerIdx + 1} Wins!\n\n\nGame Over[/center]";
 		gameOverCtrl.Visible = true;
 		pausedCtrl.Visible = playerUI.Visible = false;
 	}

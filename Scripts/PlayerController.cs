@@ -63,7 +63,7 @@ public partial class PlayerController : Area2D
 	{
 		if (@event is InputEventMouseButton mouseEvent)
 		{
-			if (mouseEvent.IsPressed() && mouseEvent.ButtonIndex == MouseButton.Left)
+			if (mouseEvent.IsReleased() && mouseEvent.ButtonIndex == MouseButton.Left)
 			{
 				if (primedToMove)
 				{
