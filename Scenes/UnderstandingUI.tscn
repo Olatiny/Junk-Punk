@@ -1,0 +1,130 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckkqe85ale7qs"]
+
+[ext_resource type="Texture2D" uid="uid://by80wqylnenn3" path="res://Sprites/smallest_lemon.png" id="1_c5s8i"]
+[ext_resource type="FontFile" uid="uid://bsynkeioac1v" path="res://Quinquefive-ALoRM.ttf" id="1_t5ixs"]
+[ext_resource type="Texture2D" uid="uid://dhvlm6vma1gqn" path="res://Sprites/smallest_celery.png" id="2_08etw"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Player Panel" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("1_c5s8i")
+
+[node name="Shop Panel" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.85
+anchor_right = 0.85
+anchor_bottom = 1.0
+offset_top = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("2_08etw")
+metadata/_edit_use_anchors_ = true
+
+[node name="Shop Boxes" type="HBoxContainer" parent="Shop Panel"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Shop Selection 0" type="VBoxContainer" parent="Shop Panel/Shop Boxes"]
+layout_mode = 2
+
+[node name="Shop Button" type="Button" parent="Shop Panel/Shop Boxes/Shop Selection 0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Shop Cost" type="Label" parent="Shop Panel/Shop Boxes/Shop Selection 0"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_t5ixs")
+theme_override_font_sizes/font_size = 10
+text = "200"
+
+[node name="Shop Selection 1" type="VBoxContainer" parent="Shop Panel/Shop Boxes"]
+layout_mode = 2
+
+[node name="Shop Button" type="Button" parent="Shop Panel/Shop Boxes/Shop Selection 1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Shop Cost" type="Label" parent="Shop Panel/Shop Boxes/Shop Selection 1"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_t5ixs")
+theme_override_font_sizes/font_size = 10
+text = "200"
+
+[node name="Shop Selection 2" type="VBoxContainer" parent="Shop Panel/Shop Boxes"]
+layout_mode = 2
+
+[node name="Shop Button" type="Button" parent="Shop Panel/Shop Boxes/Shop Selection 2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Shop Cost" type="Label" parent="Shop Panel/Shop Boxes/Shop Selection 2"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_t5ixs")
+theme_override_font_sizes/font_size = 10
+text = "200"
+
+[node name="Shop Selection 3" type="VBoxContainer" parent="Shop Panel/Shop Boxes"]
+layout_mode = 2
+
+[node name="Shop Button" type="Button" parent="Shop Panel/Shop Boxes/Shop Selection 3"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Shop Cost" type="Label" parent="Shop Panel/Shop Boxes/Shop Selection 3"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_t5ixs")
+theme_override_font_sizes/font_size = 10
+text = "200"
+
+[node name="Shop Selection 4" type="VBoxContainer" parent="Shop Panel/Shop Boxes"]
+layout_mode = 2
+
+[node name="Shop Button" type="Button" parent="Shop Panel/Shop Boxes/Shop Selection 4"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Shop Cost" type="Label" parent="Shop Panel/Shop Boxes/Shop Selection 4"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_t5ixs")
+theme_override_font_sizes/font_size = 10
+text = "200"

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm4vmrb0j0oyc"
-path="res://.godot/imported/TillesIsometric.png-2cc543a905223ad2f2899bac1acbb3c4.ctex"
+uid="uid://nf1o8rrfoxfo"
+path="res://.godot/imported/Generic Leg Mod (Red).png-03d0edf6b056425c05faaa7fbd083a3c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/TillesIsometric.png"
-dest_files=["res://.godot/imported/TillesIsometric.png-2cc543a905223ad2f2899bac1acbb3c4.ctex"]
+source_file="res://Assets/Generic Leg Mod (Red).png"
+dest_files=["res://.godot/imported/Generic Leg Mod (Red).png-03d0edf6b056425c05faaa7fbd083a3c.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm4vmrb0j0oyc"
-path="res://.godot/imported/TillesIsometric.png-2cc543a905223ad2f2899bac1acbb3c4.ctex"
+uid="uid://copej1dng63by"
+path="res://.godot/imported/Board Tile 1.png-41217bee831617bef06d9ec3a224d1a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/TillesIsometric.png"
-dest_files=["res://.godot/imported/TillesIsometric.png-2cc543a905223ad2f2899bac1acbb3c4.ctex"]
+source_file="res://Assets/Board Tile 1.png"
+dest_files=["res://.godot/imported/Board Tile 1.png-41217bee831617bef06d9ec3a224d1a3.ctex"]
 
 [params]
 

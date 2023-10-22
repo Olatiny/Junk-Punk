@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm4vmrb0j0oyc"
-path="res://.godot/imported/TillesIsometric.png-2cc543a905223ad2f2899bac1acbb3c4.ctex"
+uid="uid://djytsrul72ij"
+path="res://.godot/imported/Generic Arm Mod.png-975f756b8343a8e2a9dc3a8192f1b540.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/TillesIsometric.png"
-dest_files=["res://.godot/imported/TillesIsometric.png-2cc543a905223ad2f2899bac1acbb3c4.ctex"]
+source_file="res://Assets/Generic Arm Mod.png"
+dest_files=["res://.godot/imported/Generic Arm Mod.png-975f756b8343a8e2a9dc3a8192f1b540.ctex"]
 
 [params]
 

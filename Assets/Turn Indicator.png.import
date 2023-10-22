@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm4vmrb0j0oyc"
-path="res://.godot/imported/TillesIsometric.png-2cc543a905223ad2f2899bac1acbb3c4.ctex"
+uid="uid://dhby1ftx87jxy"
+path="res://.godot/imported/Turn Indicator.png-c3256a826c4913d855f215cdb03c2ff0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/TillesIsometric.png"
-dest_files=["res://.godot/imported/TillesIsometric.png-2cc543a905223ad2f2899bac1acbb3c4.ctex"]
+source_file="res://Assets/Turn Indicator.png"
+dest_files=["res://.godot/imported/Turn Indicator.png-c3256a826c4913d855f215cdb03c2ff0.ctex"]
 
 [params]
 
