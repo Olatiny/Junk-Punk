@@ -17,7 +17,7 @@ position = Vector2(64, 99)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Main Menu GUI" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("mainMenu", "creditsMenu", "settingsMenu")]
+[node name="Main Menu GUI" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,9 +27,6 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_mf03i")
-mainMenu = NodePath("Main Menu")
-creditsMenu = NodePath("Credits")
-settingsMenu = NodePath("Settings")
 
 [node name="Main Menu" type="Control" parent="CanvasLayer/Main Menu GUI"]
 layout_mode = 1
