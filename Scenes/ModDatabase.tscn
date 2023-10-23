@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/ModDatabase.cs" id="1_s4t44"]
 [ext_resource type="PackedScene" uid="uid://irltfneno0ft" path="res://Prefabs (wink)/leg_mod_template.res" id="2_dm7ej"]
 [ext_resource type="Texture2D" uid="uid://gclnaeh12ghs" path="res://Sprites/icon.svg" id="3_y33bu"]
-[ext_resource type="PackedScene" path="res://Prefabs (wink)/arm_mod_template.res" id="4_5ijuj"]
+[ext_resource type="PackedScene" uid="uid://dpdux2gm1lrp6" path="res://Prefabs (wink)/arm_mod_template.res" id="4_5ijuj"]
 
 [node name="ModDatabase" type="Node2D"]
 visible = false
