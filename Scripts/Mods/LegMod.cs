@@ -32,9 +32,9 @@ public partial class LegMod : Mod
 		return (PathProperty) (pathFlags & (uint) propertyFlag) == propertyFlag;
 	}
 
-    public override Mod Clone()
-    {
-        Mod modClone = base.Clone();
+	public override Mod Clone()
+	{
+		Mod modClone = base.Clone();
 		modClone.SetScript(GetScript());
 
 		LegMod legModClone = (LegMod) modClone;
@@ -43,5 +43,5 @@ public partial class LegMod : Mod
 		legModClone.modJumps = modJumps;
 
 		return legModClone;
-    }
+	}
 }
