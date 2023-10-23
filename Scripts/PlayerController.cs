@@ -27,30 +27,32 @@ public partial class PlayerController : Area2D
 	private int activeAttackModIdx = -1;
 
 	private ModDatabase modDatabase;
+	private GameManager gameManager;
 
 	public override void _Ready()
 	{
 		base._Ready();
 
 		modDatabase = GetNode<ModDatabase>("/root/ModDatabase");
+		gameManager = GetParent().GetParent<GameManager>();
 
 		switch (playerId)
 		{
 			case 1:
-				Mod horsey = modDatabase.GetMod("horsey");
-				legMods[0] = horsey.type == Mod.Type.Leg ? (LegMod)horsey : null;
+				Mod horsey = modDatabase.GetMod("KnightLeg");
+				legMods[0] = horsey.bodyPart == Mod.BodyPart.Leg ? (LegMod)horsey : null;
 
-				Mod gun = modDatabase.GetMod("gun");
-				armMods[0] = gun.type == Mod.Type.Arm ? (ArmMod)gun : null;
+				Mod hands = modDatabase.GetMod("BurningHands");
+				armMods[0] = hands.bodyPart == Mod.BodyPart.Arm ? (ArmMod)hands : null;
 				activeAttackModIdx = 0;
 
 				break;
 			case 2:
-				Mod bishop = modDatabase.GetMod("rook");
-				legMods[0] = bishop.type == Mod.Type.Leg ? (LegMod)bishop : null;
+				Mod bishop = modDatabase.GetMod("RookLeg");
+				legMods[0] = bishop.bodyPart == Mod.BodyPart.Leg ? (LegMod)bishop : null;
 
-				Mod cone = modDatabase.GetMod("cone");
-				armMods[0] = cone.type == Mod.Type.Arm ? (ArmMod)cone : null;
+				Mod cone = modDatabase.GetMod("RookArm");
+				armMods[0] = cone.bodyPart == Mod.BodyPart.Arm ? (ArmMod)cone : null;
 				activeAttackModIdx = 0;
 
 				break;
@@ -113,6 +115,9 @@ public partial class PlayerController : Area2D
 	public bool TakeDamage(int damage)
 	{
 		health -= damage;
+
+		if (health <= 0)
+			gameManager.DeclareVictory();
 
 		return health <= 0;
 	}

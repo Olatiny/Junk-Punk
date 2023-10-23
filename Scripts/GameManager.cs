@@ -242,7 +242,8 @@ public partial class GameManager : Node
 	public void Pause()
 	{
 		gameState = GameState.Paused;
-		pausedText.Text = $"[center]Player {currentPlayerIdx + 1}'s turn\n\n\nPaused[/center]";
+		if (pausedText != null)
+			pausedText.Text = $"[center]Player {currentPlayerIdx + 1}'s turn\n\n\nPaused[/center]";
 		pausedCtrl.Visible = true;
 		playerUI.Visible = gameOverCtrl.Visible = false;
 	}

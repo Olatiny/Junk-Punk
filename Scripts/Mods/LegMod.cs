@@ -20,7 +20,7 @@ public partial class LegMod : Mod
 
 	public LegMod(String modUID, int modDurability) : base(modUID, modDurability)
 	{
-		type = Type.Leg;
+		bodyPart = BodyPart.Leg;
 		modPaths = new();
 		modJumps = new();
 		
@@ -32,21 +32,16 @@ public partial class LegMod : Mod
 		return (PathProperty) (pathFlags & (uint) propertyFlag) == propertyFlag;
 	}
 
-	public void AddPath(Array<String> pathStrings)
-	{
-		modPaths.Add(pathStrings);
-	}
+    public override Mod Clone()
+    {
+        Mod modClone = base.Clone();
+		modClone.SetScript(GetScript());
 
-	public void AddJump(Vector2I jumpPos)
-	{
-		modJumps.Add(jumpPos);
-	}
+		LegMod legModClone = (LegMod) modClone;
+		legModClone.pathFlags = pathFlags;
+		legModClone.modPaths = modPaths;
+		legModClone.modJumps = modJumps;
 
-	public void AddJumps(params Vector2I[] jumps)
-	{
-		foreach (Vector2I jump in jumps)
-		{
-			modJumps.Add(jump);
-		}
-	}
+		return legModClone;
+    }
 }
