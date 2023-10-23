@@ -93,9 +93,9 @@ public partial class ArmMod : Mod
 		return validModTileCoords;
 	}
 
-    public override Mod Clone()
-    {
-        Mod modClone = base.Clone();
+	public override Mod Clone()
+	{
+		Mod modClone = base.Clone();
 		modClone.SetScript(GetScript());
 
 		ArmMod armModClone = (ArmMod) modClone;
