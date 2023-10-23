@@ -10,36 +10,50 @@ public partial class PlayerController : Area2D
 	[Export] public Vector2I gridPosition = new(0, 0);
 	[Export] public int playerId = -1;
 	[Export] public int health = 10;
-	[Export] public int baseAttack = 1;
+	[Export] public int baseAttackDmg = 1;
+	[Export] public int baseAttackRange = 1;
+	[Export] public int currentScrap = 0;
+	[Export] public int scrapIncome = 10;
 
 	//public HeadMod headMod = new HeadMod;
-	//public ArmMod[] armMods = new ArmMod[2];
+	public ArmMod[] armMods = new ArmMod[2];
 	public LegMod[] legMods = new LegMod[2];
 
 	public Mod[] inventory = new Mod[5];
 
 	private bool mouseOver = false;
-	private bool primedToMove = false;
-	private bool primedToAttack = false;
+	public bool primedToMove { get; private set; } = false;
+	public bool primedToAttack { get; private set; } = false;
+	private int activeAttackModIdx = -1;
 
 	private ModDatabase modDatabase;
+	private GameManager gameManager;
 
 	public override void _Ready()
 	{
 		base._Ready();
 
 		modDatabase = GetNode<ModDatabase>("/root/ModDatabase");
+		gameManager = GetParent().GetParent<GameManager>();
 
 		switch (playerId)
 		{
 			case 1:
-				Mod horsey = modDatabase.GetMod("horsey");
-				legMods[0] = horsey.type == Mod.Type.Leg ? (LegMod)horsey : null;
+				Mod horsey = modDatabase.GetMod("KnightLeg");
+				legMods[0] = horsey.bodyPart == Mod.BodyPart.Leg ? (LegMod)horsey : null;
+
+				Mod hands = modDatabase.GetMod("BurningHands");
+				armMods[0] = hands.bodyPart == Mod.BodyPart.Arm ? (ArmMod)hands : null;
+				activeAttackModIdx = 0;
 
 				break;
 			case 2:
-				Mod bishop = modDatabase.GetMod("bishop");
-				legMods[0] = bishop.type == Mod.Type.Leg ? (LegMod)bishop : null;
+				Mod bishop = modDatabase.GetMod("RookLeg");
+				legMods[0] = bishop.bodyPart == Mod.BodyPart.Leg ? (LegMod)bishop : null;
+
+				Mod cone = modDatabase.GetMod("RookArm");
+				armMods[0] = cone.bodyPart == Mod.BodyPart.Arm ? (ArmMod)cone : null;
+				activeAttackModIdx = 0;
 
 				break;
 			default:
@@ -51,7 +65,7 @@ public partial class PlayerController : Area2D
 	{
 		if (@event is InputEventMouseButton mouseEvent)
 		{
-			if (mouseEvent.IsPressed() && mouseEvent.ButtonIndex == MouseButton.Left)
+			if (mouseEvent.IsReleased() && mouseEvent.ButtonIndex == MouseButton.Left)
 			{
 				if (primedToMove)
 				{
@@ -60,24 +74,9 @@ public partial class PlayerController : Area2D
 				}
 				else if (primedToAttack)
 				{
-					// TODO: Attack Stuff
+					if (GetParent<ChessBoard>().RequestAttack(this, GetGlobalMousePosition()))
+						primedToAttack = false;
 				}
-
-				// if (mouseOver && !primedToMove)
-				// {
-				// 	GetParent<ChessBoard>().GetValidMoves(this);
-				// 	primedToMove = true;
-				// }
-				// else if (mouseOver && primedToMove)
-				// {
-				// 	GetParent<ChessBoard>().ClearValidTiles();
-				// 	primedToMove = false;
-				// }
-				// else if (!mouseOver && primedToMove)
-				// {
-				// 	if (GetParent<ChessBoard>().RequestMove(this, GetGlobalMousePosition()))
-				// 		primedToMove = false;
-				// }
 			}
 		}
 
@@ -93,6 +92,42 @@ public partial class PlayerController : Area2D
 		// TODO: Implement This
 	}
 
+	public void SetActiveAttackMod(Mod mod)
+	{
+		if (mod == null || mod is not ArmMod)
+			return;
+
+		if (mod.uid == armMods[0].uid)
+			activeAttackModIdx = 0;
+		else if (mod.uid == armMods[1].uid)
+			activeAttackModIdx = 1;
+	}
+
+	public ArmMod GetActiveAttackMod()
+	{
+		if (activeAttackModIdx == -1 || armMods[activeAttackModIdx] == null)
+			return null;
+
+		return armMods[activeAttackModIdx];
+	}
+
+	// returns true if player is killed, they still take damage if false
+	public bool TakeDamage(int damage)
+	{
+		health -= damage;
+
+		if (health <= 0)
+			gameManager.DeclareVictory();
+
+		return health <= 0;
+	}
+
+	// TODO: Implement Scrap
+	// public bool HarvestScrap(Scrap scrap)
+	// {
+	// 	currentScrap += scrap.value;
+	// }
+
 	public void PrimeToMove()
 	{
 		primedToMove = true;
@@ -103,6 +138,11 @@ public partial class PlayerController : Area2D
 	{
 		primedToMove = false;
 		primedToAttack = true;
+	}
+
+	public void UnPrime()
+	{
+		primedToAttack = primedToMove = false;
 	}
 
 	public override void _MouseEnter()

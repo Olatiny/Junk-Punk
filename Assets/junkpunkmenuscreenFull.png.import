@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm4vmrb0j0oyc"
-path="res://.godot/imported/TillesIsometric.png-2cc543a905223ad2f2899bac1acbb3c4.ctex"
+uid="uid://dg0dpxk5gy68s"
+path="res://.godot/imported/junkpunkmenuscreenFull.png-fc71ce12e78eaceaffdbad1cb3e7be8c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/TillesIsometric.png"
-dest_files=["res://.godot/imported/TillesIsometric.png-2cc543a905223ad2f2899bac1acbb3c4.ctex"]
+source_file="res://Assets/junkpunkmenuscreenFull.png"
+dest_files=["res://.godot/imported/junkpunkmenuscreenFull.png-fc71ce12e78eaceaffdbad1cb3e7be8c.ctex"]
 
 [params]
 

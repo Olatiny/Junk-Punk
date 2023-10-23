@@ -1,13 +1,31 @@
-[gd_scene load_steps=15 format=3 uid="uid://cnxvss6ffw3q6"]
+[gd_scene load_steps=40 format=3 uid="uid://cnxvss6ffw3q6"]
 
 [ext_resource type="Texture2D" uid="uid://cb4g6t2q8bkhn" path="res://Sprites/TileHighlights.png" id="1_fqqti"]
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_hioff"]
 [ext_resource type="Texture2D" uid="uid://cu82ovp4p6ny6" path="res://Sprites/Tilles.png" id="2_bg0w6"]
+[ext_resource type="Texture2D" uid="uid://c2jt3oe4pwd5n" path="res://Assets/Board Border.png" id="2_etmsa"]
+[ext_resource type="Texture2D" uid="uid://dw36ydwhjs405" path="res://Sprites/TileHighlightsBig.png" id="3_46tkk"]
 [ext_resource type="Texture2D" uid="uid://bm4vmrb0j0oyc" path="res://Sprites/TillesIsometric.png" id="3_nm2yg"]
 [ext_resource type="Script" path="res://Scripts/ChessBoard.cs" id="4_wiv1a"]
 [ext_resource type="Script" path="res://Scripts/PlayerController.cs" id="5_vcp8c"]
 [ext_resource type="Texture2D" uid="uid://gclnaeh12ghs" path="res://Sprites/icon.svg" id="6_qiwh8"]
+[ext_resource type="Texture2D" uid="uid://bq7tr7fcmddkb" path="res://Assets/Board Tile 2.png" id="6_wq6p8"]
 [ext_resource type="FontFile" uid="uid://bsynkeioac1v" path="res://Quinquefive-ALoRM.ttf" id="7_mqhok"]
+[ext_resource type="Texture2D" uid="uid://copej1dng63by" path="res://Assets/Board Tile 1.png" id="7_t26kc"]
+[ext_resource type="Texture2D" uid="uid://dqu7kubd33tkm" path="res://Assets/Player UI Border.png" id="12_nf3cb"]
+[ext_resource type="Texture2D" uid="uid://nfe8eixq2qcu" path="res://Assets/Generic Head + Torso Mod.png" id="13_l6ckx"]
+[ext_resource type="Texture2D" uid="uid://caalq5i2t3yl8" path="res://Assets/Generic Leg Mod.png" id="14_v6e4d"]
+[ext_resource type="Texture2D" uid="uid://djytsrul72ij" path="res://Assets/Generic Arm Mod.png" id="15_58vnu"]
+[ext_resource type="Texture2D" uid="uid://dyae0hy761vv1" path="res://Assets/Scoreboard Panel.png" id="16_dyiut"]
+[ext_resource type="Texture2D" uid="uid://ofx1fbgel2fm" path="res://Assets/Generic Head + Torso Mod (Red).png" id="16_y2ipf"]
+[ext_resource type="Texture2D" uid="uid://nf1o8rrfoxfo" path="res://Assets/Generic Leg Mod (Red).png" id="17_8k418"]
+[ext_resource type="Texture2D" uid="uid://dm7hlbqqglqjl" path="res://Assets/Blue Player Scoreboard Numbers.png" id="17_b8b3i"]
+[ext_resource type="Texture2D" uid="uid://dhby1ftx87jxy" path="res://Assets/Turn Indicator.png" id="17_fn5fv"]
+[ext_resource type="Texture2D" uid="uid://cufs0u8g5wno8" path="res://Assets/Red Player Scoreboard Numbers.png" id="18_76a8i"]
+[ext_resource type="Texture2D" uid="uid://cbp2yurr5te7f" path="res://Assets/Generic Arm Mod (Red).png" id="18_gm7qm"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_c6kbi"]
+tile_data = PackedInt32Array(0, 5, 0, 65536, 4, 0, 1, 4, 0, 65537, 5, 0)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0vkjt"]
 texture = ExtResource("1_fqqti")
@@ -21,6 +39,14 @@ texture_region_size = Vector2i(16, 13)
 1:0/0 = 0
 1:0/0/z_index = 1
 1:0/0/y_sort_origin = 1
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hgkhs"]
+texture = ExtResource("3_46tkk")
+texture_region_size = Vector2i(26, 18)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i74v8"]
 texture = ExtResource("2_bg0w6")
@@ -43,40 +69,88 @@ texture_region_size = Vector2i(16, 13)
 0:1/0 = 0
 1:1/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tc5er"]
+texture = ExtResource("6_wq6p8")
+texture_region_size = Vector2i(26, 18)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_52k3x"]
+texture = ExtResource("7_t26kc")
+texture_region_size = Vector2i(26, 18)
+0:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_gsm5n"]
-tile_size = Vector2i(16, 13)
+tile_size = Vector2i(26, 18)
 custom_data_layer_0/name = "highlightable"
 custom_data_layer_0/type = 1
 sources/2 = SubResource("TileSetAtlasSource_i74v8")
 sources/3 = SubResource("TileSetAtlasSource_hklkr")
-sources/1 = SubResource("TileSetAtlasSource_0vkjt")
+sources/4 = SubResource("TileSetAtlasSource_tc5er")
+sources/5 = SubResource("TileSetAtlasSource_52k3x")
+sources/0 = SubResource("TileSetAtlasSource_0vkjt")
+sources/1 = SubResource("TileSetAtlasSource_hgkhs")
+pattern_0 = SubResource("TileMapPattern_c6kbi")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nws6i"]
 size = Vector2(120, 120)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhmqt"]
+atlas = ExtResource("17_b8b3i")
+region = Rect2(0, 0, 15, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xq76"]
+atlas = ExtResource("17_b8b3i")
+region = Rect2(0, 0, 15, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfhkq"]
+atlas = ExtResource("18_76a8i")
+region = Rect2(0, 0, 15, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgi60"]
+atlas = ExtResource("18_76a8i")
+region = Rect2(0, 0, 15, 16)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrgj1"]
+
+[sub_resource type="Gradient" id="Gradient_bxcu0"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y1224"]
+gradient = SubResource("Gradient_bxcu0")
 
 [node name="GameTestScene" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(64, 52)
-zoom = Vector2(4.6, 4.6)
+position = Vector2(59, 72)
 
-[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "movementButton", "actionButton", "endTurnButton", "roundText")]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "playerUI", "pausedCtrl", "gameOverCtrl", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText", "turnIndicator", "leftOnes", "leftTens", "rightOnes", "rightTens")]
 script = ExtResource("1_hioff")
 players = [NodePath("ChessBoard/Player1"), NodePath("ChessBoard/Player2")]
 board = NodePath("ChessBoard")
-movementButton = NodePath("GUI/Move")
-actionButton = NodePath("GUI/Attack")
-endTurnButton = NodePath("GUI/End Turn")
-roundText = NodePath("GUI/RichTextLabel")
+camera = NodePath("../Camera2D")
+cameraStartPos = Vector2i(59, 72)
+cameraLerpDistance = 90
+playerUI = NodePath("GUI/PlayerUI")
+pausedCtrl = NodePath("GUI/Pause GUI")
+gameOverCtrl = NodePath("GUI/Game Over GUI")
+movementButton = NodePath("GUI/PlayerUI/Move")
+actionButton = NodePath("GUI/PlayerUI/Action")
+endTurnButton = NodePath("GUI/PlayerUI/End Turn")
+pausedText = NodePath("GUI/Pause GUI/pauseText")
+gameOverText = NodePath("GUI/Game Over GUI/gameOverText")
+turnIndicator = NodePath("GUI/PlayerUI/ScoreBoard/TurnIndicator")
+leftOnes = NodePath("GUI/PlayerUI/ScoreBoard/LeftOnes")
+leftTens = NodePath("GUI/PlayerUI/ScoreBoard/LeftTens")
+rightOnes = NodePath("GUI/PlayerUI/ScoreBoard/RightOnes")
+rightTens = NodePath("GUI/PlayerUI/ScoreBoard/RightTens")
 
 [node name="ChessBoard" type="TileMap" parent="GameManager"]
 texture_filter = 3
 tile_set = SubResource("TileSet_gsm5n")
 format = 2
 layer_0/name = "Board"
-layer_0/tile_data = PackedInt32Array(0, 3, 0, 1, 65539, 0, 2, 3, 0, 3, 65539, 0, 4, 3, 0, 5, 65539, 0, 6, 3, 0, 7, 65539, 0, 65536, 65539, 0, 131072, 3, 0, 196608, 65539, 0, 262144, 3, 0, 327680, 65539, 0, 393216, 3, 0, 458752, 65539, 0, 524288, 65539, 1, 65537, 3, 0, 131073, 65539, 0, 196609, 3, 0, 262145, 65539, 0, 327681, 3, 0, 393217, 65539, 0, 458753, 3, 0, 524289, 3, 1, 65538, 65539, 0, 131074, 3, 0, 196610, 65539, 0, 262146, 3, 0, 327682, 65539, 0, 393218, 3, 0, 458754, 65539, 0, 524290, 65539, 1, 65539, 3, 0, 131075, 65539, 0, 196611, 3, 0, 262147, 65539, 0, 327683, 3, 0, 393219, 65539, 0, 458755, 3, 0, 524291, 3, 1, 65540, 65539, 0, 131076, 3, 0, 196612, 65539, 0, 262148, 3, 0, 327684, 65539, 0, 393220, 3, 0, 458756, 65539, 0, 524292, 65539, 1, 65541, 3, 0, 131077, 65539, 0, 196613, 3, 0, 262149, 65539, 0, 327685, 3, 0, 393221, 65539, 0, 458757, 3, 0, 524293, 3, 1, 65542, 65539, 0, 131078, 3, 0, 196614, 65539, 0, 262150, 3, 0, 327686, 65539, 0, 393222, 3, 0, 458758, 65539, 0, 524294, 65539, 1, 65543, 3, 0, 131079, 65539, 0, 196615, 3, 0, 262151, 65539, 0, 327687, 3, 0, 393223, 65539, 0, 458759, 3, 0, 524295, 3, 1)
+layer_0/tile_data = PackedInt32Array(2, 5, 0, 3, 4, 0, 4, 5, 0, 5, 4, 0, 6, 5, 0, 7, 4, 0, 131072, 5, 0, 196608, 4, 0, 262144, 5, 0, 327680, 4, 0, 393216, 5, 0, 458752, 4, 0, 131073, 4, 0, 196609, 5, 0, 262145, 4, 0, 327681, 5, 0, 393217, 4, 0, 458753, 5, 0, 65538, 4, 0, 131074, 5, 0, 196610, 4, 0, 262146, 5, 0, 327682, 4, 0, 393218, 5, 0, 458754, 4, 0, 65539, 5, 0, 131075, 4, 0, 196611, 5, 0, 262147, 4, 0, 327683, 5, 0, 393219, 4, 0, 458755, 5, 0, 65540, 4, 0, 131076, 5, 0, 196612, 4, 0, 262148, 5, 0, 327684, 4, 0, 393220, 5, 0, 458756, 4, 0, 65541, 5, 0, 131077, 4, 0, 196613, 5, 0, 262149, 4, 0, 327685, 5, 0, 393221, 4, 0, 458757, 5, 0, 65542, 4, 0, 131078, 5, 0, 196614, 4, 0, 262150, 5, 0, 327686, 4, 0, 393222, 5, 0, 458758, 4, 0, 65543, 5, 0, 131079, 4, 0, 196615, 5, 0, 262151, 4, 0, 327687, 5, 0, 393223, 4, 0, 458759, 5, 0, 0, 5, 0, 65536, 4, 0, 1, 4, 0, 65537, 5, 0)
 layer_1/name = "Highlights"
 layer_1/enabled = true
 layer_1/modulate = Color(1, 1, 1, 1)
@@ -92,6 +166,8 @@ layer_2/y_sort_origin = 0
 layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array()
 script = ExtResource("4_wiv1a")
+tileSize = Vector2i(26, 18)
+tileOffset = Vector2i(13, 9)
 
 [node name="Player1" type="Area2D" parent="GameManager/ChessBoard"]
 position = Vector2(-21, 10)
@@ -100,7 +176,7 @@ gridPosition = Vector2i(4, 7)
 playerId = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player1"]
-z_index = 5
+z_index = 1
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("6_qiwh8")
 
@@ -109,14 +185,14 @@ scale = Vector2(0.1, 0.1)
 shape = SubResource("RectangleShape2D_nws6i")
 
 [node name="Player2" type="Area2D" parent="GameManager/ChessBoard"]
-position = Vector2(-21, 25)
+position = Vector2(-22, 25)
 script = ExtResource("5_vcp8c")
-gridPosition = Vector2i(4, 0)
+gridPosition = Vector2i(4, 5)
 playerId = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player2"]
 modulate = Color(1, 0, 0, 1)
-z_index = 5
+z_index = 1
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("6_qiwh8")
 
@@ -124,20 +200,284 @@ texture = ExtResource("6_qiwh8")
 scale = Vector2(0.1, 0.1)
 shape = SubResource("RectangleShape2D_nws6i")
 
-[node name="GUI" type="Control" parent="GameManager"]
-layout_mode = 3
-anchors_preset = 0
+[node name="Decoration" type="Node2D" parent="GameManager"]
 
-[node name="End Turn" type="Button" parent="GameManager/GUI"]
-texture_filter = 1
-layout_mode = 1
+[node name="BoardBorder" type="Sprite2D" parent="GameManager/Decoration"]
+position = Vector2(104, 73)
+texture = ExtResource("2_etmsa")
+
+[node name="GUI" type="CanvasLayer" parent="GameManager"]
+
+[node name="PlayerUI" type="Control" parent="GameManager/GUI"]
+layout_direction = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 78.0
-offset_top = 112.0
-offset_right = 326.0
-offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerBoarderLeft" type="TextureRect" parent="GameManager/GUI/PlayerUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.287
+anchor_bottom = 1.0
+offset_right = 0.199997
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_nf3cb")
+
+[node name="Head_Torso" type="TextureRect" parent="GameManager/GUI/PlayerUI/PlayerBoarderLeft"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.035
+anchor_top = -0.036
+anchor_right = 0.757
+anchor_bottom = 0.437
+offset_left = -0.0250001
+offset_top = 0.0640001
+offset_right = -0.0550003
+offset_bottom = 0.112
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_l6ckx")
+
+[node name="LeftLeg" type="TextureRect" parent="GameManager/GUI/PlayerUI/PlayerBoarderLeft"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.243
+anchor_top = 0.254
+anchor_right = 0.739
+anchor_bottom = 0.67
+offset_left = 0.0549984
+offset_top = 0.103996
+offset_right = 0.0149994
+offset_bottom = -0.0800018
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("14_v6e4d")
+
+[node name="RightLeg" type="TextureRect" parent="GameManager/GUI/PlayerUI/PlayerBoarderLeft"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.052
+anchor_top = 0.254
+anchor_right = 0.548
+anchor_bottom = 0.67
+offset_left = 0.02
+offset_top = 0.103996
+offset_right = -0.0200043
+offset_bottom = -0.0800018
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("14_v6e4d")
+flip_h = true
+
+[node name="LeftArm" type="TextureRect" parent="GameManager/GUI/PlayerUI/PlayerBoarderLeft"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.383
+anchor_top = 0.134
+anchor_right = 0.791
+anchor_bottom = 0.509
+offset_left = -0.045002
+offset_top = -0.0160007
+offset_right = 0.034996
+offset_bottom = -0.0159988
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_58vnu")
+
+[node name="RightArm" type="TextureRect" parent="GameManager/GUI/PlayerUI/PlayerBoarderLeft"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.134
+anchor_right = 0.409
+anchor_bottom = 0.509
+offset_top = -0.0160007
+offset_right = -0.0349998
+offset_bottom = -0.0159988
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_58vnu")
+flip_h = true
+
+[node name="PlayerBoarderRight" type="TextureRect" parent="GameManager/GUI/PlayerUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.937
+anchor_right = 1.225
+anchor_bottom = 1.0
+offset_left = 0.199982
+texture = ExtResource("12_nf3cb")
+flip_h = true
+
+[node name="Head_Torso" type="TextureRect" parent="GameManager/GUI/PlayerUI/PlayerBoarderRight"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.243
+anchor_top = -0.036
+anchor_right = 0.965
+anchor_bottom = 0.437
+offset_left = 0.0549908
+offset_top = 0.0640001
+offset_right = 0.0249634
+offset_bottom = 0.112
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_y2ipf")
+
+[node name="LeftLeg" type="TextureRect" parent="GameManager/GUI/PlayerUI/PlayerBoarderRight"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.452
+anchor_top = 0.254
+anchor_right = 0.948
+anchor_bottom = 0.67
+offset_left = 0.0199242
+offset_top = 0.103996
+offset_right = -0.0200348
+offset_bottom = -0.0800018
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("17_8k418")
+
+[node name="RightLeg" type="TextureRect" parent="GameManager/GUI/PlayerUI/PlayerBoarderRight"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 0.254
+anchor_right = 0.757
+anchor_bottom = 0.67
+offset_left = -0.01507
+offset_top = 0.103996
+offset_right = -0.0550232
+offset_bottom = -0.0800018
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("17_8k418")
+flip_h = true
+
+[node name="LeftArm" type="TextureRect" parent="GameManager/GUI/PlayerUI/PlayerBoarderRight"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.591
+anchor_top = 0.134
+anchor_right = 1.0
+anchor_bottom = 0.509
+offset_left = 0.0349197
+offset_top = -0.0160007
+offset_right = -3.05176e-05
+offset_bottom = -0.0159988
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_gm7qm")
+
+[node name="RightArm" type="TextureRect" parent="GameManager/GUI/PlayerUI/PlayerBoarderRight"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.209
+anchor_top = 0.134
+anchor_right = 0.617
+anchor_bottom = 0.5
+offset_left = -0.0350685
+offset_top = -0.0160007
+offset_right = 0.0449753
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_gm7qm")
+flip_h = true
+
+[node name="ScoreBoard" type="TextureRect" parent="GameManager/GUI/PlayerUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.342
+anchor_right = 0.887
+anchor_bottom = 0.125
+offset_left = 0.199997
+offset_right = 0.199982
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_dyiut")
+
+[node name="LeftOnes" type="TextureRect" parent="GameManager/GUI/PlayerUI/ScoreBoard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.275
+anchor_top = 0.107
+anchor_right = 0.344
+anchor_bottom = 0.679
+offset_left = 0.0499992
+offset_top = 0.00399971
+offset_right = 0.00799561
+offset_bottom = -0.012001
+texture = SubResource("AtlasTexture_qhmqt")
+
+[node name="LeftTens" type="TextureRect" parent="GameManager/GUI/PlayerUI/ScoreBoard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.22
+anchor_top = 0.107
+anchor_right = 0.289
+anchor_bottom = 0.679
+offset_left = 0.0399971
+offset_top = 0.00399971
+offset_right = -0.00200272
+offset_bottom = -0.012001
+texture = SubResource("AtlasTexture_4xq76")
+
+[node name="RightOnes" type="TextureRect" parent="GameManager/GUI/PlayerUI/ScoreBoard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.711
+anchor_top = 0.107
+anchor_right = 0.78
+anchor_bottom = 0.679
+offset_left = 0.0019989
+offset_top = 0.00399971
+offset_right = -0.0400085
+offset_bottom = -0.012001
+texture = SubResource("AtlasTexture_tfhkq")
+
+[node name="RightTens" type="TextureRect" parent="GameManager/GUI/PlayerUI/ScoreBoard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.656
+anchor_top = 0.107
+anchor_right = 0.725
+anchor_bottom = 0.679
+offset_left = -0.00801086
+offset_top = 0.00399971
+offset_right = -0.0500031
+offset_bottom = -0.012001
+texture = SubResource("AtlasTexture_hgi60")
+
+[node name="TurnIndicator" type="TextureRect" parent="GameManager/GUI/PlayerUI/ScoreBoard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.445
+anchor_top = 0.143
+anchor_right = 0.55
+anchor_bottom = 0.643
+offset_left = -0.0100021
+offset_top = -0.00400019
+offset_right = 0.0999985
+offset_bottom = -0.00399971
+texture = ExtResource("17_fn5fv")
+
+[node name="End Turn" type="Button" parent="GameManager/GUI/PlayerUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.677
+anchor_top = 0.862
+anchor_right = 0.833
+anchor_bottom = 0.897
+offset_left = 0.199982
+offset_top = -0.0880127
+offset_right = 249.8
+offset_bottom = 32.072
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
@@ -146,15 +486,18 @@ theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
 text = "End Turn"
 
-[node name="Move" type="Button" parent="GameManager/GUI"]
+[node name="Move" type="Button" parent="GameManager/GUI/PlayerUI"]
 texture_filter = 1
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 112.0
-offset_right = 128.0
-offset_bottom = 150.0
+anchors_preset = -1
+anchor_left = 0.392
+anchor_top = 0.862
+anchor_right = 0.519
+anchor_bottom = 0.897
+offset_left = 0.199997
+offset_top = -0.0880127
+offset_right = 203.4
+offset_bottom = 32.072
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
@@ -163,40 +506,186 @@ theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
 text = "Move"
 
-[node name="Attack" type="Button" parent="GameManager/GUI"]
+[node name="Action" type="Button" parent="GameManager/GUI/PlayerUI"]
 texture_filter = 1
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 32.0
-offset_top = 112.0
-offset_right = 220.0
-offset_bottom = 150.0
+anchors_preset = -1
+anchor_left = 0.537
+anchor_top = 0.862
+anchor_right = 0.664
+anchor_bottom = 0.897
+offset_left = 0.199997
+offset_top = -0.0880127
+offset_right = 203.4
+offset_bottom = 32.072
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("7_mqhok")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
-text = "Attack"
+text = "Action"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GameManager/GUI"]
+[node name="Game Over GUI" type="Control" parent="GameManager/GUI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="GameManager/GUI/Game Over GUI"]
+modulate = Color(1, 1, 1, 0.443137)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_y1224")
+
+[node name="gameOverText" type="RichTextLabel" parent="GameManager/GUI/Game Over GUI"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 129.0
-offset_right = 404.0
-offset_bottom = 212.0
+offset_right = 1600.0
+offset_bottom = 896.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/normal_font = ExtResource("7_mqhok")
-theme_override_font_sizes/normal_font_size = 25
-text = "Player: 1
-Round: 1"
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]
+Player N WINS!
 
-[connection signal="pressed" from="GameManager/GUI/End Turn" to="GameManager" method="EndTurn"]
-[connection signal="pressed" from="GameManager/GUI/Move" to="GameManager" method="GetValidMoveTiles"]
+
+GAME OVER
+[/center]
+"
+scroll_active = false
+
+[node name="Main Menu" type="Button" parent="GameManager/GUI/Game Over GUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.285
+anchor_top = 0.429
+anchor_right = 0.726
+anchor_bottom = 0.549
+offset_top = -0.0960083
+offset_right = 705.6
+offset_bottom = 108.024
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("7_mqhok")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
+text = "Main Menu"
+
+[node name="Start Over" type="Button" parent="GameManager/GUI/Game Over GUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.285
+anchor_top = 0.58
+anchor_right = 0.725
+anchor_bottom = 0.701
+offset_top = 0.0799866
+offset_right = 704.0
+offset_bottom = 107.976
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("7_mqhok")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
+text = "Start OVer
+"
+
+[node name="Pause GUI" type="Control" parent="GameManager/GUI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="GameManager/GUI/Pause GUI"]
+modulate = Color(1, 1, 1, 0.443137)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_y1224")
+
+[node name="pauseText" type="RichTextLabel" parent="GameManager/GUI/Pause GUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.027
+anchor_right = 0.997
+anchor_bottom = 0.25
+offset_top = -0.0480003
+offset_right = 1596.2
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/normal_font = ExtResource("7_mqhok")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]Player 1's Turn
+
+
+PAUSED
+[/center]"
+scroll_active = false
+
+[node name="Resume" type="Button" parent="GameManager/GUI/Pause GUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.292
+anchor_top = 0.455
+anchor_right = 0.701
+anchor_bottom = 0.567
+offset_left = 0.199989
+offset_top = 0.0799942
+offset_right = 653.6
+offset_bottom = 99.992
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("7_mqhok")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
+text = "RESUME"
+
+[node name="Main Menu" type="Button" parent="GameManager/GUI/Pause GUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.293
+anchor_top = 0.603
+anchor_right = 0.701
+anchor_bottom = 0.714
+offset_left = -0.199997
+offset_top = -0.0720062
+offset_right = 653.6
+offset_bottom = 100.064
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("7_mqhok")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
+text = "MAIN MENU"
+
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/End Turn" to="GameManager" method="EndTurn"]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/Move" to="GameManager" method="GetValidMoveTiles"]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/Action" to="GameManager" method="GetValidAttackTiles"]
+[connection signal="pressed" from="GameManager/GUI/Game Over GUI/Main Menu" to="GameManager" method="ReturnToMain"]
+[connection signal="pressed" from="GameManager/GUI/Game Over GUI/Start Over" to="GameManager" method="Restart"]
+[connection signal="pressed" from="GameManager/GUI/Pause GUI/Resume" to="GameManager" method="Resume"]
+[connection signal="pressed" from="GameManager/GUI/Pause GUI/Main Menu" to="GameManager" method="ReturnToMain"]

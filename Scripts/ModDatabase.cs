@@ -29,7 +29,7 @@ public partial class ModDatabase : Node
 		if (mods.Count <= 0)
 			InitMods();
 
-		return mods[modId];
+		return mods[modId].Clone();
 	}
 
 	public Mod GetRandomMod()
@@ -37,21 +37,8 @@ public partial class ModDatabase : Node
 		Node child = GetChildren().PickRandom();
 
 		if (child is Mod mod)
-			return mod;
+			return mod.Clone();
 
 		return null;
-	}
-
-	public /*HeadMod*/void GetRandomModOfType(Mod.Type aModType)
-	{
-		Array<Node> children = GetChildren();
-		Mod child = (Mod) children.PickRandom();
-
-		while (child.type != aModType)
-		{
-			child = (Mod) children.PickRandom();
-		}
-
-		//return child;
 	}
 }

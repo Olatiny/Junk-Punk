@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm4vmrb0j0oyc"
-path="res://.godot/imported/TillesIsometric.png-2cc543a905223ad2f2899bac1acbb3c4.ctex"
+uid="uid://cufs0u8g5wno8"
+path="res://.godot/imported/Red Player Scoreboard Numbers.png-774bfbb44ad33003e4aed1f5cc7cabca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/TillesIsometric.png"
-dest_files=["res://.godot/imported/TillesIsometric.png-2cc543a905223ad2f2899bac1acbb3c4.ctex"]
+source_file="res://Assets/Red Player Scoreboard Numbers.png"
+dest_files=["res://.godot/imported/Red Player Scoreboard Numbers.png-774bfbb44ad33003e4aed1f5cc7cabca.ctex"]
 
 [params]
 
