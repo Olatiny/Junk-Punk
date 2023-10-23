@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://c6cvpakd0o55m"]
+[gd_scene load_steps=15 format=3 uid="uid://c6cvpakd0o55m"]
 
 [ext_resource type="Script" path="res://Scripts/MainMenu.cs" id="1_mf03i"]
 [ext_resource type="Texture2D" uid="uid://dg0dpxk5gy68s" path="res://Assets/junkpunkmenuscreenFull.png" id="2_6vg8l"]
 [ext_resource type="FontFile" uid="uid://bsynkeioac1v" path="res://Quinquefive-ALoRM.ttf" id="2_xwuon"]
 [ext_resource type="Texture2D" uid="uid://bspb8erxfap4u" path="res://Assets/junkpunkmenuscreenNoButtons.png" id="3_41gne"]
+[ext_resource type="Script" path="res://Scripts/ButtonHover.cs" id="4_rd750"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bqpco"]
 load_path = "res://.godot/imported/menubuttons.png-48b3e3b5dfb6dd596aad57753b7854d7.ctex"
@@ -40,12 +41,7 @@ gradient = SubResource("Gradient_c7vkc")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jqyhv"]
 
-[node name="MainMenu" type="Node2D"]
-position = Vector2(64, 99)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Main Menu GUI" type="Control" parent="CanvasLayer"]
+[node name="Main Menu GUI" type="Control" node_paths=PackedStringArray("mainMenu", "creditsMenu", "settingsMenu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,8 +51,11 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_mf03i")
+mainMenu = NodePath("Main Menu")
+creditsMenu = NodePath("Credits")
+settingsMenu = NodePath("Settings")
 
-[node name="Main Menu" type="Control" parent="CanvasLayer/Main Menu GUI"]
+[node name="Main Menu" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,7 +63,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MenuBackgroundWithButtonRef" type="TextureRect" parent="CanvasLayer/Main Menu GUI/Main Menu"]
+[node name="MenuBackgroundWithButtonRef" type="TextureRect" parent="Main Menu"]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -73,7 +72,7 @@ anchor_bottom = 1.0
 texture = ExtResource("2_6vg8l")
 metadata/_edit_use_anchors_ = true
 
-[node name="MenuBackground" type="TextureRect" parent="CanvasLayer/Main Menu GUI/Main Menu"]
+[node name="MenuBackground" type="TextureRect" parent="Main Menu"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -81,35 +80,63 @@ anchor_bottom = 1.0
 texture = ExtResource("3_41gne")
 metadata/_edit_use_anchors_ = true
 
-[node name="ButtonContainer" type="VBoxContainer" parent="CanvasLayer/Main Menu GUI/Main Menu"]
-layout_mode = 1
-anchors_preset = -1
+[node name="Start" type="TextureButton" parent="Main Menu"]
+layout_mode = 2
 anchor_left = 0.317
 anchor_top = 0.594
 anchor_right = 0.697
+anchor_bottom = 0.665
+offset_left = 0.199997
+offset_top = -0.0560303
+offset_right = 0.199982
+offset_bottom = 0.039978
+pivot_offset = Vector2(76, 8)
+texture_normal = SubResource("AtlasTexture_j46yc")
+script = ExtResource("4_rd750")
+
+[node name="Settings" type="TextureButton" parent="Main Menu"]
+layout_mode = 2
+anchor_left = 0.317
+anchor_top = 0.683
+anchor_right = 0.697
+anchor_bottom = 0.741
+offset_left = 0.199997
+offset_top = 0.00798035
+offset_right = 0.199982
+offset_bottom = 0.015976
+pivot_offset = Vector2(76, 8)
+texture_normal = SubResource("AtlasTexture_wdq8t")
+script = ExtResource("4_rd750")
+
+[node name="Credits" type="TextureButton" parent="Main Menu"]
+layout_mode = 2
+anchor_left = 0.317
+anchor_top = 0.759
+anchor_right = 0.697
+anchor_bottom = 0.83
+offset_left = 0.199997
+offset_top = -0.016037
+offset_right = 0.199982
+offset_bottom = 0.0799713
+pivot_offset = Vector2(76, 8)
+texture_normal = SubResource("AtlasTexture_lf87y")
+script = ExtResource("4_rd750")
+
+[node name="Quit" type="TextureButton" parent="Main Menu"]
+layout_mode = 2
+anchor_left = 0.317
+anchor_top = 0.848
+anchor_right = 0.697
 anchor_bottom = 0.929
 offset_left = 0.199997
-offset_top = -0.056015
+offset_top = 0.0479736
 offset_right = 0.199982
-offset_bottom = -0.0960083
-
-[node name="Start" type="TextureButton" parent="CanvasLayer/Main Menu GUI/Main Menu/ButtonContainer"]
-layout_mode = 2
-texture_normal = SubResource("AtlasTexture_j46yc")
-
-[node name="Settings" type="TextureButton" parent="CanvasLayer/Main Menu GUI/Main Menu/ButtonContainer"]
-layout_mode = 2
-texture_normal = SubResource("AtlasTexture_wdq8t")
-
-[node name="Credits" type="TextureButton" parent="CanvasLayer/Main Menu GUI/Main Menu/ButtonContainer"]
-layout_mode = 2
-texture_normal = SubResource("AtlasTexture_lf87y")
-
-[node name="Quit" type="TextureButton" parent="CanvasLayer/Main Menu GUI/Main Menu/ButtonContainer"]
-layout_mode = 2
+offset_bottom = -0.0960236
+pivot_offset = Vector2(76, 8)
 texture_normal = SubResource("AtlasTexture_7cqbk")
+script = ExtResource("4_rd750")
 
-[node name="Credits" type="Control" parent="CanvasLayer/Main Menu GUI"]
+[node name="Credits" type="Control" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -118,7 +145,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Main Menu GUI/Credits"]
+[node name="TextureRect2" type="TextureRect" parent="Credits"]
 modulate = Color(1, 1, 1, 0.443137)
 layout_mode = 1
 anchors_preset = -1
@@ -127,7 +154,7 @@ anchor_bottom = 1.0
 texture = SubResource("GradientTexture1D_nwhpi")
 metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Main Menu GUI/Credits"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Credits"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
@@ -149,7 +176,7 @@ text = "[center]Main Menu
 scroll_active = false
 metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer/Main Menu GUI/Credits"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="Credits"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
@@ -186,7 +213,7 @@ Landon SUgar
 scroll_active = false
 metadata/_edit_use_anchors_ = true
 
-[node name="Back" type="Button" parent="CanvasLayer/Main Menu GUI/Credits"]
+[node name="Back" type="Button" parent="Credits"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
@@ -205,7 +232,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_jqyhv")
 text = "Quit"
 metadata/_edit_use_anchors_ = true
 
-[node name="Settings" type="Control" parent="CanvasLayer/Main Menu GUI"]
+[node name="Settings" type="Control" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -214,7 +241,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Main Menu GUI/Settings"]
+[node name="TextureRect" type="TextureRect" parent="Settings"]
 modulate = Color(1, 1, 1, 0.443137)
 layout_mode = 1
 anchors_preset = 15
@@ -224,7 +251,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_nwhpi")
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer/Main Menu GUI/Settings"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="Settings"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
@@ -243,7 +270,7 @@ text = "[center]Settings
 "
 scroll_active = false
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Main Menu GUI/Settings"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Settings"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -264,7 +291,7 @@ text = "[center]Master Volume
 "
 scroll_active = false
 
-[node name="HSlider" type="HSlider" parent="CanvasLayer/Main Menu GUI/Settings"]
+[node name="HSlider" type="HSlider" parent="Settings"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -279,7 +306,7 @@ scale = Vector2(0.5, 0.5)
 min_value = -80.0
 max_value = 0.0
 
-[node name="Back" type="Button" parent="CanvasLayer/Main Menu GUI/Settings"]
+[node name="Back" type="Button" parent="Settings"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -297,10 +324,10 @@ theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jqyhv")
 text = "Back"
 
-[connection signal="pressed" from="CanvasLayer/Main Menu GUI/Main Menu/ButtonContainer/Start" to="CanvasLayer/Main Menu GUI" method="StartGame"]
-[connection signal="pressed" from="CanvasLayer/Main Menu GUI/Main Menu/ButtonContainer/Settings" to="CanvasLayer/Main Menu GUI" method="OpenSettings"]
-[connection signal="pressed" from="CanvasLayer/Main Menu GUI/Main Menu/ButtonContainer/Credits" to="CanvasLayer/Main Menu GUI" method="OpenCredits"]
-[connection signal="pressed" from="CanvasLayer/Main Menu GUI/Main Menu/ButtonContainer/Quit" to="CanvasLayer/Main Menu GUI" method="Quit"]
-[connection signal="pressed" from="CanvasLayer/Main Menu GUI/Credits/Back" to="CanvasLayer/Main Menu GUI" method="BackToMain"]
-[connection signal="value_changed" from="CanvasLayer/Main Menu GUI/Settings/HSlider" to="CanvasLayer/Main Menu GUI" method="ChangeVolume"]
-[connection signal="pressed" from="CanvasLayer/Main Menu GUI/Settings/Back" to="CanvasLayer/Main Menu GUI" method="BackToMain"]
+[connection signal="pressed" from="Main Menu/Start" to="." method="StartGame"]
+[connection signal="pressed" from="Main Menu/Settings" to="." method="OpenSettings"]
+[connection signal="pressed" from="Main Menu/Credits" to="." method="OpenCredits"]
+[connection signal="pressed" from="Main Menu/Quit" to="." method="Quit"]
+[connection signal="pressed" from="Credits/Back" to="." method="BackToMain"]
+[connection signal="value_changed" from="Settings/HSlider" to="." method="ChangeVolume"]
+[connection signal="pressed" from="Settings/Back" to="." method="BackToMain"]
