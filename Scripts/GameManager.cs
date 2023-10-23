@@ -78,15 +78,11 @@ public partial class GameManager : Node
 			if (player1turn)
 			{
 				playerUI.SetPosition(playerUI.Position.MoveToward(new (0, playerUI.Position.Y), 5));
-				// camera.Position = camera.Position.MoveToward(cameraStartPos, 5);
-				// playerUI.SetPosition(new Vector2((float) Mathf.Lerp(playerUI.Position.X, 0, delta * 4), playerUI.Position.Y));
 				camera.Position = new Vector2((float) Mathf.Lerp(camera.Position.X, cameraStartPos.X, delta * 4), camera.Position.Y);
 			}
 			else
 			{
 				playerUI.SetPosition(playerUI.Position.MoveToward(new(-90, playerUI.Position.Y), 5));
-				// camera.Position = camera.Position.MoveToward(cameraStartPos + new Vector2(cameraLerpDistance, 0), 5);
-				// playerUI.SetPosition(new Vector2((float) Mathf.Lerp(playerUI.Position.X, -90, delta * 4), playerUI.Position.Y));
 				camera.Position = new Vector2((float) Mathf.Lerp(camera.Position.X, cameraStartPos.X + cameraLerpDistance, delta * 4), camera.Position.Y);
 			}
 		}
