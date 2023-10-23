@@ -7,19 +7,19 @@ using System.Diagnostics;
 
 public partial class ChessBoard : TileMap
 {
-	Node2D[,] Grid;
+	public Node2D[,] Grid { get; private set; }
 
 	[ExportCategory("Chess Board")]
 	[ExportSubgroup("Grid Definitions")]
-	[Export] Vector2I gridSize = new(8, 8);
-	[Export] Vector2I tileSize = new(16, 13);
-	[Export] Vector2I tileOffset = new(8, 6);
+	[Export] public Vector2I gridSize = new(8, 8);
+	[Export] public Vector2I tileSize = new(16, 13);
+	[Export] public Vector2I tileOffset = new(8, 6);
 
 	GameManager gameManager;
 
-	HashSet<Vector2I> validBasicTileCoords;
-	HashSet<Vector2I> validModTileCoords;
-	HashSet<Vector2I> rotatedAOECoords;
+	public HashSet<Vector2I> validBasicTileCoords { get; private set; }
+	public HashSet<Vector2I> validModTileCoords { get; private set; }
+	public HashSet<Vector2I> rotatedAOECoords { get; private set; }
 	Vector2I mouseOverCell;
 
 	// Called when the node enters the scene tree for the first time.
@@ -46,7 +46,7 @@ public partial class ChessBoard : TileMap
 		// UpdateMouseOverHighlight();
 
 		PlayerController player = gameManager.GetCurrentPlayer();
-		if (player.primedToAttack && player?.GetActiveAttackMod()?.aoe?.Count > 0 && validModTileCoords.Count > 0)
+		if (player.primedToAttack && player?.GetActiveAttackMod()?.attackType == ArmMod.AttackType.aoe)
 			UpdateAOEOrientation(player);
 	}
 
@@ -81,7 +81,7 @@ public partial class ChessBoard : TileMap
 			tilePos -= pivot;
 			Vector2 newVec = new(tilePos.X * cos - tilePos.Y * sin, tilePos.X * sin + tilePos.Y * cos);
 			newVec += pivot;
-			Vector2I rotatedTileCoords = new(Mathf.RoundToInt(newVec.X),Mathf.RoundToInt(newVec.Y));
+			Vector2I rotatedTileCoords = new(Mathf.RoundToInt(newVec.X), Mathf.RoundToInt(newVec.Y));
 			if (IsTileInBounds(rotatedTileCoords))
 				rotatedAOECoords.Add(rotatedTileCoords);
 		}
@@ -141,7 +141,7 @@ public partial class ChessBoard : TileMap
 
 	private void GetValidModMovePaths(PlayerController player, LegMod legMod)
 	{
-		foreach (Array<string> path in legMod.modPaths)
+		foreach (Array<string> path in legMod?.modPaths)
 		{
 			bool canGoUp = legMod.CheckFlags(LegMod.PathProperty.UP),
 			canGoDown = legMod.CheckFlags(LegMod.PathProperty.DOWN),
@@ -205,6 +205,9 @@ public partial class ChessBoard : TileMap
 
 	private void GetValidModMoveJumps(PlayerController player, LegMod legMod)
 	{
+		if (legMod.modJumps == null)
+			return;
+
 		foreach (Vector2I jump in legMod.modJumps)
 		{
 			Vector2I gridPos = player.gridPosition + jump;
@@ -306,41 +309,10 @@ public partial class ChessBoard : TileMap
 
 	public void GetValidModAttackTiles(PlayerController player)
 	{
-		ArmMod mod = player.GetActiveAttackMod();
-		Array<Node2D> possibleTargets = GetAllNodesOnBoard();
-		possibleTargets.Remove(player);
+		Array<Vector2I> modTiles = player?.GetActiveAttackMod()?.GetValidAttackTiles(this, player);
 
-		if (mod?.range > 0)
-		{
-			foreach (Node2D possibleTarget in possibleTargets)
-			{
-				if (possibleTarget is PlayerController otherPlayer)
-				{
-					Vector2I dist = otherPlayer.gridPosition - player.gridPosition;
-					if (dist.Length() < mod.range)
-						validModTileCoords.Add(otherPlayer.gridPosition);
-				}
-
-				// TODO: Implement Scrap
-				// if (possibleTarget is Scrap scrap)
-				// {
-				// 	Vector2I dist = scrap.gridPosition - player.gridPosition;
-				// 	if (dist.Length() < mod.range)
-				// 		validModTileCoords.Add(scrap.gridPosition);
-				// }
-			}
-		}
-
-		if (mod?.aoe?.Count > 0)
-		{
-			foreach (Vector2I aoeTile in mod.aoe)
-			{
-				Vector2I gridPos = player.gridPosition + aoeTile;
-
-				if (IsTileInBounds(gridPos))
-					validModTileCoords.Add(gridPos);
-			}
-		}
+		if (modTiles != null)
+			for (int i = 0; i < modTiles.Count; validModTileCoords.Add(modTiles[i]), i++);
 	}
 
 	private void HighlightValidTiles()
@@ -428,6 +400,14 @@ public partial class ChessBoard : TileMap
 
 		Vector2I mouseMapPos = LocalToMap(mouseCoordinates);
 
+
+		if (player.GetActiveAttackMod() != null && player.GetActiveAttackMod().PerformAttack(this, player, mouseMapPos))
+		{
+			ClearValidTiles();
+			gameManager.PlayerActioned();
+			return true; // Note: True!
+		}
+
 		foreach (Vector2I validTile in validBasicTileCoords)
 		{
 			if (mouseMapPos == validTile)
@@ -448,54 +428,6 @@ public partial class ChessBoard : TileMap
 				ClearValidTiles();
 				gameManager.PlayerActioned();
 				return true;
-			}
-		}
-
-		if (player.GetActiveAttackMod().aoe.Count > 0)
-		{
-			foreach (Vector2I validTile in rotatedAOECoords)
-			{
-				Node2D node = Grid[validTile.X, validTile.Y];
-
-				if (node is PlayerController enemy)
-				{
-					// returns true if enemy is killed, they still take damage if false
-					if (enemy.TakeDamage(player.baseAttackDmg + player.GetActiveAttackMod().bonusDmg))
-						gameManager.DeclareVictory();
-				}
-
-				// TODO: Implement Scrap
-				// if (node is Scrap scrap)
-				// 	player.HarvestScrap(scrap);
-			}
-
-			ClearValidTiles();
-			gameManager.PlayerActioned();
-			return true;
-		}
-		else
-		{
-			foreach (Vector2I validTile in validModTileCoords)
-			{
-				if (mouseMapPos == validTile)
-				{
-					Node2D node = Grid[validTile.X, validTile.Y];
-
-					if (node is PlayerController enemy)
-					{
-						// returns true if enemy is killed, they still take damage if false
-						if (enemy.TakeDamage(player.baseAttackDmg + player.GetActiveAttackMod().bonusDmg))
-							gameManager.DeclareVictory();
-					}
-
-					// TODO: Implement Scrap
-					// if (node is Scrap scrap)
-					// 	player.HarvestScrap(scrap);
-
-					ClearValidTiles();
-					gameManager.PlayerActioned();
-					return true;
-				}
 			}
 		}
 
@@ -524,7 +456,7 @@ public partial class ChessBoard : TileMap
 		node.Position = newLocation.HasValue ? (newLocation.Value * tileSize) + tileOffset : (oldLocation * tileSize) + tileOffset;
 	}
 
-	private Array<Node2D> GetAllNodesOnBoard()
+	public Array<Node2D> GetAllNodesOnBoard()
 	{
 		Array<Node2D> nodes = new();
 
@@ -542,7 +474,7 @@ public partial class ChessBoard : TileMap
 		return cellLocation * tileSize + tileOffset;
 	}
 
-	private bool IsTileAvailable(Vector2I tileLocation)
+	public bool IsTileAvailable(Vector2I tileLocation)
 	{
 		if (!IsTileInBounds(tileLocation))
 			return false;
@@ -550,7 +482,7 @@ public partial class ChessBoard : TileMap
 		return Grid[tileLocation.X, tileLocation.Y] == null;
 	}
 
-	private bool IsTileAttackable(Vector2I tileLocation)
+	public bool IsTileAttackable(Vector2I tileLocation)
 	{
 		if (!IsTileInBounds(tileLocation))
 			return false;
@@ -559,7 +491,7 @@ public partial class ChessBoard : TileMap
 		return Grid[tileLocation.X, tileLocation.Y] != null;
 	}
 
-	private bool IsTileInBounds(Vector2I tileLocation)
+	public bool IsTileInBounds(Vector2I tileLocation)
 	{
 		if (tileLocation.X < 0 || tileLocation.X >= gridSize.X)
 			return false;

@@ -18,7 +18,6 @@ config/icon="res://Sprites/icon.svg"
 [autoload]
 
 ModDatabase="*res://Scenes/ModDatabase.tscn"
-GameManager="*res://Scripts/GameManager.cs"
 Settings="*res://Scripts/Settings.cs"
 
 [display]
