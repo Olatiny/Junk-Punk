@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://b156h0pm1h6oe"]
+
+[ext_resource type="Script" path="res://Scripts/ModDatabase.cs" id="1_s4t44"]
+[ext_resource type="Script" path="res://Scripts/Mods/ArmMod.cs" id="4_020ur"]
+[ext_resource type="Script" path="res://Scripts/Mods/LegMod.cs" id="4_ho2ed"]
+[ext_resource type="Script" path="res://Scripts/Mods/RookArmMod.cs" id="6_ket1x"]
+
+[node name="ModDatabase" type="Node2D"]
+visible = false
+script = ExtResource("1_s4t44")
+
+[node name="KnightLeg" type="Sprite2D" parent="."]
+script = ExtResource("4_ho2ed")
+modPaths = Array[Array]([])
+modJumps = Array[Vector2i]([Vector2i(2, 1), Vector2i(2, -1), Vector2i(-2, 1), Vector2i(-2, -1), Vector2i(1, 2), Vector2i(1, -2), Vector2i(-1, 2), Vector2i(-1, -2)])
+bodyPart = 2
+buffType = 2
+uid = "KnightLeg"
+durability = 4
+
+[node name="BishopLeg" type="Sprite2D" parent="."]
+script = ExtResource("4_ho2ed")
+pathFlags = 31
+modPaths = Array[Array]([["LeftDiagonal", "LeftDiagonal", "LeftDiagonal"]])
+modJumps = Array[Array]([])
+bodyPart = 2
+buffType = 2
+uid = "BishopLeg"
+durability = 4
+
+[node name="RookLeg" type="Sprite2D" parent="."]
+script = ExtResource("4_ho2ed")
+pathFlags = 31
+modPaths = Array[Array]([["Forward", "Forward", "Forward"]])
+modJumps = Array[Array]([])
+bodyPart = 2
+buffType = 2
+uid = "RookLeg"
+durability = 4
+
+[node name="RookArm" type="Sprite2D" parent="."]
+script = ExtResource("6_ket1x")
+bodyPart = 1
+buffType = 1
+uid = "RookArm"
+durability = 4
+
+[node name="BurningHands" type="Sprite2D" parent="."]
+script = ExtResource("4_020ur")
+attackType = 2
+aoe = [Vector2i(1, -1), Vector2i(0, -1), Vector2i(-1, -1), Vector2i(1, -2), Vector2i(0, -2), Vector2i(-1, -2)]
+bodyPart = 1
+buffType = 1
+uid = "BurningHands"
+durability = 4
