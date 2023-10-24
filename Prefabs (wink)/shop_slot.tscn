@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://dutrl4w3htoyj"]
+
+[ext_resource type="Script" path="res://Scripts/UI/ShopSlot.gd" id="1_jpfrc"]
+[ext_resource type="Texture2D" uid="uid://fd87ftveegi5" path="res://Sprites/shop_slot_frame.png" id="1_yp3n4"]
+[ext_resource type="FontFile" uid="uid://bsynkeioac1v" path="res://Quinquefive-ALoRM.ttf" id="2_5kntl"]
+[ext_resource type="Texture2D" uid="uid://c2spxt34671sf" path="res://Sprites/ph_head.png" id="2_277bn"]
+
+[node name="Shop Selection" type="VBoxContainer"]
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 0
+script = ExtResource("1_jpfrc")
+
+[node name="Shop Button" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture_normal = ExtResource("1_yp3n4")
+
+[node name="Shop Item" type="TextureRect" parent="Shop Button"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("2_277bn")
+
+[node name="Shop Cost" type="Label" parent="."]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_5kntl")
+theme_override_font_sizes/font_size = 5
+text = "200"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Shop Button" to="." method="_on_shop_button_pressed"]

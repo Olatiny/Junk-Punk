@@ -11,6 +11,7 @@ public abstract partial class Mod : Sprite2D
 	[Export] public BuffType buffType { get; set; }
 	[Export] public String uid { get; set; }
 	[Export] public int durability { get; set; }
+	[Export] public int cost { get; set; }
 	[Export] String description { get; set; }
 	[Export] Texture2D icon;
 	[Export] Texture2D bigSprite;

@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://be1hejbojsj87"]
+
+[ext_resource type="Script" path="res://Scripts/UI/InventoryCollection.gd" id="1_4nmpo"]
+[ext_resource type="PackedScene" uid="uid://db0n0y7u5dgwl" path="res://Prefabs (wink)/inv_slot.tscn" id="2_pygnd"]
+
+[node name="Inventory" type="HFlowContainer"]
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.775
+anchor_right = 0.85
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+script = ExtResource("1_4nmpo")
+invSlots = [NodePath("Inv Slot 0"), NodePath("Inv Slot 1"), NodePath("Inv Slot 2"), NodePath("Inv Slot 3"), NodePath("Inv Slot 4")]
+
+[node name="Inv Slot 0" parent="." instance=ExtResource("2_pygnd")]
+layout_mode = 2
+
+[node name="Inv Slot 1" parent="." instance=ExtResource("2_pygnd")]
+layout_mode = 2
+slotID = 1
+
+[node name="Inv Slot 2" parent="." instance=ExtResource("2_pygnd")]
+layout_mode = 2
+slotID = 2
+
+[node name="Inv Slot 3" parent="." instance=ExtResource("2_pygnd")]
+layout_mode = 2
+slotID = 3
+
+[node name="Inv Slot 4" parent="." instance=ExtResource("2_pygnd")]
+layout_mode = 2
+slotID = 4

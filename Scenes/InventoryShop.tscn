@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://xk3l1h3kto6c"]
+[gd_scene load_steps=45 format=3 uid="uid://xk3l1h3kto6c"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_dey36"]
 [ext_resource type="Texture2D" uid="uid://cb4g6t2q8bkhn" path="res://Sprites/TileHighlights.png" id="2_d3dcp"]
@@ -14,13 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://cd00527gus8ql" path="res://Assets/player_ui_border_fill.png" id="12_fa55o"]
 [ext_resource type="Texture2D" uid="uid://dqu7kubd33tkm" path="res://Assets/Player UI Border.png" id="12_xyhfb"]
 [ext_resource type="Texture2D" uid="uid://nfe8eixq2qcu" path="res://Assets/Generic Head + Torso Mod.png" id="13_366sk"]
-[ext_resource type="Texture2D" uid="uid://c2spxt34671sf" path="res://Sprites/ph_head.png" id="13_cd3oa"]
-[ext_resource type="Texture2D" uid="uid://d2teear6xki71" path="res://Sprites/ph_arm.png" id="13_nb0mq"]
+[ext_resource type="PackedScene" uid="uid://be1hejbojsj87" path="res://Prefabs (wink)/inventory.tscn" id="13_sub35"]
 [ext_resource type="Texture2D" uid="uid://caalq5i2t3yl8" path="res://Assets/Generic Leg Mod.png" id="14_u5di8"]
 [ext_resource type="Texture2D" uid="uid://v4gldiipvnx2" path="res://Assets/player_ui_border_handle.png" id="14_v7f0p"]
-[ext_resource type="Script" path="res://Scripts/InventorySlot.gd" id="14_vw7g4"]
 [ext_resource type="Texture2D" uid="uid://djytsrul72ij" path="res://Assets/Generic Arm Mod.png" id="15_ttdwm"]
-[ext_resource type="Texture2D" uid="uid://d00f53nicrsvi" path="res://Sprites/ph_leg.png" id="16_4xvm7"]
 [ext_resource type="Texture2D" uid="uid://ofx1fbgel2fm" path="res://Assets/Generic Head + Torso Mod (Red).png" id="16_bvq0a"]
 [ext_resource type="Script" path="res://Scripts/ModSlot.gd" id="17_7oomi"]
 [ext_resource type="Texture2D" uid="uid://nf1o8rrfoxfo" path="res://Assets/Generic Leg Mod (Red).png" id="17_l7cm2"]
@@ -30,7 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://cufs0u8g5wno8" path="res://Assets/Red Player Scoreboard Numbers.png" id="21_grpsj"]
 [ext_resource type="Texture2D" uid="uid://dhby1ftx87jxy" path="res://Assets/Turn Indicator.png" id="22_8t7gl"]
 [ext_resource type="FontFile" uid="uid://bsynkeioac1v" path="res://Quinquefive-ALoRM.ttf" id="23_hmgjx"]
-[ext_resource type="Texture2D" uid="uid://dhvlm6vma1gqn" path="res://Sprites/smallest_celery.png" id="24_hrxra"]
+[ext_resource type="PackedScene" uid="uid://ttbgcwxirp1h" path="res://Prefabs (wink)/shop.tscn" id="28_a73i0"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_c6kbi"]
 tile_data = PackedInt32Array(0, 5, 0, 65536, 4, 0, 1, 4, 0, 65537, 5, 0)
@@ -134,7 +131,7 @@ position = Vector2(59, 72)
 
 [node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "movementButton", "actionButton", "endTurnButton")]
 script = ExtResource("1_dey36")
-players = [NodePath("ChessBoard/Player1"), NodePath("ChessBoard/Player2")]
+players = [NodePath("ChessBoard/Player B"), NodePath("ChessBoard/Player R")]
 board = NodePath("ChessBoard")
 movementButton = NodePath("GUI/PlayerUI/Move")
 actionButton = NodePath("GUI/PlayerUI/Action")
@@ -165,34 +162,34 @@ script = ExtResource("8_ysby6")
 tileSize = Vector2i(26, 18)
 tileOffset = Vector2i(13, 9)
 
-[node name="Player1" type="Area2D" parent="GameManager/ChessBoard"]
+[node name="Player B" type="Area2D" parent="GameManager/ChessBoard"]
 position = Vector2(-21, 10)
 script = ExtResource("9_p6llr")
 gridPosition = Vector2i(4, 7)
 playerId = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player1"]
+[node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player B"]
 z_index = 1
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("10_b6fn6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GameManager/ChessBoard/Player1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameManager/ChessBoard/Player B"]
 scale = Vector2(0.1, 0.1)
 shape = SubResource("RectangleShape2D_nws6i")
 
-[node name="Player2" type="Area2D" parent="GameManager/ChessBoard"]
+[node name="Player R" type="Area2D" parent="GameManager/ChessBoard"]
 position = Vector2(-22, 25)
 script = ExtResource("9_p6llr")
 gridPosition = Vector2i(4, 5)
 playerId = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player2"]
+[node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player R"]
 modulate = Color(1, 0, 0, 1)
 z_index = 1
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("10_b6fn6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GameManager/ChessBoard/Player2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameManager/ChessBoard/Player R"]
 scale = Vector2(0.1, 0.1)
 shape = SubResource("RectangleShape2D_nws6i")
 
@@ -224,106 +221,9 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("12_fa55o")
 
-[node name="Inventory" type="HFlowContainer" parent="GameManager/GUI/PlayerUI/Sidebar L"]
+[node name="Inventory" parent="GameManager/GUI/PlayerUI/Sidebar L" node_paths=PackedStringArray("playerCon") instance=ExtResource("13_sub35")]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.15
-anchor_top = 0.775
-anchor_right = 0.85
-anchor_bottom = 0.95
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar L/Inventory" groups=["INVENTORY"]]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 6
-texture = ExtResource("13_nb0mq")
-expand_mode = 1
-script = ExtResource("14_vw7g4")
-
-[node name="Panel" type="Panel" parent="GameManager/GUI/PlayerUI/Sidebar L/Inventory/TextureRect"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="TextureRect2" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar L/Inventory" groups=["INVENTORY"]]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-mouse_filter = 0
-texture = ExtResource("13_cd3oa")
-expand_mode = 1
-script = ExtResource("14_vw7g4")
-
-[node name="Panel" type="Panel" parent="GameManager/GUI/PlayerUI/Sidebar L/Inventory/TextureRect2"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="TextureRect3" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar L/Inventory" groups=["INVENTORY"]]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-mouse_filter = 0
-texture = ExtResource("16_4xvm7")
-expand_mode = 1
-script = ExtResource("14_vw7g4")
-
-[node name="Panel" type="Panel" parent="GameManager/GUI/PlayerUI/Sidebar L/Inventory/TextureRect3"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="TextureRect4" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar L/Inventory" groups=["INVENTORY"]]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-mouse_filter = 0
-expand_mode = 1
-script = ExtResource("14_vw7g4")
-
-[node name="Panel" type="Panel" parent="GameManager/GUI/PlayerUI/Sidebar L/Inventory/TextureRect4"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="TextureRect5" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar L/Inventory" groups=["INVENTORY"]]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-mouse_filter = 0
-expand_mode = 1
-script = ExtResource("14_vw7g4")
-
-[node name="Panel" type="Panel" parent="GameManager/GUI/PlayerUI/Sidebar L/Inventory/TextureRect5"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+playerCon = NodePath("../../../../ChessBoard/Player B")
 
 [node name="Sidebar Handle" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar L"]
 layout_mode = 1
@@ -912,132 +812,13 @@ theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
 text = "MAIN MENU"
 
-[node name="Shop UI" type="Control" parent="GameManager/GUI"]
-layout_direction = 1
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Shop Panel" type="TextureRect" parent="GameManager/GUI/Shop UI"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.325
-anchor_top = 0.85
-anchor_right = 0.925
-anchor_bottom = 1.0
-offset_top = -16.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 0
-texture = ExtResource("24_hrxra")
-metadata/_edit_use_anchors_ = true
-
-[node name="Shop Boxes" type="HBoxContainer" parent="GameManager/GUI/Shop UI/Shop Panel"]
-clip_contents = true
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Shop Selection 0" type="VBoxContainer" parent="GameManager/GUI/Shop UI/Shop Panel/Shop Boxes"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="Shop Button" type="Button" parent="GameManager/GUI/Shop UI/Shop Panel/Shop Boxes/Shop Selection 0"]
-custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Shop Cost" type="Label" parent="GameManager/GUI/Shop UI/Shop Panel/Shop Boxes/Shop Selection 0"]
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("23_hmgjx")
-theme_override_font_sizes/font_size = 5
-text = "200"
-horizontal_alignment = 1
-
-[node name="Shop Selection 1" type="VBoxContainer" parent="GameManager/GUI/Shop UI/Shop Panel/Shop Boxes"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="Shop Button" type="Button" parent="GameManager/GUI/Shop UI/Shop Panel/Shop Boxes/Shop Selection 1"]
-custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Shop Cost" type="Label" parent="GameManager/GUI/Shop UI/Shop Panel/Shop Boxes/Shop Selection 1"]
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("23_hmgjx")
-theme_override_font_sizes/font_size = 5
-text = "200"
-horizontal_alignment = 1
-
-[node name="Shop Selection 2" type="VBoxContainer" parent="GameManager/GUI/Shop UI/Shop Panel/Shop Boxes"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="Shop Button" type="Button" parent="GameManager/GUI/Shop UI/Shop Panel/Shop Boxes/Shop Selection 2"]
-custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Shop Cost" type="Label" parent="GameManager/GUI/Shop UI/Shop Panel/Shop Boxes/Shop Selection 2"]
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("23_hmgjx")
-theme_override_font_sizes/font_size = 5
-text = "200"
-horizontal_alignment = 1
-
-[node name="Shop Selection 3" type="VBoxContainer" parent="GameManager/GUI/Shop UI/Shop Panel/Shop Boxes"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="Shop Button" type="Button" parent="GameManager/GUI/Shop UI/Shop Panel/Shop Boxes/Shop Selection 3"]
-custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Shop Cost" type="Label" parent="GameManager/GUI/Shop UI/Shop Panel/Shop Boxes/Shop Selection 3"]
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("23_hmgjx")
-theme_override_font_sizes/font_size = 5
-text = "200"
-horizontal_alignment = 1
-
-[node name="Shop Selection 4" type="VBoxContainer" parent="GameManager/GUI/Shop UI/Shop Panel/Shop Boxes"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="Shop Button" type="Button" parent="GameManager/GUI/Shop UI/Shop Panel/Shop Boxes/Shop Selection 4"]
-custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Shop Cost" type="Label" parent="GameManager/GUI/Shop UI/Shop Panel/Shop Boxes/Shop Selection 4"]
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("23_hmgjx")
-theme_override_font_sizes/font_size = 5
-text = "200"
-horizontal_alignment = 1
+[node name="Shop Panel" parent="GameManager/GUI" instance=ExtResource("28_a73i0")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_top = -40.0
+offset_right = 75.0
 
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/End Turn" to="GameManager" method="EndTurn"]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/Move" to="GameManager" method="GetValidMoveTiles"]
