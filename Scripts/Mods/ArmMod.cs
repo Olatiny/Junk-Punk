@@ -29,9 +29,8 @@ public partial class ArmMod : Mod
 					return true;
 				}
 
-				// TODO: Implement Scrap
-				// if (node is Scrap scrap)
-				// 	player.HarvestScrap(scrap);
+				if (node is Scrap scrap)
+					scrap.Harvest(player);
 			}
 		}
 		else if (attackType != AttackType.special)
@@ -48,10 +47,9 @@ public partial class ArmMod : Mod
 						enemy.TakeDamage(GetAttackDamage(board, player));
 						return true;
 					}
-
-					// TODO: Implement Scrap
-					// if (node is Scrap scrap)
-					// 	player.HarvestScrap(scrap);
+					
+					if (node is Scrap scrap)
+						scrap.Harvest(player);
 				}
 			}
 		}
@@ -93,17 +91,17 @@ public partial class ArmMod : Mod
 		return validModTileCoords;
 	}
 
-    public override Mod Clone()
-    {
-        Mod modClone = base.Clone();
+	public override Mod Clone()
+	{
+		Mod modClone = base.Clone();
 		modClone.SetScript(GetScript());
 
-		ArmMod armModClone = (ArmMod) modClone;
+		ArmMod armModClone = (ArmMod)modClone;
 		armModClone.attackType = attackType;
 		armModClone.bonusRange = bonusRange;
 		armModClone.bonusDmg = bonusDmg;
 		armModClone.aoe = aoe;
-		
+
 		return armModClone;
 	}
 }

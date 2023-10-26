@@ -22,6 +22,10 @@ public partial class ChessBoard : TileMap
 	public HashSet<Vector2I> rotatedAOECoords { get; private set; }
 	Vector2I mouseOverCell;
 
+	public PackedScene scrapPrefab;
+	public HashSet<Vector2I> queuedScrap { get; private set; }
+	public Array<Scrap> placedScrap { get; private set; }
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -33,6 +37,10 @@ public partial class ChessBoard : TileMap
 		validModTileCoords = new HashSet<Vector2I>();
 		rotatedAOECoords = new HashSet<Vector2I>();
 
+		scrapPrefab = GD.Load<PackedScene>("res://Prefabs (wink)/Scrap.tscn");
+		queuedScrap = new();
+		placedScrap = new();
+
 		foreach (PlayerController player in gameManager.players)
 		{
 			SetNodeGridPosition(player, player.gridPosition);
@@ -43,7 +51,7 @@ public partial class ChessBoard : TileMap
 	{
 		base._Process(delta);
 
-		// UpdateMouseOverHighlight();
+		UpdateMouseOverHighlight();
 
 		PlayerController player = gameManager.GetCurrentPlayer();
 		if (player.primedToAttack && player?.GetActiveAttackMod()?.attackType == ArmMod.AttackType.aoe)
@@ -136,7 +144,7 @@ public partial class ChessBoard : TileMap
 			Array<Vector2I> modTiles = legMod?.GetValidMoveTiles(this, player);
 
 			if (modTiles != null)
-				for (int i = 0; i < modTiles.Count; validModTileCoords.Add(modTiles[i]), i++);
+				for (int i = 0; i < modTiles.Count; validModTileCoords.Add(modTiles[i]), i++) ;
 		}
 	}
 
@@ -175,7 +183,7 @@ public partial class ChessBoard : TileMap
 		Array<Vector2I> modTiles = player?.GetActiveAttackMod()?.GetValidAttackTiles(this, player);
 
 		if (modTiles != null)
-			for (int i = 0; i < modTiles.Count; validModTileCoords.Add(modTiles[i]), i++);
+			for (int i = 0; i < modTiles.Count; validModTileCoords.Add(modTiles[i]), i++) ;
 	}
 
 	private void HighlightValidTiles()
@@ -215,11 +223,11 @@ public partial class ChessBoard : TileMap
 
 	private void UpdateMouseOverHighlight()
 	{
-		EraseCell(2, mouseOverCell);
-		mouseOverCell = LocalToMap(GetLocalMousePosition());
+		EraseCell(3, mouseOverCell);
+		mouseOverCell = LocalToMap(GetGlobalMousePosition());
 		TileData tileData = GetCellTileData(0, mouseOverCell);
 		if (tileData != null && tileData.GetCustomData("highlightable").AsBool() && !Input.IsMouseButtonPressed(MouseButton.Left))
-			SetCell(2, mouseOverCell, 1, new Vector2I(0, 1));
+			SetCell(3, mouseOverCell, 1, new Vector2I(0, 1));
 	}
 
 	public bool RequestMove(PlayerController player, Vector2 mouseCoordinates)
@@ -284,9 +292,8 @@ public partial class ChessBoard : TileMap
 						gameManager.DeclareVictory();
 				}
 
-				// TODO: Implement Scrap
-				// if (node is Scrap scrap)
-				// 	player.HarvestScrap(scrap);
+				if (node is Scrap scrap)
+					scrap.Harvest(player);
 
 				ClearValidTiles();
 				gameManager.PlayerActioned();
@@ -295,6 +302,91 @@ public partial class ChessBoard : TileMap
 		}
 
 		return false;
+	}
+
+	public void GenerateNextScrapTiles()
+	{
+		ClearScrapTiles();
+
+		ChooseNextScrapTiles();
+
+		HighlightScrapTiles();
+	}
+
+	public void EnqueueScrapTile(Vector2I tileLocation)
+	{
+		if (IsTileInBounds(tileLocation) && Grid?[tileLocation.X, tileLocation.Y] is not Scrap)
+		{
+			queuedScrap.Add(tileLocation);
+			HighlightScrapTiles();
+		}
+	}
+
+	private void ChooseNextScrapTiles()
+	{
+		RandomNumberGenerator rand = new();
+		rand.Randomize();
+		Vector2I location1, location2;
+
+		do
+		{
+			location1 = new(rand.RandiRange(0, gridSize.X), rand.RandiRange(0, gridSize.Y));
+		}
+		while (!IsTileInBounds(location1) || Grid[location1.X, location1.Y] is Scrap);
+
+		do
+		{
+			location2 = new(rand.RandiRange(0, gridSize.X), rand.RandiRange(0, gridSize.Y));
+		}
+		while (!IsTileInBounds(location2) || Grid[location2.X, location2.Y] is Scrap);
+
+		queuedScrap.Add(location1);
+		queuedScrap.Add(location2);
+
+		HighlightScrapTiles();
+	}
+
+	private void HighlightScrapTiles()
+	{
+		foreach (Vector2I tile in queuedScrap)
+		{
+			SetCell(2, tile, 1, new Vector2I(0, 0));
+		}
+	}
+
+	private void ClearScrapTiles()
+	{
+		foreach (Vector2I tile in queuedScrap)
+		{
+			EraseCell(2, tile);
+		}
+
+		queuedScrap.Clear();
+	}
+
+	public void DropScrap()
+	{
+		foreach (Vector2I scrapTile in queuedScrap)
+		{
+			Scrap scrap = scrapPrefab.Instantiate() as Scrap;
+			AddChild(scrap);
+			placedScrap.Add(scrap);
+			scrap.Drop(this, scrapTile);
+
+		}
+
+		ClearScrapTiles();
+	}
+
+	public void CheckScrapDurabilities()
+	{
+		Array<Node2D> allNodes = GetAllNodesOnBoard();
+
+		foreach (Node2D node in allNodes)
+		{
+			if (node is Scrap scrap)
+				scrap.CheckDurability();
+		}
 	}
 
 	/**
@@ -363,5 +455,48 @@ public partial class ChessBoard : TileMap
 			return false;
 
 		return true;
+	}
+
+	public bool IsTileOccupied(Vector2I tileLocation)
+	{
+		if (!IsTileInBounds(tileLocation))
+			return false;
+
+		return Grid[tileLocation.X, tileLocation.Y] != null;
+	}
+
+	public Node2D GetNodeAtTile(Vector2I tileLocation)
+	{
+		if (!IsTileInBounds(tileLocation))
+			return null;
+
+		return Grid[tileLocation.X, tileLocation.Y];
+	}
+
+	public bool PlaceOnBoard(Node2D node, Vector2I tileLocation)
+	{
+		if (node is not PlayerController && node is not Scrap)
+			return false;
+
+		if (IsTileOccupied(tileLocation))
+			return false;
+
+		Grid[tileLocation.X, tileLocation.Y] = node;
+		return true;
+	}
+
+	public bool RemoveFromBoard(Node2D node, Vector2I tileLocation)
+	{
+		if (!IsTileInBounds(tileLocation))
+			return false;
+
+		if (Grid[tileLocation.X, tileLocation.Y] == node)
+		{
+			Grid[tileLocation.X, tileLocation.Y] = null;
+			node.QueueFree();
+			return true;
+		}
+
+		return false;
 	}
 }

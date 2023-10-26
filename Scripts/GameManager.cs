@@ -77,13 +77,13 @@ public partial class GameManager : Node
 
 			if (player1turn)
 			{
-				playerUI.SetPosition(playerUI.Position.MoveToward(new (0, playerUI.Position.Y), 5));
-				camera.Position = new Vector2((float) Mathf.Lerp(camera.Position.X, cameraStartPos.X, delta * 4), camera.Position.Y);
+				playerUI.SetPosition(playerUI.Position.MoveToward(new(0, playerUI.Position.Y), 5));
+				camera.Position = new Vector2((float)Mathf.Lerp(camera.Position.X, cameraStartPos.X, delta * 4), camera.Position.Y);
 			}
 			else
 			{
 				playerUI.SetPosition(playerUI.Position.MoveToward(new(-90, playerUI.Position.Y), 5));
-				camera.Position = new Vector2((float) Mathf.Lerp(camera.Position.X, cameraStartPos.X + cameraLerpDistance, delta * 4), camera.Position.Y);
+				camera.Position = new Vector2((float)Mathf.Lerp(camera.Position.X, cameraStartPos.X + cameraLerpDistance, delta * 4), camera.Position.Y);
 			}
 		}
 
@@ -104,7 +104,7 @@ public partial class GameManager : Node
 	public override void _Input(InputEvent @event)
 	{
 		base._Input(@event);
-   
+
 		if (Input.IsKeyPressed(Key.Escape))
 			Pause();
 	}
@@ -123,6 +123,10 @@ public partial class GameManager : Node
 			actionButton.Disabled = false;
 
 		players?[currentPlayerIdx].CheckModDurability();
+
+		if (players != null && players[currentPlayerIdx] != null)
+			players[currentPlayerIdx].currentScrap += players[currentPlayerIdx].scrapIncome;
+		
 		DropScrap();
 		ShuffleShop();
 		turnPhase = TurnPhase.Setup;
@@ -130,7 +134,17 @@ public partial class GameManager : Node
 
 	public void DropScrap()
 	{
-		// TODO: Implement this 
+		if (round == 0)
+			return;
+
+		if ((round * 2 + currentPlayerIdx) % 3 == 0)
+		{
+			board.CheckScrapDurabilities();
+			board.DropScrap();
+		}
+
+		if (((round * 2 + currentPlayerIdx) + 1) % 3 == 0)
+			board.GenerateNextScrapTiles();
 	}
 
 	public void ShuffleShop()
@@ -222,7 +236,7 @@ public partial class GameManager : Node
 		int player1hp = players[0].health;
 		int player2hp = players[1].health;
 
-		int leftOnesPlace  = player1hp % 10;
+		int leftOnesPlace = player1hp % 10;
 		int leftTensPlace = player1hp / 10;
 
 		int rightOnesPlace = player2hp % 10;
