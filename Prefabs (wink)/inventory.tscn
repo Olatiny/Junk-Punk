@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://be1hejbojsj87"]
 
-[ext_resource type="Script" path="res://Scripts/UI/InventoryCollection.gd" id="1_4nmpo"]
+[ext_resource type="Script" path="res://Scripts/UI/InventoryCollection.cs" id="1_4nmpo"]
 [ext_resource type="PackedScene" uid="uid://db0n0y7u5dgwl" path="res://Prefabs (wink)/inv_slot.tscn" id="2_pygnd"]
 
 [node name="Inventory" type="HFlowContainer"]

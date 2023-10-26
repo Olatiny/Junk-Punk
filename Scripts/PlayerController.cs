@@ -16,7 +16,7 @@ public partial class PlayerController : Area2D
 	[Export] public int scrapIncome = 10;
 
 	[ExportCategory("UI References")]
-	[Export] public Inventory inventory;
+	[Export] public InventoryCollection inventoryCollection;
 
 	//public HeadMod headMod = new HeadMod;
 	public ArmMod[] armMods = new ArmMod[2];

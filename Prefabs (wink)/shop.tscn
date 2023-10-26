@@ -1,8 +1,23 @@
 [gd_scene load_steps=4 format=3 uid="uid://ttbgcwxirp1h"]
 
 [ext_resource type="Texture2D" uid="uid://0i88m7i5fbil" path="res://Sprites/average_blueberry.png" id="1_sp1yd"]
-[ext_resource type="Script" path="res://Scripts/UI/ShopCollection.gd" id="2_gilej"]
 [ext_resource type="PackedScene" uid="uid://dutrl4w3htoyj" path="res://Prefabs (wink)/shop_slot.tscn" id="2_hc110"]
+
+[sub_resource type="GDScript" id="GDScript_p0uxk"]
+script/source = "extends TextureRect
+
+@export var shopSlots = [null, null, null, null, null]
+@export var gameMana: Node
+
+func BuyShopItem(slotID: int, modBought: Mod):
+	var playerCon = gameMana.GetCurrentPlayer()
+	if (playerCon.currentScrap >= modBought.cost):
+		# Purchase was successful.
+		pass
+	else:
+		# Purchase failed.
+		pass
+"
 
 [node name="Shop Panel" type="TextureRect"]
 custom_minimum_size = Vector2(150, 40)
@@ -13,7 +28,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 0
 texture = ExtResource("1_sp1yd")
-script = ExtResource("2_gilej")
+script = SubResource("GDScript_p0uxk")
 shopSlots = null
 metadata/_edit_use_anchors_ = true
 
