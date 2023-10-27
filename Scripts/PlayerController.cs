@@ -116,6 +116,8 @@ public partial class PlayerController : Area2D
 	{
 		health -= damage;
 
+		gameManager.UpdateScoreBoard();
+		
 		if (health <= 0)
 			gameManager.DeclareVictory();
 

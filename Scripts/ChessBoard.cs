@@ -330,15 +330,15 @@ public partial class ChessBoard : TileMap
 
 		do
 		{
-			location1 = new(rand.RandiRange(0, gridSize.X), rand.RandiRange(0, gridSize.Y));
+			location1 = new(rand.RandiRange(0, gridSize.X - 1), rand.RandiRange(0, gridSize.Y) - 1);
 		}
 		while (!IsTileInBounds(location1) || Grid[location1.X, location1.Y] is Scrap);
 
 		do
 		{
-			location2 = new(rand.RandiRange(0, gridSize.X), rand.RandiRange(0, gridSize.Y));
+			location2 = new(rand.RandiRange(0, gridSize.X - 1), rand.RandiRange(0, gridSize.Y) - 1);
 		}
-		while (!IsTileInBounds(location2) || Grid[location2.X, location2.Y] is Scrap);
+		while (!IsTileInBounds(location2) || Grid[location2.X, location2.Y] is Scrap || location2 == location1);
 
 		queuedScrap.Add(location1);
 		queuedScrap.Add(location2);
@@ -485,15 +485,30 @@ public partial class ChessBoard : TileMap
 		return true;
 	}
 
-	public bool RemoveFromBoard(Node2D node, Vector2I tileLocation)
+	public bool RemoveFromBoard(PlayerController player)
 	{
-		if (!IsTileInBounds(tileLocation))
+		if (!IsTileInBounds(player.gridPosition))
 			return false;
 
-		if (Grid[tileLocation.X, tileLocation.Y] == node)
+		if (Grid[player.gridPosition.X, player.gridPosition.Y] == player)
 		{
-			Grid[tileLocation.X, tileLocation.Y] = null;
-			node.QueueFree();
+			Grid[player.gridPosition.X, player.gridPosition.Y] = null;
+			player.QueueFree();
+			return true;
+		}
+
+		return false;
+	}
+
+	public bool RemoveFromBoard(Scrap scrap)
+	{
+		if (!IsTileInBounds(scrap.gridPosition))
+			return false;
+
+		if (Grid[scrap.gridPosition.X, scrap.gridPosition.Y] == scrap)
+		{
+			Grid[scrap.gridPosition.X, scrap.gridPosition.Y] = null;
+			scrap.QueueFree();
 			return true;
 		}
 

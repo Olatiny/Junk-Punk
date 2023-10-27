@@ -34,6 +34,7 @@ public partial class GameManager : Node
 	[ExportGroup("Text")]
 	[Export] RichTextLabel pausedText;
 	[Export] RichTextLabel gameOverText;
+	[Export] RichTextLabel scrapText;
 
 	[ExportGroup("Scoreboard")]
 	[Export] TextureRect turnIndicator;
@@ -247,6 +248,8 @@ public partial class GameManager : Node
 
 		((AtlasTexture)rightOnes.Texture).Region = new Rect2(rightOnesPlace * 15, 0, 15, 16);
 		((AtlasTexture)rightTens.Texture).Region = new Rect2(rightTensPlace * 15, 0, 15, 16);
+
+		scrapText.Text = $"Scrap:\nPlayer 1: {players?[0].currentScrap}\nPlayer 2: {players?[1].currentScrap}";
 	}
 
 	public void Pause()

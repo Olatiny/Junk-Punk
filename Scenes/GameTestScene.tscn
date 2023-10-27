@@ -126,7 +126,7 @@ gradient = SubResource("Gradient_bxcu0")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(59, 72)
 
-[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "playerUI", "pausedCtrl", "gameOverCtrl", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText", "turnIndicator", "leftOnes", "leftTens", "rightOnes", "rightTens")]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "playerUI", "pausedCtrl", "gameOverCtrl", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText", "scrapText", "turnIndicator", "leftOnes", "leftTens", "rightOnes", "rightTens")]
 script = ExtResource("1_hioff")
 players = [NodePath("ChessBoard/Player1"), NodePath("ChessBoard/Player2")]
 board = NodePath("ChessBoard")
@@ -141,6 +141,7 @@ actionButton = NodePath("GUI/PlayerUI/Action")
 endTurnButton = NodePath("GUI/PlayerUI/End Turn")
 pausedText = NodePath("GUI/Pause GUI/pauseText")
 gameOverText = NodePath("GUI/Game Over GUI/gameOverText")
+scrapText = NodePath("GUI/PlayerUI/Scrap_")
 turnIndicator = NodePath("GUI/PlayerUI/ScoreBoard/TurnIndicator")
 leftOnes = NodePath("GUI/PlayerUI/ScoreBoard/LeftOnes")
 leftTens = NodePath("GUI/PlayerUI/ScoreBoard/LeftTens")
@@ -558,6 +559,23 @@ theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
 text = "Action"
 metadata/_edit_use_anchors_ = true
+
+[node name="Scrap_" type="RichTextLabel" parent="GameManager/GUI/PlayerUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.533
+anchor_top = 0.902
+anchor_right = 0.742
+anchor_bottom = 1.08
+offset_left = -0.200027
+offset_top = -0.0480194
+offset_right = 0.199982
+offset_bottom = 0.0799866
+theme_override_fonts/normal_font = ExtResource("7_mqhok")
+theme_override_font_sizes/normal_font_size = 5
+text = "Scrap:
+Player 1:
+Player 2:"
 
 [node name="Game Over GUI" type="Control" parent="GameManager/GUI"]
 visible = false

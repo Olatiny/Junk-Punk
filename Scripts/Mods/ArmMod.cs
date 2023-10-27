@@ -18,6 +18,7 @@ public partial class ArmMod : Mod
 	{
 		if (attackType == AttackType.aoe)
 		{
+			bool hitSomething = false;
 			foreach (Vector2I validTile in board.rotatedAOECoords)
 			{
 				Node2D node = board.Grid[validTile.X, validTile.Y];
@@ -26,12 +27,17 @@ public partial class ArmMod : Mod
 				{
 					// returns true if enemy is killed, they still take damage if false
 					enemy.TakeDamage(GetAttackDamage(board, player));
-					return true;
+					hitSomething = true;
 				}
 
 				if (node is Scrap scrap)
+				{
 					scrap.Harvest(player);
+					hitSomething = true;
+				}
 			}
+
+			return hitSomething;
 		}
 		else if (attackType != AttackType.special)
 		{
@@ -47,7 +53,7 @@ public partial class ArmMod : Mod
 						enemy.TakeDamage(GetAttackDamage(board, player));
 						return true;
 					}
-					
+
 					if (node is Scrap scrap)
 						scrap.Harvest(player);
 				}

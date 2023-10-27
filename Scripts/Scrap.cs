@@ -14,7 +14,7 @@ public partial class Scrap : Sprite2D
     bool dropOnPlayer = false;
     PlayerController playerDroppingOn = null;
     Vector2 startingPosition;
-    Vector2I gridPosition;
+    public Vector2I gridPosition { get; private set; }
     ChessBoard board;
 
     public override void _Process(double delta)
@@ -23,9 +23,9 @@ public partial class Scrap : Sprite2D
 
         if (dropping)
         {
-            Position.MoveToward(startingPosition, (float)delta * 20.0f);
+            Position = Position.MoveToward(startingPosition, (float)delta * 200.0f);
 
-            if (Position.Y <= startingPosition.Y)
+            if (Position.Y >= startingPosition.Y)
             {
                 Position = startingPosition;
                 dropping = false;
@@ -33,7 +33,7 @@ public partial class Scrap : Sprite2D
                 if (dropOnPlayer)
                 {
                     playerDroppingOn.TakeDamage(1);
-                    board.RemoveFromBoard(this, gridPosition);
+                    QueueFree();
                 }
             }
         }
@@ -54,14 +54,14 @@ public partial class Scrap : Sprite2D
             }
         }
         board.PlaceOnBoard(this, tileLocation);
-        Position = new(Position.X, Position.Y - 500);
+        Position = new(startingPosition.X, startingPosition.Y - 100);
         dropping = true;
     }
 
     public void Harvest(PlayerController player)
     {
         player.currentScrap += currentScrapValue;
-        board.RemoveFromBoard(this, gridPosition);
+        board.RemoveFromBoard(this);
     }
 
     public void CheckDurability()
@@ -71,7 +71,7 @@ public partial class Scrap : Sprite2D
 
         if (currentDurability <= 0)
         {
-            board.RemoveFromBoard(this, gridPosition);
+            board.RemoveFromBoard(this);
             return;
         }
     }
