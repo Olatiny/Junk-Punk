@@ -185,6 +185,7 @@ script = ExtResource("5_vcp8c")
 gridPosition = Vector2i(4, 7)
 playerId = 1
 scrapIncome = 50
+currentScrap = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player1"]
 z_index = 1
@@ -201,6 +202,7 @@ script = ExtResource("5_vcp8c")
 gridPosition = Vector2i(4, 5)
 playerId = 2
 scrapIncome = 50
+currentScrap = 300
 
 [node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player2"]
 modulate = Color(1, 0, 0, 1)

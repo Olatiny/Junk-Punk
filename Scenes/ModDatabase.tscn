@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b156h0pm1h6oe"]
+[gd_scene load_steps=6 format=3 uid="uid://b156h0pm1h6oe"]
 
 [ext_resource type="Script" path="res://Scripts/ModDatabase.cs" id="1_s4t44"]
 [ext_resource type="Script" path="res://Scripts/Mods/ArmMod.cs" id="4_020ur"]
 [ext_resource type="Script" path="res://Scripts/Mods/LegMod.cs" id="4_ho2ed"]
+[ext_resource type="Script" path="res://Scripts/Mods/BishopArmMod.cs" id="5_5hacq"]
 [ext_resource type="Script" path="res://Scripts/Mods/RookArmMod.cs" id="6_ket1x"]
 
 [node name="ModDatabase" type="Node2D"]
@@ -52,4 +53,11 @@ aoe = [Vector2i(1, -1), Vector2i(0, -1), Vector2i(-1, -1), Vector2i(1, -2), Vect
 bodyPart = 1
 buffType = 1
 uid = "BurningHands"
+durability = 4
+
+[node name="BishopArm" type="Sprite2D" parent="."]
+script = ExtResource("5_5hacq")
+bodyPart = 1
+buffType = 1
+uid = "BishopArm"
 durability = 4

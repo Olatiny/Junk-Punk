@@ -51,7 +51,7 @@ public partial class PlayerController : Area2D
 				Mod bishop = modDatabase.GetMod("RookLeg");
 				legMods[0] = bishop.bodyPart == Mod.BodyPart.Leg ? (LegMod)bishop : null;
 
-				Mod cone = modDatabase.GetMod("RookArm");
+				Mod cone = modDatabase.GetMod("BishopArm");
 				armMods[0] = cone.bodyPart == Mod.BodyPart.Arm ? (ArmMod)cone : null;
 				activeAttackModIdx = 0;
 
