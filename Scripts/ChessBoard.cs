@@ -153,8 +153,13 @@ public partial class ChessBoard : TileMap
 	{
 		ClearValidTiles();
 
-		GetValidBasicAttackTiles(player);
-		GetValidModAttackTiles(player);
+		if (player.GetActiveAttackMod() != null)
+			GetValidModAttackTiles(player);
+		else
+			GetValidBasicAttackTiles(player);
+
+		// GetValidBasicAttackTiles(player);
+		// GetValidModAttackTiles(player);
 
 		HighlightValidTiles();
 	}

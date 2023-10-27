@@ -2,6 +2,7 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Collections;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 public partial class PlayerController : Area2D
@@ -92,15 +93,25 @@ public partial class PlayerController : Area2D
 		// TODO: Implement This
 	}
 
-	public void SetActiveAttackMod(Mod mod)
+	public void SetActiveAttackMod(int attackModIdx)
 	{
-		if (mod == null || mod is not ArmMod)
-			return;
+		if (attackModIdx >= 0 && attackModIdx < armMods.Length)
+		{
+			if (armMods[attackModIdx] == null)
+			{
+				activeAttackModIdx = -1;
 
-		if (mod.uid == armMods[0].uid)
-			activeAttackModIdx = 0;
-		else if (mod.uid == armMods[1].uid)
-			activeAttackModIdx = 1;
+				if (primedToAttack)
+					gameManager.GetValidAttackTiles();
+
+				return;
+			}
+		}
+		
+		activeAttackModIdx = attackModIdx;
+
+		if (primedToAttack)
+			gameManager.GetValidAttackTiles();
 	}
 
 	public ArmMod GetActiveAttackMod()
@@ -117,7 +128,7 @@ public partial class PlayerController : Area2D
 		health -= damage;
 
 		gameManager.UpdateScoreBoard();
-		
+
 		if (health <= 0)
 			gameManager.DeclareVictory();
 

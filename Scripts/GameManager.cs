@@ -127,7 +127,7 @@ public partial class GameManager : Node
 
 		if (players != null && players[currentPlayerIdx] != null)
 			players[currentPlayerIdx].currentScrap += players[currentPlayerIdx].scrapIncome;
-		
+
 		DropScrap();
 		ShuffleShop();
 		turnPhase = TurnPhase.Setup;
@@ -135,7 +135,7 @@ public partial class GameManager : Node
 
 	public void DropScrap()
 	{
-		if (round == 1)
+		if (round == 1) // Don't drop scrap during first round.
 			return;
 
 		board.CheckScrapDurabilities();
@@ -143,7 +143,7 @@ public partial class GameManager : Node
 		if ((round * 2 + currentPlayerIdx) % 3 == 0)
 			board.DropScrap();
 
-		if (((round * 2 + currentPlayerIdx) + 1) % 3 == 0)
+		if ((round * 2 + currentPlayerIdx + 1) % 3 == 0)
 			board.GenerateNextScrapTiles();
 	}
 
@@ -248,7 +248,8 @@ public partial class GameManager : Node
 		((AtlasTexture)rightOnes.Texture).Region = new Rect2(rightOnesPlace * 15, 0, 15, 16);
 		((AtlasTexture)rightTens.Texture).Region = new Rect2(rightTensPlace * 15, 0, 15, 16);
 
-		scrapText.Text = $"Scrap:\nPlayer 1: {players?[0].currentScrap}\nPlayer 2: {players?[1].currentScrap}";
+		if (scrapText != null)
+			scrapText.Text = $"Scrap:\nPlayer 1: {players?[0].currentScrap}\nPlayer 2: {players?[1].currentScrap}";
 	}
 
 	public void Pause()
@@ -284,5 +285,10 @@ public partial class GameManager : Node
 	public void Restart()
 	{
 		GetTree().ChangeSceneToFile("Scenes/GameTestScene.tscn");
+	}
+
+	public void ChangeActiveEquip(int attackIdx)
+	{
+		players?[currentPlayerIdx].SetActiveAttackMod(attackIdx);
 	}
 }

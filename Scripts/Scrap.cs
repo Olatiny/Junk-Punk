@@ -9,13 +9,21 @@ public partial class Scrap : Sprite2D
 
     bool dropping = false;
 
-    int currentDurability = 3;
-    int currentScrapValue = 100;
+    int currentDurability;
+    int currentScrapValue;
     bool dropOnPlayer = false;
     PlayerController playerDroppingOn = null;
     Vector2 startingPosition;
     public Vector2I gridPosition { get; private set; }
     ChessBoard board;
+
+    public override void _Ready()
+    {
+        base._Ready();
+
+        currentDurability = maxDurability;
+        currentScrapValue = maxScrapValue;
+    }
 
     public override void _Process(double delta)
     {
@@ -54,7 +62,7 @@ public partial class Scrap : Sprite2D
             }
         }
         board.PlaceOnBoard(this, tileLocation);
-        Position = new(startingPosition.X, startingPosition.Y - 100);
+        Position = new(startingPosition.X, -1 * Texture.GetHeight());
         dropping = true;
     }
 
