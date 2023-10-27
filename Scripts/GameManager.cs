@@ -135,14 +135,13 @@ public partial class GameManager : Node
 
 	public void DropScrap()
 	{
-		if (round == 0)
+		if (round == 1)
 			return;
 
+		board.CheckScrapDurabilities();
+
 		if ((round * 2 + currentPlayerIdx) % 3 == 0)
-		{
-			board.CheckScrapDurabilities();
 			board.DropScrap();
-		}
 
 		if (((round * 2 + currentPlayerIdx) + 1) % 3 == 0)
 			board.GenerateNextScrapTiles();

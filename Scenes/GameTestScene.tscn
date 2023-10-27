@@ -141,7 +141,7 @@ actionButton = NodePath("GUI/PlayerUI/Action")
 endTurnButton = NodePath("GUI/PlayerUI/End Turn")
 pausedText = NodePath("GUI/Pause GUI/pauseText")
 gameOverText = NodePath("GUI/Game Over GUI/gameOverText")
-scrapText = NodePath("GUI/PlayerUI/Scrap_")
+scrapText = NodePath("GUI/PlayerUI/ScrapTextTemp")
 turnIndicator = NodePath("GUI/PlayerUI/ScoreBoard/TurnIndicator")
 leftOnes = NodePath("GUI/PlayerUI/ScoreBoard/LeftOnes")
 leftTens = NodePath("GUI/PlayerUI/ScoreBoard/LeftTens")
@@ -560,7 +560,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
 text = "Action"
 metadata/_edit_use_anchors_ = true
 
-[node name="Scrap_" type="RichTextLabel" parent="GameManager/GUI/PlayerUI"]
+[node name="ScrapTextTemp" type="RichTextLabel" parent="GameManager/GUI/PlayerUI"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.533

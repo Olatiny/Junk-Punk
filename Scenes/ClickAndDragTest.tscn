@@ -30,6 +30,7 @@ mouse_filter = 2
 
 [node name="TextureRect3" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
 offset_left = 143.0
 offset_top = 92.0
 offset_right = 183.0
