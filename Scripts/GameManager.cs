@@ -25,6 +25,7 @@ public partial class GameManager : Node
 	[Export] Control playerUI;
 	[Export] Control pausedCtrl;
 	[Export] Control gameOverCtrl;
+	[Export] ShopCollection shopPanel;
 
 	[ExportGroup("Buttons")]
 	[Export] Button movementButton;
@@ -91,7 +92,10 @@ public partial class GameManager : Node
 		switch (turnPhase)
 		{
 			case TurnPhase.Upkeep:
-				DoUpkeep();
+				{
+					GD.Print("Upkeep's about to fire!");
+					DoUpkeep();
+				}
 				break;
 			case TurnPhase.Setup:
 				DoSetup();
@@ -149,7 +153,7 @@ public partial class GameManager : Node
 
 	public void ShuffleShop()
 	{
-		// TODO: Implement this 
+		shopPanel.RandomizeShop();
 	}
 
 	/**
@@ -215,7 +219,7 @@ public partial class GameManager : Node
 
 		if (currentPlayerIdx == 0)
 			round++;
-
+			
 		board.ClearValidTiles();
 		UpdateScoreBoard();
 		turnPhase = TurnPhase.Upkeep;
