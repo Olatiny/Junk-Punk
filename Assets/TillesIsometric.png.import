@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0i88m7i5fbil"
-path="res://.godot/imported/average_blueberry.png-1c996f98d692312c37441fe6e3b9d274.ctex"
+uid="uid://bm4vmrb0j0oyc"
+path="res://.godot/imported/TillesIsometric.png-f541af5fa51515bc8be8f14788184618.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/average_blueberry.png"
-dest_files=["res://.godot/imported/average_blueberry.png-1c996f98d692312c37441fe6e3b9d274.ctex"]
+source_file="res://Assets/TillesIsometric.png"
+dest_files=["res://.godot/imported/TillesIsometric.png-f541af5fa51515bc8be8f14788184618.ctex"]
 
 [params]
 

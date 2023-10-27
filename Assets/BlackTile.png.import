@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fd87ftveegi5"
-path="res://.godot/imported/shop_slot_frame.png-01c6bee3e32ee042d5d278ef7b3c1397.ctex"
+uid="uid://bkjm4abw0r4s6"
+path="res://.godot/imported/BlackTile.png-abeb71bfb2c5d0373e660a2dcdaed2ad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/shop_slot_frame.png"
-dest_files=["res://.godot/imported/shop_slot_frame.png-01c6bee3e32ee042d5d278ef7b3c1397.ctex"]
+source_file="res://Assets/BlackTile.png"
+dest_files=["res://.godot/imported/BlackTile.png-abeb71bfb2c5d0373e660a2dcdaed2ad.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=1
+roughness/mode=0
 roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
