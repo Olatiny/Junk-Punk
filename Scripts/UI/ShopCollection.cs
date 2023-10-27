@@ -20,10 +20,10 @@ public partial class ShopCollection : Node
 		invCol = gameMana.GetCurrentPlayer().inventoryCollection;
 		GD.Print("invCol: " + invCol);
 		
-		for (int i = 0; i < shopSlots.Length; i++)
+		for (int i = 0; i < shopSlots?.Length; i++)
 		{
 			Mod targetMod = modDatabase.GetRandomMod();
-			shopSlots[i].SetContainedMod(targetMod);
+			shopSlots?[i].SetContainedMod(targetMod);
 		}
 	}
 

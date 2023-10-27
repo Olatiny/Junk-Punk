@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://brmia5x0ohlm1"]
 
-[ext_resource type="Texture2D" uid="uid://gclnaeh12ghs" path="res://Sprites/icon.svg" id="1_6pfrt"]
+[ext_resource type="Texture2D" uid="uid://gclnaeh12ghs" path="res://Assets/icon.svg" id="1_6pfrt"]
 [ext_resource type="Script" path="res://Scripts/Scrap.cs" id="1_57bid"]
 
 [node name="Scrap" type="Sprite2D"]

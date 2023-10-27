@@ -23,6 +23,8 @@ public partial class GameManager : Node
 	[ExportCategory("UI")]
 	[ExportGroup("Control Groups")]
 	[Export] Control playerUI;
+	[Export] Control setupUI;
+	[Export] Control actionsUI;
 	[Export] Control pausedCtrl;
 	[Export] Control gameOverCtrl;
 	[Export] ShopCollection shopPanel;
@@ -89,21 +91,8 @@ public partial class GameManager : Node
 			}
 		}
 
-		switch (turnPhase)
-		{
-			case TurnPhase.Upkeep:
-				{
-					GD.Print("Upkeep's about to fire!");
-					DoUpkeep();
-				}
-				break;
-			case TurnPhase.Setup:
-				DoSetup();
-				break;
-			case TurnPhase.Actions:
-				DoActions();
-				break;
-		}
+		if (turnPhase == TurnPhase.Upkeep)
+			DoUpkeep();
 	}
 
 	public override void _Input(InputEvent @event)
@@ -134,6 +123,9 @@ public partial class GameManager : Node
 
 		DropScrap();
 		ShuffleShop();
+
+		setupUI.Show();
+		actionsUI.Hide();
 		turnPhase = TurnPhase.Setup;
 	}
 
@@ -153,23 +145,17 @@ public partial class GameManager : Node
 
 	public void ShuffleShop()
 	{
-		shopPanel.RandomizeShop();
+		shopPanel?.RandomizeShop();
 	}
 
-	/**
-	 * Code for setup phase during loop. This will run until the player discretely moves on to turn phase.
-	 */
-	public void DoSetup()
+	public void EndSetup()
 	{
-		// TODO: Decide if this is actually necessary.
-	}
-
-	/**
-	 * Code for action phase during loop. This will run until the player ends their turn.
-	 */
-	public void DoActions()
-	{
-		// TODO: Decide if this is actually necessary.
+		if (turnPhase == TurnPhase.Setup)
+		{
+			setupUI.Hide();
+			actionsUI.Show();
+			turnPhase = TurnPhase.Actions;
+		}
 	}
 
 	public bool IsPlayerTurn(PlayerController player)
@@ -219,9 +205,11 @@ public partial class GameManager : Node
 
 		if (currentPlayerIdx == 0)
 			round++;
-			
+
 		board.ClearValidTiles();
 		UpdateScoreBoard();
+		setupUI.Show();
+		actionsUI.Hide();
 		turnPhase = TurnPhase.Upkeep;
 	}
 
