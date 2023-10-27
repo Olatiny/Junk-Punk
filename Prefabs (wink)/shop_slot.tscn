@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dutrl4w3htoyj"]
 
 [ext_resource type="Script" path="res://Scripts/UI/ShopSlot.cs" id="1_5injg"]
-[ext_resource type="Texture2D" uid="uid://fd87ftveegi5" path="res://Sprites/shop_slot_frame.png" id="1_yp3n4"]
+[ext_resource type="Texture2D" uid="uid://fd87ftveegi5" path="res://Assets/shop_slot_frame.png" id="1_yp3n4"]
 [ext_resource type="FontFile" uid="uid://bsynkeioac1v" path="res://Quinquefive-ALoRM.ttf" id="2_5kntl"]
 
 [node name="Shop Selection" type="VBoxContainer" node_paths=PackedStringArray("modIcon", "priceText")]

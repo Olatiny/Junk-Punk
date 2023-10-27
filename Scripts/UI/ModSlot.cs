@@ -21,6 +21,6 @@ public partial class ModSlot : TextureRect
 		InventorySlot incomingSlot = (InventorySlot) data;
 		
 		containedMod = incomingSlot.GetContainedMod();
-		Texture = containedMod.bigSprite;
+		Texture = containedMod.bigSpriteBlue;
 	}
 }

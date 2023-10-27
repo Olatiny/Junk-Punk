@@ -14,7 +14,9 @@ public abstract partial class Mod : Sprite2D
 	[Export] public int cost { get; set; }
 	[Export] String description { get; set; }
 	[Export] public Texture2D icon;
-	[Export] public Texture2D bigSprite;
+	[Export] public Texture2D bigSpriteBlue;
+	[Export] public Texture2D bigSpriteRed;
+	[Export] public Color bodyPartTint;
 
 	public Mod()
 	{
@@ -40,7 +42,7 @@ public abstract partial class Mod : Sprite2D
 		modDuplicate.durability = durability;
 		modDuplicate.description = description;
 		modDuplicate.icon = icon;
-		modDuplicate.bigSprite = bigSprite;
+		modDuplicate.bigSpriteBlue = bigSpriteBlue;
 		
 		return modDuplicate;
 	}
