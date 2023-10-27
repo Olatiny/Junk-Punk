@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://xk3l1h3kto6c"]
+[gd_scene load_steps=44 format=3 uid="uid://xk3l1h3kto6c"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_dey36"]
 [ext_resource type="Texture2D" uid="uid://cb4g6t2q8bkhn" path="res://Sprites/TileHighlights.png" id="2_d3dcp"]
@@ -12,14 +12,13 @@
 [ext_resource type="Texture2D" uid="uid://gclnaeh12ghs" path="res://Sprites/icon.svg" id="10_b6fn6"]
 [ext_resource type="Texture2D" uid="uid://c2jt3oe4pwd5n" path="res://Assets/Board Border.png" id="11_5o3yh"]
 [ext_resource type="Texture2D" uid="uid://cd00527gus8ql" path="res://Assets/player_ui_border_fill.png" id="12_fa55o"]
-[ext_resource type="Texture2D" uid="uid://dqu7kubd33tkm" path="res://Assets/Player UI Border.png" id="12_xyhfb"]
 [ext_resource type="Texture2D" uid="uid://nfe8eixq2qcu" path="res://Assets/Generic Head + Torso Mod.png" id="13_366sk"]
 [ext_resource type="PackedScene" uid="uid://be1hejbojsj87" path="res://Prefabs (wink)/inventory.tscn" id="13_sub35"]
 [ext_resource type="Texture2D" uid="uid://caalq5i2t3yl8" path="res://Assets/Generic Leg Mod.png" id="14_u5di8"]
 [ext_resource type="Texture2D" uid="uid://v4gldiipvnx2" path="res://Assets/player_ui_border_handle.png" id="14_v7f0p"]
 [ext_resource type="Texture2D" uid="uid://djytsrul72ij" path="res://Assets/Generic Arm Mod.png" id="15_ttdwm"]
 [ext_resource type="Texture2D" uid="uid://ofx1fbgel2fm" path="res://Assets/Generic Head + Torso Mod (Red).png" id="16_bvq0a"]
-[ext_resource type="Script" path="res://Scripts/ModSlot.gd" id="17_7oomi"]
+[ext_resource type="Script" path="res://Scripts/UI/ModSlot.cs" id="17_7oomi"]
 [ext_resource type="Texture2D" uid="uid://nf1o8rrfoxfo" path="res://Assets/Generic Leg Mod (Red).png" id="17_l7cm2"]
 [ext_resource type="Texture2D" uid="uid://cbp2yurr5te7f" path="res://Assets/Generic Arm Mod (Red).png" id="18_046o5"]
 [ext_resource type="Texture2D" uid="uid://dyae0hy761vv1" path="res://Assets/Scoreboard Panel.png" id="19_s3hgj"]
@@ -129,13 +128,25 @@ gradient = SubResource("Gradient_bxcu0")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(59, 72)
 
-[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "movementButton", "actionButton", "endTurnButton")]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "playerUI", "pausedCtrl", "gameOverCtrl", "shopPanel", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText", "turnIndicator", "leftOnes", "leftTens", "rightOnes", "rightTens")]
 script = ExtResource("1_dey36")
 players = [NodePath("ChessBoard/Player B"), NodePath("ChessBoard/Player R")]
 board = NodePath("ChessBoard")
+camera = NodePath("../Camera2D")
+playerUI = NodePath("GUI/PlayerUI")
+pausedCtrl = NodePath("GUI/Pause GUI")
+gameOverCtrl = NodePath("GUI/Game Over GUI")
+shopPanel = NodePath("GUI/Shop Panel")
 movementButton = NodePath("GUI/PlayerUI/Move")
 actionButton = NodePath("GUI/PlayerUI/Action")
 endTurnButton = NodePath("GUI/PlayerUI/End Turn")
+pausedText = NodePath("GUI/Pause GUI/pauseText")
+gameOverText = NodePath("GUI/Game Over GUI/gameOverText")
+turnIndicator = NodePath("GUI/PlayerUI/ScoreBoard/TurnIndicator")
+leftOnes = NodePath("GUI/PlayerUI/ScoreBoard/LeftOnes")
+leftTens = NodePath("GUI/PlayerUI/ScoreBoard/LeftTens")
+rightOnes = NodePath("GUI/PlayerUI/ScoreBoard/RightOnes")
+rightTens = NodePath("GUI/PlayerUI/ScoreBoard/RightTens")
 
 [node name="ChessBoard" type="TileMap" parent="GameManager"]
 visible = false
@@ -162,11 +173,13 @@ script = ExtResource("8_ysby6")
 tileSize = Vector2i(26, 18)
 tileOffset = Vector2i(13, 9)
 
-[node name="Player B" type="Area2D" parent="GameManager/ChessBoard"]
+[node name="Player B" type="Area2D" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection")]
 position = Vector2(-21, 10)
 script = ExtResource("9_p6llr")
 gridPosition = Vector2i(4, 7)
 playerId = 1
+currentScrap = 1000
+inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Inventory Blu")
 
 [node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player B"]
 z_index = 1
@@ -177,11 +190,13 @@ texture = ExtResource("10_b6fn6")
 scale = Vector2(0.1, 0.1)
 shape = SubResource("RectangleShape2D_nws6i")
 
-[node name="Player R" type="Area2D" parent="GameManager/ChessBoard"]
+[node name="Player R" type="Area2D" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection")]
 position = Vector2(-22, 25)
 script = ExtResource("9_p6llr")
 gridPosition = Vector2i(4, 5)
 playerId = 2
+currentScrap = 1000
+inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Inventory Red")
 
 [node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player R"]
 modulate = Color(1, 0, 0, 1)
@@ -212,7 +227,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Sidebar L" type="TextureRect" parent="GameManager/GUI/PlayerUI"]
+[node name="Sidebar Blue (L)" type="TextureRect" parent="GameManager/GUI/PlayerUI"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -221,11 +236,11 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("12_fa55o")
 
-[node name="Inventory" parent="GameManager/GUI/PlayerUI/Sidebar L" node_paths=PackedStringArray("playerCon") instance=ExtResource("13_sub35")]
+[node name="Inventory Blu" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)" node_paths=PackedStringArray("playerCon") instance=ExtResource("13_sub35")]
 layout_mode = 1
 playerCon = NodePath("../../../../ChessBoard/Player B")
 
-[node name="Sidebar Handle" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar L"]
+[node name="Sidebar Handle" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -236,7 +251,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("14_v7f0p")
 
-[node name="Robot Body" type="Control" parent="GameManager/GUI/PlayerUI/Sidebar L"]
+[node name="Robot Body" type="Control" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -251,7 +266,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Upper Body" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar L/Robot Body"]
+[node name="Upper Body" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -268,7 +283,7 @@ mouse_filter = 0
 texture = ExtResource("13_366sk")
 script = ExtResource("17_7oomi")
 
-[node name="Head Mod Slot" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar L/Robot Body/Upper Body"]
+[node name="Head Mod Slot" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Upper Body"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -284,7 +299,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.376471)
 
-[node name="Right Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar L/Robot Body"]
+[node name="Right Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -302,7 +317,7 @@ texture = ExtResource("15_ttdwm")
 flip_h = true
 script = ExtResource("17_7oomi")
 
-[node name="Arm Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar L/Robot Body/Right Arm"]
+[node name="Arm Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Right Arm"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -318,7 +333,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.376471)
 
-[node name="Left Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar L/Robot Body"]
+[node name="Left Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -335,7 +350,7 @@ mouse_filter = 0
 texture = ExtResource("15_ttdwm")
 script = ExtResource("17_7oomi")
 
-[node name="Arm Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar L/Robot Body/Left Arm"]
+[node name="Arm Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Left Arm"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -351,7 +366,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.376471)
 
-[node name="Right Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar L/Robot Body"]
+[node name="Right Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -369,7 +384,7 @@ texture = ExtResource("14_u5di8")
 flip_h = true
 script = ExtResource("17_7oomi")
 
-[node name="Leg Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar L/Robot Body/Right Leg"]
+[node name="Leg Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Right Leg"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -385,7 +400,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.376471)
 
-[node name="Left Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar L/Robot Body"]
+[node name="Left Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -402,7 +417,7 @@ mouse_filter = 0
 texture = ExtResource("14_u5di8")
 script = ExtResource("17_7oomi")
 
-[node name="Leg Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar L/Robot Body/Left Leg"]
+[node name="Leg Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Left Leg"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -418,98 +433,212 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.376471)
 
-[node name="PlayerBoarderRight" type="TextureRect" parent="GameManager/GUI/PlayerUI"]
+[node name="Sidebar Red (R)" type="TextureRect" parent="GameManager/GUI/PlayerUI"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.937
-anchor_right = 1.225
-anchor_bottom = 1.0
-offset_left = 0.199982
-mouse_filter = 2
-texture = ExtResource("12_xyhfb")
-flip_h = true
-
-[node name="Head_Torso" type="TextureRect" parent="GameManager/GUI/PlayerUI/PlayerBoarderRight"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.243
-anchor_top = -0.036
-anchor_right = 0.965
-anchor_bottom = 0.437
-offset_left = 0.0549908
-offset_top = 0.0640001
-offset_right = 0.0249634
-offset_bottom = 0.112
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("16_bvq0a")
-
-[node name="LeftLeg" type="TextureRect" parent="GameManager/GUI/PlayerUI/PlayerBoarderRight"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.452
-anchor_top = 0.254
-anchor_right = 0.948
-anchor_bottom = 0.67
-offset_left = 0.0199242
-offset_top = 0.103996
-offset_right = -0.0200348
-offset_bottom = -0.0800018
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("17_l7cm2")
-
-[node name="RightLeg" type="TextureRect" parent="GameManager/GUI/PlayerUI/PlayerBoarderRight"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.261
-anchor_top = 0.254
-anchor_right = 0.757
-anchor_bottom = 0.67
-offset_left = -0.01507
-offset_top = 0.103996
-offset_right = -0.0550232
-offset_bottom = -0.0800018
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("17_l7cm2")
-flip_h = true
-
-[node name="LeftArm" type="TextureRect" parent="GameManager/GUI/PlayerUI/PlayerBoarderRight"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.591
-anchor_top = 0.134
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.509
-offset_left = 0.0349197
-offset_top = -0.0160007
-offset_right = -3.05176e-05
-offset_bottom = -0.0159988
-grow_horizontal = 2
+anchor_bottom = 1.0
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("18_046o5")
+texture = ExtResource("12_fa55o")
 
-[node name="RightArm" type="TextureRect" parent="GameManager/GUI/PlayerUI/PlayerBoarderRight"]
+[node name="Inventory Red" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)" node_paths=PackedStringArray("playerCon") instance=ExtResource("13_sub35")]
+layout_mode = 1
+playerCon = NodePath("../../../../ChessBoard/Player R")
+
+[node name="Sidebar Handle" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.209
-anchor_top = 0.134
-anchor_right = 0.617
+anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -0.0350685
-offset_top = -0.0160007
-offset_right = 0.0449753
-offset_bottom = 2.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("14_v7f0p")
+flip_h = true
+
+[node name="Robot Body" type="Control" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -87.0
+offset_right = 20.0
+offset_bottom = -47.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="Upper Body" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.5
+offset_top = -53.0
+offset_right = 41.5
+offset_bottom = 53.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("16_bvq0a")
+script = ExtResource("17_7oomi")
+
+[node name="Head Mod Slot" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Upper Body"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -9.0
+offset_top = -27.0
+offset_right = 7.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.376471)
+
+[node name="Right Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -15.0
+offset_right = 1.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
 texture = ExtResource("18_046o5")
 flip_h = true
+script = ExtResource("17_7oomi")
+
+[node name="Arm Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Right Arm"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.5
+offset_top = -34.0
+offset_right = 9.5
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.376471)
+
+[node name="Left Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -15.0
+offset_right = 45.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("18_046o5")
+script = ExtResource("17_7oomi")
+
+[node name="Arm Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Left Arm"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -9.5
+offset_top = -34.0
+offset_right = 6.5
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.376471)
+
+[node name="Right Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = 12.0
+offset_right = 17.0
+offset_bottom = 105.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("17_l7cm2")
+flip_h = true
+script = ExtResource("17_7oomi")
+
+[node name="Leg Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Right Leg"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.5
+offset_top = -24.5
+offset_right = 9.5
+offset_bottom = -8.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.376471)
+
+[node name="Left Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = 12.0
+offset_right = 39.0
+offset_bottom = 105.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("17_l7cm2")
+script = ExtResource("17_7oomi")
+
+[node name="Leg Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Left Leg"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -9.5
+offset_top = -24.5
+offset_right = 6.5
+offset_bottom = -8.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.376471)
 
 [node name="ScoreBoard" type="TextureRect" parent="GameManager/GUI/PlayerUI"]
 layout_mode = 1
@@ -602,10 +731,10 @@ anchor_left = 0.677
 anchor_top = 0.862
 anchor_right = 0.833
 anchor_bottom = 0.897
-offset_left = 0.199982
-offset_top = -0.0880127
-offset_right = 249.8
-offset_bottom = 32.072
+offset_left = 1.19995
+offset_top = -147.088
+offset_right = 250.8
+offset_bottom = -114.928
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
@@ -622,10 +751,10 @@ anchor_left = 0.392
 anchor_top = 0.862
 anchor_right = 0.519
 anchor_bottom = 0.897
-offset_left = 0.199997
-offset_top = -0.0880127
-offset_right = 203.4
-offset_bottom = 32.072
+offset_left = 1.20001
+offset_top = -147.088
+offset_right = 204.4
+offset_bottom = -114.928
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
@@ -642,10 +771,10 @@ anchor_left = 0.537
 anchor_top = 0.862
 anchor_right = 0.664
 anchor_bottom = 0.897
-offset_left = 0.199997
-offset_top = -0.0880127
-offset_right = 203.4
-offset_bottom = 32.072
+offset_left = 1.20001
+offset_top = -147.088
+offset_right = 204.4
+offset_bottom = -114.928
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
@@ -812,13 +941,14 @@ theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
 text = "MAIN MENU"
 
-[node name="Shop Panel" parent="GameManager/GUI" instance=ExtResource("28_a73i0")]
+[node name="Shop Panel" parent="GameManager/GUI" node_paths=PackedStringArray("gameMana") instance=ExtResource("28_a73i0")]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -75.0
 offset_top = -40.0
 offset_right = 75.0
+gameMana = NodePath("../..")
 
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/End Turn" to="GameManager" method="EndTurn"]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/Move" to="GameManager" method="GetValidMoveTiles"]

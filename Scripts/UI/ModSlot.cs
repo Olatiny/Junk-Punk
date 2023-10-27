@@ -18,13 +18,9 @@ public partial class ModSlot : TextureRect
 	// Called when the player releases a drag on top of this control.
 	public override void _DropData(Vector2 atPosition, Variant data)
 	{
-		Node dataNode = (Node) data;
-		containedMod = data.containedMod;
-		Texture = containedMod;
+		InventorySlot incomingSlot = (InventorySlot) data;
 		
-		GD.Print("Drop Data Incoming");
-		GD.Print(data.containedMod);
-		GD.Print(containedMod);
-		GD.Print("Drop Data Finished!");
+		containedMod = incomingSlot.GetContainedMod();
+		Texture = containedMod.bigSprite;
 	}
 }

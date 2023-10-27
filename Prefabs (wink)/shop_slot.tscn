@@ -1,25 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dutrl4w3htoyj"]
+[gd_scene load_steps=4 format=3 uid="uid://dutrl4w3htoyj"]
 
+[ext_resource type="Script" path="res://Scripts/UI/ShopSlot.cs" id="1_5injg"]
 [ext_resource type="Texture2D" uid="uid://fd87ftveegi5" path="res://Sprites/shop_slot_frame.png" id="1_yp3n4"]
 [ext_resource type="FontFile" uid="uid://bsynkeioac1v" path="res://Quinquefive-ALoRM.ttf" id="2_5kntl"]
-[ext_resource type="Texture2D" uid="uid://c2spxt34671sf" path="res://Sprites/ph_head.png" id="2_277bn"]
 
-[sub_resource type="GDScript" id="GDScript_3nsp6"]
-script/source = "extends Node
-
-var containedMod: Mod
-@export var slotID: int
-@export var parentShop: Node
-
-func _on_shop_button_pressed():
-	parentShop.BuyShopItem(slotID, containedMod)
-"
-
-[node name="Shop Selection" type="VBoxContainer"]
+[node name="Shop Selection" type="VBoxContainer" node_paths=PackedStringArray("modIcon", "priceText")]
 size_flags_vertical = 4
 mouse_filter = 2
 theme_override_constants/separation = 0
-script = SubResource("GDScript_3nsp6")
+script = ExtResource("1_5injg")
+modIcon = NodePath("Shop Button/Shop Item")
+priceText = NodePath("Shop Cost")
 
 [node name="Shop Button" type="TextureButton" parent="."]
 custom_minimum_size = Vector2(20, 20)
@@ -43,7 +34,6 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 mouse_filter = 2
-texture = ExtResource("2_277bn")
 
 [node name="Shop Cost" type="Label" parent="."]
 layout_mode = 2
@@ -52,4 +42,4 @@ theme_override_font_sizes/font_size = 5
 text = "200"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="Shop Button" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="Shop Button" to="." method="_OnShopButtonPressed"]

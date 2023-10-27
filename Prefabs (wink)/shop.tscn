@@ -2,24 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://0i88m7i5fbil" path="res://Sprites/average_blueberry.png" id="1_sp1yd"]
 [ext_resource type="PackedScene" uid="uid://dutrl4w3htoyj" path="res://Prefabs (wink)/shop_slot.tscn" id="2_hc110"]
+[ext_resource type="Script" path="res://Scripts/UI/ShopCollection.cs" id="2_v1h2q"]
 
-[sub_resource type="GDScript" id="GDScript_p0uxk"]
-script/source = "extends TextureRect
-
-@export var shopSlots = [null, null, null, null, null]
-@export var gameMana: Node
-
-func BuyShopItem(slotID: int, modBought: Mod):
-	var playerCon = gameMana.GetCurrentPlayer()
-	if (playerCon.currentScrap >= modBought.cost):
-		# Purchase was successful.
-		pass
-	else:
-		# Purchase failed.
-		pass
-"
-
-[node name="Shop Panel" type="TextureRect"]
+[node name="Shop Panel" type="TextureRect" node_paths=PackedStringArray("shopSlots")]
 custom_minimum_size = Vector2(150, 40)
 anchors_preset = 2
 anchor_top = 1.0
@@ -28,8 +13,8 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 0
 texture = ExtResource("1_sp1yd")
-script = SubResource("GDScript_p0uxk")
-shopSlots = null
+script = ExtResource("2_v1h2q")
+shopSlots = [NodePath("Shop Boxes/Shop Selection 0"), NodePath("Shop Boxes/Shop Selection 1"), NodePath("Shop Boxes/Shop Selection 2"), NodePath("Shop Boxes/Shop Selection 3"), NodePath("Shop Boxes/Shop Selection 4")]
 metadata/_edit_use_anchors_ = true
 
 [node name="Shop Boxes" type="HBoxContainer" parent="."]
@@ -45,17 +30,26 @@ size_flags_vertical = 4
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Shop Selection 0" parent="Shop Boxes" instance=ExtResource("2_hc110")]
+[node name="Shop Selection 0" parent="Shop Boxes" node_paths=PackedStringArray("parentShop") instance=ExtResource("2_hc110")]
 layout_mode = 2
+parentShop = NodePath("../..")
 
-[node name="Shop Selection 1" parent="Shop Boxes" instance=ExtResource("2_hc110")]
+[node name="Shop Selection 1" parent="Shop Boxes" node_paths=PackedStringArray("parentShop") instance=ExtResource("2_hc110")]
 layout_mode = 2
+slotID = 1
+parentShop = NodePath("../..")
 
-[node name="Shop Selection 2" parent="Shop Boxes" instance=ExtResource("2_hc110")]
+[node name="Shop Selection 2" parent="Shop Boxes" node_paths=PackedStringArray("parentShop") instance=ExtResource("2_hc110")]
 layout_mode = 2
+slotID = 2
+parentShop = NodePath("../..")
 
-[node name="Shop Selection 3" parent="Shop Boxes" instance=ExtResource("2_hc110")]
+[node name="Shop Selection 3" parent="Shop Boxes" node_paths=PackedStringArray("parentShop") instance=ExtResource("2_hc110")]
 layout_mode = 2
+slotID = 3
+parentShop = NodePath("../..")
 
-[node name="Shop Selection 4" parent="Shop Boxes" instance=ExtResource("2_hc110")]
+[node name="Shop Selection 4" parent="Shop Boxes" node_paths=PackedStringArray("parentShop") instance=ExtResource("2_hc110")]
 layout_mode = 2
+slotID = 4
+parentShop = NodePath("../..")

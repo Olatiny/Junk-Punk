@@ -13,21 +13,20 @@ public partial class InventorySlot : TextureRect
 		GD.Print(containedMod);
 		
 		if (containedMod == null)
-			return null;
+			return this;
 		
 		isDragging = true;
 		
 		TextureRect previewTexture = new TextureRect();
 		
 		previewTexture.Texture = Texture;
-		previewTexture.expand_mode = 1;
-		previewTexture.size = new Vector2(16, 16);
+		previewTexture.Size = new Vector2(16, 16);
 		
 		Control preview = new Control();
 		preview.AddChild(previewTexture);
 		
 		SetDragPreview(preview);
-		texture = null;
+		Texture = null;
 		
 		return this;
 	}
@@ -37,7 +36,7 @@ public partial class InventorySlot : TextureRect
 	public override bool _CanDropData(Vector2 atPosition, Variant data)
 	{
 		Node dataNode = (Node) data;
-		bool canDrop = !isDragging && dataNoded.IsInGroup("INVENTORY");
+		bool canDrop = !isDragging && dataNode.IsInGroup("INVENTORY");
 		return canDrop;
 	}
 	
@@ -46,13 +45,16 @@ public partial class InventorySlot : TextureRect
 	{
 		GD.Print("Data is:");
 		GD.Print(data);
-		Mod swappedMod = SwapInMod(data.containedMod);
+		
+		InventorySlot incomingSlot = (InventorySlot) data;
+		
+		Mod swappedMod = SwapInMod(incomingSlot.containedMod);
 		GD.Print("Swapped Mod was:");
 		GD.Print(swappedMod);
-		data.SwapInMod(swappedMod);
+		incomingSlot.SwapInMod(swappedMod);
 		
 		GD.Print("Drop Data Incoming");
-		GD.Print(data.containedMod);
+		GD.Print(incomingSlot.containedMod);
 		GD.Print(containedMod);
 		GD.Print("Drop Data Finished!");
 	}
@@ -60,9 +62,9 @@ public partial class InventorySlot : TextureRect
 	// Called when an engine notification occurs.
 	public override void _Notification(int callback)
 	{
-		switch (callback)
+		switch ((long)callback)
 		{
-			case NOTIFICATION_DRAG_END:
+			case NotificationDragEnd:
 				{
 					DragEndNotif();
 					break;
@@ -85,7 +87,7 @@ public partial class InventorySlot : TextureRect
 		}
 		else
 		{
-			texture = containedMod.icon;
+			Texture = containedMod.icon;
 		}
 	}
 	
@@ -100,8 +102,18 @@ public partial class InventorySlot : TextureRect
 		containedMod = newMod;
 		
 		// This is placeholder, change when mods are more than just a Texture2D
-		texture = containedMod.icon;
+		Texture = containedMod.icon;
 		
 		return oldMod;
+	}
+	
+	public Mod GetContainedMod()
+	{
+		return containedMod;
+	}
+	
+	public bool IsEmpty()
+	{
+		return containedMod == null;
 	}
 }
