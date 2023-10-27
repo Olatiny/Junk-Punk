@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtt01o085t7a3"
-path="res://.godot/imported/WhiteTile.png-fab816b492b83a3d07662babee327a33.ctex"
+uid="uid://dw36ydwhjs405"
+path="res://.godot/imported/TileHighlightsBig.png-a49fb7bb467ad867d66c86b20cd439e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/WhiteTile.png"
-dest_files=["res://.godot/imported/WhiteTile.png-fab816b492b83a3d07662babee327a33.ctex"]
+source_file="res://Assets/TileHighlightsBig.png"
+dest_files=["res://.godot/imported/TileHighlightsBig.png-a49fb7bb467ad867d66c86b20cd439e7.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=0
+roughness/mode=1
 roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false

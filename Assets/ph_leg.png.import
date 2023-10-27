@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2spxt34671sf"
-path="res://.godot/imported/ph_head.png-0369f1d8262f472596391814110dad73.ctex"
+uid="uid://d00f53nicrsvi"
+path="res://.godot/imported/ph_leg.png-b6d874564a6b84f0306521d637b3f622.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/ph_head.png"
-dest_files=["res://.godot/imported/ph_head.png-0369f1d8262f472596391814110dad73.ctex"]
+source_file="res://Assets/ph_leg.png"
+dest_files=["res://.godot/imported/ph_leg.png-b6d874564a6b84f0306521d637b3f622.ctex"]
 
 [params]
 
