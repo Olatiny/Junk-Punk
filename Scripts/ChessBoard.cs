@@ -40,6 +40,7 @@ public partial class ChessBoard : TileMap
 
 		scrapPrefab = GD.Load<PackedScene>("res://Prefabs (wink)/Scrap.tscn");
 		queuedScrap = new();
+		queuedPlayerSummonedScrap = new();
 		placedScrap = new();
 
 		foreach (PlayerController player in gameManager.players)

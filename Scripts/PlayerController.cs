@@ -44,29 +44,13 @@ public partial class PlayerController : Area2D
 		{
 			case 1:
 				Equip(modDatabase.GetMod("KnightLeg"), Mod.BodyPart.Leg, 0);
-				// Mod horsey = modDatabase.GetMod("KnightLeg");
-				// legMods[0] = horsey.bodyPart == Mod.BodyPart.Leg ? (LegMod)horsey : null;
-
 				Equip(modDatabase.GetMod("BurningHands"), Mod.BodyPart.Arm, 0);
-				// Mod hands = modDatabase.GetMod("BurningHands");
-				// armMods[0] = hands.bodyPart == Mod.BodyPart.Arm ? (ArmMod)hands : null;
-				// activeAttackModIdx = 0;
-
 				Equip(modDatabase.GetMod("PawnHead"), Mod.BodyPart.Head, 0);
-				// Mod head = modDatabase.GetMod("PawnHead");
-				// headMod = head.bodyPart == Mod.BodyPart.Head ? (PassiveMod)head : null;
 
 				break;
 			case 2:
 				Equip(modDatabase.GetMod("RookLeg"), Mod.BodyPart.Leg, 0);
-
-				// Mod bishop = modDatabase.GetMod("RookLeg");
-				// legMods[0] = bishop.bodyPart == Mod.BodyPart.Leg ? (LegMod)bishop : null;
-
-				Equip(modDatabase.GetMod("BishopArm"), Mod.BodyPart.Leg, 0);
-				// Mod cone = modDatabase.GetMod("BishopArm");
-				// armMods[0] = cone.bodyPart == Mod.BodyPart.Arm ? (ArmMod)cone : null;
-				// activeAttackModIdx = 0;
+				Equip(modDatabase.GetMod("BishopArm"), Mod.BodyPart.Arm, 0);
 
 				break;
 			default:
