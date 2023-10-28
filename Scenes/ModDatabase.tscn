@@ -69,5 +69,4 @@ bodyPart = 1
 buffType = 1
 uid = "BishopArm"
 durability = 4
-cost = 1
 icon = ExtResource("5_tks8o")

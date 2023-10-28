@@ -10,7 +10,7 @@ public partial class MainMenu : Control
 
 	public void StartGame()
 	{
-		GetTree().ChangeSceneToFile("Scenes/GameTestScene.tscn");
+		GetTree().ChangeSceneToFile("Scenes/InventoryShop.tscn");
 	}
 
 	public void OpenSettings()

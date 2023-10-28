@@ -186,13 +186,12 @@ script = ExtResource("8_ysby6")
 tileSize = Vector2i(26, 18)
 tileOffset = Vector2i(13, 9)
 
-[node name="Player B" type="Area2D" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection")]
+[node name="Player B" type="Area2D" parent="GameManager/ChessBoard"]
 position = Vector2(-21, 10)
 script = ExtResource("9_p6llr")
 gridPosition = Vector2i(4, 7)
 playerId = 1
 currentScrap = 1000
-inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Inventory Blu")
 
 [node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player B"]
 z_index = 1
@@ -203,13 +202,12 @@ texture = ExtResource("10_b6fn6")
 scale = Vector2(0.1, 0.1)
 shape = SubResource("RectangleShape2D_nws6i")
 
-[node name="Player R" type="Area2D" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection")]
+[node name="Player R" type="Area2D" parent="GameManager/ChessBoard"]
 position = Vector2(-22, 25)
 script = ExtResource("9_p6llr")
 gridPosition = Vector2i(4, 5)
 playerId = 2
 currentScrap = 1000
-inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Inventory Red")
 
 [node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player R"]
 modulate = Color(1, 0, 0, 1)
