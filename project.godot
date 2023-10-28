@@ -18,7 +18,7 @@ config/icon="res://Assets/icon.svg"
 [autoload]
 
 ModDatabase="*res://Scenes/ModDatabase.tscn"
-Settings="*res://Scripts/Settings.cs"
+Settings="*res://Scripts/Globals.cs"
 
 [display]
 

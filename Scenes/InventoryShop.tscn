@@ -667,8 +667,8 @@ color = Color(0, 0, 0, 0.376471)
 [node name="ScoreBoard" type="TextureRect" parent="GameManager/GUI/PlayerUI"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.342
-anchor_right = 0.887
+anchor_left = 0.337
+anchor_right = 0.882
 anchor_bottom = 0.125
 offset_left = 0.199997
 offset_right = 0.199982
