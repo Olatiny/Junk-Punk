@@ -24,6 +24,7 @@ public partial class ChessBoard : TileMap
 
 	public PackedScene scrapPrefab;
 	public HashSet<Vector2I> queuedScrap { get; private set; }
+	public HashSet<Scrap> queuedPlayerSummonedScrap { get; private set; }
 	public Array<Scrap> placedScrap { get; private set; }
 
 	// Called when the node enters the scene tree for the first time.
@@ -318,12 +319,17 @@ public partial class ChessBoard : TileMap
 		HighlightScrapTiles();
 	}
 
-	public void EnqueueScrapTile(Vector2I tileLocation)
+	public void SummonScrap(PlayerController player, Vector2I tileLocation)
 	{
 		if (IsTileInBounds(tileLocation) && Grid?[tileLocation.X, tileLocation.Y] is not Scrap)
 		{
-			queuedScrap.Add(tileLocation);
-			HighlightScrapTiles();
+			Scrap scrap = scrapPrefab.Instantiate() as Scrap;
+			scrap.owner = player;
+			queuedPlayerSummonedScrap.Add(scrap);
+			HighlightScrapTiles();			
+			
+			Globals globals = GetNode<Globals>("/root/Globals");
+			globals.EmitSignal(Globals.SignalName.SummonedScrap, player, scrap);
 		}
 	}
 
@@ -357,6 +363,11 @@ public partial class ChessBoard : TileMap
 		{
 			SetCell(2, tile, 1, new Vector2I(0, 0));
 		}
+
+		foreach (Scrap scrap in queuedPlayerSummonedScrap)
+		{
+			SetCell(2, scrap.gridPosition, 1, new Vector2I(0, 0));
+		}
 	}
 
 	private void ClearScrapTiles()
@@ -366,7 +377,13 @@ public partial class ChessBoard : TileMap
 			EraseCell(2, tile);
 		}
 
+		foreach (Scrap scrap in queuedPlayerSummonedScrap)
+		{
+			EraseCell(2, scrap.gridPosition);
+		}
+		
 		queuedScrap.Clear();
+		queuedPlayerSummonedScrap.Clear();
 	}
 
 	public void DropScrap()
@@ -377,7 +394,13 @@ public partial class ChessBoard : TileMap
 			AddChild(scrap);
 			placedScrap.Add(scrap);
 			scrap.Drop(this, scrapTile);
+		}
 
+		foreach (Scrap scrap in queuedPlayerSummonedScrap)
+		{
+			AddChild(scrap);
+			placedScrap.Add(scrap);
+			scrap.Drop(this, scrap.gridPosition);
 		}
 
 		ClearScrapTiles();

@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://xk3l1h3kto6c"]
+[gd_scene load_steps=46 format=3 uid="uid://xk3l1h3kto6c"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_dey36"]
 [ext_resource type="Texture2D" uid="uid://cb4g6t2q8bkhn" path="res://Assets/TileHighlights.png" id="2_d3dcp"]
@@ -117,6 +117,8 @@ region = Rect2(0, 0, 15, 16)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x1hiv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrgj1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_de1xb"]
 
 [sub_resource type="Gradient" id="Gradient_bxcu0"]
 offsets = PackedFloat32Array(0)
@@ -846,19 +848,82 @@ text = "Action"
 [node name="ScrapText" type="RichTextLabel" parent="GameManager/GUI/PlayerUI/ActionUI"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.527
+anchor_left = 0.43
 anchor_top = 0.897
-anchor_right = 0.752
+anchor_right = 0.655
 anchor_bottom = 0.996
-offset_left = 0.199997
-offset_top = 0.0720062
-offset_right = 0.199982
-offset_bottom = -0.103989
+offset_top = 0.0719757
+offset_right = -3.05176e-05
+offset_bottom = -0.104019
 theme_override_fonts/normal_font = ExtResource("23_hmgjx")
 theme_override_font_sizes/normal_font_size = 5
 text = "Scrap:
 Player 1:
 Player 2:"
+
+[node name="Basic" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75
+anchor_top = 0.897714
+anchor_right = 0.841
+anchor_bottom = 0.933
+offset_left = -6.10352e-05
+offset_top = -0.0880127
+offset_right = 145.255
+offset_bottom = 32.0081
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("23_hmgjx")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_de1xb")
+text = "Basic"
+metadata/_edit_use_anchors_ = true
+
+[node name="Left" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.807356
+anchor_top = 0.942357
+anchor_right = 0.890356
+anchor_bottom = 0.977643
+offset_left = 0.0574951
+offset_top = -0.0880127
+offset_right = 131.858
+offset_bottom = 32.008
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("23_hmgjx")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_de1xb")
+text = "Left"
+metadata/_edit_use_anchors_ = true
+
+[node name="Right" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.705106
+anchor_top = 0.942357
+anchor_right = 0.796106
+anchor_bottom = 0.977643
+offset_left = -0.042511
+offset_top = -0.0880127
+offset_right = 145.212
+offset_bottom = 32.008
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("23_hmgjx")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_de1xb")
+text = "Right
+"
+metadata/_edit_use_anchors_ = true
 
 [node name="Game Over GUI" type="Control" parent="GameManager/GUI"]
 visible = false
@@ -1022,6 +1087,9 @@ text = "MAIN MENU"
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/End Turn" to="GameManager" method="EndTurn"]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Move" to="GameManager" method="GetValidMoveTiles"]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Action" to="GameManager" method="GetValidAttackTiles"]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Basic" to="GameManager" method="ChangeActiveEquip" binds= [-1]]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Left" to="GameManager" method="ChangeActiveEquip" binds= [0]]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Right" to="GameManager" method="ChangeActiveEquip" binds= [1]]
 [connection signal="pressed" from="GameManager/GUI/Game Over GUI/Main Menu" to="GameManager" method="ReturnToMain"]
 [connection signal="pressed" from="GameManager/GUI/Game Over GUI/Start Over" to="GameManager" method="Restart"]
 [connection signal="pressed" from="GameManager/GUI/Pause GUI/Resume" to="GameManager" method="Resume"]

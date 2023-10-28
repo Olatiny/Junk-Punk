@@ -19,9 +19,9 @@ public partial class PlayerController : Area2D
 	[ExportCategory("UI References")]
 	[Export] public InventoryCollection inventoryCollection;
 
-	//public HeadMod headMod = new HeadMod;
-	public ArmMod[] armMods = new ArmMod[2];
-	public LegMod[] legMods = new LegMod[2];
+	public Mod headMod = null;
+	public Mod[] armMods = new Mod[2];
+	public Mod[] legMods = new Mod[2];
 
 	public Mod[] inventory = new Mod[5];
 
@@ -43,21 +43,30 @@ public partial class PlayerController : Area2D
 		switch (playerId)
 		{
 			case 1:
-				Mod horsey = modDatabase.GetMod("KnightLeg");
-				legMods[0] = horsey.bodyPart == Mod.BodyPart.Leg ? (LegMod)horsey : null;
+				Equip(modDatabase.GetMod("KnightLeg"), Mod.BodyPart.Leg, 0);
+				// Mod horsey = modDatabase.GetMod("KnightLeg");
+				// legMods[0] = horsey.bodyPart == Mod.BodyPart.Leg ? (LegMod)horsey : null;
 
-				Mod hands = modDatabase.GetMod("BurningHands");
-				armMods[0] = hands.bodyPart == Mod.BodyPart.Arm ? (ArmMod)hands : null;
-				activeAttackModIdx = 0;
+				Equip(modDatabase.GetMod("BurningHands"), Mod.BodyPart.Arm, 0);
+				// Mod hands = modDatabase.GetMod("BurningHands");
+				// armMods[0] = hands.bodyPart == Mod.BodyPart.Arm ? (ArmMod)hands : null;
+				// activeAttackModIdx = 0;
+
+				Equip(modDatabase.GetMod("PawnHead"), Mod.BodyPart.Head, 0);
+				// Mod head = modDatabase.GetMod("PawnHead");
+				// headMod = head.bodyPart == Mod.BodyPart.Head ? (PassiveMod)head : null;
 
 				break;
 			case 2:
-				Mod bishop = modDatabase.GetMod("RookLeg");
-				legMods[0] = bishop.bodyPart == Mod.BodyPart.Leg ? (LegMod)bishop : null;
+				Equip(modDatabase.GetMod("RookLeg"), Mod.BodyPart.Leg, 0);
 
-				Mod cone = modDatabase.GetMod("BishopArm");
-				armMods[0] = cone.bodyPart == Mod.BodyPart.Arm ? (ArmMod)cone : null;
-				activeAttackModIdx = 0;
+				// Mod bishop = modDatabase.GetMod("RookLeg");
+				// legMods[0] = bishop.bodyPart == Mod.BodyPart.Leg ? (LegMod)bishop : null;
+
+				Equip(modDatabase.GetMod("BishopArm"), Mod.BodyPart.Leg, 0);
+				// Mod cone = modDatabase.GetMod("BishopArm");
+				// armMods[0] = cone.bodyPart == Mod.BodyPart.Arm ? (ArmMod)cone : null;
+				// activeAttackModIdx = 0;
 
 				break;
 			default:
@@ -96,6 +105,96 @@ public partial class PlayerController : Area2D
 		// TODO: Implement This
 	}
 
+	public void Equip(Mod mod, Mod.BodyPart bodyPart, int limbIdx = 0)
+	{
+		if (mod.bodyPart != bodyPart)
+			return;
+
+		switch (bodyPart)
+		{
+			case Mod.BodyPart.Head:
+				Unequip(bodyPart, limbIdx);
+				EquipHelper(ref mod, ref headMod);
+
+				break;
+			case Mod.BodyPart.Arm:
+				Unequip(bodyPart, limbIdx);
+				EquipHelper(ref mod, ref armMods[limbIdx]);
+
+				break;
+			case Mod.BodyPart.Leg:
+				Unequip(bodyPart, limbIdx);
+				EquipHelper(ref mod, ref legMods[limbIdx]);
+
+				break;
+
+		}
+	}
+
+	public void EquipHelper(ref Mod mod, ref Mod bodyPart)
+	{
+		bodyPart = mod;
+		AddChild(mod);
+		mod.InitSignals();
+
+		// TODO: Equip stuff
+	}
+
+	public void Unequip(Mod mod)
+	{
+		if (mod == headMod)
+			UnequipHelper(ref mod, ref headMod);
+
+		for (int i = 0; i < armMods.Length; i++)
+		{
+			if (mod == armMods?[i])
+				UnequipHelper(ref mod, ref armMods[i]);
+		}
+
+		for (int i = 0; i < legMods.Length; i++)
+		{
+			if (mod == legMods?[i])
+				UnequipHelper(ref mod, ref legMods[i]);
+		}
+	}
+
+	public void Unequip(Mod.BodyPart bodyPart, int limbIdx = 0)
+	{
+		Mod mod = null;
+		switch (bodyPart)
+		{
+			case Mod.BodyPart.Head:
+				mod = headMod;
+				UnequipHelper(ref mod, ref headMod);
+
+				break;
+			case Mod.BodyPart.Arm:
+				mod = armMods?[limbIdx];
+				UnequipHelper(ref mod, ref armMods[limbIdx]);
+
+				break;
+			case Mod.BodyPart.Leg:
+				mod = legMods?[limbIdx];
+				UnequipHelper(ref mod, ref legMods[limbIdx]);
+
+				break;
+		}
+	}
+
+	private void UnequipHelper(ref Mod mod, ref Mod bodyPart)
+	{
+		if (mod == null || bodyPart == null)
+			return;
+		
+		bodyPart = null;
+
+		// TODO: Unequip stuff (resetting sprites/etc. probably give mods unequip function)
+		
+		mod.DisconnectSignals();
+		mod.QueueFree();
+		return;
+	}
+
 	public void SetActiveAttackMod(int attackModIdx)
 	{
 		if (attackModIdx >= 0 && attackModIdx < armMods.Length)
@@ -110,7 +209,7 @@ public partial class PlayerController : Area2D
 				return;
 			}
 		}
-		
+
 		activeAttackModIdx = attackModIdx;
 
 		if (primedToAttack)
@@ -122,7 +221,7 @@ public partial class PlayerController : Area2D
 		if (activeAttackModIdx == -1 || armMods[activeAttackModIdx] == null)
 			return null;
 
-		return armMods[activeAttackModIdx];
+		return armMods[activeAttackModIdx] is ArmMod mod ? mod : null;
 	}
 
 	// returns true if player is killed, they still take damage if false
@@ -131,18 +230,11 @@ public partial class PlayerController : Area2D
 		health -= damage;
 
 		gameManager.UpdateScoreBoard();
-
-		if (health <= 0)
-			gameManager.DeclareVictory();
+		Globals globals = GetNode<Globals>("/root/Globals");
+		globals.EmitSignal(Globals.SignalName.PlayerTookDamage, this, damage);
 
 		return health <= 0;
 	}
-
-	// TODO: Implement Scrap
-	// public bool HarvestScrap(Scrap scrap)
-	// {
-	// 	currentScrap += scrap.value;
-	// }
 
 	public void PrimeToMove()
 	{

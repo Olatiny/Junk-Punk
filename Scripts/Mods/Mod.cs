@@ -30,10 +30,17 @@ public abstract partial class Mod : Sprite2D
 		durability = modDurability;
 	}
 
+	public virtual void InitSignals()
+	{ }
+
+	public virtual void DisconnectSignals()
+	{ }
+
 	public virtual Mod Clone()
 	{
 		Node duplicate = Duplicate();
 		duplicate.SetScript(GetScript());
+		// GetTree().Root.AddChild(duplicate);
 
 		Mod modDuplicate = (Mod) duplicate;
 		modDuplicate.bodyPart = bodyPart;
@@ -43,7 +50,7 @@ public abstract partial class Mod : Sprite2D
 		modDuplicate.description = description;
 		modDuplicate.icon = icon;
 		modDuplicate.bigSpriteBlue = bigSpriteBlue;
-		
+
 		return modDuplicate;
 	}
 }

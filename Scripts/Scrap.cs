@@ -7,8 +7,11 @@ public partial class Scrap : Sprite2D
     [Export] int maxScrapValue = 100;
     [Export] int maxDurability = 3;
 
+    public PlayerController owner = null;
+
     bool dropping = false;
 
+    public int armor = 1;
     int currentDurability;
     int currentScrapValue;
     bool dropOnPlayer = false;
@@ -68,7 +71,15 @@ public partial class Scrap : Sprite2D
 
     public void Harvest(PlayerController player)
     {
+        armor--;
+        if (armor > 0)
+            return;
+
         player.currentScrap += currentScrapValue;
+
+        Globals globals = GetNode<Globals>("/root/Globals");
+		globals.EmitSignal(Globals.SignalName.CollectedScrap, player, this);
+
         board.RemoveFromBoard(this);
     }
 

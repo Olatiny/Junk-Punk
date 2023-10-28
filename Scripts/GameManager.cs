@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Collections;
 
 public partial class GameManager : Node
 {
@@ -109,6 +110,20 @@ public partial class GameManager : Node
 	public void DoUpkeep()
 	{
 		movementUsed = actionUsed = false;
+
+		Globals globals = GetNode<Globals>("/root/Globals");
+		globals.EmitSignal(Globals.SignalName.Upkeep, GetCurrentPlayer());
+
+		if (GetCurrentPlayer().health <= 0)
+		{
+			// Go back, last player killed 'em.
+			currentPlayerIdx--;
+			if (currentPlayerIdx < 0)
+				currentPlayerIdx = players.Count - 1;
+
+			DeclareVictory();
+			return;
+		}
 
 		if (movementButton != null)
 			movementButton.Disabled = false;
@@ -262,7 +277,6 @@ public partial class GameManager : Node
 
 	public void DeclareVictory()
 	{
-		// TODO: GameOver victory/defeat screen!
 		gameState = GameState.GameOver;
 		gameOverText.Text = $"[center]Player {currentPlayerIdx + 1} Wins!\n\n\nGame Over[/center]";
 		gameOverCtrl.Visible = true;
