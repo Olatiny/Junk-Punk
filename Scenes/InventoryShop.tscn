@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://xk3l1h3kto6c"]
+[gd_scene load_steps=44 format=3 uid="uid://xk3l1h3kto6c"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_dey36"]
 [ext_resource type="Texture2D" uid="uid://cb4g6t2q8bkhn" path="res://Assets/TileHighlights.png" id="2_d3dcp"]
@@ -8,8 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bq7tr7fcmddkb" path="res://Assets/Board Tile 2.png" id="6_3mluf"]
 [ext_resource type="Texture2D" uid="uid://copej1dng63by" path="res://Assets/Board Tile 1.png" id="7_ws6oa"]
 [ext_resource type="Script" path="res://Scripts/ChessBoard.cs" id="8_ysby6"]
-[ext_resource type="Script" path="res://Scripts/PlayerController.cs" id="9_p6llr"]
-[ext_resource type="Texture2D" uid="uid://gclnaeh12ghs" path="res://Assets/icon.svg" id="10_b6fn6"]
+[ext_resource type="PackedScene" uid="uid://djwpfatnct4qp" path="res://Prefabs (wink)/player.tscn" id="9_uy3x6"]
 [ext_resource type="Texture2D" uid="uid://c2jt3oe4pwd5n" path="res://Assets/Board Border.png" id="11_5o3yh"]
 [ext_resource type="Texture2D" uid="uid://cd00527gus8ql" path="res://Assets/player_ui_border_fill.png" id="12_fa55o"]
 [ext_resource type="Texture2D" uid="uid://nfe8eixq2qcu" path="res://Assets/Generic Head + Torso Mod.png" id="13_366sk"]
@@ -94,9 +93,6 @@ sources/5 = SubResource("TileSetAtlasSource_52k3x")
 sources/0 = SubResource("TileSetAtlasSource_0vkjt")
 sources/1 = SubResource("TileSetAtlasSource_hgkhs")
 pattern_0 = SubResource("TileMapPattern_c6kbi")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nws6i"]
-size = Vector2(120, 120)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhmqt"]
 atlas = ExtResource("20_j8x5l")
@@ -188,38 +184,16 @@ script = ExtResource("8_ysby6")
 tileSize = Vector2i(26, 18)
 tileOffset = Vector2i(13, 9)
 
-[node name="Player B" type="Area2D" parent="GameManager/ChessBoard"]
-position = Vector2(-21, 10)
-script = ExtResource("9_p6llr")
-gridPosition = Vector2i(4, 7)
+[node name="Player B" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection") instance=ExtResource("9_uy3x6")]
+position = Vector2(-21, 37)
 playerId = 1
-currentScrap = 1000
+direction = 0
+inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Inventory Blu")
 
-[node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player B"]
-z_index = 1
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("10_b6fn6")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GameManager/ChessBoard/Player B"]
-scale = Vector2(0.1, 0.1)
-shape = SubResource("RectangleShape2D_nws6i")
-
-[node name="Player R" type="Area2D" parent="GameManager/ChessBoard"]
-position = Vector2(-22, 25)
-script = ExtResource("9_p6llr")
-gridPosition = Vector2i(4, 5)
+[node name="Player R" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection") instance=ExtResource("9_uy3x6")]
+gridPosition = Vector2i(4, 4)
 playerId = 2
-currentScrap = 1000
-
-[node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player R"]
-modulate = Color(1, 0, 0, 1)
-z_index = 1
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("10_b6fn6")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GameManager/ChessBoard/Player R"]
-scale = Vector2(0.1, 0.1)
-shape = SubResource("RectangleShape2D_nws6i")
+inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Inventory Red")
 
 [node name="Decoration" type="Node2D" parent="GameManager"]
 
@@ -667,8 +641,8 @@ color = Color(0, 0, 0, 0.376471)
 [node name="ScoreBoard" type="TextureRect" parent="GameManager/GUI/PlayerUI"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.337
-anchor_right = 0.882
+anchor_left = 0.302
+anchor_right = 0.922
 anchor_bottom = 0.125
 offset_left = 0.199997
 offset_right = 0.199982
@@ -680,13 +654,13 @@ texture = ExtResource("19_s3hgj")
 [node name="LeftOnes" type="TextureRect" parent="GameManager/GUI/PlayerUI/ScoreBoard"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.275
+anchor_left = 0.302
 anchor_top = 0.107
-anchor_right = 0.344
+anchor_right = 0.363
 anchor_bottom = 0.679
-offset_left = 0.0499992
-offset_top = 0.00399971
-offset_right = 0.00799561
+offset_left = 0.103996
+offset_top = 0.00399995
+offset_right = -0.0240021
 offset_bottom = -0.012001
 mouse_filter = 2
 texture = SubResource("AtlasTexture_qhmqt")
@@ -694,13 +668,13 @@ texture = SubResource("AtlasTexture_qhmqt")
 [node name="LeftTens" type="TextureRect" parent="GameManager/GUI/PlayerUI/ScoreBoard"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.22
+anchor_left = 0.254
 anchor_top = 0.107
-anchor_right = 0.289
+anchor_right = 0.315
 anchor_bottom = 0.679
-offset_left = 0.0399971
+offset_left = 0.00799942
 offset_top = 0.00399971
-offset_right = -0.00200272
+offset_right = -0.12001
 offset_bottom = -0.012001
 mouse_filter = 2
 texture = SubResource("AtlasTexture_4xq76")
@@ -708,13 +682,13 @@ texture = SubResource("AtlasTexture_4xq76")
 [node name="RightOnes" type="TextureRect" parent="GameManager/GUI/PlayerUI/ScoreBoard"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.711
+anchor_left = 0.685
 anchor_top = 0.107
-anchor_right = 0.78
+anchor_right = 0.746
 anchor_bottom = 0.679
-offset_left = 0.0019989
+offset_left = 0.11998
 offset_top = 0.00399971
-offset_right = -0.0400085
+offset_right = -0.00801086
 offset_bottom = -0.012001
 mouse_filter = 2
 texture = SubResource("AtlasTexture_tfhkq")
@@ -722,13 +696,13 @@ texture = SubResource("AtlasTexture_tfhkq")
 [node name="RightTens" type="TextureRect" parent="GameManager/GUI/PlayerUI/ScoreBoard"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.656
+anchor_left = 0.637
 anchor_top = 0.107
-anchor_right = 0.725
+anchor_right = 0.698
 anchor_bottom = 0.679
-offset_left = -0.00801086
+offset_left = 0.0239868
 offset_top = 0.00399971
-offset_right = -0.0500031
+offset_right = -0.104004
 offset_bottom = -0.012001
 mouse_filter = 2
 texture = SubResource("AtlasTexture_hgi60")

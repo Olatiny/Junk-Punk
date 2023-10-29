@@ -16,8 +16,22 @@ public partial class PlayerController : Area2D
 	[Export] public int currentScrap = 0;
 	[Export] public int scrapIncome = 10;
 
+	public enum Direction
+	{
+		up, down, left, right
+	}
+
+	[Export] public Direction direction;
+
 	[ExportCategory("UI References")]
 	[Export] public InventoryCollection inventoryCollection;
+
+	[ExportCategory("Sprite References")]
+	[Export] AnimatedSprite2D background;
+	[Export] AnimatedSprite2D head;
+	[Export] AnimatedSprite2D body;
+	[Export] AnimatedSprite2D[] arms;
+	[Export] AnimatedSprite2D[] legs;
 
 	public Mod headMod = null;
 	public Mod[] armMods = new Mod[2];
@@ -56,6 +70,8 @@ public partial class PlayerController : Area2D
 			default:
 				break;
 		}
+
+		UpdateDirection(direction);
 	}
 
 	public override void _Input(InputEvent @event)
@@ -68,6 +84,8 @@ public partial class PlayerController : Area2D
 				{
 					if (GetParent<ChessBoard>().RequestMove(this, GetGlobalMousePosition()))
 						primedToMove = false;
+
+					UpdateSprites();
 				}
 				else if (primedToAttack)
 				{
@@ -82,6 +100,79 @@ public partial class PlayerController : Area2D
 			GetParent<ChessBoard>().ClearValidTiles();
 			primedToMove = false;
 		}
+	}
+
+	public void UpdateDirection(Vector2I source, Vector2I destination)
+	{
+		Vector2 dir = destination - source;
+		dir = dir.Normalized();
+
+		if (Mathf.Abs(dir.X) > Mathf.Abs(dir.Y))
+		{
+			if (dir.X > 0)
+				direction = Direction.right;
+			else
+				direction = Direction.left;
+		}
+		else
+		{
+			if (dir.Y > 0)
+				direction = Direction.down;
+			else
+				direction = Direction.up;
+		}
+
+		UpdateSprites();
+	}
+
+	public void UpdateDirection(Direction newDirection)
+	{
+		direction = newDirection;
+
+		UpdateSprites();
+	}
+
+	public void UpdateSprites()
+	{
+		string directionString = direction.ToString();
+		bool flipH = false;
+
+		if (direction == Direction.left)
+		{
+			flipH = true;
+			directionString = "side";
+		}
+		else if (direction == Direction.right)
+			directionString = "side";
+
+		if (playerId == 1)
+			background.Play("blue_" + directionString);
+		else
+			background.Play("red_" + directionString);
+
+		background.FlipH = flipH;
+		head.FlipH = flipH;
+		body.FlipH = flipH;
+		arms[0].FlipH = flipH;
+		arms[1].FlipH = flipH;
+		legs[0].FlipH = flipH;
+		legs[1].FlipH = flipH;
+
+		head.Play(directionString);
+		body.Play(directionString);
+		arms[0].Play(directionString);
+		arms[1].Play(directionString);
+		legs[0].Play(directionString);
+		legs[1].Play(directionString);
+
+		ZIndex = gridPosition.Y + 1;
+		background.ZIndex = gridPosition.Y;
+		head.ZIndex = gridPosition.Y;
+		body.ZIndex = gridPosition.Y;
+		arms[0].ZIndex = gridPosition.Y;
+		arms[1].ZIndex = gridPosition.Y;
+		legs[0].ZIndex = gridPosition.Y;
+		legs[1].ZIndex = gridPosition.Y;
 	}
 
 	public void CheckModDurability()
@@ -99,16 +190,21 @@ public partial class PlayerController : Area2D
 			case Mod.BodyPart.Head:
 				Unequip(bodyPart, limbIdx);
 				EquipHelper(ref mod, ref headMod);
+				head.Modulate = mod.bodyPartTint;
 
 				break;
 			case Mod.BodyPart.Arm:
 				Unequip(bodyPart, limbIdx);
 				EquipHelper(ref mod, ref armMods[limbIdx]);
+				if (arms != null)
+					arms[limbIdx].Modulate = mod.bodyPartTint;
 
 				break;
 			case Mod.BodyPart.Leg:
 				Unequip(bodyPart, limbIdx);
 				EquipHelper(ref mod, ref legMods[limbIdx]);
+				if (legs != null)
+					legs[limbIdx].Modulate = mod.bodyPartTint;
 
 				break;
 
@@ -150,16 +246,21 @@ public partial class PlayerController : Area2D
 			case Mod.BodyPart.Head:
 				mod = headMod;
 				UnequipHelper(ref mod, ref headMod);
+				head.Modulate = new(1, 1, 1, 1);
 
 				break;
 			case Mod.BodyPart.Arm:
 				mod = armMods?[limbIdx];
 				UnequipHelper(ref mod, ref armMods[limbIdx]);
+				if (arms != null)
+					arms[limbIdx].Modulate = new(1, 1, 1, 1);
 
 				break;
 			case Mod.BodyPart.Leg:
 				mod = legMods?[limbIdx];
 				UnequipHelper(ref mod, ref legMods[limbIdx]);
+				if (legs != null)
+					legs[limbIdx].Modulate = new(1, 1, 1, 1);
 
 				break;
 		}
@@ -169,11 +270,11 @@ public partial class PlayerController : Area2D
 	{
 		if (mod == null || bodyPart == null)
 			return;
-		
+
 		bodyPart = null;
 
 		// TODO: Unequip stuff (resetting sprites/etc. probably give mods unequip function)
-		
+
 		mod.DisconnectSignals();
 		mod.QueueFree();
 		return;

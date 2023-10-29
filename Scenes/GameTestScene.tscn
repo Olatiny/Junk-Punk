@@ -179,12 +179,14 @@ script = ExtResource("4_wiv1a")
 tileSize = Vector2i(26, 18)
 tileOffset = Vector2i(13, 9)
 
-[node name="Player1" type="Area2D" parent="GameManager/ChessBoard"]
+[node name="Player1" type="Area2D" parent="GameManager/ChessBoard" node_paths=PackedStringArray("arms", "legs")]
 position = Vector2(-21, 10)
 script = ExtResource("5_vcp8c")
 gridPosition = Vector2i(4, 7)
 playerId = 1
 scrapIncome = 50
+arms = []
+legs = []
 
 [node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player1"]
 z_index = 1
@@ -195,12 +197,14 @@ texture = ExtResource("6_qiwh8")
 scale = Vector2(0.1, 0.1)
 shape = SubResource("RectangleShape2D_nws6i")
 
-[node name="Player2" type="Area2D" parent="GameManager/ChessBoard"]
+[node name="Player2" type="Area2D" parent="GameManager/ChessBoard" node_paths=PackedStringArray("arms", "legs")]
 position = Vector2(-22, 25)
 script = ExtResource("5_vcp8c")
 gridPosition = Vector2i(4, 5)
 playerId = 2
 scrapIncome = 50
+arms = []
+legs = []
 
 [node name="Sprite2D" type="Sprite2D" parent="GameManager/ChessBoard/Player2"]
 modulate = Color(1, 0, 0, 1)

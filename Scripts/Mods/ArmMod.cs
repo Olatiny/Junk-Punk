@@ -51,11 +51,16 @@ public partial class ArmMod : Mod
 					{
 						// returns true if enemy is killed, they still take damage if false
 						enemy.TakeDamage(GetAttackDamage(board, player));
+						player.UpdateDirection(player.gridPosition, enemy.gridPosition);
 						return true;
 					}
 
 					if (node is Scrap scrap)
+					{
 						scrap.Harvest(player);
+						player.UpdateDirection(player.gridPosition, scrap.gridPosition);
+						return true;
+					}
 				}
 			}
 		}

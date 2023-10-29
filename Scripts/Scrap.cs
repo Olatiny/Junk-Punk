@@ -17,7 +17,7 @@ public partial class Scrap : Sprite2D
     bool dropOnPlayer = false;
     PlayerController playerDroppingOn = null;
     Vector2 startingPosition;
-    public Vector2I gridPosition { get; private set; }
+    public Vector2I gridPosition { get; set; }
     ChessBoard board;
 
     public override void _Ready()

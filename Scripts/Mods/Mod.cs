@@ -16,7 +16,7 @@ public abstract partial class Mod : Sprite2D
 	[Export] public Texture2D icon;
 	[Export] public Texture2D bigSpriteBlue;
 	[Export] public Texture2D bigSpriteRed;
-	[Export] public Color bodyPartTint;
+	[Export] public Color bodyPartTint = new(1, 1, 1, 1);
 
 	public Mod()
 	{

@@ -105,6 +105,22 @@ public partial class ChessBoard : TileMap
 		{
 			SetCell(1, tile, 1, new Vector2I(1, 0));
 		}
+
+		switch (angle)
+		{
+			case 0:
+				player.UpdateDirection(PlayerController.Direction.up);
+				break;
+			case Mathf.Pi / 2.0f:
+				player.UpdateDirection(PlayerController.Direction.right);
+				break;
+			case Mathf.Pi:
+				player.UpdateDirection(PlayerController.Direction.down);
+				break;
+			case Mathf.Pi * 3.0f / 2.0f:
+				player.UpdateDirection(PlayerController.Direction.left);
+				break;
+		}
 	}
 
 	public void GetValidMoves(PlayerController player)
@@ -239,6 +255,8 @@ public partial class ChessBoard : TileMap
 
 	public bool RequestMove(PlayerController player, Vector2 mouseCoordinates)
 	{
+		Vector2I originalPos = player.gridPosition;
+
 		GameManager gameManager = GetParent<GameManager>();
 		if (!gameManager.IsPlayerTurn(player))
 			return false;
@@ -250,6 +268,7 @@ public partial class ChessBoard : TileMap
 			if (mouseMapPos == validTile)
 			{
 				SetNodeGridPosition(player, player.gridPosition, mouseMapPos);
+				player.UpdateDirection(originalPos, player.gridPosition);
 				ClearValidTiles();
 				gameManager.PlayerMoved();
 				return true;
@@ -261,6 +280,7 @@ public partial class ChessBoard : TileMap
 			if (mouseMapPos == validTile)
 			{
 				SetNodeGridPosition(player, player.gridPosition, mouseMapPos);
+				player.UpdateDirection(originalPos, player.gridPosition);
 				ClearValidTiles();
 				gameManager.PlayerMoved();
 				return true;
@@ -297,10 +317,15 @@ public partial class ChessBoard : TileMap
 					// returns true if enemy is killed, they still take damage if false
 					if (enemy.TakeDamage(player.baseAttackDmg))
 						gameManager.DeclareVictory();
+
+					player.UpdateDirection(player.gridPosition, enemy.gridPosition);
 				}
 
 				if (node is Scrap scrap)
+				{
 					scrap.Harvest(player);
+					player.UpdateDirection(player.gridPosition, scrap.gridPosition);
+				}
 
 				ClearValidTiles();
 				gameManager.PlayerActioned();
@@ -327,8 +352,8 @@ public partial class ChessBoard : TileMap
 			Scrap scrap = scrapPrefab.Instantiate() as Scrap;
 			scrap.owner = player;
 			queuedPlayerSummonedScrap.Add(scrap);
-			HighlightScrapTiles();			
-			
+			HighlightScrapTiles();
+
 			Globals globals = GetNode<Globals>("/root/Globals");
 			globals.EmitSignal(Globals.SignalName.SummonedScrap, player, scrap);
 		}
@@ -382,7 +407,7 @@ public partial class ChessBoard : TileMap
 		{
 			EraseCell(2, scrap.gridPosition);
 		}
-		
+
 		queuedScrap.Clear();
 		queuedPlayerSummonedScrap.Clear();
 	}
@@ -427,7 +452,15 @@ public partial class ChessBoard : TileMap
 	private void SetNodeGridPosition(Node2D node, Vector2I oldLocation, Vector2I? newLocation = null)
 	{
 		if (!newLocation.HasValue)
+		{
 			Grid[oldLocation.X, oldLocation.Y] = node;
+
+			if (node is PlayerController player)
+				player.gridPosition = oldLocation;
+
+			if (node is Scrap scrap)
+				scrap.gridPosition = oldLocation;
+		}
 		else
 		{
 			Grid[oldLocation.X, oldLocation.Y] = null;
@@ -435,6 +468,9 @@ public partial class ChessBoard : TileMap
 
 			if (node is PlayerController player)
 				player.gridPosition = newLocation.Value;
+
+			if (node is Scrap scrap)
+				scrap.gridPosition = newLocation.Value;
 		}
 
 		node.Position = newLocation.HasValue ? (newLocation.Value * tileSize) + tileOffset : (oldLocation * tileSize) + tileOffset;
