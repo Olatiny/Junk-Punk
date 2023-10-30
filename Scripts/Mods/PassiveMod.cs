@@ -37,8 +37,8 @@ public abstract partial class PassiveMod : Mod
 		globals.RoundStart += OnRoundStart;
 	}
 
-    public override void DisconnectSignals()
-    {
+	public override void DisconnectSignals()
+	{
 		Globals globals = GetNode<Globals>("/root/Globals");
 		globals.PlayerTookDamage -= OnPlayerTookDamage;
 		globals.Upkeep -= OnUpkeep;
@@ -57,9 +57,9 @@ public abstract partial class PassiveMod : Mod
 		globals.RoundEnd -= OnRoundEnd;
 		globals.TurnStart -= OnTurnStart;
 		globals.RoundStart -= OnRoundStart;
-    }
+	}
 
-    public virtual void OnPlayerTookDamage(PlayerController Player, int damageAmount)
+	public virtual void OnPlayerTookDamage(PlayerController Player, int damageAmount)
 	{ }
 
 	public virtual void OnSetup(PlayerController Player)
@@ -104,7 +104,7 @@ public abstract partial class PassiveMod : Mod
 	public virtual void OnRoundStart()
 	{ }
 
-    public override Mod Clone()
+	public override Mod Clone()
 	{
 		Mod duplicate = base.Clone();
 		duplicate.SetScript(GetScript());
