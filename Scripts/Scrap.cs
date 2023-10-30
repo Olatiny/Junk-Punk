@@ -54,6 +54,7 @@ public partial class Scrap : Sprite2D
     {
         startingPosition = tileLocation * board.tileSize + board.tileOffset;
         gridPosition = tileLocation;
+        ZIndex = gridPosition.Y + 3;
         this.board = board;
         if (board.IsTileOccupied(tileLocation))
         {

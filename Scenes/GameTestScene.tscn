@@ -126,7 +126,7 @@ gradient = SubResource("Gradient_bxcu0")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(59, 72)
 
-[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "playerUI", "pausedCtrl", "gameOverCtrl", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText", "scrapText", "turnIndicator", "leftOnes", "leftTens", "rightOnes", "rightTens")]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "playerUI", "pausedCtrl", "gameOverCtrl", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText", "scrapText")]
 script = ExtResource("1_hioff")
 players = [NodePath("ChessBoard/Player1"), NodePath("ChessBoard/Player2")]
 board = NodePath("ChessBoard")
@@ -142,11 +142,6 @@ endTurnButton = NodePath("GUI/PlayerUI/End Turn")
 pausedText = NodePath("GUI/Pause GUI/pauseText")
 gameOverText = NodePath("GUI/Game Over GUI/gameOverText")
 scrapText = NodePath("GUI/PlayerUI/ScrapTextTemp")
-turnIndicator = NodePath("GUI/PlayerUI/ScoreBoard/TurnIndicator")
-leftOnes = NodePath("GUI/PlayerUI/ScoreBoard/LeftOnes")
-leftTens = NodePath("GUI/PlayerUI/ScoreBoard/LeftTens")
-rightOnes = NodePath("GUI/PlayerUI/ScoreBoard/RightOnes")
-rightTens = NodePath("GUI/PlayerUI/ScoreBoard/RightTens")
 
 [node name="ChessBoard" type="TileMap" parent="GameManager"]
 texture_filter = 3
@@ -549,11 +544,11 @@ metadata/_edit_use_anchors_ = true
 [node name="ScoreBoard" type="TextureRect" parent="GameManager/GUI/PlayerUI"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.342
-anchor_right = 0.887
+anchor_left = 0.305
+anchor_right = 0.925
 anchor_bottom = 0.125
-offset_left = 0.199997
-offset_right = 0.199982
+offset_left = 15.0
+offset_right = -15.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("16_dyiut")

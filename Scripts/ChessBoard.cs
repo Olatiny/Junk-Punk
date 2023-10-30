@@ -103,7 +103,7 @@ public partial class ChessBoard : TileMap
 
 		foreach (Vector2I tile in rotatedAOECoords)
 		{
-			SetCell(1, tile, 1, new Vector2I(1, 0));
+			SetCell(1, tile, 6, new Vector2I(0, 0), 1);
 		}
 
 		switch (angle)
@@ -130,7 +130,7 @@ public partial class ChessBoard : TileMap
 		GetValidBasicMoveTiles(player);
 		GetValidModMoveTiles(player);
 
-		HighlightValidTiles();
+		HighlightValidMoveTiles();
 	}
 
 	private void GetValidBasicMoveTiles(PlayerController player)
@@ -179,12 +179,13 @@ public partial class ChessBoard : TileMap
 		// GetValidBasicAttackTiles(player);
 		// GetValidModAttackTiles(player);
 
-		HighlightValidTiles();
+		HighlightValidAttackTiles();
 	}
 
 	public void GetValidBasicAttackTiles(PlayerController player)
 	{
 		//left
+		// SummonScrap(player, player.gridPosition - new Vector2I(1, 0));
 		if (IsTileAttackable(player.gridPosition - new Vector2I(1, 0)))
 			validBasicTileCoords.Add(LocalToMap(GetTileWorldPosition(player.gridPosition - new Vector2I(1, 0))));
 
@@ -209,16 +210,29 @@ public partial class ChessBoard : TileMap
 			for (int i = 0; i < modTiles.Count; validModTileCoords.Add(modTiles[i]), i++) ;
 	}
 
-	private void HighlightValidTiles()
+	private void HighlightValidMoveTiles()
 	{
 		foreach (Vector2I tile in validModTileCoords)
 		{
-			SetCell(1, tile, 1, new Vector2I(1, 0));
+			SetCell(1, tile, 6, new Vector2I(0, 0), 2);
 		}
 
 		foreach (Vector2I tile in validBasicTileCoords)
 		{
-			SetCell(1, tile, 1, new Vector2I(1, 1));
+			SetCell(1, tile, 6, new Vector2I(0, 0), 2);
+		}
+	}
+
+	private void HighlightValidAttackTiles()
+	{
+		foreach (Vector2I tile in validModTileCoords)
+		{
+			SetCell(1, tile, 6, new Vector2I(0, 0), 1);
+		}
+
+		foreach (Vector2I tile in validBasicTileCoords)
+		{
+			SetCell(1, tile, 6, new Vector2I(0, 0), 3);
 		}
 	}
 
@@ -250,7 +264,7 @@ public partial class ChessBoard : TileMap
 		mouseOverCell = LocalToMap(GetGlobalMousePosition());
 		TileData tileData = GetCellTileData(0, mouseOverCell);
 		if (tileData != null && tileData.GetCustomData("highlightable").AsBool() && !Input.IsMouseButtonPressed(MouseButton.Left))
-			SetCell(3, mouseOverCell, 1, new Vector2I(0, 1));
+			SetCell(3, mouseOverCell, 6, new Vector2I(0, 0), 4);
 	}
 
 	public bool RequestMove(PlayerController player, Vector2 mouseCoordinates)
@@ -263,19 +277,23 @@ public partial class ChessBoard : TileMap
 
 		Vector2I mouseMapPos = LocalToMap(mouseCoordinates);
 
-		foreach (Vector2I validTile in validBasicTileCoords)
+		foreach (Mod mod in player.legMods)
 		{
-			if (mouseMapPos == validTile)
+			if (mod.buffType == Mod.BuffType.Movement)
 			{
-				SetNodeGridPosition(player, player.gridPosition, mouseMapPos);
-				player.UpdateDirection(originalPos, player.gridPosition);
-				ClearValidTiles();
-				gameManager.PlayerMoved();
-				return true;
+				LegMod legMod = mod as LegMod;
+
+				if (legMod.RequestMove(this, player, mouseMapPos))
+				{
+					ClearValidTiles();
+					player.UpdateDirection(originalPos, player.gridPosition);
+					gameManager.PlayerMoved();
+					return true; // Note: True!
+				}
 			}
 		}
 
-		foreach (Vector2I validTile in validModTileCoords)
+		foreach (Vector2I validTile in validBasicTileCoords)
 		{
 			if (mouseMapPos == validTile)
 			{
@@ -350,9 +368,10 @@ public partial class ChessBoard : TileMap
 		if (IsTileInBounds(tileLocation) && Grid?[tileLocation.X, tileLocation.Y] is not Scrap)
 		{
 			Scrap scrap = scrapPrefab.Instantiate() as Scrap;
+			scrap.gridPosition = tileLocation;
 			scrap.owner = player;
 			queuedPlayerSummonedScrap.Add(scrap);
-			HighlightScrapTiles();
+			RefreshPlayerScrapTiles();
 
 			Globals globals = GetNode<Globals>("/root/Globals");
 			globals.EmitSignal(Globals.SignalName.SummonedScrap, player, scrap);
@@ -387,12 +406,20 @@ public partial class ChessBoard : TileMap
 	{
 		foreach (Vector2I tile in queuedScrap)
 		{
-			SetCell(2, tile, 1, new Vector2I(0, 0));
+			SetCell(2, tile, 7, new Vector2I(0, 0));
+		}
+	}
+
+	private void RefreshPlayerScrapTiles()
+	{
+		foreach (Scrap scrap in queuedPlayerSummonedScrap)
+		{
+			EraseCell(2, scrap.gridPosition);
 		}
 
 		foreach (Scrap scrap in queuedPlayerSummonedScrap)
 		{
-			SetCell(2, scrap.gridPosition, 1, new Vector2I(0, 0));
+			SetCell(2, scrap.gridPosition, 7, new Vector2I(0, 0));
 		}
 	}
 
@@ -449,7 +476,7 @@ public partial class ChessBoard : TileMap
 	 * if newLocatrion is not null, update the position of the node to reflect new position in grid and in world. 
 	 * and, if it's a player, update it's gridPosition field.
 	 */
-	private void SetNodeGridPosition(Node2D node, Vector2I oldLocation, Vector2I? newLocation = null)
+	public void SetNodeGridPosition(Node2D node, Vector2I oldLocation, Vector2I? newLocation = null)
 	{
 		if (!newLocation.HasValue)
 		{

@@ -181,6 +181,19 @@ public partial class LegMod : Mod
 		}
 	}
 
+	public bool RequestMove(ChessBoard board, PlayerController player, Vector2I mouseMapPos)
+	{
+		foreach (Vector2I validTile in board.validModTileCoords)
+		{
+			if (mouseMapPos == validTile)
+			{
+				board.SetNodeGridPosition(player, player.gridPosition, mouseMapPos);
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 	public override Mod Clone()
 	{

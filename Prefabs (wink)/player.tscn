@@ -494,7 +494,7 @@ size = Vector2(120, 240)
 position = Vector2(-21, 10)
 script = ExtResource("1_f0eb3")
 gridPosition = Vector2i(4, 7)
-currentScrap = 1000
+currentScrap = 500
 direction = 1
 background = NodePath("Sprites/Background")
 head = NodePath("Sprites/Head")
@@ -503,7 +503,7 @@ arms = [NodePath("Sprites/LeftArm"), NodePath("Sprites/RightArm")]
 legs = [NodePath("Sprites/LeftLeg"), NodePath("Sprites/RightLeg")]
 
 [node name="Sprites" type="Node2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -9)
 
 [node name="Background" type="AnimatedSprite2D" parent="Sprites"]
 sprite_frames = SubResource("SpriteFrames_4ubts")

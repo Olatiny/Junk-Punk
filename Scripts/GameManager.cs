@@ -29,6 +29,7 @@ public partial class GameManager : Node
 	[Export] Control pausedCtrl;
 	[Export] Control gameOverCtrl;
 	[Export] ShopCollection shopPanel;
+	[Export] ScoreBoard scoreBoard;
 
 	[ExportGroup("Buttons")]
 	[Export] Button movementButton;
@@ -39,13 +40,6 @@ public partial class GameManager : Node
 	[Export] RichTextLabel pausedText;
 	[Export] RichTextLabel gameOverText;
 	[Export] RichTextLabel scrapText;
-
-	[ExportGroup("Scoreboard")]
-	[Export] TextureRect turnIndicator;
-	[Export] TextureRect leftOnes;
-	[Export] TextureRect leftTens;
-	[Export] TextureRect rightOnes;
-	[Export] TextureRect rightTens;
 
 	public int round { get; private set; } = 1;
 
@@ -138,7 +132,7 @@ public partial class GameManager : Node
 
 		DropScrap();
 		ShuffleShop();
-
+		UpdateScoreBoard();
 		setupUI.Show();
 		actionsUI.Hide();
 		turnPhase = TurnPhase.Setup;
@@ -146,15 +140,13 @@ public partial class GameManager : Node
 
 	public void DropScrap()
 	{
+		board.CheckScrapDurabilities();
+		board.DropScrap();
+
 		if (round == 1) // Don't drop scrap during first round.
 			return;
 
-		board.CheckScrapDurabilities();
-
 		if ((round * 2 + currentPlayerIdx) % 3 == 0)
-			board.DropScrap();
-
-		if ((round * 2 + currentPlayerIdx + 1) % 3 == 0)
 			board.GenerateNextScrapTiles();
 	}
 
@@ -235,28 +227,7 @@ public partial class GameManager : Node
 
 	public void UpdateScoreBoard()
 	{
-		if (leftOnes == null || rightOnes == null || players == null || turnIndicator == null)
-			return;
-
-		turnIndicator.FlipH = currentPlayerIdx == 0;
-
-		int player1hp = players[0].health;
-		int player2hp = players[1].health;
-
-		int leftOnesPlace = player1hp % 10;
-		int leftTensPlace = player1hp / 10;
-
-		int rightOnesPlace = player2hp % 10;
-		int rightTensPlace = player2hp / 10;
-
-		((AtlasTexture)leftOnes.Texture).Region = new Rect2(leftOnesPlace * 15, 0, 15, 16);
-		((AtlasTexture)leftTens.Texture).Region = new Rect2(leftTensPlace * 15, 0, 15, 16);
-
-		((AtlasTexture)rightOnes.Texture).Region = new Rect2(rightOnesPlace * 15, 0, 15, 16);
-		((AtlasTexture)rightTens.Texture).Region = new Rect2(rightTensPlace * 15, 0, 15, 16);
-
-		if (scrapText != null)
-			scrapText.Text = $"Scrap:\nPlayer 1: {players?[0].currentScrap}\nPlayer 2: {players?[1].currentScrap}";
+		scoreBoard.UpdateScoreBoard(currentPlayerIdx, players);
 	}
 
 	public void Pause()
