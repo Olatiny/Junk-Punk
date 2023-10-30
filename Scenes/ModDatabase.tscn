@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://b156h0pm1h6oe"]
+[gd_scene load_steps=34 format=3 uid="uid://b156h0pm1h6oe"]
 
 [ext_resource type="Script" path="res://Scripts/ModDatabase.cs" id="1_s4t44"]
 [ext_resource type="Texture2D" uid="uid://613yg3ym4oqr" path="res://Assets/Mods/ColoredIcons.png" id="3_1wbt1"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://dj6iramh1k33g" path="res://Assets/Mods/Zoner Arm Mod Blue.png" id="17_8gisy"]
 [ext_resource type="Texture2D" uid="uid://c6jqael4fdaua" path="res://Assets/Mods/Zoner Arm Mod Red.png" id="18_g3082"]
 [ext_resource type="Texture2D" uid="uid://cbml2r80pqrts" path="res://Assets/Mods/Zoner Leg Swap Mod Blue.png" id="22_geffl"]
+[ext_resource type="Script" path="res://Scripts/Mods/BishopArmPassiveMod.cs" id="23_e3hlw"]
 [ext_resource type="Texture2D" uid="uid://c5mfhpl8xdtij" path="res://Assets/Mods/Zoner Leg Swap Mod Red.png" id="23_mbk5r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qrqhd"]
@@ -82,9 +83,6 @@ bodyPartTint = Color(0.0588235, 0.482353, 0.501961, 1)
 [node name="BishopLeg" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
 script = ExtResource("4_pycx2")
-pathFlags = 31
-modPaths = Array[Array]([["LeftDiagonal", "LeftDiagonal", "LeftDiagonal"]])
-modJumps = Array[Array]([])
 bodyPart = 2
 buffType = 2
 uid = "BishopLeg"
@@ -185,3 +183,8 @@ icon = SubResource("AtlasTexture_4hmwo")
 bigSpriteBlue = ExtResource("10_v0fxy")
 bigSpriteRed = ExtResource("11_wicdv")
 bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
+
+[node name="BishopArmPassive" type="Sprite2D" parent="."]
+script = ExtResource("23_e3hlw")
+bodyPart = 1
+uid = "BishopArmPassive"

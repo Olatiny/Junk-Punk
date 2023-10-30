@@ -22,12 +22,4 @@ public partial class BishopArmMod : ArmMod
 		
 		return false;
 	}
-	
-	public void IncreaseEnergy(PlayerController player) {
-		if(player.armMods[0].uid == "BishopArm" && player.armMods[1] != null) {
-			player.armMods[1].durability++;
-		} else if(player.legMods[1].uid == "BishopArm" && player.armMods[0] != null){
-			player.armMods[0].durability++;
-		}
-	}
 }
