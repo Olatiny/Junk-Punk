@@ -285,7 +285,10 @@ public partial class ChessBoard : TileMap
 			if (mod?.buffType == Mod.BuffType.Movement)
 			{
 				LegMod legMod = mod as LegMod;
-
+	
+				if (legMod == null)
+					continue;
+					
 				if (legMod.RequestMove(this, player, mouseMapPos))
 				{
 					ClearValidTiles();

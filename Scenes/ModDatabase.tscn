@@ -164,6 +164,8 @@ bodyPartTint = Color(0.129412, 0.603922, 0.588235, 1)
 
 [node name="QueenLeg" type="Sprite2D" parent="."]
 script = ExtResource("11_kvofe")
+modPaths = Array[Array]([])
+modJumps = Array[Array]([])
 bodyPart = 2
 buffType = 2
 uid = "QueenLeg"
