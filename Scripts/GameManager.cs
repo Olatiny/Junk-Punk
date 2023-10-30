@@ -39,7 +39,6 @@ public partial class GameManager : Node
 	[ExportGroup("Text")]
 	[Export] RichTextLabel pausedText;
 	[Export] RichTextLabel gameOverText;
-	[Export] RichTextLabel scrapText;
 
 	public int round { get; private set; } = 1;
 

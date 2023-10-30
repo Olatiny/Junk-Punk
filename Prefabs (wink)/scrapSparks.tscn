@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://c21skj4x5wt48"]
+
+[ext_resource type="Texture2D" uid="uid://wfqimaqiqu46" path="res://Assets/blankParticle.png" id="1_d68jq"]
+[ext_resource type="Script" path="res://Scripts/sparks.cs" id="2_ouhsh"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2dglx"]
+lifetime_randomness = 0.1
+emission_shape = 3
+emission_box_extents = Vector3(5, 5, 0)
+particle_flag_disable_z = true
+spread = 180.0
+flatness = 1.0
+gravity = Vector3(0, 50, 0)
+initial_velocity_min = 49.55
+initial_velocity_max = 76.01
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+color = Color(0.498039, 0.439216, 0.541176, 1)
+hue_variation_max = 0.02
+
+[node name="Sparks" type="GPUParticles2D"]
+emitting = false
+amount = 5
+sub_emitter = NodePath(".")
+process_material = SubResource("ParticleProcessMaterial_2dglx")
+texture = ExtResource("1_d68jq")
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+collision_base_size = 0.0
+trail_lifetime = 1.08
+script = ExtResource("2_ouhsh")

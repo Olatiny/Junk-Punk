@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b156h0pm1h6oe"]
+[gd_scene load_steps=11 format=3 uid="uid://b156h0pm1h6oe"]
 
 [ext_resource type="Script" path="res://Scripts/ModDatabase.cs" id="1_s4t44"]
 [ext_resource type="Texture2D" uid="uid://d00f53nicrsvi" path="res://Assets/ph_leg.png" id="3_ox7vd"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Scripts/Mods/RookArmMod.cs" id="6_ket1x"]
 [ext_resource type="Script" path="res://Scripts/Mods/BishopArmMod.cs" id="8_kqfg6"]
 [ext_resource type="Script" path="res://Scripts/Mods/PawnHeadMod.cs" id="9_6yvmr"]
+[ext_resource type="Script" path="res://Scripts/Mods/KingArmModTest.cs" id="10_fdvxh"]
 
 [node name="ModDatabase" type="Node2D"]
 visible = false
@@ -77,3 +78,13 @@ script = ExtResource("9_6yvmr")
 uid = "PawnHead"
 durability = 4
 icon = ExtResource("4_tbu7q")
+
+[node name="KingArmTest" type="Sprite2D" parent="."]
+script = ExtResource("10_fdvxh")
+attackType = 2
+aoe = [Vector2i(1, -1), Vector2i(0, -1), Vector2i(-1, -1), Vector2i(1, -2), Vector2i(0, -2), Vector2i(-1, -2)]
+bodyPart = 1
+buffType = 1
+uid = "KingArmTest"
+durability = 4
+icon = ExtResource("5_tks8o")

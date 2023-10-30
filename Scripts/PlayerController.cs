@@ -15,6 +15,7 @@ public partial class PlayerController : Area2D
 	[Export] public int baseAttackRange = 1;
 	[Export] public int currentScrap = 0;
 	[Export] public int scrapIncome = 10;
+	[Export] PackedScene sparks;
 
 	public enum Direction
 	{
@@ -59,11 +60,13 @@ public partial class PlayerController : Area2D
 			case 1:
 				Equip(modDatabase.GetMod("KnightLeg"), Mod.BodyPart.Leg, 0);
 				Equip(modDatabase.GetMod("BurningHands"), Mod.BodyPart.Arm, 0);
+				Equip(modDatabase.GetMod("KingArmTest"), Mod.BodyPart.Arm, 1);
 				Equip(modDatabase.GetMod("PawnHead"), Mod.BodyPart.Head, 0);
 
 				break;
 			case 2:
 				Equip(modDatabase.GetMod("RookLeg"), Mod.BodyPart.Leg, 0);
+				Equip(modDatabase.GetMod("RookArm"), Mod.BodyPart.Arm, 1);
 				Equip(modDatabase.GetMod("BishopArm"), Mod.BodyPart.Arm, 0);
 
 				break;
@@ -313,6 +316,11 @@ public partial class PlayerController : Area2D
 	public bool TakeDamage(int damage)
 	{
 		health -= damage;
+
+        GpuParticles2D sparksEmitter = sparks.Instantiate() as GpuParticles2D;
+        sparksEmitter.Position = Position;
+        sparksEmitter.ZIndex = head.ZIndex + 10;
+        GetTree().Root.AddChild(sparksEmitter);
 
 		gameManager.UpdateScoreBoard();
 		Globals globals = GetNode<Globals>("/root/Globals");

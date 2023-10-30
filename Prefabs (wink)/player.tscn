@@ -1,6 +1,7 @@
-[gd_scene load_steps=66 format=3 uid="uid://djwpfatnct4qp"]
+[gd_scene load_steps=67 format=3 uid="uid://djwpfatnct4qp"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerController.cs" id="1_f0eb3"]
+[ext_resource type="PackedScene" uid="uid://b73ilwrt8dxtl" path="res://Prefabs (wink)/playerSparks.tscn" id="2_kdbxm"]
 [ext_resource type="Texture2D" uid="uid://coqygxu6lne57" path="res://Assets/Robit Board Sprites/Robit (Blue).png" id="3_wownr"]
 [ext_resource type="Texture2D" uid="uid://qx8lo51yc02q" path="res://Assets/Robit Board Sprites/Robit (Body).png" id="4_bv3k1"]
 [ext_resource type="Texture2D" uid="uid://dg5clv5lalgst" path="res://Assets/Robit Board Sprites/Robit (Red).png" id="4_q2itn"]
@@ -495,6 +496,7 @@ position = Vector2(-21, 10)
 script = ExtResource("1_f0eb3")
 gridPosition = Vector2i(4, 7)
 currentScrap = 500
+sparks = ExtResource("2_kdbxm")
 direction = 1
 background = NodePath("Sprites/Background")
 head = NodePath("Sprites/Head")

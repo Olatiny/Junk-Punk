@@ -6,6 +6,7 @@ public partial class Scrap : Sprite2D
 {
     [Export] int maxScrapValue = 100;
     [Export] int maxDurability = 3;
+    [Export] PackedScene sparks;
 
     public PlayerController owner = null;
 
@@ -76,6 +77,11 @@ public partial class Scrap : Sprite2D
         if (armor > 0)
             return;
 
+        GpuParticles2D sparksEmitter = sparks.Instantiate() as GpuParticles2D;
+        sparksEmitter.Position = Position;
+        sparksEmitter.ZIndex = ZIndex;
+        GetTree().Root.AddChild(sparksEmitter);
+        
         player.currentScrap += currentScrapValue;
 
         Globals globals = GetNode<Globals>("/root/Globals");
