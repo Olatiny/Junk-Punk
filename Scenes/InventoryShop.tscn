@@ -136,7 +136,7 @@ gradient = SubResource("Gradient_bxcu0")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(59, 72)
 
-[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "playerUI", "setupUI", "actionsUI", "pausedCtrl", "gameOverCtrl", "shopPanel", "scoreBoard", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText", "scrapText")]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "playerUI", "setupUI", "actionsUI", "pausedCtrl", "gameOverCtrl", "shopPanel", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText", "scrapText")]
 script = ExtResource("1_dey36")
 players = [NodePath("ChessBoard/Player B"), NodePath("ChessBoard/Player R")]
 board = NodePath("ChessBoard")
@@ -149,7 +149,6 @@ actionsUI = NodePath("GUI/PlayerUI/ActionUI")
 pausedCtrl = NodePath("GUI/Pause GUI")
 gameOverCtrl = NodePath("GUI/Game Over GUI")
 shopPanel = NodePath("GUI/PlayerUI/SetupUI/Shop Panel")
-scoreBoard = NodePath("GUI/PlayerUI/ScoreBoard")
 movementButton = NodePath("GUI/PlayerUI/ActionUI/Move")
 actionButton = NodePath("GUI/PlayerUI/ActionUI/Action")
 endTurnButton = NodePath("GUI/PlayerUI/ActionUI/End Turn")

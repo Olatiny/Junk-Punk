@@ -64,7 +64,7 @@ public partial class PlayerController : Area2D
 				break;
 			case 2:
 				Equip(modDatabase.GetMod("RookLeg"), Mod.BodyPart.Leg, 0);
-				Equip(modDatabase.GetMod("QueenArm"), Mod.BodyPart.Arm, 0);
+				Equip(modDatabase.GetMod("KingArm"), Mod.BodyPart.Arm, 0);
 
 				break;
 			default:
