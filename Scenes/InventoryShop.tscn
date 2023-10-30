@@ -752,13 +752,13 @@ text = "Action"
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5525
-anchor_top = 0.897714
-anchor_right = 0.6435
-anchor_bottom = 0.933
+anchor_left = 0.1175
+anchor_top = 0.124536
+anchor_right = 0.1965
+anchor_bottom = 0.160678
 offset_left = -6.10352e-05
-offset_top = -0.0880127
-offset_right = 145.255
+offset_top = 0.103998
+offset_right = 126.4
 offset_bottom = 32.0081
 grow_horizontal = 2
 grow_vertical = 2
@@ -773,14 +773,14 @@ metadata/_edit_use_anchors_ = true
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.609856
-anchor_top = 0.942357
-anchor_right = 0.692856
-anchor_bottom = 0.977643
-offset_left = 0.0574951
-offset_top = -0.0880127
-offset_right = 131.858
-offset_bottom = 32.008
+anchor_left = -0.017
+anchor_top = 0.281536
+anchor_right = 0.046
+anchor_bottom = 0.316536
+offset_left = -0.199999
+offset_top = -0.064003
+offset_right = 102.6
+offset_bottom = 32.096
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
@@ -794,14 +794,76 @@ metadata/_edit_use_anchors_ = true
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.507606
-anchor_top = 0.942357
-anchor_right = 0.598606
-anchor_bottom = 0.977643
+anchor_left = 0.112606
+anchor_top = 0.281536
+anchor_right = 0.1915
+anchor_bottom = 0.316929
 offset_left = -0.042511
-offset_top = -0.0880127
-offset_right = 145.212
+offset_top = -0.064003
+offset_right = 126.4
 offset_bottom = 32.008
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("23_hmgjx")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_de1xb")
+text = "Right
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="Basic2" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.975
+anchor_top = 0.125
+anchor_right = 1.0535
+anchor_bottom = 0.160463
+offset_right = 126.6
+offset_bottom = 32.0562
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("23_hmgjx")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_de1xb")
+text = "Basic"
+metadata/_edit_use_anchors_ = true
+
+[node name="Left2" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.987
+anchor_top = 0.295
+anchor_right = 1.0515
+anchor_bottom = 0.33
+offset_left = 0.199982
+offset_top = -0.0800018
+offset_right = 102.4
+offset_bottom = 32.0801
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("23_hmgjx")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_de1xb")
+text = "Left"
+metadata/_edit_use_anchors_ = true
+
+[node name="Right2" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.11
+anchor_top = 0.295
+anchor_right = 1.189
+anchor_bottom = 0.33
+offset_left = 3.05176e-05
+offset_top = -0.0800018
+offset_right = 126.4
+offset_bottom = 32.0801
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
@@ -991,6 +1053,9 @@ text = "Main Menu"
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Basic" to="GameManager" method="ChangeActiveEquip" binds= [-1]]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Left" to="GameManager" method="ChangeActiveEquip" binds= [0]]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Right" to="GameManager" method="ChangeActiveEquip" binds= [1]]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Basic2" to="GameManager" method="ChangeActiveEquip" binds= [-1]]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Left2" to="GameManager" method="ChangeActiveEquip" binds= [0]]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Right2" to="GameManager" method="ChangeActiveEquip" binds= [1]]
 [connection signal="pressed" from="GameManager/GUI/Game Over GUI/Resume" to="GameManager" method="Restart"]
 [connection signal="pressed" from="GameManager/GUI/Game Over GUI/Main Menu" to="GameManager" method="ReturnToMain"]
 [connection signal="pressed" from="GameManager/GUI/Pause GUI/Resume" to="GameManager" method="Resume"]

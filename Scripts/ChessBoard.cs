@@ -154,12 +154,15 @@ public partial class ChessBoard : TileMap
 
 	private void GetValidModMoveTiles(PlayerController player)
 	{
-		foreach (LegMod legMod in player.legMods)
+		foreach (Mod mod in player.legMods)
 		{
-			if (legMod == null)
+			if (mod is not LegMod)
+				continue;
+			
+			if (mod == null)
 				continue;
 
-			Array<Vector2I> modTiles = legMod?.GetValidMoveTiles(this, player);
+			Array<Vector2I> modTiles = ((LegMod)mod)?.GetValidMoveTiles(this, player);
 
 			if (modTiles != null)
 				for (int i = 0; i < modTiles.Count; validModTileCoords.Add(modTiles[i]), i++) ;
