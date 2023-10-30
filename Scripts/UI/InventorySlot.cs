@@ -10,8 +10,6 @@ public partial class InventorySlot : TextureRect
 	// Called when the player initiates a drag on this control.
 	public override Variant _GetDragData(Vector2 atPosition)
 	{
-		GD.Print(containedMod);
-		
 		if (containedMod == null)
 			return this;
 		
@@ -90,8 +88,6 @@ public partial class InventorySlot : TextureRect
 	
 	public Mod SwapInMod(Mod newMod)
 	{
-		GD.Print("Swapping!");
-		GD.Print(newMod);
 		Mod oldMod = containedMod;
 		containedMod = newMod;
 		

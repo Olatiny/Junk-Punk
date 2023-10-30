@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://Scripts/ModDatabase.cs" id="1_s4t44"]
 [ext_resource type="Texture2D" uid="uid://613yg3ym4oqr" path="res://Assets/Mods/ColoredIcons.png" id="3_1wbt1"]
-[ext_resource type="Texture2D" uid="uid://diwfvdxgau6l2" path="res://Assets/Mods/Scaler Leg Mod Blue.png" id="4_a3log"]
+[ext_resource type="Texture2D" uid="uid://dqydg5lqbuk4d" path="res://Assets/Mods/Scaler Leg Mod Blue.png" id="4_a3log"]
 [ext_resource type="Script" path="res://Scripts/Mods/LegMod.cs" id="4_ho2ed"]
 [ext_resource type="Script" path="res://Scripts/Mods/BishopLegMod.cs" id="4_pycx2"]
-[ext_resource type="Texture2D" uid="uid://ddvyg2rlvrkew" path="res://Assets/Mods/Scaler Leg Mod Red.png" id="5_en27o"]
+[ext_resource type="Texture2D" uid="uid://dqqn7t6kh8cq4" path="res://Assets/Mods/Scaler Leg Mod Red.png" id="5_en27o"]
 [ext_resource type="Script" path="res://Scripts/Mods/RookArmMod.cs" id="6_ket1x"]
 [ext_resource type="Script" path="res://Scripts/Mods/BishopArmMod.cs" id="8_kqfg6"]
 [ext_resource type="Script" path="res://Scripts/Mods/PawnHeadMod.cs" id="9_6yvmr"]

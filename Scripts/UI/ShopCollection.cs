@@ -18,7 +18,6 @@ public partial class ShopCollection : Node
 	public void RandomizeShop()
 	{
 		invCol = gameMana.GetCurrentPlayer().inventoryCollection;
-		GD.Print("invCol: " + invCol);
 		
 		for (int i = 0; i < shopSlots?.Length; i++)
 		{
