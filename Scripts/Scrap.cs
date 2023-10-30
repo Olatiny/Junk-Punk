@@ -81,11 +81,11 @@ public partial class Scrap : Sprite2D
         sparksEmitter.Position = Position;
         sparksEmitter.ZIndex = ZIndex;
         GetTree().Root.AddChild(sparksEmitter);
-        
+
         player.currentScrap += currentScrapValue;
 
         Globals globals = GetNode<Globals>("/root/Globals");
-		globals.EmitSignal(Globals.SignalName.CollectedScrap, player, this);
+        globals.EmitSignal(Globals.SignalName.CollectedScrap, player, this);
 
         board.RemoveFromBoard(this);
     }
@@ -97,6 +97,11 @@ public partial class Scrap : Sprite2D
 
         if (currentDurability <= 0)
         {
+            GpuParticles2D sparksEmitter = sparks.Instantiate() as GpuParticles2D;
+            sparksEmitter.Position = Position;
+            sparksEmitter.ZIndex = ZIndex;
+            GetTree().Root.AddChild(sparksEmitter);
+
             board.RemoveFromBoard(this);
             return;
         }
