@@ -181,7 +181,7 @@ public partial class LegMod : Mod
 		}
 	}
 
-	public bool RequestMove(ChessBoard board, PlayerController player, Vector2I mouseMapPos)
+	public virtual bool RequestMove(ChessBoard board, PlayerController player, Vector2I mouseMapPos)
 	{
 		foreach (Vector2I validTile in board.validModTileCoords)
 		{
