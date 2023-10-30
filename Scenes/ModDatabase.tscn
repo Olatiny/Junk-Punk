@@ -4,29 +4,33 @@
 [ext_resource type="Texture2D" uid="uid://d00f53nicrsvi" path="res://Assets/ph_leg.png" id="3_ox7vd"]
 [ext_resource type="Script" path="res://Scripts/Mods/ArmMod.cs" id="4_020ur"]
 [ext_resource type="Script" path="res://Scripts/Mods/LegMod.cs" id="4_ho2ed"]
+[ext_resource type="Script" path="res://Scripts/Mods/BishopLegMod.cs" id="4_pycx2"]
 [ext_resource type="Texture2D" uid="uid://c2spxt34671sf" path="res://Assets/ph_head.png" id="4_tbu7q"]
 [ext_resource type="Texture2D" uid="uid://d2teear6xki71" path="res://Assets/ph_arm.png" id="5_tks8o"]
 [ext_resource type="Script" path="res://Scripts/Mods/RookArmMod.cs" id="6_ket1x"]
 [ext_resource type="Script" path="res://Scripts/Mods/BishopArmMod.cs" id="8_kqfg6"]
 [ext_resource type="Script" path="res://Scripts/Mods/PawnHeadMod.cs" id="9_6yvmr"]
 [ext_resource type="Script" path="res://Scripts/Mods/KingArmModTest.cs" id="10_fdvxh"]
+[ext_resource type="Script" path="res://Scripts/Mods/KingArmMod.cs" id="10_7rn2h"]
+[ext_resource type="Script" path="res://Scripts/Mods/QueenLegMod.cs" id="11_kvofe"]
+[ext_resource type="Script" path="res://Scripts/Mods/QueenArmMod.cs" id="13_ea5ld"]
 
 [node name="ModDatabase" type="Node2D"]
 visible = false
 script = ExtResource("1_s4t44")
 
-[node name="KnightLeg" type="Sprite2D" parent="."]
+[node name="KnightLegJump" type="Sprite2D" parent="."]
 script = ExtResource("4_ho2ed")
 modPaths = Array[Array]([])
 modJumps = Array[Vector2i]([Vector2i(2, 1), Vector2i(2, -1), Vector2i(-2, 1), Vector2i(-2, -1), Vector2i(1, 2), Vector2i(1, -2), Vector2i(-1, 2), Vector2i(-1, -2)])
 bodyPart = 2
 buffType = 2
-uid = "KnightLeg"
+uid = "KnightLegJump"
 durability = 4
 icon = ExtResource("3_ox7vd")
 
 [node name="BishopLeg" type="Sprite2D" parent="."]
-script = ExtResource("4_ho2ed")
+script = ExtResource("4_pycx2")
 pathFlags = 31
 modPaths = Array[Array]([["LeftDiagonal", "LeftDiagonal", "LeftDiagonal"]])
 modJumps = Array[Array]([])
@@ -86,5 +90,40 @@ aoe = [Vector2i(1, -1), Vector2i(0, -1), Vector2i(-1, -1), Vector2i(1, -2), Vect
 bodyPart = 1
 buffType = 1
 uid = "KingArmTest"
+
+[node name="KnightLegPath" type="Sprite2D" parent="."]
+script = ExtResource("4_ho2ed")
+pathFlags = 31
+modPaths = Array[Array]([["LeftDiagonal", "Left"], ["LeftDiagonal", "Forward"]])
+modJumps = Array[Array]([])
+bodyPart = 2
+buffType = 2
+uid = "KnightLegPath"
+durability = 4
+icon = ExtResource("3_ox7vd")
+
+[node name="KingArm" type="Sprite2D" parent="."]
+script = ExtResource("10_7rn2h")
+attackType = 2
+aoe = [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1)]
+bodyPart = 1
+buffType = 1
+uid = "KingArm"
+durability = 4
+icon = ExtResource("5_tks8o")
+
+[node name="QueenLeg" type="Sprite2D" parent="."]
+script = ExtResource("11_kvofe")
+bodyPart = 2
+buffType = 2
+uid = "QueenLeg"
+durability = 4
+icon = ExtResource("3_ox7vd")
+
+[node name="QueenArm" type="Sprite2D" parent="."]
+script = ExtResource("13_ea5ld")
+bodyPart = 1
+buffType = 1
+uid = "QueenArm"
 durability = 4
 icon = ExtResource("5_tks8o")

@@ -58,7 +58,7 @@ public partial class PlayerController : Area2D
 		switch (playerId)
 		{
 			case 1:
-				Equip(modDatabase.GetMod("KnightLeg"), Mod.BodyPart.Leg, 0);
+				Equip(modDatabase.GetMod("KnightLegPath"), Mod.BodyPart.Leg, 0);
 				Equip(modDatabase.GetMod("BurningHands"), Mod.BodyPart.Arm, 0);
 				Equip(modDatabase.GetMod("KingArmTest"), Mod.BodyPart.Arm, 1);
 				Equip(modDatabase.GetMod("PawnHead"), Mod.BodyPart.Head, 0);
@@ -67,7 +67,7 @@ public partial class PlayerController : Area2D
 			case 2:
 				Equip(modDatabase.GetMod("RookLeg"), Mod.BodyPart.Leg, 0);
 				Equip(modDatabase.GetMod("RookArm"), Mod.BodyPart.Arm, 1);
-				Equip(modDatabase.GetMod("BishopArm"), Mod.BodyPart.Arm, 0);
+				Equip(modDatabase.GetMod("QueenArm"), Mod.BodyPart.Arm, 0);
 
 				break;
 			default:
