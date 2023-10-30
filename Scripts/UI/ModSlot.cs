@@ -3,6 +3,7 @@ using System;
 
 public partial class ModSlot : TextureRect
 {
+	[Export] private PlayerController player;
 	private Mod containedMod = null;
 	private bool isDragging = false;
 
@@ -22,5 +23,12 @@ public partial class ModSlot : TextureRect
 		
 		containedMod = incomingSlot.GetContainedMod();
 		Texture = containedMod.bigSprite;
+		
+		EquipInSlot();
+	}
+	
+	private void EquipInSlot()
+	{
+		
 	}
 }

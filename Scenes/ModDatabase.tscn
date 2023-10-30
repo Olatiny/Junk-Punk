@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://b156h0pm1h6oe"]
 
 [ext_resource type="Script" path="res://Scripts/ModDatabase.cs" id="1_s4t44"]
-[ext_resource type="Texture2D" uid="uid://d00f53nicrsvi" path="res://Sprites/ph_leg.png" id="3_ox7vd"]
+[ext_resource type="Texture2D" uid="uid://d00f53nicrsvi" path="res://Assets/ph_leg.png" id="3_ox7vd"]
 [ext_resource type="Script" path="res://Scripts/Mods/ArmMod.cs" id="4_020ur"]
 [ext_resource type="Script" path="res://Scripts/Mods/LegMod.cs" id="4_ho2ed"]
-[ext_resource type="Texture2D" uid="uid://c2spxt34671sf" path="res://Sprites/ph_head.png" id="4_tbu7q"]
-[ext_resource type="Texture2D" uid="uid://d2teear6xki71" path="res://Sprites/ph_arm.png" id="5_tks8o"]
+[ext_resource type="Texture2D" uid="uid://c2spxt34671sf" path="res://Assets/ph_head.png" id="4_tbu7q"]
+[ext_resource type="Texture2D" uid="uid://d2teear6xki71" path="res://Assets/ph_arm.png" id="5_tks8o"]
 [ext_resource type="Script" path="res://Scripts/Mods/RookArmMod.cs" id="6_ket1x"]
 
 [node name="ModDatabase" type="Node2D"]

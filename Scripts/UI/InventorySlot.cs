@@ -43,20 +43,11 @@ public partial class InventorySlot : TextureRect
 	// Called when the player releases a drag on top of this control.
 	public override void _DropData(Vector2 atPosition, Variant data)
 	{
-		GD.Print("Data is:");
-		GD.Print(data);
-		
 		InventorySlot incomingSlot = (InventorySlot) data;
 		
 		Mod swappedMod = SwapInMod(incomingSlot.containedMod);
-		GD.Print("Swapped Mod was:");
-		GD.Print(swappedMod);
+
 		incomingSlot.SwapInMod(swappedMod);
-		
-		GD.Print("Drop Data Incoming");
-		GD.Print(incomingSlot.containedMod);
-		GD.Print(containedMod);
-		GD.Print("Drop Data Finished!");
 	}
 	
 	// Called when an engine notification occurs.
