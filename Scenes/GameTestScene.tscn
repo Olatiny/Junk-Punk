@@ -126,7 +126,7 @@ gradient = SubResource("Gradient_bxcu0")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(59, 72)
 
-[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "playerUI", "pausedCtrl", "gameOverCtrl", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText", "scrapText")]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "playerUI", "pausedCtrl", "gameOverCtrl", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText")]
 script = ExtResource("1_hioff")
 players = [NodePath("ChessBoard/Player1"), NodePath("ChessBoard/Player2")]
 board = NodePath("ChessBoard")
@@ -141,7 +141,6 @@ actionButton = NodePath("GUI/PlayerUI/Action")
 endTurnButton = NodePath("GUI/PlayerUI/End Turn")
 pausedText = NodePath("GUI/Pause GUI/pauseText")
 gameOverText = NodePath("GUI/Game Over GUI/gameOverText")
-scrapText = NodePath("GUI/PlayerUI/ScrapTextTemp")
 
 [node name="ChessBoard" type="TileMap" parent="GameManager"]
 texture_filter = 3

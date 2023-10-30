@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5mfhpl8xdtij"
-path="res://.godot/imported/Zoner Leg Swap Mod Red.png-5c1ca02625bd5e2cb52724b18805138b.ctex"
+uid="uid://wfqimaqiqu46"
+path="res://.godot/imported/blankParticle.png-6d1eb9ce8243263c36afc332e81d284b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Mods/Zoner Leg Swap Mod Red.png"
-dest_files=["res://.godot/imported/Zoner Leg Swap Mod Red.png-5c1ca02625bd5e2cb52724b18805138b.ctex"]
+source_file="res://Assets/blankParticle.png"
+dest_files=["res://.godot/imported/blankParticle.png-6d1eb9ce8243263c36afc332e81d284b.ctex"]
 
 [params]
 

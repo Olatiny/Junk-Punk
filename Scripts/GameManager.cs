@@ -39,7 +39,6 @@ public partial class GameManager : Node
 	[ExportGroup("Text")]
 	[Export] RichTextLabel pausedText;
 	[Export] RichTextLabel gameOverText;
-	[Export] RichTextLabel scrapText;
 
 	public int round { get; private set; } = 1;
 
@@ -128,7 +127,9 @@ public partial class GameManager : Node
 		players?[currentPlayerIdx].CheckModDurability();
 
 		if (players != null && players[currentPlayerIdx] != null)
+		{
 			players[currentPlayerIdx].currentScrap += players[currentPlayerIdx].scrapIncome;
+		}
 
 		DropScrap();
 		ShuffleShop();
@@ -261,7 +262,7 @@ public partial class GameManager : Node
 
 	public void Restart()
 	{
-		GetTree().ChangeSceneToFile("Scenes/GameTestScene.tscn");
+		GetTree().ChangeSceneToFile("Scenes/InventoryShop.tscn");
 	}
 
 	public void ChangeActiveEquip(int attackIdx)

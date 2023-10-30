@@ -263,7 +263,7 @@ public partial class ChessBoard : TileMap
 		EraseCell(3, mouseOverCell);
 		mouseOverCell = LocalToMap(GetGlobalMousePosition());
 		TileData tileData = GetCellTileData(0, mouseOverCell);
-		if (tileData != null && tileData.GetCustomData("highlightable").AsBool() && !Input.IsMouseButtonPressed(MouseButton.Left))
+		if (gameManager?.gameState == GameManager.GameState.Playing && tileData != null && tileData.GetCustomData("highlightable").AsBool() && !Input.IsMouseButtonPressed(MouseButton.Left))
 			SetCell(3, mouseOverCell, 6, new Vector2I(0, 0), 4);
 	}
 
@@ -279,7 +279,7 @@ public partial class ChessBoard : TileMap
 
 		foreach (Mod mod in player.legMods)
 		{
-			if (mod.buffType == Mod.BuffType.Movement)
+			if (mod?.buffType == Mod.BuffType.Movement)
 			{
 				LegMod legMod = mod as LegMod;
 
@@ -316,6 +316,8 @@ public partial class ChessBoard : TileMap
 
 		Vector2I mouseMapPos = LocalToMap(mouseCoordinates);
 
+		if (!IsTileInBounds(mouseMapPos))
+			return false; // Note: False!
 
 		if (player.GetActiveAttackMod() != null && player.GetActiveAttackMod().PerformAttack(this, player, mouseMapPos))
 		{

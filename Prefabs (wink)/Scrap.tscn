@@ -1,10 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://brmia5x0ohlm1"]
+[gd_scene load_steps=4 format=3 uid="uid://brmia5x0ohlm1"]
 
 [ext_resource type="Texture2D" uid="uid://lxqgmr0j3t7t" path="res://Assets/Scrap Pile.png" id="1_10is3"]
 [ext_resource type="Script" path="res://Scripts/Scrap.cs" id="1_57bid"]
+[ext_resource type="PackedScene" uid="uid://c21skj4x5wt48" path="res://Prefabs (wink)/scrapSparks.tscn" id="3_cluid"]
 
 [node name="Scrap" type="Sprite2D"]
 texture = ExtResource("1_10is3")
 offset = Vector2(0, -1)
 script = ExtResource("1_57bid")
 maxDurability = 9
+sparks = ExtResource("3_cluid")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)

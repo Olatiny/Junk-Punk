@@ -5,9 +5,9 @@ public partial class ButtonHover : TextureButton
 {
 	bool mouseOver = false;
 
-    public override void _Ready()
-    {
-        base._Ready();
+	public override void _Ready()
+	{
+		base._Ready();
 
 		MouseEntered += OnMouseEntered;
 		MouseExited += OnMouseExited;
@@ -31,14 +31,23 @@ public partial class ButtonHover : TextureButton
 			Scale = new(0.8f, 0.8f);
 	}
 
-    public override void _Input(InputEvent @event)
-    {
-        base._Input(@event);
+	private void OnMouseUp()
+	{
+		if (mouseOver)
+			Scale = new(1, 1);
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		base._Input(@event);
 
 		if (@event is InputEventMouseButton mb)
 		{
 			if (mb.IsPressed() && mb.ButtonIndex == MouseButton.Left)
 				OnMouseDown();
+
+			if (mb.IsReleased())
+				OnMouseUp();
 		}
-    }
+	}
 }

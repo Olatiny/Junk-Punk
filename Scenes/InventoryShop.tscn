@@ -136,7 +136,7 @@ gradient = SubResource("Gradient_bxcu0")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(59, 72)
 
-[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "playerUI", "setupUI", "actionsUI", "pausedCtrl", "gameOverCtrl", "shopPanel", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText", "scrapText")]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "playerUI", "setupUI", "actionsUI", "pausedCtrl", "gameOverCtrl", "shopPanel", "scoreBoard", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText")]
 script = ExtResource("1_dey36")
 players = [NodePath("ChessBoard/Player B"), NodePath("ChessBoard/Player R")]
 board = NodePath("ChessBoard")
@@ -149,12 +149,12 @@ actionsUI = NodePath("GUI/PlayerUI/ActionUI")
 pausedCtrl = NodePath("GUI/Pause GUI")
 gameOverCtrl = NodePath("GUI/Game Over GUI")
 shopPanel = NodePath("GUI/PlayerUI/SetupUI/Shop Panel")
+scoreBoard = NodePath("GUI/PlayerUI/ScoreBoard")
 movementButton = NodePath("GUI/PlayerUI/ActionUI/Move")
 actionButton = NodePath("GUI/PlayerUI/ActionUI/Action")
 endTurnButton = NodePath("GUI/PlayerUI/ActionUI/End Turn")
 pausedText = NodePath("GUI/Pause GUI/pauseText")
 gameOverText = NodePath("GUI/Game Over GUI/gameOverText")
-scrapText = NodePath("GUI/PlayerUI/ActionUI/ScrapText")
 
 [node name="ChessBoard" type="TileMap" parent="GameManager"]
 texture_filter = 3
@@ -194,7 +194,7 @@ direction = 0
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Inventory Blu")
 
 [node name="Player R" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection") instance=ExtResource("9_uy3x6")]
-gridPosition = Vector2i(4, 4)
+gridPosition = Vector2i(4, 0)
 playerId = 2
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Inventory Red")
 
@@ -748,29 +748,13 @@ theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
 text = "Action"
 
-[node name="ScrapText" type="RichTextLabel" parent="GameManager/GUI/PlayerUI/ActionUI"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.43
-anchor_top = 0.897
-anchor_right = 0.655
-anchor_bottom = 0.996
-offset_top = 0.0719757
-offset_right = -3.05176e-05
-offset_bottom = -0.104019
-theme_override_fonts/normal_font = ExtResource("23_hmgjx")
-theme_override_font_sizes/normal_font_size = 5
-text = "Scrap:
-Player 1:
-Player 2:"
-
 [node name="Basic" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.75
+anchor_left = 0.5525
 anchor_top = 0.897714
-anchor_right = 0.841
+anchor_right = 0.6435
 anchor_bottom = 0.933
 offset_left = -6.10352e-05
 offset_top = -0.0880127
@@ -789,9 +773,9 @@ metadata/_edit_use_anchors_ = true
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.807356
+anchor_left = 0.609856
 anchor_top = 0.942357
-anchor_right = 0.890356
+anchor_right = 0.692856
 anchor_bottom = 0.977643
 offset_left = 0.0574951
 offset_top = -0.0880127
@@ -810,9 +794,9 @@ metadata/_edit_use_anchors_ = true
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.705106
+anchor_left = 0.507606
 anchor_top = 0.942357
-anchor_right = 0.796106
+anchor_right = 0.598606
 anchor_bottom = 0.977643
 offset_left = -0.042511
 offset_top = -0.0880127
@@ -872,40 +856,48 @@ GAME OVER
 "
 scroll_active = false
 
+[node name="Resume" type="Button" parent="GameManager/GUI/Game Over GUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -282.0
+offset_top = -57.0
+offset_right = 282.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+pivot_offset = Vector2(282, 57)
+theme_override_fonts/font = ExtResource("23_hmgjx")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
+text = "Start Over
+"
+
 [node name="Main Menu" type="Button" parent="GameManager/GUI/Game Over GUI"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.285
-anchor_top = 0.429
-anchor_right = 0.726
-anchor_bottom = 0.549
-offset_top = -0.0960083
-offset_right = 705.6
-offset_bottom = 108.024
+anchor_left = 0.5
+anchor_top = 0.629
+anchor_right = 0.5
+anchor_bottom = 0.629
+offset_left = -282.0
+offset_top = -56.896
+offset_right = 282.0
+offset_bottom = 57.104
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.2, 0.2)
+pivot_offset = Vector2(282, 57)
 theme_override_fonts/font = ExtResource("23_hmgjx")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
 text = "Main Menu"
-
-[node name="Start Over" type="Button" parent="GameManager/GUI/Game Over GUI"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.285
-anchor_top = 0.58
-anchor_right = 0.725
-anchor_bottom = 0.701
-offset_top = 0.0799866
-offset_right = 704.0
-offset_bottom = 107.976
-scale = Vector2(0.2, 0.2)
-theme_override_fonts/font = ExtResource("23_hmgjx")
-theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
-text = "Start OVer
-"
 
 [node name="Pause GUI" type="Control" parent="GameManager/GUI"]
 visible = false
@@ -930,12 +922,12 @@ texture = SubResource("GradientTexture1D_y1224")
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.027
+anchor_top = 0.063
 anchor_right = 0.997
-anchor_bottom = 0.25
-offset_top = -0.0480003
+anchor_bottom = 0.286
+offset_top = -0.112
 offset_right = 1596.2
-offset_bottom = 200.0
+offset_bottom = 199.936
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
@@ -953,16 +945,19 @@ scroll_active = false
 [node name="Resume" type="Button" parent="GameManager/GUI/Pause GUI"]
 texture_filter = 1
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.292
-anchor_top = 0.455
-anchor_right = 0.701
-anchor_bottom = 0.567
-offset_left = 0.199989
-offset_top = 0.0799942
-offset_right = 653.6
-offset_bottom = 99.992
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -282.0
+offset_top = -57.0
+offset_right = 282.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.2, 0.2)
+pivot_offset = Vector2(282, 57)
 theme_override_fonts/font = ExtResource("23_hmgjx")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
@@ -972,19 +967,22 @@ text = "RESUME"
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.293
-anchor_top = 0.603
-anchor_right = 0.701
-anchor_bottom = 0.714
-offset_left = -0.199997
-offset_top = -0.0720062
-offset_right = 653.6
-offset_bottom = 100.064
+anchor_left = 0.5
+anchor_top = 0.629
+anchor_right = 0.5
+anchor_bottom = 0.629
+offset_left = -282.0
+offset_top = -56.896
+offset_right = 282.0
+offset_bottom = 57.104
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.2, 0.2)
+pivot_offset = Vector2(282, 57)
 theme_override_fonts/font = ExtResource("23_hmgjx")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
-text = "MAIN MENU"
+text = "Main Menu"
 
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/SetupUI/Button" to="GameManager" method="EndSetup"]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/End Turn" to="GameManager" method="EndTurn"]
@@ -993,7 +991,7 @@ text = "MAIN MENU"
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Basic" to="GameManager" method="ChangeActiveEquip" binds= [-1]]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Left" to="GameManager" method="ChangeActiveEquip" binds= [0]]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Right" to="GameManager" method="ChangeActiveEquip" binds= [1]]
+[connection signal="pressed" from="GameManager/GUI/Game Over GUI/Resume" to="GameManager" method="Restart"]
 [connection signal="pressed" from="GameManager/GUI/Game Over GUI/Main Menu" to="GameManager" method="ReturnToMain"]
-[connection signal="pressed" from="GameManager/GUI/Game Over GUI/Start Over" to="GameManager" method="Restart"]
 [connection signal="pressed" from="GameManager/GUI/Pause GUI/Resume" to="GameManager" method="Resume"]
 [connection signal="pressed" from="GameManager/GUI/Pause GUI/Main Menu" to="GameManager" method="ReturnToMain"]
