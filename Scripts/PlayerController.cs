@@ -60,7 +60,7 @@ public partial class PlayerController : Area2D
 			case 1:
 				Equip(modDatabase.GetMod("KnightLegPath"), Mod.BodyPart.Leg, 0);
 				Equip(modDatabase.GetMod("BurningHands"), Mod.BodyPart.Arm, 0);
-				Equip(modDatabase.GetMod("KingArmTest"), Mod.BodyPart.Arm, 1);
+				Equip(modDatabase.GetMod("KingArm"), Mod.BodyPart.Arm, 1);
 				Equip(modDatabase.GetMod("PawnHead"), Mod.BodyPart.Head, 0);
 
 				break;
