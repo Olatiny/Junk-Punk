@@ -168,13 +168,6 @@ public partial class PlayerController : Area2D
 		legs[1].Play(directionString);
 
 		ZIndex = gridPosition.Y + 1;
-		background.ZIndex = gridPosition.Y;
-		head.ZIndex = gridPosition.Y;
-		body.ZIndex = gridPosition.Y;
-		arms[0].ZIndex = gridPosition.Y;
-		arms[1].ZIndex = gridPosition.Y;
-		legs[0].ZIndex = gridPosition.Y;
-		legs[1].ZIndex = gridPosition.Y;
 	}
 
 	public void CheckModDurability()
