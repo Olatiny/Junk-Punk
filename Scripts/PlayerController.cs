@@ -59,7 +59,6 @@ public partial class PlayerController : Area2D
 		{
 			case 1:
 				Equip(modDatabase.GetMod("KnightLegPath"), Mod.BodyPart.Leg, 0);
-				Equip(modDatabase.GetMod("BurningHands"), Mod.BodyPart.Arm, 0);
 				Equip(modDatabase.GetMod("KingArm"), Mod.BodyPart.Arm, 1);
 				Equip(modDatabase.GetMod("PawnHead"), Mod.BodyPart.Head, 0);
 
@@ -180,7 +179,33 @@ public partial class PlayerController : Area2D
 
 	public void CheckModDurability()
 	{
-		// TODO: Implement This
+		if (headMod != null)
+		{
+			headMod.durability--;
+
+			if (headMod.durability <= 0)
+				Unequip(headMod);
+		}
+
+		foreach (Mod mod in armMods)
+		{
+			if (mod == null)
+				continue;
+
+			mod.durability--;
+			if (mod.durability <= 0)
+				Unequip(mod);
+		}
+
+		foreach (Mod mod in legMods)
+		{
+			if (mod == null)
+				continue;
+
+			mod.durability--;
+			if (mod.durability <= 0)
+				Unequip(mod);
+		}
 	}
 
 	public void Equip(Mod mod, Mod.BodyPart bodyPart, int limbIdx = 0)
@@ -226,18 +251,30 @@ public partial class PlayerController : Area2D
 	public void Unequip(Mod mod)
 	{
 		if (mod == headMod)
+		{
 			UnequipHelper(ref mod, ref headMod);
+			if (head != null)
+				head.Modulate = new(1, 1, 1, 1);
+		}
 
 		for (int i = 0; i < armMods.Length; i++)
 		{
 			if (mod == armMods?[i])
+			{
 				UnequipHelper(ref mod, ref armMods[i]);
+				if (arms?[i] != null)
+					arms[i].Modulate = new(1, 1, 1, 1);
+			}
 		}
 
 		for (int i = 0; i < legMods.Length; i++)
 		{
 			if (mod == legMods?[i])
+			{
 				UnequipHelper(ref mod, ref legMods[i]);
+				if (legs?[i] != null)
+					legs[i].Modulate = new(1, 1, 1, 1);
+			}
 		}
 	}
 
@@ -277,6 +314,11 @@ public partial class PlayerController : Area2D
 		bodyPart = null;
 
 		// TODO: Unequip stuff (resetting sprites/etc. probably give mods unequip function)
+		
+		GpuParticles2D sparksEmitter = sparks.Instantiate() as GpuParticles2D;
+		sparksEmitter.Position = Position;
+		sparksEmitter.ZIndex = head.ZIndex + 10;
+		GetTree().Root.AddChild(sparksEmitter);
 
 		mod.DisconnectSignals();
 		mod.QueueFree();
@@ -317,10 +359,10 @@ public partial class PlayerController : Area2D
 	{
 		health -= damage;
 
-        GpuParticles2D sparksEmitter = sparks.Instantiate() as GpuParticles2D;
-        sparksEmitter.Position = Position;
-        sparksEmitter.ZIndex = head.ZIndex + 10;
-        GetTree().Root.AddChild(sparksEmitter);
+		GpuParticles2D sparksEmitter = sparks.Instantiate() as GpuParticles2D;
+		sparksEmitter.Position = Position;
+		sparksEmitter.ZIndex = head.ZIndex + 10;
+		GetTree().Root.AddChild(sparksEmitter);
 
 		gameManager.UpdateScoreBoard();
 		Globals globals = GetNode<Globals>("/root/Globals");

@@ -194,7 +194,7 @@ direction = 0
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Inventory Blu")
 
 [node name="Player R" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection") instance=ExtResource("9_uy3x6")]
-gridPosition = Vector2i(4, 4)
+gridPosition = Vector2i(4, 0)
 playerId = 2
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Inventory Red")
 
