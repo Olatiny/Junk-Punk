@@ -43,6 +43,9 @@ public partial class InventorySlot : TextureRect
 	// Called when the player releases a drag on top of this control.
 	public override void _DropData(Vector2 atPosition, Variant data)
 	{
+		if (!InventorySlot.IsInstanceOfType(data))
+			return;
+		
 		InventorySlot incomingSlot = (InventorySlot) data;
 		
 		Mod swappedMod = SwapInMod(incomingSlot.containedMod);
@@ -106,5 +109,19 @@ public partial class InventorySlot : TextureRect
 	public bool IsEmpty()
 	{
 		return containedMod == null;
+	}
+	
+	public static bool IsInstanceOfType(Object obj)
+	{
+		try
+		{
+			InventorySlot invTest = (InventorySlot) obj;
+		}
+		catch
+		{
+			return false;
+		}
+		
+		return true;
 	}
 }

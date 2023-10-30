@@ -1,20 +1,16 @@
-[gd_scene load_steps=33 format=3 uid="uid://b156h0pm1h6oe"]
+[gd_scene load_steps=29 format=3 uid="uid://b156h0pm1h6oe"]
 
 [ext_resource type="Script" path="res://Scripts/ModDatabase.cs" id="1_s4t44"]
 [ext_resource type="Texture2D" uid="uid://613yg3ym4oqr" path="res://Assets/Mods/ColoredIcons.png" id="3_1wbt1"]
-[ext_resource type="Texture2D" uid="uid://dqydg5lqbuk4d" path="res://Assets/Mods/Scaler Leg Mod Blue.png" id="4_a3log"]
+[ext_resource type="Texture2D" uid="uid://diwfvdxgau6l2" path="res://Assets/Mods/Scaler Leg Mod Blue.png" id="4_a3log"]
 [ext_resource type="Script" path="res://Scripts/Mods/LegMod.cs" id="4_ho2ed"]
 [ext_resource type="Script" path="res://Scripts/Mods/BishopLegMod.cs" id="4_pycx2"]
-[ext_resource type="Texture2D" uid="uid://cq4yl650jt7fj" path="res://Assets/Mods/Zoner Leg Teleport Blue Mod.png" id="4_wen0u"]
-[ext_resource type="Texture2D" uid="uid://dqqn7t6kh8cq4" path="res://Assets/Mods/Scaler Leg Mod Red.png" id="5_en27o"]
-[ext_resource type="Texture2D" uid="uid://3r8llvgpn7kk" path="res://Assets/Mods/Zoner Leg Teleport Mod Red.png" id="5_loklo"]
+[ext_resource type="Texture2D" uid="uid://ddvyg2rlvrkew" path="res://Assets/Mods/Scaler Leg Mod Red.png" id="5_en27o"]
 [ext_resource type="Script" path="res://Scripts/Mods/RookArmMod.cs" id="6_ket1x"]
 [ext_resource type="Script" path="res://Scripts/Mods/BishopArmMod.cs" id="8_kqfg6"]
 [ext_resource type="Script" path="res://Scripts/Mods/PawnHeadMod.cs" id="9_6yvmr"]
 [ext_resource type="Script" path="res://Scripts/Mods/KingArmMod.cs" id="10_7rn2h"]
-[ext_resource type="Texture2D" uid="uid://cwcfig180xmdh" path="res://Assets/Mods/Scaler Arm Mod Blue.png" id="10_cmdup"]
 [ext_resource type="Texture2D" uid="uid://chwx6hg8osdvb" path="res://Assets/Mods/Scaler Stealer Arm Mod Blue.png" id="10_v0fxy"]
-[ext_resource type="Texture2D" uid="uid://qvhtn6jg6ell" path="res://Assets/Mods/Scaler Arm Mod Red.png" id="11_31b8t"]
 [ext_resource type="Script" path="res://Scripts/Mods/QueenLegMod.cs" id="11_kvofe"]
 [ext_resource type="Texture2D" uid="uid://dq42qpvx75cpg" path="res://Assets/Mods/Scaler Stealer Arm Mod Red.png" id="11_wicdv"]
 [ext_resource type="Script" path="res://Scripts/Mods/QueenArmMod.cs" id="13_ea5ld"]
@@ -75,9 +71,6 @@ buffType = 2
 uid = "KnightLegJump"
 durability = 4
 icon = SubResource("AtlasTexture_qrqhd")
-bigSpriteBlue = ExtResource("4_wen0u")
-bigSpriteRed = ExtResource("5_loklo")
-bodyPartTint = Color(0.0588235, 0.482353, 0.501961, 1)
 
 [node name="BishopLeg" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
@@ -104,9 +97,6 @@ buffType = 2
 uid = "RookLeg"
 durability = 4
 icon = SubResource("AtlasTexture_05x3w")
-bigSpriteBlue = ExtResource("4_a3log")
-bigSpriteRed = ExtResource("5_en27o")
-bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
 
 [node name="RookArm" type="Sprite2D" parent="."]
 script = ExtResource("6_ket1x")
@@ -115,9 +105,6 @@ buffType = 1
 uid = "RookArm"
 durability = 4
 icon = SubResource("AtlasTexture_30gou")
-bigSpriteBlue = ExtResource("10_cmdup")
-bigSpriteRed = ExtResource("11_31b8t")
-bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
 
 [node name="BishopArm" type="Sprite2D" parent="."]
 script = ExtResource("8_kqfg6")
@@ -147,9 +134,6 @@ buffType = 2
 uid = "KnightLegPath"
 durability = 4
 icon = SubResource("AtlasTexture_vknoh")
-bigSpriteBlue = ExtResource("4_a3log")
-bigSpriteRed = ExtResource("5_en27o")
-bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
 
 [node name="KingArm" type="Sprite2D" parent="."]
 script = ExtResource("10_7rn2h")

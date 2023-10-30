@@ -203,6 +203,8 @@ public partial class PlayerController : Area2D
 
 	public void Equip(Mod mod, Mod.BodyPart bodyPart, int limbIdx = 0)
 	{
+		GD.Print(limbIdx);
+		
 		if (mod.bodyPart != bodyPart)
 			return;
 
