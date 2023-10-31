@@ -308,7 +308,7 @@ public partial class PlayerController : Area2D
 		bodyPart = null;
 
 		// TODO: Unequip stuff (resetting sprites/etc. probably give mods unequip function)
-		
+
 		GpuParticles2D sparksEmitter = sparks.Instantiate() as GpuParticles2D;
 		sparksEmitter.Position = Position;
 		sparksEmitter.ZIndex = head.ZIndex + 10;
@@ -361,6 +361,14 @@ public partial class PlayerController : Area2D
 		gameManager.UpdateScoreBoard();
 		Globals globals = GetNode<Globals>("/root/Globals");
 		globals.EmitSignal(Globals.SignalName.PlayerTookDamage, this, damage);
+
+		if (health <= 0)
+		{
+			if (headMod == null || headMod is not PawnHeadMod)
+				gameManager.DeclareVictory();
+			else if (headMod is PawnHeadMod pawnHead)
+				pawnHead.OnPlayerTookDamage(this, damage);
+		}
 
 		return health <= 0;
 	}

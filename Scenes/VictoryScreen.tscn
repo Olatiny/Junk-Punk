@@ -1,0 +1,228 @@
+[gd_scene load_steps=17 format=3 uid="uid://dagc5h6m678up"]
+
+[ext_resource type="Script" path="res://Scripts/VictoryScreen.cs" id="1_obvfp"]
+[ext_resource type="Texture2D" uid="uid://dhc4oagc0u87t" path="res://Assets/VictoryPlayer1Empty.png" id="2_bmx63"]
+[ext_resource type="Texture2D" uid="uid://c08gc8fky80cd" path="res://Assets/VictoryPlayer2Empty.png" id="3_fvgmm"]
+[ext_resource type="Texture2D" uid="uid://cgo2nm443p4j0" path="res://Assets/VictoryTextOnlyPlayer1.png" id="4_mjedv"]
+[ext_resource type="Texture2D" uid="uid://8leoibeh8g1p" path="res://Assets/VictoryTextOnlyPlayer2.png" id="5_uarfd"]
+[ext_resource type="Texture2D" uid="uid://dlvwlerk2x6jy" path="res://Assets/VictoryButtons.png" id="6_qlx6s"]
+[ext_resource type="Script" path="res://Scripts/ButtonHover.cs" id="7_tf74k"]
+
+[sub_resource type="Animation" id="Animation_rn8no"]
+resource_name = "Fade In"
+length = 2.00003
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VictoryStatus:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Start Over:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Main menu:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ColorRect:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gvfug"]
+_data = {
+"Fade In": SubResource("Animation_rn8no")
+}
+
+[sub_resource type="Animation" id="Animation_no13u"]
+resource_name = "hover"
+length = 2.00003
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VictoryStatus:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(44, -16), Vector2(44, -14), Vector2(44, -14), Vector2(44, -16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_45dru"]
+_data = {
+"hover": SubResource("Animation_no13u")
+}
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_37wcg"]
+frames = 2
+speed_scale = 0.0
+frame_0/texture = ExtResource("2_bmx63")
+frame_0/duration = 0.0
+frame_1/texture = ExtResource("3_fvgmm")
+frame_1/duration = 0.0
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_3e750"]
+frames = 2
+speed_scale = 0.0
+frame_0/texture = ExtResource("4_mjedv")
+frame_0/duration = 0.0
+frame_1/texture = ExtResource("5_uarfd")
+frame_1/duration = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_012ei"]
+atlas = ExtResource("6_qlx6s")
+region = Rect2(9, 24, 82, 25)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4kf1x"]
+load_path = "res://.godot/imported/VictoryButtons.png-bdd5b5ff5f48ef631963a5fa2b43414f.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1mcvi"]
+atlas = SubResource("CompressedTexture2D_4kf1x")
+region = Rect2(9, 55, 82, 25)
+
+[node name="VictoryScreen" type="Control" node_paths=PackedStringArray("victoryLabel", "victoryBackground")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_obvfp")
+victoryLabel = NodePath("VictoryStatus")
+victoryBackground = NodePath("Background")
+
+[node name="FadeIn" type="AnimationPlayer" parent="."]
+autoplay = "Fade In"
+libraries = {
+"": SubResource("AnimationLibrary_gvfug")
+}
+
+[node name="VictoryLabelHover" type="AnimationPlayer" parent="."]
+autoplay = "hover"
+libraries = {
+"": SubResource("AnimationLibrary_45dru")
+}
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(200, 112)
+texture = SubResource("AnimatedTexture_37wcg")
+
+[node name="VictoryStatus" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -156.0
+offset_top = -16.0
+offset_right = 144.0
+offset_bottom = 84.0
+grow_horizontal = 2
+pivot_offset = Vector2(150, 20)
+texture = SubResource("AnimatedTexture_3e750")
+
+[node name="Start Over" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.395
+anchor_top = 0.696
+anchor_right = 0.6
+anchor_bottom = 0.808
+offset_top = 0.095993
+offset_right = -1.52588e-05
+offset_bottom = 0.00799561
+pivot_offset = Vector2(41, 12)
+texture_normal = SubResource("AtlasTexture_012ei")
+script = ExtResource("7_tf74k")
+
+[node name="Main menu" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.395
+anchor_top = 0.835
+anchor_right = 0.6
+anchor_bottom = 0.946
+offset_top = -0.0400085
+offset_right = -1.52588e-05
+offset_bottom = 0.095993
+pivot_offset = Vector2(41, 12)
+texture_normal = SubResource("AtlasTexture_1mcvi")
+script = ExtResource("7_tf74k")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="Start Over" to="." method="StartOver"]
+[connection signal="pressed" from="Main menu" to="." method="ReturnToMain"]

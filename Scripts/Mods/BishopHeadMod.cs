@@ -14,13 +14,13 @@ public partial class BishopHeadMod : PassiveMod
 	{
 		if(Player.playerId == 1)
 		{
-			scrap.Modulate = new Color(0, 0, (float)0.8, 1);
+			scrap.Modulate = new Color(0.5f, 0.5f, (float)0.8, 1);
 			scrap.maxScrapValue = 0;
 		}
 		
 		if(Player.playerId == 2)
 		{
-			scrap.Modulate = new Color((float)0.8, 0, 0, 1);
+			scrap.Modulate = new Color((float)0.8, 0.5f, 0.5f, 1);
 			scrap.maxScrapValue = 0;
 			 
 		}

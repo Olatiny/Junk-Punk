@@ -5,6 +5,8 @@ public partial class Globals : Node
 {
 	public float masterVolume { get; set; }
 
+	public int victoryIndex = -1;
+
 	[Signal]
 	public delegate void PlayerTookDamageEventHandler(PlayerController player, int damageAmount);
 
