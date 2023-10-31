@@ -59,13 +59,14 @@ public partial class PlayerController : Area2D
 		{
 			case 1:
 				Equip(modDatabase.GetMod("KnightLegPath"), Mod.BodyPart.Leg, 0);
+				Equip(modDatabase.GetMod("BishopLeg"), Mod.BodyPart.Leg, 1);
 				Equip(modDatabase.GetMod("KingArm"), Mod.BodyPart.Arm, 1);
-				Equip(modDatabase.GetMod("PawnHead"), Mod.BodyPart.Head, 0);
+				Equip(modDatabase.GetMod("BishopHead"), Mod.BodyPart.Head, 0);
 
 				break;
 			case 2:
-				Equip(modDatabase.GetMod("RookLeg"), Mod.BodyPart.Leg, 0);
-				Equip(modDatabase.GetMod("RookArm"), Mod.BodyPart.Arm, 1);
+				Equip(modDatabase.GetMod("QueenLeg"), Mod.BodyPart.Leg, 0);
+				Equip(modDatabase.GetMod("BishopArmPassive"), Mod.BodyPart.Arm, 1);
 				Equip(modDatabase.GetMod("QueenArm"), Mod.BodyPart.Arm, 0);
 
 				break;
@@ -310,7 +311,7 @@ public partial class PlayerController : Area2D
 		bodyPart = null;
 
 		// TODO: Unequip stuff (resetting sprites/etc. probably give mods unequip function)
-		
+
 		GpuParticles2D sparksEmitter = sparks.Instantiate() as GpuParticles2D;
 		sparksEmitter.Position = Position;
 		sparksEmitter.ZIndex = head.ZIndex + 10;
@@ -363,6 +364,14 @@ public partial class PlayerController : Area2D
 		gameManager.UpdateScoreBoard();
 		Globals globals = GetNode<Globals>("/root/Globals");
 		globals.EmitSignal(Globals.SignalName.PlayerTookDamage, this, damage);
+
+		if (health <= 0)
+		{
+			if (headMod == null || headMod is not PawnHeadMod)
+				gameManager.DeclareVictory();
+			else if (headMod is PawnHeadMod pawnHead)
+				pawnHead.OnPlayerTookDamage(this, damage);
+		}
 
 		return health <= 0;
 	}

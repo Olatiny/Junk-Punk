@@ -249,10 +249,12 @@ public partial class GameManager : Node
 
 	public void DeclareVictory()
 	{
+		GetNode<Globals>("/root/Globals").victoryIndex = currentPlayerIdx;
 		gameState = GameState.GameOver;
-		gameOverText.Text = $"[center]Player {currentPlayerIdx + 1} Wins!\n\n\nGame Over[/center]";
-		gameOverCtrl.Visible = true;
-		pausedCtrl.Visible = playerUI.Visible = false;
+		GetTree().ChangeSceneToFile("Scenes/VictoryScreen.tscn");
+		// // gameOverText.Text = $"[center]Player {currentPlayerIdx + 1} Wins!\n\n\nGame Over[/center]";s
+		// gameOverCtrl.Visible = true;
+		// pausedCtrl.Visible = playerUI.Visible = false;
 	}
 
 	public void ReturnToMain()

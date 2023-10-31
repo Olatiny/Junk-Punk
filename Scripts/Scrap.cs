@@ -4,7 +4,7 @@ using System;
 
 public partial class Scrap : Sprite2D
 {
-	[Export] int maxScrapValue = 100;
+	[Export] public int maxScrapValue = 100;
 	[Export] int maxDurability = 3;
 	[Export] PackedScene sparks;
 
