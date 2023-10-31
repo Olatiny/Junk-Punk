@@ -168,7 +168,7 @@ public partial class PlayerController : Area2D
 		legs[0].Play(directionString);
 		legs[1].Play(directionString);
 
-		ZIndex = gridPosition.Y + 1;
+		ZIndex = gridPosition.Y + 2;
 	}
 
 	public void CheckModDurability()

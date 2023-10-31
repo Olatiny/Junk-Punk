@@ -18,8 +18,11 @@ public partial class GameManager : Node
 
 	[ExportSubgroup("Level Objects")]
 	[Export] Camera2D camera;
-	[Export] Vector2I cameraStartPos;
+	Vector2I cameraStartPos;
 	[Export] int cameraLerpDistance;
+	[Export] Sprite2D background;
+	Vector2I backgroundStartPos;
+	[Export] int backgroundLerpDist;
 
 	[ExportCategory("UI")]
 	[ExportGroup("Control Groups")]
@@ -52,6 +55,8 @@ public partial class GameManager : Node
 
 		gameState = GameState.Playing;
 		turnPhase = TurnPhase.Upkeep;
+		cameraStartPos = (Vector2I) camera.Position;
+		backgroundStartPos = (Vector2I) background.Position;
 
 		if (playerUI != null && pausedCtrl != null && gameOverCtrl != null)
 		{
@@ -77,11 +82,13 @@ public partial class GameManager : Node
 			{
 				playerUI.SetPosition(playerUI.Position.MoveToward(new(0, playerUI.Position.Y), 5));
 				camera.Position = new Vector2((float)Mathf.Lerp(camera.Position.X, cameraStartPos.X, delta * 4), camera.Position.Y);
+				background.Position = new Vector2((float)Mathf.Lerp(background.Position.X, backgroundStartPos.X, delta * 4), background.Position.Y);
 			}
 			else
 			{
 				playerUI.SetPosition(playerUI.Position.MoveToward(new(-90, playerUI.Position.Y), 5));
 				camera.Position = new Vector2((float)Mathf.Lerp(camera.Position.X, cameraStartPos.X + cameraLerpDistance, delta * 4), camera.Position.Y);
+				background.Position = new Vector2((float)Mathf.Lerp(background.Position.X, backgroundStartPos.X + backgroundLerpDist, delta * 4), background.Position.Y);
 			}
 		}
 

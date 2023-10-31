@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://xk3l1h3kto6c"]
+[gd_scene load_steps=42 format=3 uid="uid://xk3l1h3kto6c"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_dey36"]
 [ext_resource type="Texture2D" uid="uid://cb4g6t2q8bkhn" path="res://Assets/TileHighlights.png" id="2_d3dcp"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://c2jt3oe4pwd5n" path="res://Assets/Board Border.png" id="11_5o3yh"]
 [ext_resource type="Texture2D" uid="uid://cd00527gus8ql" path="res://Assets/player_ui_border_fill.png" id="12_fa55o"]
 [ext_resource type="Texture2D" uid="uid://nfe8eixq2qcu" path="res://Assets/Generic Head + Torso Mod.png" id="13_366sk"]
+[ext_resource type="Texture2D" uid="uid://c8s3ycsa61l8a" path="res://Assets/Ground.png" id="13_i0liy"]
 [ext_resource type="PackedScene" uid="uid://be1hejbojsj87" path="res://Prefabs (wink)/inventory.tscn" id="13_sub35"]
 [ext_resource type="Texture2D" uid="uid://caalq5i2t3yl8" path="res://Assets/Generic Leg Mod.png" id="14_u5di8"]
 [ext_resource type="Texture2D" uid="uid://v4gldiipvnx2" path="res://Assets/player_ui_border_handle.png" id="14_v7f0p"]
@@ -136,13 +137,14 @@ gradient = SubResource("Gradient_bxcu0")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(59, 72)
 
-[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "playerUI", "setupUI", "actionsUI", "pausedCtrl", "gameOverCtrl", "shopPanel", "scoreBoard", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText")]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "background", "playerUI", "setupUI", "actionsUI", "pausedCtrl", "gameOverCtrl", "shopPanel", "scoreBoard", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText")]
 script = ExtResource("1_dey36")
 players = [NodePath("ChessBoard/Player B"), NodePath("ChessBoard/Player R")]
 board = NodePath("ChessBoard")
 camera = NodePath("../Camera2D")
-cameraStartPos = Vector2i(59, 72)
 cameraLerpDistance = 90
+background = NodePath("Decoration/Ground")
+backgroundLerpDist = 7
 playerUI = NodePath("GUI/PlayerUI")
 setupUI = NodePath("GUI/PlayerUI/SetupUI")
 actionsUI = NodePath("GUI/PlayerUI/ActionUI")
@@ -203,6 +205,23 @@ inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Inventory Red
 [node name="BoardBorder" type="Sprite2D" parent="GameManager/Decoration"]
 position = Vector2(104, 73)
 texture = ExtResource("11_5o3yh")
+
+[node name="Ground" type="Sprite2D" parent="GameManager/Decoration"]
+z_index = -1
+position = Vector2(108, 70)
+texture = ExtResource("13_i0liy")
+
+[node name="Ground" type="Sprite2D" parent="GameManager/Decoration/Ground"]
+z_index = -1
+position = Vector2(-390, 0)
+texture = ExtResource("13_i0liy")
+flip_h = true
+
+[node name="Ground2" type="Sprite2D" parent="GameManager/Decoration/Ground"]
+z_index = -1
+position = Vector2(374, 0)
+texture = ExtResource("13_i0liy")
+flip_h = true
 
 [node name="GUI" type="CanvasLayer" parent="GameManager"]
 

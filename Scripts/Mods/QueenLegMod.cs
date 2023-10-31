@@ -25,7 +25,6 @@ public partial class QueenLegMod : LegMod
 		{
 			if(mouseMapPos == validTile)
 			{
-				Vector2I playerPosition = player.gridPosition;
 				Node2D node = board.GetNodeAtTile(validTile);
 				
 				if (node is not Scrap)
@@ -33,8 +32,16 @@ public partial class QueenLegMod : LegMod
 				
 				Scrap scrap = node as Scrap;
 				
-				board.SetNodeGridPosition(player, playerPosition, scrap.gridPosition);
-				board.SetNodeGridPosition(scrap, scrap.gridPosition, playerPosition);
+				// GD.Print("Scrap pos before: " + (board.GetNodeAtTile(scrap.gridPosition) as Scrap).gridPosition);
+				// GD.Print("Playe pos before: " + (board.GetNodeAtTile(player.gridPosition) as PlayerController).gridPosition);
+
+				board.SwapNodes(player.gridPosition, scrap.gridPosition);
+
+				// Node2D tileNode = board.GetNodeAtTile(scrap.gridPosition);
+				// GD.Print("Scrap pos after: " + (tileNode as Scrap).gridPosition);
+				
+				// Node2D tileNode2 = board.GetNodeAtTile(player.gridPosition);
+				// GD.Print("Playe pos after: " + (tileNode2 as PlayerController).gridPosition);
 				return true;
 			}
 		}
