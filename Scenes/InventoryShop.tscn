@@ -88,13 +88,13 @@ texture_region_size = Vector2i(26, 18)
 0:0/next_alternative_id = 5
 0:0/0 = 0
 0:0/1 = 1
-0:0/1/modulate = Color(0.686275, 0.686275, 0.392157, 0.862745)
+0:0/1/modulate = Color(1, 0.392157, 0.392157, 0.901961)
 0:0/2 = 2
-0:0/2/modulate = Color(0.588235, 0.588235, 1, 0.862745)
+0:0/2/modulate = Color(0.509804, 0.509804, 1, 0.901961)
 0:0/3 = 3
-0:0/3/modulate = Color(1, 0.392157, 0.392157, 0.862745)
+0:0/3/modulate = Color(0.901961, 0.666667, 0.392157, 0.901961)
 0:0/4 = 4
-0:0/4/modulate = Color(0.666667, 0.666667, 0.666667, 0.862745)
+0:0/4/modulate = Color(0.666667, 0.666667, 0.666667, 0.901961)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iij7c"]
 texture = ExtResource("9_a1oaw")
