@@ -1,15 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://db0n0y7u5dgwl"]
+[gd_scene load_steps=3 format=3 uid="uid://db0n0y7u5dgwl"]
 
+[ext_resource type="Texture2D" uid="uid://ds4xt5k8vjuu4" path="res://Assets/Inventory Box.png" id="1_3n2ox"]
 [ext_resource type="Script" path="res://Scripts/UI/InventorySlot.cs" id="1_jh5yf"]
 
 [node name="Inventory Slot" type="TextureRect" groups=["INVENTORY"]]
-custom_minimum_size = Vector2(16, 16)
+z_index = 1
+custom_minimum_size = Vector2(20, 19)
+offset_right = 16.0
+offset_bottom = 16.0
 mouse_filter = 0
 mouse_default_cursor_shape = 6
 expand_mode = 1
 script = ExtResource("1_jh5yf")
 
 [node name="Slot BG" type="Panel" parent="."]
+visible = false
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -18,3 +23,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 0
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 23.0
+offset_bottom = 23.0
+texture = ExtResource("1_3n2ox")

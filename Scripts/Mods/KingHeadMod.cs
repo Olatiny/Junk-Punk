@@ -14,7 +14,7 @@ public partial class KingHeadMod : PassiveMod
 	{
 		if(Player.headMod == this)
 		{
-			Player.currentScrap += 10;
+			Player.currentScrap += Player.scrapIncome;
 		}
 	}
 }
