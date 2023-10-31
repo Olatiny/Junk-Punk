@@ -138,13 +138,20 @@ layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array()
-layer_2/name = "Cursor"
+layer_2/name = "Scrap"
 layer_2/enabled = true
 layer_2/modulate = Color(1, 1, 1, 1)
 layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array()
+layer_3/name = "Cursor"
+layer_3/enabled = true
+layer_3/modulate = Color(1, 1, 1, 1)
+layer_3/y_sort_enabled = false
+layer_3/y_sort_origin = 0
+layer_3/z_index = 0
+layer_3/tile_data = PackedInt32Array()
 script = ExtResource("8_ysby6")
 tileSize = Vector2i(26, 18)
 tileOffset = Vector2i(13, 9)
@@ -635,6 +642,7 @@ offset_right = 11.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="End Turn" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
 texture_filter = 1
@@ -925,6 +933,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Shop Panel" parent="GameManager/GUI/Setup GUI" node_paths=PackedStringArray("gameMana") instance=ExtResource("28_a73i0")]
 layout_mode = 1
