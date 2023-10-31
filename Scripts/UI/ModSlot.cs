@@ -25,7 +25,7 @@ public partial class ModSlot : ColorRect
 		InventorySlot incomingSlot = (InventorySlot) data;
 		
 		containedMod = incomingSlot.GetContainedMod();
-		bodySprite.Texture = player.playerId == 0 ? containedMod.bigSpriteBlue : containedMod.bigSpriteRed;
+		bodySprite.Texture = player.playerId == 1 ? containedMod.bigSpriteBlue : containedMod.bigSpriteRed;
 		
 		GD.Print("Calling slot is " + this);
 		GD.Print("slotIsLeft is " + slotIsLeft);

@@ -88,13 +88,13 @@ texture_region_size = Vector2i(26, 18)
 0:0/next_alternative_id = 5
 0:0/0 = 0
 0:0/1 = 1
-0:0/1/modulate = Color(0.686275, 0.686275, 0.392157, 0.862745)
+0:0/1/modulate = Color(1, 0.392157, 0.392157, 0.901961)
 0:0/2 = 2
-0:0/2/modulate = Color(0.588235, 0.588235, 1, 0.862745)
+0:0/2/modulate = Color(0.588235, 0.588235, 1, 0.901961)
 0:0/3 = 3
-0:0/3/modulate = Color(1, 0.392157, 0.392157, 0.862745)
+0:0/3/modulate = Color(0.862745, 0.705882, 0.392157, 0.901961)
 0:0/4 = 4
-0:0/4/modulate = Color(0.666667, 0.666667, 0.666667, 0.862745)
+0:0/4/modulate = Color(0.666667, 0.666667, 0.666667, 0.901961)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iij7c"]
 texture = ExtResource("9_a1oaw")
@@ -306,78 +306,6 @@ player = NodePath("../../../../../../ChessBoard/Player B")
 slotIsLeft = true
 bodySprite = NodePath("..")
 
-[node name="Right Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -46.0
-offset_top = -15.0
-offset_right = 1.0
-offset_bottom = 69.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("15_ttdwm")
-flip_h = true
-
-[node name="Arm Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Right Arm" node_paths=PackedStringArray("player", "bodySprite")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -6.5
-offset_top = -34.0
-offset_right = 9.5
-offset_bottom = -18.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.376471)
-script = ExtResource("17_7oomi")
-player = NodePath("../../../../../../ChessBoard/Player B")
-modType = 1
-slotIsLeft = true
-bodySprite = NodePath("..")
-
-[node name="Left Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2.0
-offset_top = -15.0
-offset_right = 45.0
-offset_bottom = 69.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("15_ttdwm")
-
-[node name="Arm Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Left Arm" node_paths=PackedStringArray("player", "bodySprite")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -9.5
-offset_top = -34.0
-offset_right = 6.5
-offset_bottom = -18.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.376471)
-script = ExtResource("17_7oomi")
-player = NodePath("../../../../../../ChessBoard/Player B")
-modType = 1
-bodySprite = NodePath("..")
-
 [node name="Right Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
 layout_mode = 1
 anchors_preset = 8
@@ -448,6 +376,78 @@ color = Color(0, 0, 0, 0.376471)
 script = ExtResource("17_7oomi")
 player = NodePath("../../../../../../ChessBoard/Player B")
 modType = 2
+bodySprite = NodePath("..")
+
+[node name="Right Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -15.0
+offset_right = 1.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("15_ttdwm")
+flip_h = true
+
+[node name="Arm Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Right Arm" node_paths=PackedStringArray("player", "bodySprite")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.5
+offset_top = -34.0
+offset_right = 9.5
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.376471)
+script = ExtResource("17_7oomi")
+player = NodePath("../../../../../../ChessBoard/Player B")
+modType = 1
+slotIsLeft = true
+bodySprite = NodePath("..")
+
+[node name="Left Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -15.0
+offset_right = 45.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("15_ttdwm")
+
+[node name="Arm Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Left Arm" node_paths=PackedStringArray("player", "bodySprite")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -9.5
+offset_top = -34.0
+offset_right = 6.5
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.376471)
+script = ExtResource("17_7oomi")
+player = NodePath("../../../../../../ChessBoard/Player B")
+modType = 1
 bodySprite = NodePath("..")
 
 [node name="Sidebar Red (R)" type="TextureRect" parent="GameManager/GUI/PlayerUI"]
@@ -529,78 +529,6 @@ player = NodePath("../../../../../../ChessBoard/Player R")
 slotIsLeft = true
 bodySprite = NodePath("..")
 
-[node name="Right Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -46.0
-offset_top = -15.0
-offset_right = 1.0
-offset_bottom = 69.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("18_046o5")
-flip_h = true
-
-[node name="Arm Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Right Arm" node_paths=PackedStringArray("player", "bodySprite")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -6.5
-offset_top = -34.0
-offset_right = 9.5
-offset_bottom = -18.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.376471)
-script = ExtResource("17_7oomi")
-player = NodePath("../../../../../../ChessBoard/Player R")
-modType = 1
-slotIsLeft = true
-bodySprite = NodePath("..")
-
-[node name="Left Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2.0
-offset_top = -15.0
-offset_right = 45.0
-offset_bottom = 69.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("18_046o5")
-
-[node name="Arm Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Left Arm" node_paths=PackedStringArray("player", "bodySprite")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -9.5
-offset_top = -34.0
-offset_right = 6.5
-offset_bottom = -18.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.376471)
-script = ExtResource("17_7oomi")
-player = NodePath("../../../../../../ChessBoard/Player R")
-modType = 1
-bodySprite = NodePath("..")
-
 [node name="Right Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
 layout_mode = 1
 anchors_preset = 8
@@ -671,6 +599,78 @@ color = Color(0, 0, 0, 0.376471)
 script = ExtResource("17_7oomi")
 player = NodePath("../../../../../../ChessBoard/Player R")
 modType = 2
+bodySprite = NodePath("..")
+
+[node name="Right Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -15.0
+offset_right = 1.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("18_046o5")
+flip_h = true
+
+[node name="Arm Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Right Arm" node_paths=PackedStringArray("player", "bodySprite")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.5
+offset_top = -34.0
+offset_right = 9.5
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.376471)
+script = ExtResource("17_7oomi")
+player = NodePath("../../../../../../ChessBoard/Player R")
+modType = 1
+slotIsLeft = true
+bodySprite = NodePath("..")
+
+[node name="Left Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -15.0
+offset_right = 45.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("18_046o5")
+
+[node name="Arm Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Left Arm" node_paths=PackedStringArray("player", "bodySprite")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -9.5
+offset_top = -34.0
+offset_right = 6.5
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.376471)
+script = ExtResource("17_7oomi")
+player = NodePath("../../../../../../ChessBoard/Player R")
+modType = 1
 bodySprite = NodePath("..")
 
 [node name="ScoreBoard" parent="GameManager/GUI/PlayerUI" instance=ExtResource("22_l0qi1")]
@@ -910,13 +910,13 @@ texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.702
-anchor_top = 0.839
+anchor_top = 0.844
 anchor_right = 0.858
-anchor_bottom = 0.879
+anchor_bottom = 0.883
 offset_left = 0.199951
-offset_top = 0.0639648
+offset_top = -0.0560303
 offset_right = 249.8
-offset_bottom = 35.544
+offset_bottom = 35.648
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
