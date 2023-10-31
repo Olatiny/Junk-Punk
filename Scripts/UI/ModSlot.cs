@@ -1,11 +1,12 @@
 using Godot;
 using System;
 
-public partial class ModSlot : TextureRect
+public partial class ModSlot : ColorRect
 {
 	[Export] private PlayerController player;
 	[Export] private Mod.BodyPart modType;
 	[Export] private bool slotIsLeft;
+	[Export] private TextureRect bodySprite;
 	private Mod containedMod = null;
 
 	// Called when the current drag hovers over this control.
@@ -24,8 +25,10 @@ public partial class ModSlot : TextureRect
 		InventorySlot incomingSlot = (InventorySlot) data;
 		
 		containedMod = incomingSlot.GetContainedMod();
-		Texture = player.playerId == 0 ? containedMod.bigSpriteBlue : containedMod.bigSpriteRed;
+		bodySprite.Texture = player.playerId == 0 ? containedMod.bigSpriteBlue : containedMod.bigSpriteRed;
 		
+		GD.Print("Calling slot is " + this);
+		GD.Print("slotIsLeft is " + slotIsLeft);
 		player.Equip(containedMod, modType, slotIsLeft ? 0 : 1);
 	}
 }

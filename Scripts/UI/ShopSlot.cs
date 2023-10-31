@@ -25,6 +25,7 @@ public partial class ShopSlot : Node
 	
 	private void _OnShopButtonPressed()
 	{
-		parentShop.SelectShopItem(slotID, containedMod);
+		if (containedMod != null)
+			parentShop.SelectShopItem(slotID, containedMod);
 	}
 }
