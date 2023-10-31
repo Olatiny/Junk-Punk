@@ -12,10 +12,10 @@
 [ext_resource type="Script" path="res://Scripts/Mods/BishopArmMod.cs" id="8_kqfg6"]
 [ext_resource type="Script" path="res://Scripts/Mods/PawnHeadMod.cs" id="9_6yvmr"]
 [ext_resource type="Script" path="res://Scripts/Mods/KingArmMod.cs" id="10_7rn2h"]
-[ext_resource type="Texture2D" uid="uid://cwcfig180xmdh" path="res://Assets/Mods/Scaler Arm Mod Blue.png" id="10_cmdup"]
+[ext_resource type="Texture2D" uid="uid://cwcfig180xmdh" path="res://Assets/Mods/Scaler Arm Mod Blue.png" id="10_mdwgv"]
 [ext_resource type="Texture2D" uid="uid://chwx6hg8osdvb" path="res://Assets/Mods/Scaler Stealer Arm Mod Blue.png" id="10_v0fxy"]
-[ext_resource type="Texture2D" uid="uid://qvhtn6jg6ell" path="res://Assets/Mods/Scaler Arm Mod Red.png" id="11_31b8t"]
 [ext_resource type="Script" path="res://Scripts/Mods/QueenLegMod.cs" id="11_kvofe"]
+[ext_resource type="Texture2D" uid="uid://qvhtn6jg6ell" path="res://Assets/Mods/Scaler Arm Mod Red.png" id="11_pe4nf"]
 [ext_resource type="Texture2D" uid="uid://dq42qpvx75cpg" path="res://Assets/Mods/Scaler Stealer Arm Mod Red.png" id="11_wicdv"]
 [ext_resource type="Script" path="res://Scripts/Mods/QueenArmMod.cs" id="13_ea5ld"]
 [ext_resource type="Texture2D" uid="uid://b4wgq2u3s3hat" path="res://Assets/Mods/Scaler Head Mod Blue.png" id="16_go003"]
@@ -62,7 +62,7 @@ region = Rect2(29, 4, 18, 19)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qp0qo"]
 atlas = ExtResource("3_1wbt1")
-region = Rect2(2, 78, 18, 19)
+region = Rect2(58, 78, 17, 17)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_spod8"]
 atlas = ExtResource("3_1wbt1")
@@ -107,7 +107,6 @@ durability = 4
 icon = SubResource("AtlasTexture_qrqhd")
 bigSpriteBlue = ExtResource("4_wen0u")
 bigSpriteRed = ExtResource("5_loklo")
-bodyPartTint = Color(0.0588235, 0.482353, 0.501961, 1)
 
 [node name="BishopLeg" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
@@ -133,7 +132,6 @@ durability = 4
 icon = SubResource("AtlasTexture_05x3w")
 bigSpriteBlue = ExtResource("4_a3log")
 bigSpriteRed = ExtResource("5_en27o")
-bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
 
 [node name="RookArm" type="Sprite2D" parent="."]
 script = ExtResource("6_ket1x")
@@ -142,9 +140,8 @@ buffType = 1
 uid = "RookArm"
 durability = 4
 icon = SubResource("AtlasTexture_30gou")
-bigSpriteBlue = ExtResource("10_cmdup")
-bigSpriteRed = ExtResource("11_31b8t")
-bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
+bigSpriteBlue = ExtResource("10_mdwgv")
+bigSpriteRed = ExtResource("11_pe4nf")
 
 [node name="BishopArm" type="Sprite2D" parent="."]
 script = ExtResource("8_kqfg6")
@@ -178,7 +175,6 @@ durability = 4
 icon = SubResource("AtlasTexture_vknoh")
 bigSpriteBlue = ExtResource("4_a3log")
 bigSpriteRed = ExtResource("5_en27o")
-bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
 
 [node name="KingArm" type="Sprite2D" parent="."]
 script = ExtResource("10_7rn2h")
@@ -232,6 +228,8 @@ script = ExtResource("24_fbidt")
 uid = "QueenHead"
 durability = 4
 icon = SubResource("AtlasTexture_slia6")
+bigSpriteBlue = ExtResource("16_go003")
+bigSpriteRed = ExtResource("17_mfek1")
 bodyPartTint = Color(0.25098, 0.27451, 0.313726, 1)
 
 [node name="KingHead" type="Sprite2D" parent="."]
@@ -239,6 +237,8 @@ script = ExtResource("25_43jfj")
 uid = "KingHead"
 durability = 4
 icon = SubResource("AtlasTexture_klqnm")
+bigSpriteBlue = ExtResource("16_go003")
+bigSpriteRed = ExtResource("17_mfek1")
 bodyPartTint = Color(0.25098, 0.27451, 0.313726, 1)
 
 [node name="RookHead" type="Sprite2D" parent="."]
@@ -246,6 +246,8 @@ script = ExtResource("26_845eg")
 uid = "RookHead"
 durability = 4
 icon = SubResource("AtlasTexture_4vwvm")
+bigSpriteBlue = ExtResource("16_go003")
+bigSpriteRed = ExtResource("17_mfek1")
 bodyPartTint = Color(0.0588235, 0.482353, 0.501961, 1)
 
 [node name="BishopHead" type="Sprite2D" parent="."]
@@ -253,4 +255,6 @@ script = ExtResource("27_lwu32")
 uid = "BishopHead"
 durability = 4
 icon = SubResource("AtlasTexture_5q1hf")
+bigSpriteBlue = ExtResource("16_go003")
+bigSpriteRed = ExtResource("17_mfek1")
 bodyPartTint = Color(0.0588235, 0.482353, 0.501961, 1)

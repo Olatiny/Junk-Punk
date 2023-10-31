@@ -263,7 +263,8 @@ public partial class ChessBoard : TileMap
 
 	private void UpdateMouseOverHighlight()
 	{
-		EraseCell(3, mouseOverCell);
+		if (mouseOverCell != null)
+			EraseCell(3, mouseOverCell);
 		mouseOverCell = LocalToMap(GetGlobalMousePosition());
 		TileData tileData = GetCellTileData(0, mouseOverCell);
 		if (gameManager?.gameState == GameManager.GameState.Playing && tileData != null && tileData.GetCustomData("highlightable").AsBool() && !Input.IsMouseButtonPressed(MouseButton.Left))

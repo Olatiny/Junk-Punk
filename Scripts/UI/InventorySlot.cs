@@ -10,8 +10,7 @@ public partial class InventorySlot : TextureRect
 	// Called when the player initiates a drag on this control.
 	public override Variant _GetDragData(Vector2 atPosition)
 	{
-		GD.Print(containedMod);
-		
+		GD.Print(containedMod == null);
 		if (containedMod == null)
 			return this;
 		
@@ -43,20 +42,11 @@ public partial class InventorySlot : TextureRect
 	// Called when the player releases a drag on top of this control.
 	public override void _DropData(Vector2 atPosition, Variant data)
 	{
-		GD.Print("Data is:");
-		GD.Print(data);
-		
 		InventorySlot incomingSlot = (InventorySlot) data;
 		
 		Mod swappedMod = SwapInMod(incomingSlot.containedMod);
-		GD.Print("Swapped Mod was:");
-		GD.Print(swappedMod);
+
 		incomingSlot.SwapInMod(swappedMod);
-		
-		GD.Print("Drop Data Incoming");
-		GD.Print(incomingSlot.containedMod);
-		GD.Print(containedMod);
-		GD.Print("Drop Data Finished!");
 	}
 	
 	// Called when an engine notification occurs.
@@ -80,13 +70,9 @@ public partial class InventorySlot : TextureRect
 			
 		isDragging = false;
 		
-		if (IsDragSuccessful())
+		if (!IsDragSuccessful())
 		{
-			GD.Print("Notification Fired!");
-			// containedMod = null;
-		}
-		else
-		{
+			GD.Print("Drag Failed. Restoring Inventory Slot's texture.");
 			Texture = containedMod.icon;
 		}
 	}
@@ -96,13 +82,10 @@ public partial class InventorySlot : TextureRect
 	
 	public Mod SwapInMod(Mod newMod)
 	{
-		GD.Print("Swapping!");
-		GD.Print(newMod);
 		Mod oldMod = containedMod;
 		containedMod = newMod;
-		
-		// This is placeholder, change when mods are more than just a Texture2D
-		Texture = containedMod.icon;
+		if (containedMod != null)
+			Texture = containedMod.icon;
 		
 		return oldMod;
 	}

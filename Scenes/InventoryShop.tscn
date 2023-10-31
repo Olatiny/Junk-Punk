@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://xk3l1h3kto6c"]
+[gd_scene load_steps=36 format=3 uid="uid://xk3l1h3kto6c"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_dey36"]
 [ext_resource type="Texture2D" uid="uid://cb4g6t2q8bkhn" path="res://Assets/TileHighlights.png" id="2_d3dcp"]
@@ -7,9 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bm4vmrb0j0oyc" path="res://Assets/TillesIsometric.png" id="5_yu52e"]
 [ext_resource type="Texture2D" uid="uid://bq7tr7fcmddkb" path="res://Assets/Board Tile 2.png" id="6_3mluf"]
 [ext_resource type="Texture2D" uid="uid://copej1dng63by" path="res://Assets/Board Tile 1.png" id="7_ws6oa"]
-[ext_resource type="Texture2D" uid="uid://c04vi4rl8aaec" path="res://Assets/Tile Thingy.png" id="8_iyiit"]
 [ext_resource type="Script" path="res://Scripts/ChessBoard.cs" id="8_ysby6"]
-[ext_resource type="Texture2D" uid="uid://cw0desmn6r6fw" path="res://Assets/Robit Board Sprites/Scrap Pile Shadow.png" id="9_quaga"]
 [ext_resource type="PackedScene" uid="uid://djwpfatnct4qp" path="res://Prefabs (wink)/player.tscn" id="9_uy3x6"]
 [ext_resource type="Texture2D" uid="uid://c2jt3oe4pwd5n" path="res://Assets/Board Border.png" id="11_5o3yh"]
 [ext_resource type="Texture2D" uid="uid://cd00527gus8ql" path="res://Assets/player_ui_border_fill.png" id="12_fa55o"]
@@ -23,7 +21,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/ModSlot.cs" id="17_7oomi"]
 [ext_resource type="Texture2D" uid="uid://nf1o8rrfoxfo" path="res://Assets/Generic Leg Mod (Red).png" id="17_l7cm2"]
 [ext_resource type="Texture2D" uid="uid://cbp2yurr5te7f" path="res://Assets/Generic Arm Mod (Red).png" id="18_046o5"]
-[ext_resource type="PackedScene" uid="uid://faewvh28xhdx" path="res://Prefabs (wink)/score_board.tscn" id="21_kn3wx"]
+[ext_resource type="PackedScene" uid="uid://bt7r26okh38p8" path="res://Prefabs (wink)/score_board.tscn" id="22_l0qi1"]
 [ext_resource type="FontFile" uid="uid://bsynkeioac1v" path="res://Quinquefive-ALoRM.ttf" id="23_hmgjx"]
 [ext_resource type="PackedScene" uid="uid://ttbgcwxirp1h" path="res://Prefabs (wink)/shop.tscn" id="28_a73i0"]
 
@@ -76,32 +74,9 @@ texture_region_size = Vector2i(16, 13)
 texture = ExtResource("6_3mluf")
 texture_region_size = Vector2i(26, 18)
 0:0/0 = 0
-0:0/0/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_52k3x"]
 texture = ExtResource("7_ws6oa")
-texture_region_size = Vector2i(26, 18)
-0:0/0 = 0
-0:0/0/custom_data_0 = true
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iopns"]
-resource_name = "TileHighlightsFinal"
-texture = ExtResource("8_iyiit")
-texture_region_size = Vector2i(26, 18)
-0:0/next_alternative_id = 5
-0:0/0 = 0
-0:0/1 = 1
-0:0/1/modulate = Color(0.8, 0.262745, 0.32549, 0.784314)
-0:0/2 = 2
-0:0/2/modulate = Color(0.352941, 0.352941, 0.878431, 0.784314)
-0:0/3 = 3
-0:0/3/modulate = Color(0.870588, 0.780392, 0.392157, 0.784314)
-0:0/4 = 4
-0:0/4/modulate = Color(0.768627, 0.717647, 0.717647, 0.784314)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vq8ey"]
-resource_name = "ScrapShadow"
-texture = ExtResource("9_quaga")
 texture_region_size = Vector2i(26, 18)
 0:0/0 = 0
 
@@ -115,11 +90,7 @@ sources/4 = SubResource("TileSetAtlasSource_tc5er")
 sources/5 = SubResource("TileSetAtlasSource_52k3x")
 sources/0 = SubResource("TileSetAtlasSource_0vkjt")
 sources/1 = SubResource("TileSetAtlasSource_hgkhs")
-sources/6 = SubResource("TileSetAtlasSource_iopns")
-sources/7 = SubResource("TileSetAtlasSource_vq8ey")
 pattern_0 = SubResource("TileMapPattern_c6kbi")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x1hiv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrgj1"]
 
@@ -146,11 +117,11 @@ cameraLerpDistance = 90
 background = NodePath("Decoration/Ground")
 backgroundLerpDist = 7
 playerUI = NodePath("GUI/PlayerUI")
-setupUI = NodePath("GUI/PlayerUI/SetupUI")
+setupUI = NodePath("GUI/Setup GUI")
 actionsUI = NodePath("GUI/PlayerUI/ActionUI")
 pausedCtrl = NodePath("GUI/Pause GUI")
 gameOverCtrl = NodePath("GUI/Game Over GUI")
-shopPanel = NodePath("GUI/PlayerUI/SetupUI/Shop Panel")
+shopPanel = NodePath("GUI/Setup GUI/Shop Panel")
 scoreBoard = NodePath("GUI/PlayerUI/ScoreBoard")
 movementButton = NodePath("GUI/PlayerUI/ActionUI/Move")
 actionButton = NodePath("GUI/PlayerUI/ActionUI/Action")
@@ -190,14 +161,12 @@ tileSize = Vector2i(26, 18)
 tileOffset = Vector2i(13, 9)
 
 [node name="Player B" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection") instance=ExtResource("9_uy3x6")]
-position = Vector2(-21, 37)
-playerId = 1
-direction = 0
+playerId = 0
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Inventory Blu")
 
 [node name="Player R" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection") instance=ExtResource("9_uy3x6")]
-gridPosition = Vector2i(4, 0)
-playerId = 2
+playerId = 1
+direction = 0
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Inventory Red")
 
 [node name="Decoration" type="Node2D" parent="GameManager"]
@@ -246,12 +215,6 @@ texture = ExtResource("12_fa55o")
 
 [node name="Inventory Blu" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)" node_paths=PackedStringArray("playerCon") instance=ExtResource("13_sub35")]
 layout_mode = 1
-offset_left = 0.499999
-offset_top = 0.400009
-offset_right = 0.5
-offset_bottom = 0.199997
-grow_horizontal = 1
-grow_vertical = 1
 playerCon = NodePath("../../../../ChessBoard/Player B")
 
 [node name="Sidebar Handle" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)"]
@@ -293,11 +256,10 @@ offset_right = 41.5
 offset_bottom = 53.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
+mouse_filter = 2
 texture = ExtResource("13_366sk")
-script = ExtResource("17_7oomi")
 
-[node name="Head Mod Slot" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Upper Body"]
+[node name="Head Mod Slot" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Upper Body" node_paths=PackedStringArray("player", "bodySprite")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -310,8 +272,11 @@ offset_right = 7.0
 offset_bottom = -11.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 color = Color(0, 0, 0, 0.376471)
+script = ExtResource("17_7oomi")
+player = NodePath("../../../../../../ChessBoard/Player B")
+slotIsLeft = true
+bodySprite = NodePath("..")
 
 [node name="Right Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
 layout_mode = 1
@@ -326,12 +291,11 @@ offset_right = 1.0
 offset_bottom = 69.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
+mouse_filter = 2
 texture = ExtResource("15_ttdwm")
 flip_h = true
-script = ExtResource("17_7oomi")
 
-[node name="Arm Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Right Arm"]
+[node name="Arm Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Right Arm" node_paths=PackedStringArray("player", "bodySprite")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -344,8 +308,12 @@ offset_right = 9.5
 offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 color = Color(0, 0, 0, 0.376471)
+script = ExtResource("17_7oomi")
+player = NodePath("../../../../../../ChessBoard/Player B")
+modType = 1
+slotIsLeft = true
+bodySprite = NodePath("..")
 
 [node name="Left Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
 layout_mode = 1
@@ -360,11 +328,10 @@ offset_right = 45.0
 offset_bottom = 69.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
+mouse_filter = 2
 texture = ExtResource("15_ttdwm")
-script = ExtResource("17_7oomi")
 
-[node name="Arm Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Left Arm"]
+[node name="Arm Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Left Arm" node_paths=PackedStringArray("player", "bodySprite")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -377,8 +344,11 @@ offset_right = 6.5
 offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 color = Color(0, 0, 0, 0.376471)
+script = ExtResource("17_7oomi")
+player = NodePath("../../../../../../ChessBoard/Player B")
+modType = 1
+bodySprite = NodePath("..")
 
 [node name="Right Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
 layout_mode = 1
@@ -393,12 +363,11 @@ offset_right = 17.0
 offset_bottom = 105.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
+mouse_filter = 2
 texture = ExtResource("14_u5di8")
 flip_h = true
-script = ExtResource("17_7oomi")
 
-[node name="Leg Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Right Leg"]
+[node name="Leg Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Right Leg" node_paths=PackedStringArray("player", "bodySprite")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -411,8 +380,12 @@ offset_right = 9.5
 offset_bottom = -8.5
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 color = Color(0, 0, 0, 0.376471)
+script = ExtResource("17_7oomi")
+player = NodePath("../../../../../../ChessBoard/Player B")
+modType = 2
+slotIsLeft = true
+bodySprite = NodePath("..")
 
 [node name="Left Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
 layout_mode = 1
@@ -427,11 +400,10 @@ offset_right = 39.0
 offset_bottom = 105.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
+mouse_filter = 2
 texture = ExtResource("14_u5di8")
-script = ExtResource("17_7oomi")
 
-[node name="Leg Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Left Leg"]
+[node name="Leg Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body/Left Leg" node_paths=PackedStringArray("player", "bodySprite")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -444,8 +416,11 @@ offset_right = 6.5
 offset_bottom = -8.5
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 color = Color(0, 0, 0, 0.376471)
+script = ExtResource("17_7oomi")
+player = NodePath("../../../../../../ChessBoard/Player B")
+modType = 2
+bodySprite = NodePath("..")
 
 [node name="Sidebar Red (R)" type="TextureRect" parent="GameManager/GUI/PlayerUI"]
 layout_mode = 1
@@ -459,12 +434,6 @@ texture = ExtResource("12_fa55o")
 
 [node name="Inventory Red" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)" node_paths=PackedStringArray("playerCon") instance=ExtResource("13_sub35")]
 layout_mode = 1
-offset_left = -0.500001
-offset_top = 0.400009
-offset_right = 0.5
-offset_bottom = 0.199997
-grow_horizontal = 1
-grow_vertical = 1
 playerCon = NodePath("../../../../ChessBoard/Player R")
 
 [node name="Sidebar Handle" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)"]
@@ -506,11 +475,10 @@ offset_right = 41.5
 offset_bottom = 53.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
+mouse_filter = 2
 texture = ExtResource("16_bvq0a")
-script = ExtResource("17_7oomi")
 
-[node name="Head Mod Slot" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Upper Body"]
+[node name="Head Mod Slot" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Upper Body" node_paths=PackedStringArray("player", "bodySprite")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -523,8 +491,11 @@ offset_right = 7.0
 offset_bottom = -11.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 color = Color(0, 0, 0, 0.376471)
+script = ExtResource("17_7oomi")
+player = NodePath("../../../../../../ChessBoard/Player R")
+slotIsLeft = true
+bodySprite = NodePath("..")
 
 [node name="Right Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
 layout_mode = 1
@@ -539,12 +510,11 @@ offset_right = 1.0
 offset_bottom = 69.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
+mouse_filter = 2
 texture = ExtResource("18_046o5")
 flip_h = true
-script = ExtResource("17_7oomi")
 
-[node name="Arm Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Right Arm"]
+[node name="Arm Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Right Arm" node_paths=PackedStringArray("player", "bodySprite")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -557,8 +527,12 @@ offset_right = 9.5
 offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 color = Color(0, 0, 0, 0.376471)
+script = ExtResource("17_7oomi")
+player = NodePath("../../../../../../ChessBoard/Player R")
+modType = 1
+slotIsLeft = true
+bodySprite = NodePath("..")
 
 [node name="Left Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
 layout_mode = 1
@@ -573,11 +547,10 @@ offset_right = 45.0
 offset_bottom = 69.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
+mouse_filter = 2
 texture = ExtResource("18_046o5")
-script = ExtResource("17_7oomi")
 
-[node name="Arm Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Left Arm"]
+[node name="Arm Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Left Arm" node_paths=PackedStringArray("player", "bodySprite")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -590,8 +563,11 @@ offset_right = 6.5
 offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 color = Color(0, 0, 0, 0.376471)
+script = ExtResource("17_7oomi")
+player = NodePath("../../../../../../ChessBoard/Player R")
+modType = 1
+bodySprite = NodePath("..")
 
 [node name="Right Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
 layout_mode = 1
@@ -606,12 +582,11 @@ offset_right = 17.0
 offset_bottom = 105.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
+mouse_filter = 2
 texture = ExtResource("17_l7cm2")
 flip_h = true
-script = ExtResource("17_7oomi")
 
-[node name="Leg Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Right Leg"]
+[node name="Leg Mod Slot R" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Right Leg" node_paths=PackedStringArray("player", "bodySprite")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -624,8 +599,12 @@ offset_right = 9.5
 offset_bottom = -8.5
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 color = Color(0, 0, 0, 0.376471)
+script = ExtResource("17_7oomi")
+player = NodePath("../../../../../../ChessBoard/Player R")
+modType = 2
+slotIsLeft = true
+bodySprite = NodePath("..")
 
 [node name="Left Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
 layout_mode = 1
@@ -640,11 +619,10 @@ offset_right = 39.0
 offset_bottom = 105.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
+mouse_filter = 2
 texture = ExtResource("17_l7cm2")
-script = ExtResource("17_7oomi")
 
-[node name="Leg Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Left Leg"]
+[node name="Leg Mod Slot L" type="ColorRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body/Left Leg" node_paths=PackedStringArray("player", "bodySprite")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -657,43 +635,22 @@ offset_right = 6.5
 offset_bottom = -8.5
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 color = Color(0, 0, 0, 0.376471)
+script = ExtResource("17_7oomi")
+player = NodePath("../../../../../../ChessBoard/Player R")
+modType = 2
+bodySprite = NodePath("..")
 
-[node name="ScoreBoard" parent="GameManager/GUI/PlayerUI" instance=ExtResource("21_kn3wx")]
-layout_mode = 1
-grow_vertical = 1
-pivot_offset = Vector2(124, 0)
-
-[node name="SetupUI" type="Control" parent="GameManager/GUI/PlayerUI"]
-visible = false
+[node name="ScoreBoard" parent="GameManager/GUI/PlayerUI" instance=ExtResource("22_l0qi1")]
+layout_mode = 0
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Shop Panel" parent="GameManager/GUI/PlayerUI/SetupUI" node_paths=PackedStringArray("gameMana") instance=ExtResource("28_a73i0")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.485
-anchor_right = 0.485
-offset_left = 99.6
-offset_top = 144.0
-offset_right = 249.6
-offset_bottom = 184.0
+anchor_left = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_right = 0.0
 grow_horizontal = 1
-gameMana = NodePath("../../../..")
-
-[node name="Button" type="Button" parent="GameManager/GUI/PlayerUI/SetupUI"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 6.95
-anchor_top = 4.9
-anchor_right = 8.5
-anchor_bottom = 5.275
-theme_override_fonts/font = ExtResource("23_hmgjx")
-theme_override_font_sizes/font_size = 5
-theme_override_styles/focus = SubResource("StyleBoxEmpty_x1hiv")
-text = "End Setup"
+grow_vertical = 1
 
 [node name="ActionUI" type="Control" parent="GameManager/GUI/PlayerUI"]
 layout_mode = 1
@@ -706,6 +663,7 @@ offset_right = 11.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="End Turn" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
 texture_filter = 1
@@ -937,48 +895,40 @@ GAME OVER
 "
 scroll_active = false
 
-[node name="Resume" type="Button" parent="GameManager/GUI/Game Over GUI"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -282.0
-offset_top = -57.0
-offset_right = 282.0
-offset_bottom = 57.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.2, 0.2)
-pivot_offset = Vector2(282, 57)
-theme_override_fonts/font = ExtResource("23_hmgjx")
-theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
-text = "Start Over
-"
-
 [node name="Main Menu" type="Button" parent="GameManager/GUI/Game Over GUI"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.629
-anchor_right = 0.5
-anchor_bottom = 0.629
-offset_left = -282.0
-offset_top = -56.896
-offset_right = 282.0
-offset_bottom = 57.104
-grow_horizontal = 2
-grow_vertical = 2
+anchor_left = 0.285
+anchor_top = 0.429
+anchor_right = 0.726
+anchor_bottom = 0.549
+offset_top = -0.0960083
+offset_right = 705.6
+offset_bottom = 108.024
 scale = Vector2(0.2, 0.2)
-pivot_offset = Vector2(282, 57)
 theme_override_fonts/font = ExtResource("23_hmgjx")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
 text = "Main Menu"
+
+[node name="Start Over" type="Button" parent="GameManager/GUI/Game Over GUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.285
+anchor_top = 0.58
+anchor_right = 0.725
+anchor_bottom = 0.701
+offset_top = 0.0799866
+offset_right = 704.0
+offset_bottom = 107.976
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("23_hmgjx")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
+text = "Start OVer
+"
 
 [node name="Pause GUI" type="Control" parent="GameManager/GUI"]
 visible = false
@@ -1003,12 +953,12 @@ texture = SubResource("GradientTexture1D_y1224")
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.063
+anchor_top = 0.027
 anchor_right = 0.997
-anchor_bottom = 0.286
-offset_top = -0.112
+anchor_bottom = 0.25
+offset_top = -0.0480003
 offset_right = 1596.2
-offset_bottom = 199.936
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
@@ -1026,19 +976,16 @@ scroll_active = false
 [node name="Resume" type="Button" parent="GameManager/GUI/Pause GUI"]
 texture_filter = 1
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -282.0
-offset_top = -57.0
-offset_right = 282.0
-offset_bottom = 57.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = -1
+anchor_left = 0.292
+anchor_top = 0.455
+anchor_right = 0.701
+anchor_bottom = 0.567
+offset_left = 0.199989
+offset_top = 0.0799942
+offset_right = 653.6
+offset_bottom = 99.992
 scale = Vector2(0.2, 0.2)
-pivot_offset = Vector2(282, 57)
 theme_override_fonts/font = ExtResource("23_hmgjx")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
@@ -1048,24 +995,39 @@ text = "RESUME"
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.629
-anchor_right = 0.5
-anchor_bottom = 0.629
-offset_left = -282.0
-offset_top = -56.896
-offset_right = 282.0
-offset_bottom = 57.104
-grow_horizontal = 2
-grow_vertical = 2
+anchor_left = 0.293
+anchor_top = 0.603
+anchor_right = 0.701
+anchor_bottom = 0.714
+offset_left = -0.199997
+offset_top = -0.0720062
+offset_right = 653.6
+offset_bottom = 100.064
 scale = Vector2(0.2, 0.2)
-pivot_offset = Vector2(282, 57)
 theme_override_fonts/font = ExtResource("23_hmgjx")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
-text = "Main Menu"
+text = "MAIN MENU"
 
-[connection signal="pressed" from="GameManager/GUI/PlayerUI/SetupUI/Button" to="GameManager" method="EndSetup"]
+[node name="Setup GUI" type="Control" parent="GameManager/GUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Shop Panel" parent="GameManager/GUI/Setup GUI" node_paths=PackedStringArray("gameMana") instance=ExtResource("28_a73i0")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_top = -40.0
+offset_right = 75.0
+gameMana = NodePath("../../..")
+
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/End Turn" to="GameManager" method="EndTurn"]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Move" to="GameManager" method="GetValidMoveTiles"]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Action" to="GameManager" method="GetValidAttackTiles"]
@@ -1075,7 +1037,7 @@ text = "Main Menu"
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Basic2" to="GameManager" method="ChangeActiveEquip" binds= [-1]]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Left2" to="GameManager" method="ChangeActiveEquip" binds= [0]]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Right2" to="GameManager" method="ChangeActiveEquip" binds= [1]]
-[connection signal="pressed" from="GameManager/GUI/Game Over GUI/Resume" to="GameManager" method="Restart"]
 [connection signal="pressed" from="GameManager/GUI/Game Over GUI/Main Menu" to="GameManager" method="ReturnToMain"]
+[connection signal="pressed" from="GameManager/GUI/Game Over GUI/Start Over" to="GameManager" method="Restart"]
 [connection signal="pressed" from="GameManager/GUI/Pause GUI/Resume" to="GameManager" method="Resume"]
 [connection signal="pressed" from="GameManager/GUI/Pause GUI/Main Menu" to="GameManager" method="ReturnToMain"]

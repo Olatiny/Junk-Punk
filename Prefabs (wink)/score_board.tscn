@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://faewvh28xhdx"]
+[gd_scene load_steps=24 format=3 uid="uid://bt7r26okh38p8"]
 
 [ext_resource type="Texture2D" uid="uid://dyae0hy761vv1" path="res://Assets/Scoreboard Panel.png" id="1_uv7bp"]
 [ext_resource type="Script" path="res://Scripts/UI/ScoreBoard.cs" id="2_03mf6"]

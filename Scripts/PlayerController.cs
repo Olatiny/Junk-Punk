@@ -204,6 +204,10 @@ public partial class PlayerController : Area2D
 
 	public void Equip(Mod mod, Mod.BodyPart bodyPart, int limbIdx = 0)
 	{
+		GD.Print("Equip Output");
+		GD.Print(mod);
+		GD.Print(bodyPart);
+		GD.Print(limbIdx);
 		if (mod.bodyPart != bodyPart)
 			return;
 
@@ -278,25 +282,28 @@ public partial class PlayerController : Area2D
 		switch (bodyPart)
 		{
 			case Mod.BodyPart.Head:
-				mod = headMod;
-				UnequipHelper(ref mod, ref headMod);
-				head.Modulate = new(1, 1, 1, 1);
-
-				break;
+				{
+					mod = headMod;
+					UnequipHelper(ref mod, ref headMod);
+					head.Modulate = new(1, 1, 1, 1);
+					break;
+				}
 			case Mod.BodyPart.Arm:
-				mod = armMods?[limbIdx];
-				UnequipHelper(ref mod, ref armMods[limbIdx]);
-				if (arms != null)
-					arms[limbIdx].Modulate = new(1, 1, 1, 1);
-
-				break;
+				{
+					mod = armMods?[limbIdx];
+					UnequipHelper(ref mod, ref armMods[limbIdx]);
+					if (arms != null)
+						arms[limbIdx].Modulate = new(1, 1, 1, 1);
+					break;
+				}
 			case Mod.BodyPart.Leg:
-				mod = legMods?[limbIdx];
-				UnequipHelper(ref mod, ref legMods[limbIdx]);
-				if (legs != null)
-					legs[limbIdx].Modulate = new(1, 1, 1, 1);
-
-				break;
+				{
+					mod = legMods?[limbIdx];
+					UnequipHelper(ref mod, ref legMods[limbIdx]);
+					if (legs != null)
+						legs[limbIdx].Modulate = new(1, 1, 1, 1);
+					break;
+				}
 		}
 	}
 
