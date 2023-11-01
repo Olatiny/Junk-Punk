@@ -245,7 +245,8 @@ tileOffset = Vector2i(13, 9)
 
 [node name="Player B" parent="GameManager/ChessBoard" node_paths=PackedStringArray("durabilityIndicators", "inventoryCollection") instance=ExtResource("9_uy3x6")]
 playerId = 1
-scrapIncome = 50
+currentScrap = 750
+scrapIncome = 100
 durabilityIndicators = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Durability Indicators")
 direction = 0
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Inventory Blu")
@@ -253,7 +254,8 @@ inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Inventory Bl
 [node name="Player R" parent="GameManager/ChessBoard" node_paths=PackedStringArray("durabilityIndicators", "inventoryCollection") instance=ExtResource("9_uy3x6")]
 gridPosition = Vector2i(4, 0)
 playerId = 2
-scrapIncome = 50
+currentScrap = 750
+scrapIncome = 100
 durabilityIndicators = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Durability Indicators")
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Inventory Red")
 
@@ -1139,9 +1141,9 @@ custom_minimum_size = Vector2(160, 50)
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Basic" to="GameManager" method="ChangeActiveEquip" binds= [-1]]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Left" to="GameManager" method="ChangeActiveEquip" binds= [0]]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Right" to="GameManager" method="ChangeActiveEquip" binds= [1]]
-[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Basic2" to="GameManager" method="ChangeActiveEquip"]
-[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Left2" to="GameManager" method="ChangeActiveEquip"]
-[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Right2" to="GameManager" method="ChangeActiveEquip"]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Basic2" to="GameManager" method="ChangeActiveEquip" binds= [-1]]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Left2" to="GameManager" method="ChangeActiveEquip" binds= [0]]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Right2" to="GameManager" method="ChangeActiveEquip" binds= [1]]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Move" to="GameManager" method="GetValidMoveTiles"]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Action" to="GameManager" method="GetValidAttackTiles"]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/End Turn" to="GameManager" method="EndTurn"]
