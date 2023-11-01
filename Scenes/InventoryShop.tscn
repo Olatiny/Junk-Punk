@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://xk3l1h3kto6c"]
+[gd_scene load_steps=64 format=3 uid="uid://xk3l1h3kto6c"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_dey36"]
 [ext_resource type="Texture2D" uid="uid://cb4g6t2q8bkhn" path="res://Assets/TileHighlights.png" id="2_d3dcp"]
@@ -25,7 +25,12 @@
 [ext_resource type="Texture2D" uid="uid://cbp2yurr5te7f" path="res://Assets/Generic Arm Mod (Red).png" id="18_046o5"]
 [ext_resource type="PackedScene" uid="uid://bt7r26okh38p8" path="res://Prefabs (wink)/score_board.tscn" id="22_l0qi1"]
 [ext_resource type="FontFile" uid="uid://bsynkeioac1v" path="res://Quinquefive-ALoRM.ttf" id="23_hmgjx"]
+[ext_resource type="Texture2D" uid="uid://6g4tl0qadsqg" path="res://Assets/Move Button.png" id="26_f0rpr"]
+[ext_resource type="PackedScene" uid="uid://dwut1bvvk6gpd" path="res://Prefabs (wink)/tooltip.tscn" id="27_ancmm"]
+[ext_resource type="Texture2D" uid="uid://cbpdxrgkodifh" path="res://Assets/Shop Button.png" id="27_hvsfn"]
+[ext_resource type="Texture2D" uid="uid://df02tno1i5jdb" path="res://Assets/Action Button.png" id="27_yj85l"]
 [ext_resource type="PackedScene" uid="uid://ttbgcwxirp1h" path="res://Prefabs (wink)/shop.tscn" id="28_a73i0"]
+[ext_resource type="Texture2D" uid="uid://xmvwwlypkoxl" path="res://Assets/Turn End Button.png" id="28_qr0ql"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_c6kbi"]
 tile_data = PackedInt32Array(0, 5, 0, 65536, 4, 0, 1, 4, 0, 65537, 5, 0)
@@ -115,9 +120,60 @@ sources/6 = SubResource("TileSetAtlasSource_au4ew")
 sources/7 = SubResource("TileSetAtlasSource_iij7c")
 pattern_0 = SubResource("TileMapPattern_c6kbi")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrgj1"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jy1ch"]
+bg_color = Color(1, 0.882353, 0.560784, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_de1xb"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a8ofj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g5fjd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_upq5q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4iyo1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7u11a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vajdl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5wmnf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1q03x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8oiy7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a2srl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0kuw"]
+atlas = ExtResource("26_f0rpr")
+region = Rect2(0, 0, 61, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0t76"]
+atlas = ExtResource("26_f0rpr")
+region = Rect2(61, 0, 61, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27ac4"]
+atlas = ExtResource("27_yj85l")
+region = Rect2(0, 0, 77, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4f2l2"]
+atlas = ExtResource("27_yj85l")
+region = Rect2(77, 0, 77, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgsil"]
+atlas = ExtResource("28_qr0ql")
+region = Rect2(0, 0, 61, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpnk2"]
+atlas = ExtResource("28_qr0ql")
+region = Rect2(61, 0, 61, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8td0"]
+atlas = ExtResource("27_hvsfn")
+region = Rect2(0, 0, 27, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87s5e"]
+atlas = ExtResource("27_hvsfn")
+region = Rect2(27, 0, 27, 23)
 
 [sub_resource type="Gradient" id="Gradient_bxcu0"]
 offsets = PackedFloat32Array(0)
@@ -126,12 +182,14 @@ colors = PackedColorArray(0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_y1224"]
 gradient = SubResource("Gradient_bxcu0")
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrgj1"]
+
 [node name="InventoryShop" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(59, 72)
 
-[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "background", "playerUI", "setupUI", "actionsUI", "pausedCtrl", "gameOverCtrl", "shopPanel", "scoreBoard", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText")]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "background", "playerUI", "setupUI", "actionsUI", "pausedCtrl", "gameOverCtrl", "shopPanel", "scoreBoard", "tooltipWindow", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText")]
 script = ExtResource("1_dey36")
 players = [NodePath("ChessBoard/Player B"), NodePath("ChessBoard/Player R")]
 board = NodePath("ChessBoard")
@@ -146,6 +204,7 @@ pausedCtrl = NodePath("GUI/Pause GUI")
 gameOverCtrl = NodePath("GUI/Game Over GUI")
 shopPanel = NodePath("GUI/PlayerUI/Setup GUI/Shop Panel")
 scoreBoard = NodePath("GUI/PlayerUI/ScoreBoard")
+tooltipWindow = NodePath("GUI/Tooltip")
 movementButton = NodePath("GUI/PlayerUI/ActionUI/Move")
 actionButton = NodePath("GUI/PlayerUI/ActionUI/Action")
 endTurnButton = NodePath("GUI/PlayerUI/ActionUI/End Turn")
@@ -185,12 +244,14 @@ tileOffset = Vector2i(13, 9)
 
 [node name="Player B" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection") instance=ExtResource("9_uy3x6")]
 playerId = 1
+scrapIncome = 50
 direction = 0
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Inventory Blu")
 
 [node name="Player R" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection") instance=ExtResource("9_uy3x6")]
 gridPosition = Vector2i(4, 0)
 playerId = 2
+scrapIncome = 50
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Inventory Red")
 
 [node name="Decoration" type="Node2D" parent="GameManager"]
@@ -697,199 +758,182 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="End Turn" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.677
-anchor_top = 0.853
-anchor_right = 0.833
-anchor_bottom = 0.892
-offset_left = 0.199982
-offset_top = -1.07202
-offset_right = 249.8
-offset_bottom = 34.632
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.2, 0.2)
-theme_override_fonts/font = ExtResource("23_hmgjx")
-theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
-text = "End Turn"
-
-[node name="Move" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.398
-anchor_top = 0.853
-anchor_right = 0.525
-anchor_bottom = 0.892
-offset_left = -0.200012
-offset_top = -1.07202
-offset_right = 203.0
-offset_bottom = 34.632
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.2, 0.2)
-theme_override_fonts/font = ExtResource("23_hmgjx")
-theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
-text = "Move"
-
-[node name="Action" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.535
-anchor_top = 0.853
-anchor_right = 0.662
-anchor_bottom = 0.892
-offset_left = -1.52588e-05
-offset_top = -1.07201
-offset_right = 203.2
-offset_bottom = 34.632
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.2, 0.2)
-theme_override_fonts/font = ExtResource("23_hmgjx")
-theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
-text = "Action"
-
 [node name="Basic" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.1175
-anchor_top = 0.124536
-anchor_right = 0.1965
-anchor_bottom = 0.160678
-offset_left = -6.10352e-05
-offset_top = 0.103998
-offset_right = 126.4
-offset_bottom = 32.0081
+anchor_left = 0.14
+anchor_top = 0.112
+anchor_right = 0.172
+anchor_bottom = 0.147607
+offset_top = -0.0880013
+offset_right = 52.2
+offset_bottom = 31.936
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
+theme_override_colors/font_color = Color(0.588235, 0.423529, 0.423529, 1)
 theme_override_fonts/font = ExtResource("23_hmgjx")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_de1xb")
-text = "Basic"
+theme_override_styles/normal = SubResource("StyleBoxFlat_jy1ch")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jy1ch")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_a8ofj")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_g5fjd")
+text = "b"
 metadata/_edit_use_anchors_ = true
 
 [node name="Left" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -0.017
-anchor_top = 0.281536
-anchor_right = 0.046
-anchor_bottom = 0.316536
+anchor_left = 0.0105
+anchor_top = 0.187
+anchor_right = 0.045
+anchor_bottom = 0.433
 offset_left = -0.199999
-offset_top = -0.064003
-offset_right = 102.6
-offset_bottom = 32.096
+offset_top = 0.112
+offset_right = 56.0
+offset_bottom = 220.008
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("23_hmgjx")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_de1xb")
-text = "Left"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_upq5q")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_4iyo1")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_7u11a")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_vajdl")
 metadata/_edit_use_anchors_ = true
 
 [node name="Right" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.112606
-anchor_top = 0.281536
-anchor_right = 0.1915
-anchor_bottom = 0.316929
+anchor_left = 0.120106
+anchor_top = 0.187
+anchor_right = 0.157
+anchor_bottom = 0.433
 offset_left = -0.042511
-offset_top = -0.064003
-offset_right = 126.4
-offset_bottom = 32.008
+offset_top = 0.112
+offset_right = 60.2
+offset_bottom = 220.008
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("23_hmgjx")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_de1xb")
-text = "Right
-"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5wmnf")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_1q03x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8oiy7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_a2srl")
 metadata/_edit_use_anchors_ = true
 
 [node name="Basic2" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.975
-anchor_top = 0.125
-anchor_right = 1.0535
-anchor_bottom = 0.160463
-offset_right = 126.6
-offset_bottom = 32.0562
+anchor_left = 1.0
+anchor_top = 0.112
+anchor_right = 1.032
+anchor_bottom = 0.147607
+offset_top = -0.0880013
+offset_right = 52.2
+offset_bottom = 31.936
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
+theme_override_colors/font_color = Color(0.588235, 0.423529, 0.423529, 1)
 theme_override_fonts/font = ExtResource("23_hmgjx")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_de1xb")
-text = "Basic"
+theme_override_styles/normal = SubResource("StyleBoxFlat_jy1ch")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jy1ch")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_a8ofj")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_g5fjd")
+text = "b"
 metadata/_edit_use_anchors_ = true
 
 [node name="Left2" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.987
-anchor_top = 0.295
-anchor_right = 1.0515
-anchor_bottom = 0.33
-offset_left = 0.199982
-offset_top = -0.0800018
-offset_right = 102.4
-offset_bottom = 32.0801
+anchor_left = 1.0105
+anchor_top = 0.187
+anchor_right = 1.045
+anchor_bottom = 0.433
+offset_left = -0.199999
+offset_top = 0.112
+offset_right = 56.0
+offset_bottom = 220.008
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("23_hmgjx")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_de1xb")
-text = "Left"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_upq5q")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_4iyo1")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_7u11a")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_vajdl")
 metadata/_edit_use_anchors_ = true
 
 [node name="Right2" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.11
-anchor_top = 0.295
-anchor_right = 1.189
-anchor_bottom = 0.33
-offset_left = 3.05176e-05
-offset_top = -0.0800018
-offset_right = 126.4
-offset_bottom = 32.0801
+anchor_left = 1.12011
+anchor_top = 0.187
+anchor_right = 1.157
+anchor_bottom = 0.433
+offset_left = -0.042511
+offset_top = 0.112
+offset_right = 60.2
+offset_bottom = 220.008
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("23_hmgjx")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_de1xb")
-text = "Right
-"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5wmnf")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_1q03x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8oiy7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_a2srl")
 metadata/_edit_use_anchors_ = true
 
+[node name="Move" type="TextureButton" parent="GameManager/GUI/PlayerUI/ActionUI"]
+layout_mode = 0
+offset_left = 139.0
+offset_top = 194.0
+offset_right = 200.0
+offset_bottom = 218.0
+texture_normal = SubResource("AtlasTexture_l0kuw")
+texture_pressed = SubResource("AtlasTexture_g0t76")
+texture_disabled = SubResource("AtlasTexture_g0t76")
+
+[node name="Action" type="TextureButton" parent="GameManager/GUI/PlayerUI/ActionUI"]
+layout_mode = 0
+offset_left = 198.0
+offset_top = 194.0
+offset_right = 275.0
+offset_bottom = 218.0
+texture_normal = SubResource("AtlasTexture_27ac4")
+texture_pressed = SubResource("AtlasTexture_4f2l2")
+texture_disabled = SubResource("AtlasTexture_4f2l2")
+
+[node name="End Turn" type="TextureButton" parent="GameManager/GUI/PlayerUI/ActionUI"]
+layout_mode = 0
+offset_left = 273.0
+offset_top = 194.0
+offset_right = 334.0
+offset_bottom = 218.0
+texture_normal = SubResource("AtlasTexture_qgsil")
+texture_pressed = SubResource("AtlasTexture_wpnk2")
+texture_disabled = SubResource("AtlasTexture_wpnk2")
+
 [node name="Setup GUI" type="Control" parent="GameManager/GUI/PlayerUI"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -899,31 +943,20 @@ layout_mode = 1
 anchor_left = 0.61
 anchor_top = 1.0
 anchor_right = 0.61
-offset_left = -104.0
+offset_left = -116.0
 offset_top = -26.0
-offset_right = 104.0
+offset_right = 92.0
 grow_horizontal = 2
 gameMana = NodePath("../../../..")
 
-[node name="End Turn" type="Button" parent="GameManager/GUI/PlayerUI/Setup GUI"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.702
-anchor_top = 0.844
-anchor_right = 0.858
-anchor_bottom = 0.883
-offset_left = 0.199951
-offset_top = -0.0560303
-offset_right = 249.8
-offset_bottom = 35.648
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.2, 0.2)
-theme_override_fonts/font = ExtResource("23_hmgjx")
-theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
-text = "End Setup"
+[node name="End Setup" type="TextureButton" parent="GameManager/GUI/PlayerUI/Setup GUI"]
+layout_mode = 0
+offset_left = 333.0
+offset_top = 199.0
+offset_right = 360.0
+offset_bottom = 222.0
+texture_normal = SubResource("AtlasTexture_s8td0")
+texture_pressed = SubResource("AtlasTexture_87s5e")
 
 [node name="Game Over GUI" type="Control" parent="GameManager/GUI"]
 visible = false
@@ -1083,16 +1116,20 @@ theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
 text = "MAIN MENU"
 
-[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/End Turn" to="GameManager" method="EndTurn"]
-[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Move" to="GameManager" method="GetValidMoveTiles"]
-[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Action" to="GameManager" method="GetValidAttackTiles"]
+[node name="Tooltip" parent="GameManager/GUI" instance=ExtResource("27_ancmm")]
+visible = false
+custom_minimum_size = Vector2(160, 50)
+
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Basic" to="GameManager" method="ChangeActiveEquip" binds= [-1]]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Left" to="GameManager" method="ChangeActiveEquip" binds= [0]]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Right" to="GameManager" method="ChangeActiveEquip" binds= [1]]
-[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Basic2" to="GameManager" method="ChangeActiveEquip" binds= [-1]]
-[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Left2" to="GameManager" method="ChangeActiveEquip" binds= [0]]
-[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Right2" to="GameManager" method="ChangeActiveEquip" binds= [1]]
-[connection signal="pressed" from="GameManager/GUI/PlayerUI/Setup GUI/End Turn" to="GameManager" method="EndSetup"]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Basic2" to="GameManager" method="ChangeActiveEquip"]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Left2" to="GameManager" method="ChangeActiveEquip"]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Right2" to="GameManager" method="ChangeActiveEquip"]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Move" to="GameManager" method="GetValidMoveTiles"]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Action" to="GameManager" method="GetValidAttackTiles"]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/End Turn" to="GameManager" method="EndTurn"]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/Setup GUI/End Setup" to="GameManager" method="EndSetup"]
 [connection signal="pressed" from="GameManager/GUI/Game Over GUI/Main Menu" to="GameManager" method="ReturnToMain"]
 [connection signal="pressed" from="GameManager/GUI/Game Over GUI/Start Over" to="GameManager" method="Restart"]
 [connection signal="pressed" from="GameManager/GUI/Pause GUI/Resume" to="GameManager" method="Resume"]

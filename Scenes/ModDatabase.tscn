@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://b156h0pm1h6oe"]
+[gd_scene load_steps=59 format=3 uid="uid://b156h0pm1h6oe"]
 
 [ext_resource type="Script" path="res://Scripts/ModDatabase.cs" id="1_s4t44"]
 [ext_resource type="Texture2D" uid="uid://613yg3ym4oqr" path="res://Assets/Mods/ColoredIcons.png" id="3_1wbt1"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dqqn7t6kh8cq4" path="res://Assets/Mods/Scaler Leg Mod Red.png" id="5_en27o"]
 [ext_resource type="Texture2D" uid="uid://3r8llvgpn7kk" path="res://Assets/Mods/Zoner Leg Teleport Mod Red.png" id="5_loklo"]
 [ext_resource type="Script" path="res://Scripts/Mods/RookArmMod.cs" id="6_ket1x"]
+[ext_resource type="Texture2D" uid="uid://ci1dxtkodjqe0" path="res://Assets/Mods/Resourcer Leg Mod Blue.png" id="7_wfkm3"]
+[ext_resource type="Texture2D" uid="uid://bucg00s8yhk3w" path="res://Assets/Mods/Resourcer Leg Mod Red.png" id="8_5seoi"]
 [ext_resource type="Script" path="res://Scripts/Mods/BishopArmMod.cs" id="8_kqfg6"]
 [ext_resource type="Script" path="res://Scripts/Mods/PawnHeadMod.cs" id="9_6yvmr"]
 [ext_resource type="Script" path="res://Scripts/Mods/KingArmMod.cs" id="10_7rn2h"]
@@ -22,6 +24,8 @@
 [ext_resource type="Texture2D" uid="uid://dj6iramh1k33g" path="res://Assets/Mods/Zoner Arm Mod Blue.png" id="17_8gisy"]
 [ext_resource type="Texture2D" uid="uid://briovwrm3x3t1" path="res://Assets/Mods/Scaler Head Mod Red.png" id="17_mfek1"]
 [ext_resource type="Texture2D" uid="uid://c6jqael4fdaua" path="res://Assets/Mods/Zoner Arm Mod Red.png" id="18_g3082"]
+[ext_resource type="Texture2D" uid="uid://dd2vehrik6xic" path="res://Assets/Mods/Scaler Leg IgnoreObstacle Blue.png" id="20_jnorm"]
+[ext_resource type="Texture2D" uid="uid://b2migv15n2p46" path="res://Assets/Mods/Scaler Leg IgnoreObstacle Red.png" id="21_kylo1"]
 [ext_resource type="Texture2D" uid="uid://cbml2r80pqrts" path="res://Assets/Mods/Zoner Leg Swap Mod Blue.png" id="22_geffl"]
 [ext_resource type="Script" path="res://Scripts/Mods/BishopArmPassiveMod.cs" id="23_e3hlw"]
 [ext_resource type="Texture2D" uid="uid://c5mfhpl8xdtij" path="res://Assets/Mods/Zoner Leg Swap Mod Red.png" id="23_mbk5r"]
@@ -31,6 +35,14 @@
 [ext_resource type="Script" path="res://Scripts/Mods/RookHeadMod.cs" id="26_845eg"]
 [ext_resource type="Texture2D" uid="uid://vxvx8qa2cecc" path="res://Assets/Mods/Resourcer Arm Mod Red.png" id="27_lfiau"]
 [ext_resource type="Script" path="res://Scripts/Mods/BishopHeadMod.cs" id="27_lwu32"]
+[ext_resource type="Texture2D" uid="uid://dtomoln7h7lpe" path="res://Assets/Mods/Scaler Arm Backstab Blue.png" id="29_f6raa"]
+[ext_resource type="Texture2D" uid="uid://cj5medsiol76n" path="res://Assets/Mods/Scaler Arm Backstab Red.png" id="30_757k5"]
+[ext_resource type="Texture2D" uid="uid://f5wt1mm6mq4h" path="res://Assets/Mods/Resourcer Passive Head Mod Blue.png" id="35_5aphe"]
+[ext_resource type="Texture2D" uid="uid://dyr23yvq4y8uk" path="res://Assets/Mods/Resourcer Passive Head Mod Red.png" id="36_vty28"]
+[ext_resource type="Texture2D" uid="uid://c8qphx3lvyv1p" path="res://Assets/Mods/Zoner 2 Armor Head Blue.png" id="39_17653"]
+[ext_resource type="Texture2D" uid="uid://b8qw502ixvy17" path="res://Assets/Mods/Zoner 2 Armor Head Red.png" id="40_2ftwj"]
+[ext_resource type="Texture2D" uid="uid://bpg58ywd082te" path="res://Assets/Mods/Zoner NoScrap Head Mod Blue.png" id="42_lw21r"]
+[ext_resource type="Texture2D" uid="uid://clbx3f4w1e0mj" path="res://Assets/Mods/Zoner NoScrap Head Mod Red.png" id="43_lycex"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qrqhd"]
 atlas = ExtResource("3_1wbt1")
@@ -120,8 +132,8 @@ durability = 4
 cost = 300
 description = "Adds 1 energy to the opposite leg every turn."
 icon = SubResource("AtlasTexture_yxyfa")
-bigSpriteBlue = ExtResource("4_a3log")
-bigSpriteRed = ExtResource("5_en27o")
+bigSpriteBlue = ExtResource("7_wfkm3")
+bigSpriteRed = ExtResource("8_5seoi")
 bodyPartTint = Color(0.25098, 0.27451, 0.313726, 1)
 
 [node name="RookLeg" type="Sprite2D" parent="."]
@@ -189,8 +201,8 @@ durability = 4
 cost = 300
 description = "Grants increased diagonal movement."
 icon = SubResource("AtlasTexture_vknoh")
-bigSpriteBlue = ExtResource("4_a3log")
-bigSpriteRed = ExtResource("5_en27o")
+bigSpriteBlue = ExtResource("20_jnorm")
+bigSpriteRed = ExtResource("21_kylo1")
 bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
 
 [node name="KingArm" type="Sprite2D" parent="."]
@@ -232,8 +244,8 @@ durability = 4
 cost = 200
 description = "Backstab. If attacking from behind with this mod selected, +1 damage."
 icon = SubResource("AtlasTexture_4hmwo")
-bigSpriteBlue = ExtResource("10_v0fxy")
-bigSpriteRed = ExtResource("11_wicdv")
+bigSpriteBlue = ExtResource("29_f6raa")
+bigSpriteRed = ExtResource("30_757k5")
 bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
 
 [node name="BishopArmPassive" type="Sprite2D" parent="."]
@@ -255,8 +267,8 @@ durability = 4
 cost = 500
 description = "Adds 1 energy to all other mods every turn."
 icon = SubResource("AtlasTexture_slia6")
-bigSpriteBlue = ExtResource("16_go003")
-bigSpriteRed = ExtResource("17_mfek1")
+bigSpriteBlue = ExtResource("35_5aphe")
+bigSpriteRed = ExtResource("36_vty28")
 bodyPartTint = Color(0.25098, 0.27451, 0.313726, 1)
 
 [node name="KingHead" type="Sprite2D" parent="."]
@@ -266,8 +278,8 @@ durability = 4
 cost = 250
 description = "Doubles Scrap Income"
 icon = SubResource("AtlasTexture_klqnm")
-bigSpriteBlue = ExtResource("16_go003")
-bigSpriteRed = ExtResource("17_mfek1")
+bigSpriteBlue = ExtResource("35_5aphe")
+bigSpriteRed = ExtResource("36_vty28")
 bodyPartTint = Color(0.25098, 0.27451, 0.313726, 1)
 
 [node name="RookHead" type="Sprite2D" parent="."]
@@ -277,8 +289,8 @@ durability = 4
 cost = 300
 description = "Summoned scrap has double armor."
 icon = SubResource("AtlasTexture_4vwvm")
-bigSpriteBlue = ExtResource("16_go003")
-bigSpriteRed = ExtResource("17_mfek1")
+bigSpriteBlue = ExtResource("39_17653")
+bigSpriteRed = ExtResource("40_2ftwj")
 bodyPartTint = Color(0.0588235, 0.482353, 0.501961, 1)
 
 [node name="BishopHead" type="Sprite2D" parent="."]
@@ -288,6 +300,6 @@ durability = 4
 cost = 200
 description = "Summoned scrap gives no value."
 icon = SubResource("AtlasTexture_5q1hf")
-bigSpriteBlue = ExtResource("16_go003")
-bigSpriteRed = ExtResource("17_mfek1")
+bigSpriteBlue = ExtResource("42_lw21r")
+bigSpriteRed = ExtResource("43_lycex")
 bodyPartTint = Color(0.0588235, 0.482353, 0.501961, 1)

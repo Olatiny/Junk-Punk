@@ -19,6 +19,7 @@ config/icon="res://Assets/icon.svg"
 
 Globals="*res://Scripts/Globals.cs"
 ModDatabase="*res://Scenes/ModDatabase.tscn"
+AudioManager="*res://Scenes/AudioManager.tscn"
 
 [display]
 

@@ -8,7 +8,13 @@ public partial class MainMenu : Control
 	[Export] Control creditsMenu;
 	[Export] Control settingsMenu;
 
-	public void StartGame()
+    public override void _Ready()
+    {
+        base._Ready();
+		GetNode<AudioManager>("/root/AudioManager").PlayMenuTheme();
+    }
+
+    public void StartGame()
 	{
 		GetTree().ChangeSceneToFile("Scenes/InventoryShop.tscn");
 	}
@@ -21,7 +27,7 @@ public partial class MainMenu : Control
 
 	public void ChangeVolume(float vol)
 	{
-		GetNode<Globals>("/root/Globals").masterVolume = vol;
+		GetNode<AudioManager>("/root/AudioManager").SetVolume(vol);
 	}
 
 	public void OpenCredits()

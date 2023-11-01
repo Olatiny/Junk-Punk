@@ -28,6 +28,9 @@ public partial class PlayerController : Area2D
 	[Export] public InventoryCollection inventoryCollection;
 
 	[ExportCategory("Sprite References")]
+	[Export] Texture defBigHead;
+	[Export] Texture defBigArm;
+	[Export] Texture defBigLeg;
 	[Export] AnimatedSprite2D background;
 	[Export] AnimatedSprite2D head;
 	[Export] AnimatedSprite2D body;
@@ -314,8 +317,6 @@ public partial class PlayerController : Area2D
 
 		bodyPart = null;
 
-		// TODO: Unequip stuff (resetting sprites/etc. probably give mods unequip function)
-
 		GpuParticles2D sparksEmitter = sparks.Instantiate() as GpuParticles2D;
 		sparksEmitter.Position = Position;
 		sparksEmitter.ZIndex = head.ZIndex + 10;
@@ -369,6 +370,8 @@ public partial class PlayerController : Area2D
 		Globals globals = GetNode<Globals>("/root/Globals");
 		globals.EmitSignal(Globals.SignalName.PlayerTookDamage, this, damage);
 
+		gameManager.audioManager.FXdamage();
+
 		if (health <= 0)
 		{
 			if (headMod == null || headMod is not PawnHeadMod)
@@ -378,6 +381,13 @@ public partial class PlayerController : Area2D
 		}
 
 		return health <= 0;
+	}
+
+	public void SpendScrap(int amt)
+	{
+		currentScrap -= amt;
+		if (currentScrap < 0)
+			currentScrap = 0;
 	}
 
 	public void PrimeToMove()

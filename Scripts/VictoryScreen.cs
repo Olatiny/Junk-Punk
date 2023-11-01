@@ -20,7 +20,7 @@ public partial class VictoryScreen : Control
         ((AnimatedTexture)victoryLabel.Texture).CurrentFrame = victoryIndex;
         ((AnimatedTexture)victoryBackground.Texture).CurrentFrame = victoryIndex;
 
-        // animator.Play("Fade In");
+        GetNode<AudioManager>("/root/AudioManager").PlayVictoryTheme();
     }
 
     public void StartOver()
