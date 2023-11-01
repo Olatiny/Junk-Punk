@@ -8,13 +8,13 @@ public partial class MainMenu : Control
 	[Export] Control creditsMenu;
 	[Export] Control settingsMenu;
 
-    public override void _Ready()
-    {
-        base._Ready();
+	public override void _Ready()
+	{
+		base._Ready();
 		GetNode<AudioManager>("/root/AudioManager").PlayMenuTheme();
-    }
+	}
 
-    public void StartGame()
+	public void StartGame()
 	{
 		GetTree().ChangeSceneToFile("Scenes/InventoryShop.tscn");
 	}
