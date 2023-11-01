@@ -28,6 +28,10 @@ public partial class PlayerController : Area2D
 	[Export] public InventoryCollection inventoryCollection;
 
 	[ExportCategory("Sprite References")]
+	[Export] Texture defBigHead;
+	[Export] Texture defBigArm;
+	[Export] Texture defBigLeg;
+	
 	[Export] AnimatedSprite2D background;
 	[Export] AnimatedSprite2D head;
 	[Export] AnimatedSprite2D body;
@@ -313,7 +317,6 @@ public partial class PlayerController : Area2D
 			return;
 
 		bodyPart = null;
-
 		// TODO: Unequip stuff (resetting sprites/etc. probably give mods unequip function)
 
 		GpuParticles2D sparksEmitter = sparks.Instantiate() as GpuParticles2D;
@@ -407,5 +410,12 @@ public partial class PlayerController : Area2D
 	public override void _MouseExit()
 	{
 		mouseOver = false;
+	}
+	
+	public void SpendScrap(int amt)
+	{
+		currentScrap -= amt;
+		if (currentScrap < 0)
+			currentScrap = 0;
 	}
 }

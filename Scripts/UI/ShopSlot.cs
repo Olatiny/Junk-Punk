@@ -10,7 +10,15 @@ public partial class ShopSlot : Node
 	[Export] TextureRect hundreds;
 	[Export] TextureRect tens;
 	[Export] TextureRect ones;
-
+	[Export] Label priceText;
+	GameManager gameMana;
+	
+	public override void _Ready()
+	{
+		base._Ready();
+		gameMana = GetNode<GameManager>("/root/InventoryShop/GameManager");
+	}
+	
 	public void ClearContainedMod()
 	{
 		containedMod = null;
@@ -44,5 +52,22 @@ public partial class ShopSlot : Node
 		((AtlasTexture)ones.Texture).Region = new Rect2(onesPlace * 4, 0, 4, 6);
 		((AtlasTexture)tens.Texture).Region = new Rect2(tensPlace * 4, 0, 4, 6);
 		((AtlasTexture)hundreds.Texture).Region = new Rect2(hundredsPlace * 4, 0, 4, 6);
+	
+	public void OnMouseEnter()
+	{
+		if (containedMod == null)
+			return;
+			
+		GD.Print("Hello?");
+		GodotObject go = (GodotObject)gameMana.tooltip;
+		go.Call("show_tooltip", true);
+		GD.Print((object)containedMod.description);
+		go.Call("display_text", containedMod.description);
+	}
+	
+	public void OnMouseExit()
+	{
+		GodotObject go = (GodotObject)gameMana.tooltip;
+		go.Call("show_tooltip", false);
 	}
 }
