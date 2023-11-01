@@ -8,6 +8,13 @@ public partial class ShopSlot : Node
 	[Export] ShopCollection parentShop;
 	[Export] TextureRect modIcon;
 	[Export] Label priceText;
+	GameManager gameMana;
+	
+	public override void _Ready()
+	{
+		base._Ready();
+		gameMana = GetNode<GameManager>("/root/InventoryShop/GameManager");
+	}
 	
 	public void ClearContainedMod()
 	{
@@ -27,5 +34,23 @@ public partial class ShopSlot : Node
 	{
 		if (containedMod != null)
 			parentShop.SelectShopItem(slotID, containedMod);
+	}
+	
+	public void OnMouseEnter()
+	{
+		if (containedMod == null)
+			return;
+			
+		GD.Print("Hello?");
+		GodotObject go = (GodotObject)gameMana.tooltip;
+		go.Call("show_tooltip", true);
+		GD.Print((object)containedMod.description);
+		go.Call("display_text", containedMod.description);
+	}
+	
+	public void OnMouseExit()
+	{
+		GodotObject go = (GodotObject)gameMana.tooltip;
+		go.Call("show_tooltip", false);
 	}
 }

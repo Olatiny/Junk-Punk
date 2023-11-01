@@ -1,9 +1,26 @@
-[gd_scene format=3 uid="uid://dwut1bvvk6gpd"]
+[gd_scene load_steps=3 format=3 uid="uid://du8u8k8rjruhb"]
 
-[node name="tooltip" type="Control"]
-layout_mode = 3
+[ext_resource type="Script" path="res://Scripts/UI/MouseFollower.gd" id="2_7qo50"]
+[ext_resource type="FontFile" uid="uid://bsynkeioac1v" path="res://Quinquefive-ALoRM.ttf" id="2_51rtj"]
+
+[node name="Tooltip" type="ColorRect" node_paths=PackedStringArray("textLbl")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.290196, 0.776471, 1, 1)
+script = ExtResource("2_7qo50")
+textLbl = NodePath("RichTextLabel")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("2_51rtj")
+theme_override_font_sizes/normal_font_size = 5

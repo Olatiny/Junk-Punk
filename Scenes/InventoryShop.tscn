@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://xk3l1h3kto6c"]
+[gd_scene load_steps=37 format=3 uid="uid://xk3l1h3kto6c"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_dey36"]
 [ext_resource type="Texture2D" uid="uid://cb4g6t2q8bkhn" path="res://Assets/TileHighlights.png" id="2_d3dcp"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://cbp2yurr5te7f" path="res://Assets/Generic Arm Mod (Red).png" id="18_046o5"]
 [ext_resource type="PackedScene" uid="uid://bt7r26okh38p8" path="res://Prefabs (wink)/score_board.tscn" id="22_l0qi1"]
 [ext_resource type="FontFile" uid="uid://bsynkeioac1v" path="res://Quinquefive-ALoRM.ttf" id="23_hmgjx"]
+[ext_resource type="PackedScene" uid="uid://du8u8k8rjruhb" path="res://Prefabs (wink)/tooltip.tscn" id="24_a3lk7"]
 [ext_resource type="PackedScene" uid="uid://ttbgcwxirp1h" path="res://Prefabs (wink)/shop.tscn" id="28_a73i0"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_c6kbi"]
@@ -107,7 +108,7 @@ gradient = SubResource("Gradient_bxcu0")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(59, 72)
 
-[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "playerUI", "setupUI", "actionsUI", "pausedCtrl", "gameOverCtrl", "shopPanel", "scoreBoard", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText")]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("players", "board", "camera", "playerUI", "setupUI", "actionsUI", "pausedCtrl", "gameOverCtrl", "shopPanel", "scoreBoard", "tooltip", "movementButton", "actionButton", "endTurnButton", "pausedText", "gameOverText")]
 script = ExtResource("1_dey36")
 players = [NodePath("ChessBoard/Player B"), NodePath("ChessBoard/Player R")]
 board = NodePath("ChessBoard")
@@ -119,6 +120,7 @@ pausedCtrl = NodePath("GUI/Pause GUI")
 gameOverCtrl = NodePath("GUI/Game Over GUI")
 shopPanel = NodePath("GUI/Setup GUI/Shop Panel")
 scoreBoard = NodePath("GUI/PlayerUI/ScoreBoard")
+tooltip = NodePath("GUI/Tooltip")
 movementButton = NodePath("GUI/PlayerUI/ActionUI/Move")
 actionButton = NodePath("GUI/PlayerUI/ActionUI/Action")
 endTurnButton = NodePath("GUI/PlayerUI/ActionUI/End Turn")
@@ -159,11 +161,17 @@ tileOffset = Vector2i(13, 9)
 [node name="Player B" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection") instance=ExtResource("9_uy3x6")]
 playerId = 0
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Inventory Blu")
+defBigHead = ExtResource("13_366sk")
+defBigArm = ExtResource("15_ttdwm")
+defBigLeg = ExtResource("14_u5di8")
 
 [node name="Player R" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection") instance=ExtResource("9_uy3x6")]
 playerId = 1
 direction = 0
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Inventory Red")
+defBigHead = ExtResource("16_bvq0a")
+defBigArm = ExtResource("18_046o5")
+defBigLeg = ExtResource("17_l7cm2")
 
 [node name="Decoration" type="Node2D" parent="GameManager"]
 
@@ -1006,6 +1014,15 @@ offset_left = -75.0
 offset_top = -40.0
 offset_right = 75.0
 gameMana = NodePath("../../..")
+
+[node name="Tooltip" parent="GameManager/GUI" instance=ExtResource("24_a3lk7")]
+visible = false
+custom_minimum_size = Vector2(160, 80)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/End Turn" to="GameManager" method="EndTurn"]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Move" to="GameManager" method="GetValidMoveTiles"]

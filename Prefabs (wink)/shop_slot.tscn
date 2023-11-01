@@ -42,4 +42,6 @@ theme_override_font_sizes/font_size = 5
 text = "200"
 horizontal_alignment = 1
 
+[connection signal="mouse_entered" from="Shop Button" to="." method="OnMouseEnter"]
+[connection signal="mouse_exited" from="Shop Button" to="." method="OnMouseExit"]
 [connection signal="pressed" from="Shop Button" to="." method="_OnShopButtonPressed"]
