@@ -15,7 +15,7 @@ public partial class Scrap : Sprite2D
 
 	public int armor = 1;
 	int currentDurability;
-	int currentScrapValue;
+	public int currentScrapValue;
 	bool dropOnPlayer = false;
 	PlayerController playerDroppingOn = null;
 	Vector2 startingPosition;
@@ -117,7 +117,7 @@ public partial class Scrap : Sprite2D
 	public void CheckDurability()
 	{
 		currentDurability--;
-		currentScrapValue -= (maxScrapValue /= maxDurability) * currentDurability;
+		currentScrapValue = (maxScrapValue /= maxDurability) * currentDurability;
 
 		if (currentDurability <= 0)
 		{

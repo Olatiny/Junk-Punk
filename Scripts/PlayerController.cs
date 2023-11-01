@@ -263,6 +263,7 @@ public partial class PlayerController : Area2D
 		bodyPart = mod;
 		AddChild(mod);
 		mod.InitSignals();
+		mod.myPlayer = this;
 
 		// TODO: Equip stuff
 		GetNode<AudioManager>("/root/AudioManager").FXequip();
@@ -343,6 +344,7 @@ public partial class PlayerController : Area2D
 			return;
 
 		bodyPart = null;
+		mod.myPlayer = null;
 
 		GpuParticles2D sparksEmitter = sparks.Instantiate() as GpuParticles2D;
 		sparksEmitter.Position = Position;

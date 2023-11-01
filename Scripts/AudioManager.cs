@@ -24,6 +24,7 @@ public partial class AudioManager : Node2D
     public void PlayGameTheme()
 	{
 		musicPlayer.Stream = gameTheme;
+		musicPlayer.VolumeDb *= .8f;
 		musicPlayer.Play();
 	}
 
@@ -94,5 +95,6 @@ public partial class AudioManager : Node2D
 	public void SetVolume(float vol)
 	{
 		musicPlayer.VolumeDb = fxPlayer.VolumeDb = vol;
+		musicPlayer.VolumeDb *= .8f;
 	}
 }

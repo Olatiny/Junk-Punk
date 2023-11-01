@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://xk3l1h3kto6c"]
+[gd_scene load_steps=69 format=3 uid="uid://xk3l1h3kto6c"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_dey36"]
 [ext_resource type="Texture2D" uid="uid://cb4g6t2q8bkhn" path="res://Assets/TileHighlights.png" id="2_d3dcp"]
@@ -32,6 +32,8 @@
 [ext_resource type="Texture2D" uid="uid://df02tno1i5jdb" path="res://Assets/Action Button.png" id="27_yj85l"]
 [ext_resource type="PackedScene" uid="uid://ttbgcwxirp1h" path="res://Prefabs (wink)/shop.tscn" id="28_a73i0"]
 [ext_resource type="Texture2D" uid="uid://xmvwwlypkoxl" path="res://Assets/Turn End Button.png" id="28_qr0ql"]
+[ext_resource type="Texture2D" uid="uid://dwt1bpkypctbg" path="res://Assets/PauseButtons.png" id="32_ypcbl"]
+[ext_resource type="Script" path="res://Scripts/ButtonHover.cs" id="33_sghen"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_c6kbi"]
 tile_data = PackedInt32Array(0, 5, 0, 65536, 4, 0, 1, 4, 0, 65537, 5, 0)
@@ -184,6 +186,14 @@ colors = PackedColorArray(0, 0, 0, 1)
 gradient = SubResource("Gradient_bxcu0")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrgj1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjnij"]
+atlas = ExtResource("32_ypcbl")
+region = Rect2(11, 39, 82, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hikp1"]
+atlas = ExtResource("32_ypcbl")
+region = Rect2(11, 70, 82, 25)
 
 [node name="InventoryShop" type="Node2D"]
 
@@ -1081,9 +1091,9 @@ anchors_preset = -1
 anchor_top = 0.027
 anchor_right = 0.997
 anchor_bottom = 0.25
-offset_top = -0.0480003
+offset_top = 7.952
 offset_right = 1596.2
-offset_bottom = 200.0
+offset_bottom = 208.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
@@ -1098,41 +1108,39 @@ PAUSED
 [/center]"
 scroll_active = false
 
-[node name="Resume" type="Button" parent="GameManager/GUI/Pause GUI"]
-texture_filter = 1
+[node name="ResText" type="TextureButton" parent="GameManager/GUI/Pause GUI"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.292
-anchor_top = 0.455
-anchor_right = 0.701
-anchor_bottom = 0.567
-offset_left = 0.199989
-offset_top = 0.0799942
-offset_right = 653.6
-offset_bottom = 99.992
-scale = Vector2(0.2, 0.2)
-theme_override_fonts/font = ExtResource("23_hmgjx")
-theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
-text = "RESUME"
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = 20.5
+offset_right = 41.0
+offset_bottom = 45.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(41, 12)
+texture_normal = SubResource("AtlasTexture_pjnij")
+script = ExtResource("33_sghen")
 
-[node name="Main Menu" type="Button" parent="GameManager/GUI/Pause GUI"]
-texture_filter = 1
+[node name="MainMenuText" type="TextureButton" parent="GameManager/GUI/Pause GUI"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.293
-anchor_top = 0.603
-anchor_right = 0.701
-anchor_bottom = 0.714
-offset_left = -0.199997
-offset_top = -0.0720062
-offset_right = 653.6
-offset_bottom = 100.064
-scale = Vector2(0.2, 0.2)
-theme_override_fonts/font = ExtResource("23_hmgjx")
-theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_wrgj1")
-text = "MAIN MENU"
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = 55.5
+offset_right = 41.0
+offset_bottom = 80.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(41, 12)
+texture_normal = SubResource("AtlasTexture_hikp1")
+script = ExtResource("33_sghen")
 
 [node name="Tooltip" parent="GameManager/GUI" instance=ExtResource("27_ancmm")]
 visible = false
@@ -1150,5 +1158,5 @@ custom_minimum_size = Vector2(160, 50)
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/Setup GUI/End Setup" to="GameManager" method="EndSetup"]
 [connection signal="pressed" from="GameManager/GUI/Game Over GUI/Main Menu" to="GameManager" method="ReturnToMain"]
 [connection signal="pressed" from="GameManager/GUI/Game Over GUI/Start Over" to="GameManager" method="Restart"]
-[connection signal="pressed" from="GameManager/GUI/Pause GUI/Resume" to="GameManager" method="Resume"]
-[connection signal="pressed" from="GameManager/GUI/Pause GUI/Main Menu" to="GameManager" method="ReturnToMain"]
+[connection signal="pressed" from="GameManager/GUI/Pause GUI/ResText" to="GameManager" method="Resume"]
+[connection signal="pressed" from="GameManager/GUI/Pause GUI/MainMenuText" to="GameManager" method="ReturnToMain"]

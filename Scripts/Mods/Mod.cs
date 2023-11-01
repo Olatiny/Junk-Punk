@@ -18,6 +18,8 @@ public abstract partial class Mod : Sprite2D
 	[Export] public Texture2D bigSpriteRed;
 	[Export] public Color bodyPartTint = new(1, 1, 1, 1);
 
+	public PlayerController myPlayer = null;
+
 	public Mod()
 	{
 		uid = "";

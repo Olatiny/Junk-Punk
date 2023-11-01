@@ -8,6 +8,7 @@
 texture = ExtResource("1_10is3")
 offset = Vector2(0, -1)
 script = ExtResource("1_57bid")
+maxScrapValue = 200
 maxDurability = 9
 sparks = ExtResource("3_cluid")
 
