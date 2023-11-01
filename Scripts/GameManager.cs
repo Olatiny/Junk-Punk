@@ -33,6 +33,7 @@ public partial class GameManager : Node
 	[Export] Control gameOverCtrl;
 	[Export] ShopCollection shopPanel;
 	[Export] ScoreBoard scoreBoard;
+	[Export] public Control tooltipWindow;
 
 	[ExportGroup("Buttons")]
 	[Export] Button movementButton;
@@ -42,8 +43,6 @@ public partial class GameManager : Node
 	[ExportGroup("Text")]
 	[Export] RichTextLabel pausedText;
 	[Export] RichTextLabel gameOverText;
-
-	public AudioManager audioManager;
 
 	public int round { get; private set; } = 1;
 
@@ -65,9 +64,6 @@ public partial class GameManager : Node
 			playerUI.Visible = true;
 			pausedCtrl.Visible = gameOverCtrl.Visible = false;
 		}
-
-		audioManager= GetNode<AudioManager>("/root/AudioManager");
-		audioManager.PlayGameTheme();
 
 		UpdateScoreBoard();
 	}
@@ -225,8 +221,7 @@ public partial class GameManager : Node
 
 		if (currentPlayerIdx == 0)
 			round++;
-		
-		audioManager.FXdoor();
+
 		board.ClearValidTiles();
 		UpdateScoreBoard();
 		setupUI.Show();
@@ -247,7 +242,6 @@ public partial class GameManager : Node
 	public void Pause()
 	{
 		gameState = GameState.Paused;
-		audioManager.Pause();
 		if (pausedText != null)
 			pausedText.Text = $"[center]Player {currentPlayerIdx + 1}'s turn\n\n\nPaused[/center]";
 		pausedCtrl.Visible = true;
@@ -257,7 +251,6 @@ public partial class GameManager : Node
 	public void Resume()
 	{
 		gameState = GameState.Playing;
-		audioManager.Unpause();
 		playerUI.Visible = true;
 		pausedCtrl.Visible = gameOverCtrl.Visible = false;
 	}
