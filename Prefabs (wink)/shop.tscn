@@ -1,55 +1,78 @@
 [gd_scene load_steps=4 format=3 uid="uid://ttbgcwxirp1h"]
 
-[ext_resource type="Texture2D" uid="uid://0i88m7i5fbil" path="res://Assets/average_blueberry.png" id="1_sp1yd"]
+[ext_resource type="Texture2D" uid="uid://cjw5tkvuhrhh7" path="res://Assets/Shop UI Panel.png" id="1_xnukb"]
 [ext_resource type="PackedScene" uid="uid://dutrl4w3htoyj" path="res://Prefabs (wink)/shop_slot.tscn" id="2_hc110"]
 [ext_resource type="Script" path="res://Scripts/UI/ShopCollection.cs" id="2_v1h2q"]
 
 [node name="Shop Panel" type="TextureRect" node_paths=PackedStringArray("shopSlots")]
-custom_minimum_size = Vector2(150, 40)
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = -1
+anchor_top = 0.884
+anchor_right = 0.52
 anchor_bottom = 1.0
-grow_horizontal = 2
+offset_top = -0.0160217
+offset_right = -1.52588e-05
 grow_vertical = 0
 mouse_filter = 0
-texture = ExtResource("1_sp1yd")
+texture = ExtResource("1_xnukb")
 script = ExtResource("2_v1h2q")
-shopSlots = [NodePath("Shop Boxes/Shop Selection 0"), NodePath("Shop Boxes/Shop Selection 1"), NodePath("Shop Boxes/Shop Selection 2"), NodePath("Shop Boxes/Shop Selection 3"), NodePath("Shop Boxes/Shop Selection 4")]
+shopSlots = [NodePath("Shop Selection 0"), NodePath("Shop Selection 1"), NodePath("Shop Selection 2"), NodePath("Shop Selection 3"), NodePath("Shop Selection 4")]
 metadata/_edit_use_anchors_ = true
 
-[node name="Shop Boxes" type="HBoxContainer" parent="."]
-clip_contents = true
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Shop Selection 0" parent="Shop Boxes" node_paths=PackedStringArray("parentShop") instance=ExtResource("2_hc110")]
+[node name="Shop Selection 0" parent="." node_paths=PackedStringArray("parentShop") instance=ExtResource("2_hc110")]
 layout_mode = 2
-parentShop = NodePath("../..")
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 18.0
+offset_top = 6.0
+offset_right = 18.0
+offset_bottom = 6.0
+parentShop = NodePath("..")
 
-[node name="Shop Selection 1" parent="Shop Boxes" node_paths=PackedStringArray("parentShop") instance=ExtResource("2_hc110")]
+[node name="Shop Selection 1" parent="." node_paths=PackedStringArray("parentShop") instance=ExtResource("2_hc110")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 56.0
+offset_top = 6.0
+offset_right = 56.0
+offset_bottom = 6.0
 slotID = 1
-parentShop = NodePath("../..")
+parentShop = NodePath("..")
 
-[node name="Shop Selection 2" parent="Shop Boxes" node_paths=PackedStringArray("parentShop") instance=ExtResource("2_hc110")]
+[node name="Shop Selection 2" parent="." node_paths=PackedStringArray("parentShop") instance=ExtResource("2_hc110")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 94.0
+offset_top = 6.0
+offset_right = 94.0
+offset_bottom = 6.0
 slotID = 2
-parentShop = NodePath("../..")
+parentShop = NodePath("..")
 
-[node name="Shop Selection 3" parent="Shop Boxes" node_paths=PackedStringArray("parentShop") instance=ExtResource("2_hc110")]
+[node name="Shop Selection 3" parent="." node_paths=PackedStringArray("parentShop") instance=ExtResource("2_hc110")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 132.0
+offset_top = 6.0
+offset_right = 132.0
+offset_bottom = 6.0
 slotID = 3
-parentShop = NodePath("../..")
+parentShop = NodePath("..")
 
-[node name="Shop Selection 4" parent="Shop Boxes" node_paths=PackedStringArray("parentShop") instance=ExtResource("2_hc110")]
+[node name="Shop Selection 4" parent="." node_paths=PackedStringArray("parentShop") instance=ExtResource("2_hc110")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 170.0
+offset_top = 6.0
+offset_right = 170.0
+offset_bottom = 6.0
 slotID = 4
-parentShop = NodePath("../..")
+parentShop = NodePath("..")

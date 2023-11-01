@@ -28,10 +28,6 @@ public partial class PlayerController : Area2D
 	[Export] public InventoryCollection inventoryCollection;
 
 	[ExportCategory("Sprite References")]
-	[Export] Texture defBigHead;
-	[Export] Texture defBigArm;
-	[Export] Texture defBigLeg;
-	
 	[Export] AnimatedSprite2D background;
 	[Export] AnimatedSprite2D head;
 	[Export] AnimatedSprite2D body;
@@ -62,16 +58,16 @@ public partial class PlayerController : Area2D
 		switch (playerId)
 		{
 			case 1:
-				Equip(modDatabase.GetMod("KnightLegPath"), Mod.BodyPart.Leg, 0);
-				Equip(modDatabase.GetMod("BishopLeg"), Mod.BodyPart.Leg, 1);
-				Equip(modDatabase.GetMod("KingArm"), Mod.BodyPart.Arm, 1);
-				Equip(modDatabase.GetMod("BishopHead"), Mod.BodyPart.Head, 0);
+				// Equip(modDatabase.GetMod("KnightLegPath"), Mod.BodyPart.Leg, 0);
+				// Equip(modDatabase.GetMod("BishopLeg"), Mod.BodyPart.Leg, 1);
+				// Equip(modDatabase.GetMod("KingArm"), Mod.BodyPart.Arm, 1);
+				// Equip(modDatabase.GetMod("BishopHead"), Mod.BodyPart.Head, 0);
 
 				break;
 			case 2:
-				Equip(modDatabase.GetMod("QueenLeg"), Mod.BodyPart.Leg, 0);
-				Equip(modDatabase.GetMod("BishopArmPassive"), Mod.BodyPart.Arm, 1);
-				Equip(modDatabase.GetMod("QueenArm"), Mod.BodyPart.Arm, 0);
+				// Equip(modDatabase.GetMod("QueenLeg"), Mod.BodyPart.Leg, 0);
+				// Equip(modDatabase.GetMod("BishopArmPassive"), Mod.BodyPart.Arm, 1);
+				// Equip(modDatabase.GetMod("QueenArm"), Mod.BodyPart.Arm, 0);
 
 				break;
 			default:
@@ -172,7 +168,7 @@ public partial class PlayerController : Area2D
 		legs[0].Play(directionString);
 		legs[1].Play(directionString);
 
-		ZIndex = gridPosition.Y + 1;
+		ZIndex = gridPosition.Y + 2;
 	}
 
 	public void CheckModDurability()
@@ -317,6 +313,7 @@ public partial class PlayerController : Area2D
 			return;
 
 		bodyPart = null;
+
 		// TODO: Unequip stuff (resetting sprites/etc. probably give mods unequip function)
 
 		GpuParticles2D sparksEmitter = sparks.Instantiate() as GpuParticles2D;
@@ -408,12 +405,5 @@ public partial class PlayerController : Area2D
 	public override void _MouseExit()
 	{
 		mouseOver = false;
-	}
-	
-	public void SpendScrap(int amt)
-	{
-		currentScrap -= amt;
-		if (currentScrap < 0)
-			currentScrap = 0;
 	}
 }

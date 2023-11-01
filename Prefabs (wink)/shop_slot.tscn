@@ -1,47 +1,107 @@
-[gd_scene load_steps=4 format=3 uid="uid://dutrl4w3htoyj"]
+[gd_scene load_steps=9 format=3 uid="uid://dutrl4w3htoyj"]
 
 [ext_resource type="Script" path="res://Scripts/UI/ShopSlot.cs" id="1_5injg"]
-[ext_resource type="Texture2D" uid="uid://fd87ftveegi5" path="res://Assets/shop_slot_frame.png" id="1_yp3n4"]
-[ext_resource type="FontFile" uid="uid://bsynkeioac1v" path="res://Quinquefive-ALoRM.ttf" id="2_5kntl"]
+[ext_resource type="Script" path="res://Scripts/ShopMouseOver.cs" id="3_8q4lu"]
 
-[node name="Shop Selection" type="VBoxContainer" node_paths=PackedStringArray("modIcon", "priceText")]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_u8psh"]
+load_path = "res://.godot/imported/Shop Numbers.png-042d44a1228056a419c705784a966dea.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l28yt"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_u8psh")
+region = Rect2(0, 0, 4, 6)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0nsrp"]
+load_path = "res://.godot/imported/Shop Numbers.png-042d44a1228056a419c705784a966dea.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cst5j"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_0nsrp")
+region = Rect2(0, 0, 4, 6)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cf4lt"]
+load_path = "res://.godot/imported/Shop Numbers.png-042d44a1228056a419c705784a966dea.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptvbd"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_cf4lt")
+region = Rect2(0, 0, 4, 6)
+
+[node name="Shop Selection" type="Control" node_paths=PackedStringArray("modIcon", "hundreds", "tens", "ones")]
+layout_mode = 3
+anchor_right = 0.049
+anchor_bottom = 0.086
+offset_right = -19.6
+offset_bottom = -19.264
 size_flags_vertical = 4
 mouse_filter = 2
-theme_override_constants/separation = 0
 script = ExtResource("1_5injg")
 modIcon = NodePath("Shop Button/Shop Item")
-priceText = NodePath("Shop Cost")
+hundreds = NodePath("Price/Hundreds")
+tens = NodePath("Price/Tens")
+ones = NodePath("Price/Ones")
 
-[node name="Shop Button" type="TextureButton" parent="."]
+[node name="Price" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 6.0
+offset_right = 18.0
+offset_bottom = 14.0
+
+[node name="Hundreds" type="TextureRect" parent="Price"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.062
+anchor_top = 0.125
+anchor_right = 0.312
+anchor_bottom = 0.875
+offset_left = 0.00799996
+offset_right = 0.0079999
+texture = SubResource("AtlasTexture_l28yt")
+
+[node name="Tens" type="TextureRect" parent="Price"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.375
+anchor_top = 0.125
+anchor_right = 0.625
+anchor_bottom = 0.875
+texture = SubResource("AtlasTexture_cst5j")
+
+[node name="Ones" type="TextureRect" parent="Price"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.687
+anchor_top = 0.125
+anchor_right = 0.937
+anchor_bottom = 0.875
+offset_left = 0.00799942
+offset_right = 0.00799942
+texture = SubResource("AtlasTexture_ptvbd")
+
+[node name="Shop Button" type="TextureButton" parent="." node_paths=PackedStringArray("icon", "price")]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
-texture_normal = ExtResource("1_yp3n4")
+offset_bottom = 20.0
+script = ExtResource("3_8q4lu")
+icon = NodePath("Shop Item")
+price = NodePath("../Price")
 
 [node name="Shop Item" type="TextureRect" parent="Shop Button"]
-custom_minimum_size = Vector2(16, 16)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = -0.5
+offset_top = -0.5
+offset_right = -0.5
+offset_bottom = -0.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="Shop Cost" type="Label" parent="."]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_5kntl")
-theme_override_font_sizes/font_size = 5
-text = "200"
-horizontal_alignment = 1
-
-[connection signal="mouse_entered" from="Shop Button" to="." method="OnMouseEnter"]
-[connection signal="mouse_exited" from="Shop Button" to="." method="OnMouseExit"]
 [connection signal="pressed" from="Shop Button" to="." method="_OnShopButtonPressed"]

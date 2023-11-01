@@ -52,10 +52,9 @@ public partial class ShopCollection : Node
 	{
 		// Purchase was successful.
 		GD.Print("Purchase Successful!");
-		gameMana.GetCurrentPlayer().SpendScrap(modBought.cost);
+		
 		invCol.InsertModAt(modBought, invSlotID);
 		shopSlots[slotID].ClearContainedMod();
-		gameMana.UpdateScoreBoard();
 	}
 	
 	private void CancelPurchase(int slotID, Mod modBought)

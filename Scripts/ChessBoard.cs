@@ -158,7 +158,7 @@ public partial class ChessBoard : TileMap
 		{
 			if (mod is not LegMod)
 				continue;
-			
+
 			if (mod == null)
 				continue;
 
@@ -286,10 +286,10 @@ public partial class ChessBoard : TileMap
 			if (mod?.buffType == Mod.BuffType.Movement)
 			{
 				LegMod legMod = mod as LegMod;
-	
+
 				if (legMod == null)
 					continue;
-					
+
 				if (legMod.RequestMove(this, player, mouseMapPos))
 				{
 					ClearValidTiles();
@@ -499,17 +499,32 @@ public partial class ChessBoard : TileMap
 		}
 		else
 		{
-			Grid[oldLocation.X, oldLocation.Y] = null;
-			Grid[newLocation.Value.X, newLocation.Value.Y] = node;
-
 			if (node is PlayerController player)
+			{
 				player.gridPosition = newLocation.Value;
-
-			if (node is Scrap scrap)
+				Grid[newLocation.Value.X, newLocation.Value.Y] = player;
+			}
+			else if (node is Scrap scrap)
+			{
 				scrap.gridPosition = newLocation.Value;
+				Grid[newLocation.Value.X, newLocation.Value.Y] = scrap;
+			}
+			else
+				Grid[newLocation.Value.X, newLocation.Value.Y] = node;
+
+			Grid[oldLocation.X, oldLocation.Y] = null;
 		}
 
 		node.Position = newLocation.HasValue ? (newLocation.Value * tileSize) + tileOffset : (oldLocation * tileSize) + tileOffset;
+	}
+
+	public void SwapNodes(Vector2I nodeAPos, Vector2I nodeBPos)
+	{
+		Node2D nodeA = GetNodeAtTile(nodeAPos);
+		Node2D nodeB = GetNodeAtTile(nodeBPos);
+
+		SetNodeGridPosition(nodeA, nodeBPos);
+		SetNodeGridPosition(nodeB, nodeAPos);
 	}
 
 	public Array<Node2D> GetAllNodesOnBoard()
