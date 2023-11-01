@@ -11,6 +11,7 @@ public partial class Scrap : Sprite2D
 	public PlayerController owner = null;
 
 	bool dropping = false;
+	bool funnyScrap = false;
 
 	public int armor = 1;
 	int currentDurability;
@@ -47,12 +48,34 @@ public partial class Scrap : Sprite2D
 					playerDroppingOn.TakeDamage(1);
 					QueueFree();
 				}
+
+				if (funnyScrap)
+				{
+					GetNode<AudioManager>("/root/AudioManager").FXfunnyScrap();
+
+					GpuParticles2D sparksEmitter = sparks.Instantiate() as GpuParticles2D;
+					sparksEmitter.Position = Position;
+					sparksEmitter.ZIndex = ZIndex;
+					sparksEmitter.Modulate = new(1, 1, 0);
+					GetTree().Root.AddChild(sparksEmitter);
+
+					QueueFree();
+				}
 			}
 		}
 	}
 
 	public void Drop(ChessBoard board, Vector2I tileLocation)
 	{
+		RandomNumberGenerator rand = new();
+		int randi = rand.RandiRange(1, 100);
+
+		if (randi == 100)
+		{
+			Modulate = new(1, 1, 0.8f);
+			funnyScrap = true;
+		}
+
 		startingPosition = tileLocation * board.tileSize + board.tileOffset;
 		gridPosition = tileLocation;
 		ZIndex = gridPosition.Y + 1;
@@ -66,7 +89,8 @@ public partial class Scrap : Sprite2D
 				playerDroppingOn = player;
 			}
 		}
-		board.PlaceOnBoard(this, tileLocation);
+		if (!funnyScrap)
+			board.PlaceOnBoard(this, tileLocation);
 		Position = new(startingPosition.X, -1 * Texture.GetHeight());
 		dropping = true;
 	}

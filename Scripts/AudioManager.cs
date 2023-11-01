@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public partial class AudioManager : Node2D
@@ -16,8 +17,8 @@ public partial class AudioManager : Node2D
 	[Export] AudioStream doorFX;
 	[Export] AudioStream damageFX;
 	[Export] AudioStream scrapFallFX;
-	[Export] AudioStream equipFX;
-	[Export] AudioStream moneyFX;
+	[Export] Array<AudioStream> equipFX;
+	[Export] Array<AudioStream> moneyFX;
 	[Export] AudioStream deathFX;
 
     public void PlayGameTheme()
@@ -47,6 +48,30 @@ public partial class AudioManager : Node2D
 	public void FXdamage()
 	{
 		fxPlayer.Stream = damageFX;
+		fxPlayer.Play(0);
+	}
+
+	public void FXequip()
+	{
+		fxPlayer.Stream = equipFX.PickRandom();
+		fxPlayer.Play(0);
+	}
+
+	public void FXfunnyScrap()
+	{
+		fxPlayer.Stream = scrapFallFX;
+		fxPlayer.Play(0);
+	}
+
+	public void FXshop()
+	{
+		fxPlayer.Stream = moneyFX.PickRandom();
+		fxPlayer.Play(0);
+	}
+
+	public void FXdeath()
+	{
+		fxPlayer.Stream = deathFX;
 		fxPlayer.Play(0);
 	}
 

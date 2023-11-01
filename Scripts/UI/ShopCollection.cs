@@ -55,6 +55,7 @@ public partial class ShopCollection : Node
 		
 		gameMana.GetCurrentPlayer().SpendScrap(modBought.cost);
 		gameMana.UpdateScoreBoard();
+		GetNode<AudioManager>("/root/AudioManager").FXshop();
 		
 		invCol.InsertModAt(modBought, invSlotID);
 		shopSlots[slotID].ClearContainedMod();

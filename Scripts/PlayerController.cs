@@ -265,6 +265,7 @@ public partial class PlayerController : Area2D
 		mod.InitSignals();
 
 		// TODO: Equip stuff
+		GetNode<AudioManager>("/root/AudioManager").FXequip();
 	}
 
 	public void Unequip(Mod mod)
@@ -348,6 +349,7 @@ public partial class PlayerController : Area2D
 		sparksEmitter.ZIndex = head.ZIndex + 10;
 		GetTree().Root.AddChild(sparksEmitter);
 
+		GetNode<AudioManager>("/root/AudioManager").FXequip();
 		mod.DisconnectSignals();
 		mod.QueueFree();
 		return;

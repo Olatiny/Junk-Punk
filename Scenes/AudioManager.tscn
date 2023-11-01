@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxrpvn672bpk6"]
+[gd_scene load_steps=13 format=3 uid="uid://bxrpvn672bpk6"]
 
 [ext_resource type="Script" path="res://Scripts/AudioManager.cs" id="1_5belr"]
 [ext_resource type="AudioStream" uid="uid://niyjef6kiojd" path="res://Audio/Junk_Punk_Copy.mp3" id="2_7e601"]
@@ -6,6 +6,12 @@
 [ext_resource type="AudioStream" uid="uid://cj0in5nlrljya" path="res://Audio/Victory_Theme.mp3" id="4_3ajuw"]
 [ext_resource type="AudioStream" uid="uid://d3d04ifc5vtld" path="res://Audio/Door_SFX.mp3" id="4_hadry"]
 [ext_resource type="AudioStream" uid="uid://cgrtaynwughlq" path="res://Audio/Robo_Punch_SFX.mp3" id="5_8c12f"]
+[ext_resource type="AudioStream" uid="uid://dloojs1380ia7" path="res://Audio/Equip_Sound_1.mp3" id="7_2mjtw"]
+[ext_resource type="AudioStream" uid="uid://dk7njhw1jyfkl" path="res://Audio/Dumb_but_funny.mp3" id="7_ecor2"]
+[ext_resource type="AudioStream" uid="uid://j6sqqcx5fp8q" path="res://Audio/Equip_Sound_2.mp3" id="8_15l4n"]
+[ext_resource type="AudioStream" uid="uid://bc7hwxxtdr18b" path="res://Audio/Shop_Sound_1.mp3" id="9_ognjp"]
+[ext_resource type="AudioStream" uid="uid://bfc4tsywsdfsn" path="res://Audio/Shop_Sound_2.mp3" id="10_il77p"]
+[ext_resource type="AudioStream" uid="uid://chptsefganttw" path="res://Audio/Death_Sound.mp3" id="11_82efl"]
 
 [node name="AudioManager" type="Node2D" node_paths=PackedStringArray("musicPlayer", "fxPlayer")]
 script = ExtResource("1_5belr")
@@ -16,6 +22,10 @@ mainMenuTheme = ExtResource("3_f72vu")
 victoryTheme = ExtResource("4_3ajuw")
 doorFX = ExtResource("4_hadry")
 damageFX = ExtResource("5_8c12f")
+scrapFallFX = ExtResource("7_ecor2")
+equipFX = Array[AudioStream]([ExtResource("7_2mjtw"), ExtResource("8_15l4n")])
+moneyFX = Array[AudioStream]([ExtResource("9_ognjp"), ExtResource("10_il77p")])
+deathFX = ExtResource("11_82efl")
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_f72vu")

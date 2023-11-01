@@ -275,6 +275,7 @@ public partial class GameManager : Node
 
 	public void DeclareVictory()
 	{
+		GetNode<AudioManager>("/root/AudioManager").FXdeath();
 		GetNode<Globals>("/root/Globals").victoryIndex = currentPlayerIdx;
 		gameState = GameState.GameOver;
 		GetTree().ChangeSceneToFile("Scenes/VictoryScreen.tscn");
