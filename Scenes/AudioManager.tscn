@@ -1,0 +1,23 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxrpvn672bpk6"]
+
+[ext_resource type="Script" path="res://AudioManager.cs" id="1_5belr"]
+[ext_resource type="AudioStream" uid="uid://niyjef6kiojd" path="res://Audio/Junk_Punk_Copy.mp3" id="2_7e601"]
+[ext_resource type="AudioStream" uid="uid://bdphovq0mdfe4" path="res://Audio/Main_Menu_JP.mp3" id="3_f72vu"]
+[ext_resource type="AudioStream" uid="uid://cj0in5nlrljya" path="res://Audio/Victory_Theme.mp3" id="4_3ajuw"]
+[ext_resource type="AudioStream" uid="uid://d3d04ifc5vtld" path="res://Audio/Door_SFX.mp3" id="4_hadry"]
+[ext_resource type="AudioStream" uid="uid://cgrtaynwughlq" path="res://Audio/Robo_Punch_SFX.mp3" id="5_8c12f"]
+
+[node name="AudioManager" type="Node2D" node_paths=PackedStringArray("musicPlayer", "fxPlayer")]
+script = ExtResource("1_5belr")
+musicPlayer = NodePath("MusicPlayer")
+fxPlayer = NodePath("EffectPlayer")
+gameTheme = ExtResource("2_7e601")
+mainMenuTheme = ExtResource("3_f72vu")
+victoryTheme = ExtResource("4_3ajuw")
+doorFX = ExtResource("4_hadry")
+damageFX = ExtResource("5_8c12f")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_f72vu")
+
+[node name="EffectPlayer" type="AudioStreamPlayer" parent="."]

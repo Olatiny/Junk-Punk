@@ -3,8 +3,6 @@ using System;
 
 public partial class Globals : Node
 {
-	public float masterVolume { get; set; }
-
 	public int victoryIndex = -1;
 
 	[Signal]

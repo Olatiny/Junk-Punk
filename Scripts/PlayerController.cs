@@ -369,6 +369,8 @@ public partial class PlayerController : Area2D
 		Globals globals = GetNode<Globals>("/root/Globals");
 		globals.EmitSignal(Globals.SignalName.PlayerTookDamage, this, damage);
 
+		GetNode<AudioManager>("/root/AudioManager").FXdamage();
+
 		if (health <= 0)
 		{
 			if (headMod == null || headMod is not PawnHeadMod)
