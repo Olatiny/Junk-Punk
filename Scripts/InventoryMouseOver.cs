@@ -20,8 +20,8 @@ public partial class InventoryMouseOver : Control
 	{
 		mouseOver = true;
 
-        if (GetParent<InventorySlot>() is not InventorySlot slot)
-            return;
+		if (GetParent<InventorySlot>() is not InventorySlot slot)
+			return;
 		
 		Mod slotContainedMod = slot.GetContainedMod();
 		
