@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Collections;
 
 public partial class GameManager : Node
 {
@@ -23,8 +24,13 @@ public partial class GameManager : Node
 	[ExportCategory("UI")]
 	[ExportGroup("Control Groups")]
 	[Export] Control playerUI;
+	[Export] Control setupUI;
+	[Export] Control actionsUI;
 	[Export] Control pausedCtrl;
 	[Export] Control gameOverCtrl;
+	[Export] ShopCollection shopPanel;
+	[Export] ScoreBoard scoreBoard;
+	[Export] public Control tooltip;
 
 	[ExportGroup("Buttons")]
 	[Export] Button movementButton;
@@ -34,13 +40,6 @@ public partial class GameManager : Node
 	[ExportGroup("Text")]
 	[Export] RichTextLabel pausedText;
 	[Export] RichTextLabel gameOverText;
-
-	[ExportGroup("Scoreboard")]
-	[Export] TextureRect turnIndicator;
-	[Export] TextureRect leftOnes;
-	[Export] TextureRect leftTens;
-	[Export] TextureRect rightOnes;
-	[Export] TextureRect rightTens;
 
 	public int round { get; private set; } = 1;
 
@@ -77,38 +76,24 @@ public partial class GameManager : Node
 
 			if (player1turn)
 			{
-				playerUI.SetPosition(playerUI.Position.MoveToward(new (0, playerUI.Position.Y), 5));
-				// camera.Position = camera.Position.MoveToward(cameraStartPos, 5);
-				// playerUI.SetPosition(new Vector2((float) Mathf.Lerp(playerUI.Position.X, 0, delta * 4), playerUI.Position.Y));
-				camera.Position = new Vector2((float) Mathf.Lerp(camera.Position.X, cameraStartPos.X, delta * 4), camera.Position.Y);
+				playerUI.SetPosition(playerUI.Position.MoveToward(new(0, playerUI.Position.Y), 5));
+				camera.Position = new Vector2((float)Mathf.Lerp(camera.Position.X, cameraStartPos.X, delta * 4), camera.Position.Y);
 			}
 			else
 			{
 				playerUI.SetPosition(playerUI.Position.MoveToward(new(-90, playerUI.Position.Y), 5));
-				// camera.Position = camera.Position.MoveToward(cameraStartPos + new Vector2(cameraLerpDistance, 0), 5);
-				// playerUI.SetPosition(new Vector2((float) Mathf.Lerp(playerUI.Position.X, -90, delta * 4), playerUI.Position.Y));
-				camera.Position = new Vector2((float) Mathf.Lerp(camera.Position.X, cameraStartPos.X + cameraLerpDistance, delta * 4), camera.Position.Y);
+				camera.Position = new Vector2((float)Mathf.Lerp(camera.Position.X, cameraStartPos.X + cameraLerpDistance, delta * 4), camera.Position.Y);
 			}
 		}
 
-		switch (turnPhase)
-		{
-			case TurnPhase.Upkeep:
-				DoUpkeep();
-				break;
-			case TurnPhase.Setup:
-				DoSetup();
-				break;
-			case TurnPhase.Actions:
-				DoActions();
-				break;
-		}
+		if (turnPhase == TurnPhase.Upkeep)
+			DoUpkeep();
 	}
 
 	public override void _Input(InputEvent @event)
 	{
 		base._Input(@event);
-   
+
 		if (Input.IsKeyPressed(Key.Escape))
 			Pause();
 	}
@@ -120,6 +105,20 @@ public partial class GameManager : Node
 	{
 		movementUsed = actionUsed = false;
 
+		Globals globals = GetNode<Globals>("/root/Globals");
+		globals.EmitSignal(Globals.SignalName.Upkeep, GetCurrentPlayer());
+
+		if (GetCurrentPlayer().health <= 0)
+		{
+			// Go back, last player killed 'em.
+			currentPlayerIdx--;
+			if (currentPlayerIdx < 0)
+				currentPlayerIdx = players.Count - 1;
+
+			DeclareVictory();
+			return;
+		}
+
 		if (movementButton != null)
 			movementButton.Disabled = false;
 
@@ -127,35 +126,45 @@ public partial class GameManager : Node
 			actionButton.Disabled = false;
 
 		players?[currentPlayerIdx].CheckModDurability();
+
+		if (players != null && players[currentPlayerIdx] != null)
+		{
+			players[currentPlayerIdx].currentScrap += players[currentPlayerIdx].scrapIncome;
+		}
+
 		DropScrap();
 		ShuffleShop();
+		UpdateScoreBoard();
+		setupUI.Show();
+		actionsUI.Hide();
 		turnPhase = TurnPhase.Setup;
 	}
 
 	public void DropScrap()
 	{
-		// TODO: Implement this 
+		board.CheckScrapDurabilities();
+		board.DropScrap();
+
+		if (round == 1) // Don't drop scrap during first round.
+			return;
+
+		if ((round * 2 + currentPlayerIdx) % 3 == 0)
+			board.GenerateNextScrapTiles();
 	}
 
 	public void ShuffleShop()
 	{
-		// TODO: Implement this 
+		shopPanel?.RandomizeShop();
 	}
 
-	/**
-	 * Code for setup phase during loop. This will run until the player discretely moves on to turn phase.
-	 */
-	public void DoSetup()
+	public void EndSetup()
 	{
-		// TODO: Decide if this is actually necessary.
-	}
-
-	/**
-	 * Code for action phase during loop. This will run until the player ends their turn.
-	 */
-	public void DoActions()
-	{
-		// TODO: Decide if this is actually necessary.
+		if (turnPhase == TurnPhase.Setup)
+		{
+			setupUI.Hide();
+			actionsUI.Show();
+			turnPhase = TurnPhase.Actions;
+		}
 	}
 
 	public bool IsPlayerTurn(PlayerController player)
@@ -208,6 +217,8 @@ public partial class GameManager : Node
 
 		board.ClearValidTiles();
 		UpdateScoreBoard();
+		setupUI.Show();
+		actionsUI.Hide();
 		turnPhase = TurnPhase.Upkeep;
 	}
 
@@ -218,25 +229,7 @@ public partial class GameManager : Node
 
 	public void UpdateScoreBoard()
 	{
-		if (leftOnes == null || rightOnes == null || players == null || turnIndicator == null)
-			return;
-
-		turnIndicator.FlipH = currentPlayerIdx == 0;
-
-		int player1hp = players[0].health;
-		int player2hp = players[1].health;
-
-		int leftOnesPlace  = player1hp % 10;
-		int leftTensPlace = player1hp / 10;
-
-		int rightOnesPlace = player2hp % 10;
-		int rightTensPlace = player2hp / 10;
-
-		((AtlasTexture)leftOnes.Texture).Region = new Rect2(leftOnesPlace * 15, 0, 15, 16);
-		((AtlasTexture)leftTens.Texture).Region = new Rect2(leftTensPlace * 15, 0, 15, 16);
-
-		((AtlasTexture)rightOnes.Texture).Region = new Rect2(rightOnesPlace * 15, 0, 15, 16);
-		((AtlasTexture)rightTens.Texture).Region = new Rect2(rightTensPlace * 15, 0, 15, 16);
+		scoreBoard.UpdateScoreBoard(currentPlayerIdx, players);
 	}
 
 	public void Pause()
@@ -257,11 +250,12 @@ public partial class GameManager : Node
 
 	public void DeclareVictory()
 	{
-		// TODO: GameOver victory/defeat screen!
+		GetNode<Globals>("/root/Globals").victoryIndex = currentPlayerIdx;
 		gameState = GameState.GameOver;
-		gameOverText.Text = $"[center]Player {currentPlayerIdx + 1} Wins!\n\n\nGame Over[/center]";
-		gameOverCtrl.Visible = true;
-		pausedCtrl.Visible = playerUI.Visible = false;
+		GetTree().ChangeSceneToFile("Scenes/VictoryScreen.tscn");
+		// // gameOverText.Text = $"[center]Player {currentPlayerIdx + 1} Wins!\n\n\nGame Over[/center]";s
+		// gameOverCtrl.Visible = true;
+		// pausedCtrl.Visible = playerUI.Visible = false;
 	}
 
 	public void ReturnToMain()
@@ -271,6 +265,11 @@ public partial class GameManager : Node
 
 	public void Restart()
 	{
-		GetTree().ChangeSceneToFile("Scenes/GameTestScene.tscn");
+		GetTree().ChangeSceneToFile("Scenes/InventoryShop.tscn");
+	}
+
+	public void ChangeActiveEquip(int attackIdx)
+	{
+		players?[currentPlayerIdx].SetActiveAttackMod(attackIdx);
 	}
 }

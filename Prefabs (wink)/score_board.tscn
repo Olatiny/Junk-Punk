@@ -1,0 +1,245 @@
+[gd_scene load_steps=24 format=3 uid="uid://bt7r26okh38p8"]
+
+[ext_resource type="Texture2D" uid="uid://dyae0hy761vv1" path="res://Assets/Scoreboard Panel.png" id="1_uv7bp"]
+[ext_resource type="Script" path="res://Scripts/UI/ScoreBoard.cs" id="2_03mf6"]
+[ext_resource type="Texture2D" uid="uid://dm7hlbqqglqjl" path="res://Assets/Blue Player Scoreboard Numbers.png" id="2_ugrma"]
+[ext_resource type="Texture2D" uid="uid://cufs0u8g5wno8" path="res://Assets/Red Player Scoreboard Numbers.png" id="3_f7mgv"]
+[ext_resource type="Texture2D" uid="uid://dhby1ftx87jxy" path="res://Assets/Turn Indicator.png" id="4_jag8l"]
+[ext_resource type="Texture2D" uid="uid://cd2gfagvxwo1" path="res://Assets/Scrap Icon (currency).png" id="5_sbrxw"]
+[ext_resource type="Script" path="res://Scripts/UI/ScrapCounter.cs" id="7_3qm6j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhmqt"]
+atlas = ExtResource("2_ugrma")
+region = Rect2(0, 0, 15, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xq76"]
+atlas = ExtResource("2_ugrma")
+region = Rect2(0, 0, 15, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfhkq"]
+atlas = ExtResource("3_f7mgv")
+region = Rect2(0, 0, 15, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgi60"]
+atlas = ExtResource("3_f7mgv")
+region = Rect2(0, 0, 15, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r8h3e"]
+load_path = "res://.godot/imported/Shop Numbers.png-042d44a1228056a419c705784a966dea.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbivs"]
+atlas = SubResource("CompressedTexture2D_r8h3e")
+region = Rect2(0, 0, 4, 6)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dxx75"]
+load_path = "res://.godot/imported/Shop Numbers.png-042d44a1228056a419c705784a966dea.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2g44e"]
+atlas = SubResource("CompressedTexture2D_dxx75")
+region = Rect2(0, 0, 4, 6)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uivin"]
+load_path = "res://.godot/imported/Shop Numbers.png-042d44a1228056a419c705784a966dea.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bbr3"]
+atlas = SubResource("CompressedTexture2D_uivin")
+region = Rect2(0, 0, 4, 6)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c6hnk"]
+load_path = "res://.godot/imported/Shop Numbers.png-042d44a1228056a419c705784a966dea.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_406sd"]
+atlas = SubResource("CompressedTexture2D_c6hnk")
+region = Rect2(0, 0, 4, 6)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m1cyc"]
+load_path = "res://.godot/imported/Shop Numbers.png-042d44a1228056a419c705784a966dea.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxbve"]
+atlas = SubResource("CompressedTexture2D_m1cyc")
+region = Rect2(0, 0, 4, 6)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wfcnu"]
+load_path = "res://.godot/imported/Shop Numbers.png-042d44a1228056a419c705784a966dea.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rl8dm"]
+atlas = SubResource("CompressedTexture2D_wfcnu")
+region = Rect2(0, 0, 4, 6)
+
+[node name="ScoreBoard" type="TextureRect" node_paths=PackedStringArray("turnIndicator", "leftOnes", "leftTens", "rightOnes", "rightTens", "leftScrapCounter", "rightScrapCounter")]
+anchors_preset = -1
+anchor_left = 0.302
+anchor_right = 0.922
+anchor_bottom = 0.125
+offset_left = 0.199997
+offset_right = 0.199982
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_uv7bp")
+script = ExtResource("2_03mf6")
+turnIndicator = NodePath("TurnIndicator")
+leftOnes = NodePath("LeftOnes")
+leftTens = NodePath("LeftTens")
+rightOnes = NodePath("RightOnes")
+rightTens = NodePath("RightTens")
+leftScrapCounter = NodePath("ScrapCounterLeft")
+rightScrapCounter = NodePath("ScrapCounterRight")
+
+[node name="LeftOnes" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.306
+anchor_top = 0.107
+anchor_right = 0.367
+anchor_bottom = 0.679
+offset_left = 0.111984
+offset_top = 0.00399995
+offset_right = -0.0160065
+offset_bottom = -0.012001
+mouse_filter = 2
+texture = SubResource("AtlasTexture_qhmqt")
+
+[node name="LeftTens" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.258
+anchor_top = 0.107
+anchor_right = 0.319
+anchor_bottom = 0.679
+offset_left = 0.015995
+offset_top = 0.00399947
+offset_right = -0.112
+offset_bottom = -0.012001
+mouse_filter = 2
+texture = SubResource("AtlasTexture_4xq76")
+
+[node name="RightOnes" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.69
+anchor_top = 0.107
+anchor_right = 0.75
+anchor_bottom = 0.679
+offset_left = -0.120026
+offset_top = 0.00399947
+offset_right = -3.05176e-05
+offset_bottom = -0.012001
+mouse_filter = 2
+texture = SubResource("AtlasTexture_tfhkq")
+
+[node name="RightTens" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.641
+anchor_top = 0.107
+anchor_right = 0.702
+anchor_bottom = 0.679
+offset_left = 0.0319977
+offset_top = 0.00399971
+offset_right = -0.0960083
+offset_bottom = -0.012001
+mouse_filter = 2
+texture = SubResource("AtlasTexture_hgi60")
+
+[node name="TurnIndicator" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.445
+anchor_top = 0.143
+anchor_right = 0.55
+anchor_bottom = 0.643
+offset_left = -0.0100021
+offset_top = -0.00400019
+offset_right = 0.0999985
+offset_bottom = -0.00399971
+mouse_filter = 2
+texture = ExtResource("4_jag8l")
+
+[node name="ScrapCounterLeft" type="TextureRect" parent="." node_paths=PackedStringArray("hundreds", "tens", "ones")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048
+anchor_top = 0.107
+anchor_right = 0.081
+anchor_bottom = 0.393
+offset_left = 0.0960226
+offset_top = 0.00399971
+offset_right = -0.0879765
+offset_bottom = -0.00399971
+texture = ExtResource("5_sbrxw")
+script = ExtResource("7_3qm6j")
+hundreds = NodePath("Hundreds")
+tens = NodePath("Tens")
+ones = NodePath("Ones")
+
+[node name="Hundreds" type="TextureRect" parent="ScrapCounterLeft"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.25
+anchor_top = 0.125
+anchor_right = 1.75
+anchor_bottom = 0.875
+texture = SubResource("AtlasTexture_pbivs")
+
+[node name="Tens" type="TextureRect" parent="ScrapCounterLeft"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.875
+anchor_top = 0.125
+anchor_right = 2.375
+anchor_bottom = 0.875
+texture = SubResource("AtlasTexture_2g44e")
+
+[node name="Ones" type="TextureRect" parent="ScrapCounterLeft"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 2.5
+anchor_top = 0.125
+anchor_right = 3.0
+anchor_bottom = 0.875
+texture = SubResource("AtlasTexture_1bbr3")
+
+[node name="ScrapCounterRight" type="TextureRect" parent="." node_paths=PackedStringArray("hundreds", "tens", "ones")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.847
+anchor_top = 0.107
+anchor_right = 0.879
+anchor_bottom = 0.393
+offset_left = -0.0559845
+offset_top = 0.00399971
+offset_right = 0.00801086
+offset_bottom = -0.00399971
+texture = ExtResource("5_sbrxw")
+script = ExtResource("7_3qm6j")
+hundreds = NodePath("Hundreds")
+tens = NodePath("Tens")
+ones = NodePath("Ones")
+
+[node name="Hundreds" type="TextureRect" parent="ScrapCounterRight"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.25
+anchor_top = 0.125
+anchor_right = 1.75
+anchor_bottom = 0.875
+texture = SubResource("AtlasTexture_406sd")
+
+[node name="Tens" type="TextureRect" parent="ScrapCounterRight"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.875
+anchor_top = 0.125
+anchor_right = 2.375
+anchor_bottom = 0.875
+texture = SubResource("AtlasTexture_lxbve")
+
+[node name="Ones" type="TextureRect" parent="ScrapCounterRight"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 2.5
+anchor_top = 0.125
+anchor_right = 3.0
+anchor_bottom = 0.875
+texture = SubResource("AtlasTexture_rl8dm")

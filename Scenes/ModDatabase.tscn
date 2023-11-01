@@ -1,32 +1,128 @@
-[gd_scene load_steps=5 format=3 uid="uid://b156h0pm1h6oe"]
+[gd_scene load_steps=47 format=3 uid="uid://b156h0pm1h6oe"]
 
 [ext_resource type="Script" path="res://Scripts/ModDatabase.cs" id="1_s4t44"]
-[ext_resource type="Script" path="res://Scripts/Mods/ArmMod.cs" id="4_020ur"]
+[ext_resource type="Texture2D" uid="uid://613yg3ym4oqr" path="res://Assets/Mods/ColoredIcons.png" id="3_1wbt1"]
+[ext_resource type="Texture2D" uid="uid://dqydg5lqbuk4d" path="res://Assets/Mods/Scaler Leg Mod Blue.png" id="4_a3log"]
 [ext_resource type="Script" path="res://Scripts/Mods/LegMod.cs" id="4_ho2ed"]
+[ext_resource type="Script" path="res://Scripts/Mods/BishopLegMod.cs" id="4_pycx2"]
+[ext_resource type="Texture2D" uid="uid://cq4yl650jt7fj" path="res://Assets/Mods/Zoner Leg Teleport Blue Mod.png" id="4_wen0u"]
+[ext_resource type="Texture2D" uid="uid://dqqn7t6kh8cq4" path="res://Assets/Mods/Scaler Leg Mod Red.png" id="5_en27o"]
+[ext_resource type="Texture2D" uid="uid://3r8llvgpn7kk" path="res://Assets/Mods/Zoner Leg Teleport Mod Red.png" id="5_loklo"]
 [ext_resource type="Script" path="res://Scripts/Mods/RookArmMod.cs" id="6_ket1x"]
+[ext_resource type="Script" path="res://Scripts/Mods/BishopArmMod.cs" id="8_kqfg6"]
+[ext_resource type="Script" path="res://Scripts/Mods/PawnHeadMod.cs" id="9_6yvmr"]
+[ext_resource type="Script" path="res://Scripts/Mods/KingArmMod.cs" id="10_7rn2h"]
+[ext_resource type="Texture2D" uid="uid://cwcfig180xmdh" path="res://Assets/Mods/Scaler Arm Mod Blue.png" id="10_mdwgv"]
+[ext_resource type="Texture2D" uid="uid://chwx6hg8osdvb" path="res://Assets/Mods/Scaler Stealer Arm Mod Blue.png" id="10_v0fxy"]
+[ext_resource type="Script" path="res://Scripts/Mods/QueenLegMod.cs" id="11_kvofe"]
+[ext_resource type="Texture2D" uid="uid://qvhtn6jg6ell" path="res://Assets/Mods/Scaler Arm Mod Red.png" id="11_pe4nf"]
+[ext_resource type="Texture2D" uid="uid://dq42qpvx75cpg" path="res://Assets/Mods/Scaler Stealer Arm Mod Red.png" id="11_wicdv"]
+[ext_resource type="Script" path="res://Scripts/Mods/QueenArmMod.cs" id="13_ea5ld"]
+[ext_resource type="Texture2D" uid="uid://b4wgq2u3s3hat" path="res://Assets/Mods/Scaler Head Mod Blue.png" id="16_go003"]
+[ext_resource type="Texture2D" uid="uid://dj6iramh1k33g" path="res://Assets/Mods/Zoner Arm Mod Blue.png" id="17_8gisy"]
+[ext_resource type="Texture2D" uid="uid://briovwrm3x3t1" path="res://Assets/Mods/Scaler Head Mod Red.png" id="17_mfek1"]
+[ext_resource type="Texture2D" uid="uid://c6jqael4fdaua" path="res://Assets/Mods/Zoner Arm Mod Red.png" id="18_g3082"]
+[ext_resource type="Texture2D" uid="uid://cbml2r80pqrts" path="res://Assets/Mods/Zoner Leg Swap Mod Blue.png" id="22_geffl"]
+[ext_resource type="Script" path="res://Scripts/Mods/BishopArmPassiveMod.cs" id="23_e3hlw"]
+[ext_resource type="Texture2D" uid="uid://c5mfhpl8xdtij" path="res://Assets/Mods/Zoner Leg Swap Mod Red.png" id="23_mbk5r"]
+[ext_resource type="Script" path="res://Scripts/Mods/QueenHeadMod.cs" id="24_fbidt"]
+[ext_resource type="Script" path="res://Scripts/Mods/KingHeadMod.cs" id="25_43jfj"]
+[ext_resource type="Texture2D" uid="uid://djqtj266xrqnr" path="res://Assets/Mods/Resourcer Arm Mod Blue.png" id="26_3uh7n"]
+[ext_resource type="Script" path="res://Scripts/Mods/RookHeadMod.cs" id="26_845eg"]
+[ext_resource type="Texture2D" uid="uid://vxvx8qa2cecc" path="res://Assets/Mods/Resourcer Arm Mod Red.png" id="27_lfiau"]
+[ext_resource type="Script" path="res://Scripts/Mods/BishopHeadMod.cs" id="27_lwu32"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrqhd"]
+atlas = ExtResource("3_1wbt1")
+region = Rect2(2, 78, 18, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxyfa"]
+atlas = ExtResource("3_1wbt1")
+region = Rect2(4, 42, 18, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05x3w"]
+atlas = ExtResource("3_1wbt1")
+region = Rect2(4, 4, 18, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30gou"]
+atlas = ExtResource("3_1wbt1")
+region = Rect2(54, 4, 19, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_feye2"]
+atlas = ExtResource("3_1wbt1")
+region = Rect2(80, 4, 19, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50mmr"]
+atlas = ExtResource("3_1wbt1")
+region = Rect2(130, 5, 18, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vknoh"]
+atlas = ExtResource("3_1wbt1")
+region = Rect2(29, 4, 18, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qp0qo"]
+atlas = ExtResource("3_1wbt1")
+region = Rect2(58, 78, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spod8"]
+atlas = ExtResource("3_1wbt1")
+region = Rect2(29, 77, 18, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hmwo"]
+atlas = ExtResource("3_1wbt1")
+region = Rect2(105, 4, 19, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pyi2"]
+atlas = ExtResource("3_1wbt1")
+region = Rect2(26, 42, 19, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slia6"]
+atlas = ExtResource("3_1wbt1")
+region = Rect2(77, 42, 18, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klqnm"]
+atlas = ExtResource("3_1wbt1")
+region = Rect2(106, 42, 19, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vwvm"]
+atlas = ExtResource("3_1wbt1")
+region = Rect2(88, 76, 18, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q1hf"]
+atlas = ExtResource("3_1wbt1")
+region = Rect2(113, 76, 19, 19)
 
 [node name="ModDatabase" type="Node2D"]
-visible = false
 script = ExtResource("1_s4t44")
 
-[node name="KnightLeg" type="Sprite2D" parent="."]
+[node name="KnightLegJump" type="Sprite2D" parent="."]
+position = Vector2(0, 2)
 script = ExtResource("4_ho2ed")
 modPaths = Array[Array]([])
 modJumps = Array[Vector2i]([Vector2i(2, 1), Vector2i(2, -1), Vector2i(-2, 1), Vector2i(-2, -1), Vector2i(1, 2), Vector2i(1, -2), Vector2i(-1, 2), Vector2i(-1, -2)])
 bodyPart = 2
 buffType = 2
-uid = "KnightLeg"
+uid = "KnightLegJump"
 durability = 4
+cost = 100
+description = "Test"
+icon = SubResource("AtlasTexture_qrqhd")
+bigSpriteBlue = ExtResource("4_wen0u")
+bigSpriteRed = ExtResource("5_loklo")
 
 [node name="BishopLeg" type="Sprite2D" parent="."]
-script = ExtResource("4_ho2ed")
-pathFlags = 31
-modPaths = Array[Array]([["LeftDiagonal", "LeftDiagonal", "LeftDiagonal"]])
-modJumps = Array[Array]([])
+position = Vector2(0, -1)
+script = ExtResource("4_pycx2")
 bodyPart = 2
 buffType = 2
 uid = "BishopLeg"
 durability = 4
+cost = 100
+description = "Test"
+icon = SubResource("AtlasTexture_yxyfa")
+bigSpriteBlue = ExtResource("4_a3log")
+bigSpriteRed = ExtResource("5_en27o")
+bodyPartTint = Color(0.25098, 0.27451, 0.313726, 1)
 
 [node name="RookLeg" type="Sprite2D" parent="."]
 script = ExtResource("4_ho2ed")
@@ -37,6 +133,11 @@ bodyPart = 2
 buffType = 2
 uid = "RookLeg"
 durability = 4
+cost = 100
+description = "Test"
+icon = SubResource("AtlasTexture_05x3w")
+bigSpriteBlue = ExtResource("4_a3log")
+bigSpriteRed = ExtResource("5_en27o")
 
 [node name="RookArm" type="Sprite2D" parent="."]
 script = ExtResource("6_ket1x")
@@ -44,12 +145,146 @@ bodyPart = 1
 buffType = 1
 uid = "RookArm"
 durability = 4
+cost = 100
+description = "Test"
+icon = SubResource("AtlasTexture_30gou")
+bigSpriteBlue = ExtResource("10_mdwgv")
+bigSpriteRed = ExtResource("11_pe4nf")
 
-[node name="BurningHands" type="Sprite2D" parent="."]
-script = ExtResource("4_020ur")
-attackType = 2
-aoe = [Vector2i(1, -1), Vector2i(0, -1), Vector2i(-1, -1), Vector2i(1, -2), Vector2i(0, -2), Vector2i(-1, -2)]
+[node name="BishopArm" type="Sprite2D" parent="."]
+script = ExtResource("8_kqfg6")
 bodyPart = 1
 buffType = 1
-uid = "BurningHands"
+uid = "BishopArm"
 durability = 4
+cost = 100
+description = "Test"
+icon = SubResource("AtlasTexture_feye2")
+bigSpriteBlue = ExtResource("10_v0fxy")
+bigSpriteRed = ExtResource("11_wicdv")
+bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
+
+[node name="PawnHead" type="Sprite2D" parent="."]
+script = ExtResource("9_6yvmr")
+uid = "PawnHead"
+durability = 4
+cost = 100
+description = "Test"
+icon = SubResource("AtlasTexture_50mmr")
+bigSpriteBlue = ExtResource("16_go003")
+bigSpriteRed = ExtResource("17_mfek1")
+bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
+
+[node name="KnightLegPath" type="Sprite2D" parent="."]
+script = ExtResource("4_ho2ed")
+pathFlags = 31
+modPaths = Array[Array]([["LeftDiagonal", "Left"], ["LeftDiagonal", "Forward"]])
+modJumps = Array[Array]([])
+bodyPart = 2
+buffType = 2
+uid = "KnightLegPath"
+durability = 4
+cost = 100
+description = "Test"
+icon = SubResource("AtlasTexture_vknoh")
+bigSpriteBlue = ExtResource("4_a3log")
+bigSpriteRed = ExtResource("5_en27o")
+
+[node name="KingArm" type="Sprite2D" parent="."]
+script = ExtResource("10_7rn2h")
+attackType = 2
+aoe = [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1)]
+bodyPart = 1
+buffType = 1
+uid = "KingArm"
+durability = 4
+cost = 100
+description = "Test"
+icon = SubResource("AtlasTexture_qp0qo")
+bigSpriteBlue = ExtResource("17_8gisy")
+bigSpriteRed = ExtResource("18_g3082")
+bodyPartTint = Color(0.129412, 0.603922, 0.588235, 1)
+
+[node name="QueenLeg" type="Sprite2D" parent="."]
+script = ExtResource("11_kvofe")
+modPaths = Array[Array]([])
+modJumps = Array[Array]([])
+bodyPart = 2
+buffType = 2
+uid = "QueenLeg"
+durability = 4
+cost = 100
+description = "Test"
+icon = SubResource("AtlasTexture_spod8")
+bigSpriteBlue = ExtResource("22_geffl")
+bigSpriteRed = ExtResource("23_mbk5r")
+bodyPartTint = Color(0.0588235, 0.482353, 0.501961, 1)
+
+[node name="QueenArm" type="Sprite2D" parent="."]
+script = ExtResource("13_ea5ld")
+bodyPart = 1
+buffType = 1
+uid = "QueenArm"
+durability = 4
+cost = 100
+description = "Test"
+icon = SubResource("AtlasTexture_4hmwo")
+bigSpriteBlue = ExtResource("10_v0fxy")
+bigSpriteRed = ExtResource("11_wicdv")
+bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
+
+[node name="BishopArmPassive" type="Sprite2D" parent="."]
+script = ExtResource("23_e3hlw")
+bodyPart = 1
+uid = "BishopArmPassive"
+durability = 4
+cost = 100
+description = "Test"
+icon = SubResource("AtlasTexture_2pyi2")
+bigSpriteBlue = ExtResource("26_3uh7n")
+bigSpriteRed = ExtResource("27_lfiau")
+bodyPartTint = Color(0.25098, 0.27451, 0.313726, 1)
+
+[node name="QueenHead" type="Sprite2D" parent="."]
+script = ExtResource("24_fbidt")
+uid = "QueenHead"
+durability = 4
+cost = 100
+description = "Test"
+icon = SubResource("AtlasTexture_slia6")
+bigSpriteBlue = ExtResource("16_go003")
+bigSpriteRed = ExtResource("17_mfek1")
+bodyPartTint = Color(0.25098, 0.27451, 0.313726, 1)
+
+[node name="KingHead" type="Sprite2D" parent="."]
+script = ExtResource("25_43jfj")
+uid = "KingHead"
+durability = 4
+cost = 100
+description = "Test"
+icon = SubResource("AtlasTexture_klqnm")
+bigSpriteBlue = ExtResource("16_go003")
+bigSpriteRed = ExtResource("17_mfek1")
+bodyPartTint = Color(0.25098, 0.27451, 0.313726, 1)
+
+[node name="RookHead" type="Sprite2D" parent="."]
+script = ExtResource("26_845eg")
+uid = "RookHead"
+durability = 4
+cost = 100
+description = "Test"
+icon = SubResource("AtlasTexture_4vwvm")
+bigSpriteBlue = ExtResource("16_go003")
+bigSpriteRed = ExtResource("17_mfek1")
+bodyPartTint = Color(0.0588235, 0.482353, 0.501961, 1)
+
+[node name="BishopHead" type="Sprite2D" parent="."]
+script = ExtResource("27_lwu32")
+uid = "BishopHead"
+durability = 4
+cost = 100
+description = "Test"
+icon = SubResource("AtlasTexture_5q1hf")
+bigSpriteBlue = ExtResource("16_go003")
+bigSpriteRed = ExtResource("17_mfek1")
+bodyPartTint = Color(0.0588235, 0.482353, 0.501961, 1)

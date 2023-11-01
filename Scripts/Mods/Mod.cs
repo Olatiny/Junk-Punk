@@ -11,9 +11,12 @@ public abstract partial class Mod : Sprite2D
 	[Export] public BuffType buffType { get; set; }
 	[Export] public String uid { get; set; }
 	[Export] public int durability { get; set; }
-	[Export] String description { get; set; }
-	[Export] Texture2D icon;
-	[Export] Texture2D bigSprite;
+	[Export] public int cost { get; set; }
+	[Export] public String description { get; set; }
+	[Export] public Texture2D icon;
+	[Export] public Texture2D bigSpriteBlue;
+	[Export] public Texture2D bigSpriteRed;
+	[Export] public Color bodyPartTint = new(1, 1, 1, 1);
 
 	public Mod()
 	{
@@ -27,10 +30,17 @@ public abstract partial class Mod : Sprite2D
 		durability = modDurability;
 	}
 
+	public virtual void InitSignals()
+	{ }
+
+	public virtual void DisconnectSignals()
+	{ }
+
 	public virtual Mod Clone()
 	{
 		Node duplicate = Duplicate();
 		duplicate.SetScript(GetScript());
+		// GetTree().Root.AddChild(duplicate);
 
 		Mod modDuplicate = (Mod) duplicate;
 		modDuplicate.bodyPart = bodyPart;
@@ -39,8 +49,8 @@ public abstract partial class Mod : Sprite2D
 		modDuplicate.durability = durability;
 		modDuplicate.description = description;
 		modDuplicate.icon = icon;
-		modDuplicate.bigSprite = bigSprite;
-		
+		modDuplicate.bigSpriteBlue = bigSpriteBlue;
+
 		return modDuplicate;
 	}
 }

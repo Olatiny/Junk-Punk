@@ -18,6 +18,7 @@ public partial class ArmMod : Mod
 	{
 		if (attackType == AttackType.aoe)
 		{
+			bool hitSomething = false;
 			foreach (Vector2I validTile in board.rotatedAOECoords)
 			{
 				Node2D node = board.Grid[validTile.X, validTile.Y];
@@ -26,13 +27,17 @@ public partial class ArmMod : Mod
 				{
 					// returns true if enemy is killed, they still take damage if false
 					enemy.TakeDamage(GetAttackDamage(board, player));
-					return true;
+					hitSomething = true;
 				}
 
-				// TODO: Implement Scrap
-				// if (node is Scrap scrap)
-				// 	player.HarvestScrap(scrap);
+				if (node is Scrap scrap)
+				{
+					scrap.Harvest(player);
+					hitSomething = true;
+				}
 			}
+
+			return hitSomething;
 		}
 		else if (attackType != AttackType.special)
 		{
@@ -46,12 +51,16 @@ public partial class ArmMod : Mod
 					{
 						// returns true if enemy is killed, they still take damage if false
 						enemy.TakeDamage(GetAttackDamage(board, player));
+						player.UpdateDirection(player.gridPosition, enemy.gridPosition);
 						return true;
 					}
 
-					// TODO: Implement Scrap
-					// if (node is Scrap scrap)
-					// 	player.HarvestScrap(scrap);
+					if (node is Scrap scrap)
+					{
+						scrap.Harvest(player);
+						player.UpdateDirection(player.gridPosition, scrap.gridPosition);
+						return true;
+					}
 				}
 			}
 		}
@@ -93,17 +102,17 @@ public partial class ArmMod : Mod
 		return validModTileCoords;
 	}
 
-    public override Mod Clone()
-    {
-        Mod modClone = base.Clone();
+	public override Mod Clone()
+	{
+		Mod modClone = base.Clone();
 		modClone.SetScript(GetScript());
 
-		ArmMod armModClone = (ArmMod) modClone;
+		ArmMod armModClone = (ArmMod)modClone;
 		armModClone.attackType = attackType;
 		armModClone.bonusRange = bonusRange;
 		armModClone.bonusDmg = bonusDmg;
 		armModClone.aoe = aoe;
-		
+
 		return armModClone;
 	}
 }

@@ -10,7 +10,7 @@ public partial class MainMenu : Control
 
 	public void StartGame()
 	{
-		GetTree().ChangeSceneToFile("Scenes/GameTestScene.tscn");
+		GetTree().ChangeSceneToFile("Scenes/InventoryShop.tscn");
 	}
 
 	public void OpenSettings()
@@ -21,7 +21,7 @@ public partial class MainMenu : Control
 
 	public void ChangeVolume(float vol)
 	{
-		GetNode<Settings>("/root/Settings").masterVolume = vol;
+		GetNode<Globals>("/root/Globals").masterVolume = vol;
 	}
 
 	public void OpenCredits()
