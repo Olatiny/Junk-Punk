@@ -28,6 +28,7 @@ public partial class GameManager : Node
 	[ExportGroup("Control Groups")]
 	[Export] Control playerUI;
 	[Export] Control setupUI;
+	Vector2I setupUIStartPos;
 	[Export] Control actionsUI;
 	[Export] Control pausedCtrl;
 	[Export] Control gameOverCtrl;
@@ -36,13 +37,14 @@ public partial class GameManager : Node
 	[Export] public Control tooltipWindow;
 
 	[ExportGroup("Buttons")]
-	[Export] Button movementButton;
-	[Export] Button actionButton;
-	[Export] Button endTurnButton;
+	[Export] TextureButton movementButton;
+	[Export] TextureButton actionButton;
+	[Export] TextureButton endTurnButton;
 
 	[ExportGroup("Text")]
 	[Export] RichTextLabel pausedText;
 	[Export] RichTextLabel gameOverText;
+	public AudioManager audioManager;
 
 	public int round { get; private set; } = 1;
 
@@ -56,14 +58,17 @@ public partial class GameManager : Node
 
 		gameState = GameState.Playing;
 		turnPhase = TurnPhase.Upkeep;
-		cameraStartPos = (Vector2I) camera.Position;
-		backgroundStartPos = (Vector2I) background.Position;
+		cameraStartPos = (Vector2I)camera.Position;
+		backgroundStartPos = (Vector2I)background.Position;
 
 		if (playerUI != null && pausedCtrl != null && gameOverCtrl != null)
 		{
 			playerUI.Visible = true;
 			pausedCtrl.Visible = gameOverCtrl.Visible = false;
 		}
+
+		audioManager = GetNode<AudioManager>("/root/AudioManager");
+		audioManager.PlayGameTheme();
 
 		UpdateScoreBoard();
 	}
@@ -81,13 +86,13 @@ public partial class GameManager : Node
 
 			if (player1turn)
 			{
-				playerUI.SetPosition(playerUI.Position.MoveToward(new(0, playerUI.Position.Y), 5));
+				playerUI.SetPosition(playerUI.Position.MoveToward(new(0, playerUI.Position.Y), (float)delta * 350));
 				camera.Position = new Vector2((float)Mathf.Lerp(camera.Position.X, cameraStartPos.X, delta * 4), camera.Position.Y);
 				background.Position = new Vector2((float)Mathf.Lerp(background.Position.X, backgroundStartPos.X, delta * 4), background.Position.Y);
 			}
 			else
 			{
-				playerUI.SetPosition(playerUI.Position.MoveToward(new(-90, playerUI.Position.Y), 5));
+				playerUI.SetPosition(playerUI.Position.MoveToward(new(-90, playerUI.Position.Y), (float)delta * 350));
 				camera.Position = new Vector2((float)Mathf.Lerp(camera.Position.X, cameraStartPos.X + cameraLerpDistance, delta * 4), camera.Position.Y);
 				background.Position = new Vector2((float)Mathf.Lerp(background.Position.X, backgroundStartPos.X + backgroundLerpDist, delta * 4), background.Position.Y);
 			}
@@ -95,6 +100,18 @@ public partial class GameManager : Node
 
 		if (turnPhase == TurnPhase.Upkeep)
 			DoUpkeep();
+
+		if (turnPhase == TurnPhase.Setup)
+		{
+			setupUI.Show();
+			setupUI.Position = new Vector2(setupUI.Position.X, (float)Mathf.MoveToward(setupUI.Position.Y, setupUIStartPos.Y, delta * 125));
+		}
+		else
+		{
+			setupUI.Position = new Vector2(setupUI.Position.X, (float)Mathf.MoveToward(setupUI.Position.Y, setupUIStartPos.Y + 30, delta * 125));
+			if (setupUI.Position == setupUIStartPos + new Vector2I(0, 30))
+				setupUI.Hide();
+		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -142,7 +159,7 @@ public partial class GameManager : Node
 		DropScrap();
 		ShuffleShop();
 		UpdateScoreBoard();
-		setupUI.Show();
+		// setupUI.Show();
 		actionsUI.Hide();
 		turnPhase = TurnPhase.Setup;
 	}
@@ -168,7 +185,7 @@ public partial class GameManager : Node
 	{
 		if (turnPhase == TurnPhase.Setup)
 		{
-			setupUI.Hide();
+			// setupUI.Hide();
 			actionsUI.Show();
 			turnPhase = TurnPhase.Actions;
 		}
@@ -214,6 +231,7 @@ public partial class GameManager : Node
 
 	public void EndTurn()
 	{
+		audioManager.FXdoor();
 		players[currentPlayerIdx].UnPrime();
 		currentPlayerIdx++;
 		if (currentPlayerIdx >= players?.Count)
@@ -224,7 +242,7 @@ public partial class GameManager : Node
 
 		board.ClearValidTiles();
 		UpdateScoreBoard();
-		setupUI.Show();
+		// setupUI.Show();
 		actionsUI.Hide();
 		turnPhase = TurnPhase.Upkeep;
 	}

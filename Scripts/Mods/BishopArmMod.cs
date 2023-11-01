@@ -15,6 +15,7 @@ public partial class BishopArmMod : ArmMod
 					int scrapToSteal = (int)(enemy.currentScrap * moneySteal);
 					enemy.currentScrap -= scrapToSteal; 
 					player.currentScrap += scrapToSteal;
+					enemy.TakeDamage(player.baseAttackDmg);
 					return true;
 				}
 			}

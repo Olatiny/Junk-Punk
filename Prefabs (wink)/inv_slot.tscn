@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://db0n0y7u5dgwl"]
+[gd_scene load_steps=4 format=3 uid="uid://db0n0y7u5dgwl"]
 
 [ext_resource type="Texture2D" uid="uid://ds4xt5k8vjuu4" path="res://Assets/Inventory Box.png" id="1_3n2ox"]
 [ext_resource type="Script" path="res://Scripts/UI/InventorySlot.cs" id="1_jh5yf"]
+[ext_resource type="Script" path="res://Scripts/InventoryMouseOver.cs" id="2_nmi3d"]
 
 [node name="Inventory Slot" type="TextureRect" groups=["INVENTORY"]]
 z_index = 1
@@ -13,8 +14,7 @@ mouse_default_cursor_shape = 6
 expand_mode = 1
 script = ExtResource("1_jh5yf")
 
-[node name="Slot BG" type="Panel" parent="."]
-visible = false
+[node name="Slot BG" type="Control" parent="."]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -23,6 +23,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("2_nmi3d")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = -1
