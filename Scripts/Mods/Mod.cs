@@ -12,7 +12,7 @@ public abstract partial class Mod : Sprite2D
 	[Export] public String uid { get; set; }
 	[Export] public int durability { get; set; }
 	[Export] public int cost { get; set; }
-	[Export] String description { get; set; }
+	[Export] public String description { get; set; }
 	[Export] public Texture2D icon;
 	[Export] public Texture2D bigSpriteBlue;
 	[Export] public Texture2D bigSpriteRed;
