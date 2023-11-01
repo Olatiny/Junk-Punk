@@ -79,13 +79,14 @@ offset_left = 0.00799942
 offset_right = 0.00799942
 texture = SubResource("AtlasTexture_ptvbd")
 
-[node name="Shop Button" type="TextureButton" parent="." node_paths=PackedStringArray("icon", "price")]
+[node name="Shop Button" type="TextureButton" parent="." node_paths=PackedStringArray("icon", "price", "slot")]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 offset_bottom = 20.0
 script = ExtResource("3_8q4lu")
 icon = NodePath("Shop Item")
 price = NodePath("../Price")
+slot = NodePath("..")
 
 [node name="Shop Item" type="TextureRect" parent="Shop Button"]
 layout_mode = 1

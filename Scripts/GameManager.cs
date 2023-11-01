@@ -33,6 +33,7 @@ public partial class GameManager : Node
 	[Export] Control gameOverCtrl;
 	[Export] ShopCollection shopPanel;
 	[Export] ScoreBoard scoreBoard;
+	[Export] public Control tooltipWindow;
 
 	[ExportGroup("Buttons")]
 	[Export] Button movementButton;

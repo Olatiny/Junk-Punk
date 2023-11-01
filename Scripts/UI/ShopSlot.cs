@@ -17,6 +17,11 @@ public partial class ShopSlot : Node
 		modIcon.Texture = null;
 	}
 
+	public Mod GetContainedMod()
+	{
+		return containedMod;
+	}
+
 	public void SetContainedMod(Mod targetMod)
 	{
 		containedMod = targetMod;
