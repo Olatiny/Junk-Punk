@@ -16,6 +16,7 @@ public partial class PlayerController : Area2D
 	[Export] public int currentScrap = 0;
 	[Export] public int scrapIncome = 10;
 	[Export] PackedScene sparks;
+	[Export] DurabilityIndicators durabilityIndicators;
 
 	public enum Direction
 	{
@@ -182,26 +183,42 @@ public partial class PlayerController : Area2D
 
 			if (headMod.durability <= 0)
 				Unequip(headMod);
+
+			durabilityIndicators.UpdateDurability(Mod.BodyPart.Head);
 		}
 
+		int idx = 0;
 		foreach (Mod mod in armMods)
 		{
 			if (mod == null)
+			{
+				idx++;
 				continue;
+			}
 
 			mod.durability--;
 			if (mod.durability <= 0)
 				Unequip(mod);
+
+			durabilityIndicators.UpdateDurability(Mod.BodyPart.Arm, idx == 1);
+			idx++;
 		}
 
+		idx = 0;
 		foreach (Mod mod in legMods)
 		{
 			if (mod == null)
+			{
+				idx++;
 				continue;
+			}
 
 			mod.durability--;
 			if (mod.durability <= 0)
 				Unequip(mod);
+			
+			durabilityIndicators.UpdateDurability(Mod.BodyPart.Leg, idx == 1);
+			idx++;
 		}
 	}
 
@@ -236,8 +253,9 @@ public partial class PlayerController : Area2D
 					legs[limbIdx].Modulate = mod.bodyPartTint;
 
 				break;
-
 		}
+
+		durabilityIndicators.InitModDurability(mod, bodyPart, limbIdx == 1);
 	}
 
 	public void EquipHelper(ref Mod mod, ref Mod bodyPart)
@@ -256,6 +274,8 @@ public partial class PlayerController : Area2D
 			UnequipHelper(ref mod, ref headMod);
 			if (head != null)
 				head.Modulate = new(1, 1, 1, 1);
+
+			durabilityIndicators.Unequip(mod, Mod.BodyPart.Head, false);
 		}
 
 		for (int i = 0; i < armMods.Length; i++)
@@ -265,6 +285,8 @@ public partial class PlayerController : Area2D
 				UnequipHelper(ref mod, ref armMods[i]);
 				if (arms?[i] != null)
 					arms[i].Modulate = new(1, 1, 1, 1);
+
+				durabilityIndicators.Unequip(mod, Mod.BodyPart.Arm, i == 1);
 			}
 		}
 
@@ -275,6 +297,8 @@ public partial class PlayerController : Area2D
 				UnequipHelper(ref mod, ref legMods[i]);
 				if (legs?[i] != null)
 					legs[i].Modulate = new(1, 1, 1, 1);
+
+				durabilityIndicators.Unequip(mod, Mod.BodyPart.Leg, i == 1);
 			}
 		}
 	}
@@ -308,6 +332,8 @@ public partial class PlayerController : Area2D
 					break;
 				}
 		}
+
+		durabilityIndicators.Unequip(mod, bodyPart, limbIdx == 1);
 	}
 
 	private void UnequipHelper(ref Mod mod, ref Mod bodyPart)
