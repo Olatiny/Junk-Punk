@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bxrpvn672bpk6"]
 
-[ext_resource type="Script" path="res://AudioManager.cs" id="1_5belr"]
+[ext_resource type="Script" path="res://Scripts/AudioManager.cs" id="1_5belr"]
 [ext_resource type="AudioStream" uid="uid://niyjef6kiojd" path="res://Audio/Junk_Punk_Copy.mp3" id="2_7e601"]
 [ext_resource type="AudioStream" uid="uid://bdphovq0mdfe4" path="res://Audio/Main_Menu_JP.mp3" id="3_f72vu"]
 [ext_resource type="AudioStream" uid="uid://cj0in5nlrljya" path="res://Audio/Victory_Theme.mp3" id="4_3ajuw"]

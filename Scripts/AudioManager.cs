@@ -41,11 +41,13 @@ public partial class AudioManager : Node2D
 	public void FXdoor()
 	{
 		fxPlayer.Stream = doorFX;
+		fxPlayer.Play(0);
 	}
 
 	public void FXdamage()
 	{
 		fxPlayer.Stream = damageFX;
+		fxPlayer.Play(0);
 	}
 
 	public void Play()
