@@ -787,6 +787,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Basic" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
+visible = false
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
@@ -857,6 +858,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_a2srl")
 metadata/_edit_use_anchors_ = true
 
 [node name="Basic2" type="Button" parent="GameManager/GUI/PlayerUI/ActionUI"]
+visible = false
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1

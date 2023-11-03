@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://b156h0pm1h6oe"]
+[gd_scene load_steps=66 format=3 uid="uid://b156h0pm1h6oe"]
 
 [ext_resource type="Script" path="res://Scripts/ModDatabase.cs" id="1_s4t44"]
 [ext_resource type="Texture2D" uid="uid://613yg3ym4oqr" path="res://Assets/Mods/ColoredIcons.png" id="3_1wbt1"]
@@ -48,6 +48,7 @@
 [ext_resource type="Script" path="res://Scripts/Mods/KnightArmMod.cs" id="46_oboi8"]
 [ext_resource type="Texture2D" uid="uid://d84lntfxui1f" path="res://Assets/Mods/Resourcer Boost Arm Blue.png" id="47_5boac"]
 [ext_resource type="Texture2D" uid="uid://skvx2o3nud70" path="res://Assets/Mods/Resourcer Boost Arm Red.png" id="48_vnan7"]
+[ext_resource type="Script" path="res://Scripts/Mods/ArmMod.cs" id="49_ydtdh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qrqhd"]
 atlas = ExtResource("3_1wbt1")
@@ -116,211 +117,254 @@ region = Rect2(50, 42, 19, 19)
 [node name="ModDatabase" type="Node2D"]
 script = ExtResource("1_s4t44")
 
-[node name="KnightLegJump" type="Sprite2D" parent="."]
-position = Vector2(0, 2)
+[node name="ZonerLegTeleport" type="Sprite2D" parent="."]
 script = ExtResource("4_ho2ed")
 modPaths = Array[Array]([])
 modJumps = Array[Vector2i]([Vector2i(2, 1), Vector2i(2, -1), Vector2i(-2, 1), Vector2i(-2, -1), Vector2i(1, 2), Vector2i(1, -2), Vector2i(-1, 2), Vector2i(-1, -2)])
 bodyPart = 2
 buffType = 2
-uid = "KnightLegJump"
+uid = "ZonerLegTeleport"
 durability = 4
-cost = 200
+cost = 100
 description = "Grants chess knight-like teleport movement."
 icon = SubResource("AtlasTexture_qrqhd")
 bigSpriteBlue = ExtResource("4_wen0u")
 bigSpriteRed = ExtResource("5_loklo")
 bodyPartTint = Color(0.0588235, 0.482353, 0.501961, 1)
 
-[node name="BishopLeg" type="Sprite2D" parent="."]
+[node name="ResourcerLegRestore" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
 script = ExtResource("4_pycx2")
 bodyPart = 2
-uid = "BishopLeg"
+uid = "ResourcerLegRestore"
 durability = 4
-cost = 300
+cost = 200
 description = "Adds 1 energy to the opposite leg every turn."
 icon = SubResource("AtlasTexture_yxyfa")
 bigSpriteBlue = ExtResource("7_wfkm3")
 bigSpriteRed = ExtResource("8_5seoi")
 bodyPartTint = Color(0.25098, 0.27451, 0.313726, 1)
 
-[node name="RookLeg" type="Sprite2D" parent="."]
+[node name="ScalerLegRook" type="Sprite2D" parent="."]
 script = ExtResource("4_ho2ed")
 pathFlags = 31
 modPaths = Array[Array]([["Forward", "Forward", "Forward"]])
 modJumps = Array[Array]([])
 bodyPart = 2
 buffType = 2
-uid = "RookLeg"
+uid = "ScalerLegRook"
 durability = 4
-cost = 200
+cost = 100
 description = "Grants increased movement up/down/left/right."
 icon = SubResource("AtlasTexture_05x3w")
 bigSpriteBlue = ExtResource("4_a3log")
 bigSpriteRed = ExtResource("5_en27o")
 bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
 
-[node name="RookArm" type="Sprite2D" parent="."]
+[node name="ScalerArmEdgeBuff" type="Sprite2D" parent="."]
 script = ExtResource("6_ket1x")
 bodyPart = 1
 buffType = 1
-uid = "RookArm"
+uid = "ScalerArmEdgeBuff"
 durability = 4
-cost = 200
+cost = 100
 description = "With this mod equipped and selected, while on the edge of the board double damage of melee attack."
 icon = SubResource("AtlasTexture_30gou")
 bigSpriteBlue = ExtResource("10_mdwgv")
 bigSpriteRed = ExtResource("11_pe4nf")
 bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
 
-[node name="BishopArm" type="Sprite2D" parent="."]
+[node name="ScalerArmSteal" type="Sprite2D" parent="."]
 script = ExtResource("8_kqfg6")
 bodyPart = 1
 buffType = 1
-uid = "BishopArm"
+uid = "ScalerArmSteal"
 durability = 4
-cost = 250
+cost = 150
 description = "With this mod equipped and selected, if you deal damage to an enemy, you also steal 10% of their current scrap."
 icon = SubResource("AtlasTexture_feye2")
 bigSpriteBlue = ExtResource("10_v0fxy")
 bigSpriteRed = ExtResource("11_wicdv")
 bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
 
-[node name="PawnHead" type="Sprite2D" parent="."]
+[node name="ScalerHeadTank" type="Sprite2D" parent="."]
 script = ExtResource("9_6yvmr")
-uid = "PawnHead"
+uid = "ScalerHeadTank"
 durability = 4
-cost = 500
+cost = 400
 description = "While this mod is equipped, you can take 1 attack without taking any damage. This mod is destroyed after 1 blocked attack."
 icon = SubResource("AtlasTexture_50mmr")
 bigSpriteBlue = ExtResource("16_go003")
 bigSpriteRed = ExtResource("17_mfek1")
 bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
 
-[node name="KnightLegPath" type="Sprite2D" parent="."]
+[node name="ScalerLegDiagonal" type="Sprite2D" parent="."]
 script = ExtResource("4_ho2ed")
 pathFlags = 31
 modPaths = Array[Array]([["LeftDiagonal", "Left"], ["LeftDiagonal", "Forward"]])
 modJumps = Array[Array]([])
 bodyPart = 2
 buffType = 2
-uid = "KnightLegPath"
+uid = "ScalerLegDiagonal"
 durability = 4
-cost = 300
+cost = 200
 description = "Grants increased diagonal movement."
 icon = SubResource("AtlasTexture_vknoh")
 bigSpriteBlue = ExtResource("20_jnorm")
 bigSpriteRed = ExtResource("21_kylo1")
 bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
 
-[node name="KingArm" type="Sprite2D" parent="."]
+[node name="ZonerArmSummon1" type="Sprite2D" parent="."]
 script = ExtResource("10_7rn2h")
 attackType = 2
 aoe = [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1)]
 bodyPart = 1
 buffType = 1
-uid = "KingArm"
+uid = "ZonerArmSummon1"
 durability = 4
-cost = 500
+cost = 250
 description = "With this mod selected, for your action you will summon 3 scrap in front of you forming a barrier."
 icon = SubResource("AtlasTexture_qp0qo")
 bigSpriteBlue = ExtResource("17_8gisy")
 bigSpriteRed = ExtResource("18_g3082")
 bodyPartTint = Color(0.129412, 0.603922, 0.588235, 1)
 
-[node name="QueenLeg" type="Sprite2D" parent="."]
+[node name="ZonerArmSummon2" type="Sprite2D" parent="."]
+script = ExtResource("10_7rn2h")
+attackType = 2
+aoe = [Vector2i(-2, 2), Vector2i(-2, 1), Vector2i(-2, 0), Vector2i(-2, -1), Vector2i(-2, -2), Vector2i(2, 2), Vector2i(2, 1), Vector2i(2, 0), Vector2i(2, -1), Vector2i(2, -2)]
+bodyPart = 1
+buffType = 1
+uid = "ZonerArmSummon2"
+durability = 4
+cost = 350
+description = "With this mod selected, for your action you will summon scrap on either side of you forming two barriers."
+icon = SubResource("AtlasTexture_qp0qo")
+bigSpriteBlue = ExtResource("17_8gisy")
+bigSpriteRed = ExtResource("18_g3082")
+bodyPartTint = Color(0.129412, 0.603922, 0.588235, 1)
+
+[node name="ZonerLegSwap" type="Sprite2D" parent="."]
 script = ExtResource("11_kvofe")
 modPaths = Array[Array]([])
 modJumps = Array[Array]([])
 bodyPart = 2
 buffType = 2
-uid = "QueenLeg"
+uid = "ZonerLegSwap"
 durability = 4
-cost = 450
+cost = 350
 description = "With this mod equipped you can swap places with any scrap on the board."
 icon = SubResource("AtlasTexture_spod8")
 bigSpriteBlue = ExtResource("22_geffl")
 bigSpriteRed = ExtResource("23_mbk5r")
 bodyPartTint = Color(0.0588235, 0.482353, 0.501961, 1)
 
-[node name="QueenArm" type="Sprite2D" parent="."]
+[node name="ScalerArmBackstab" type="Sprite2D" parent="."]
 script = ExtResource("13_ea5ld")
 bodyPart = 1
 buffType = 1
-uid = "QueenArm"
+uid = "ScalerArmBackstab"
 durability = 4
-cost = 200
+cost = 100
 description = "Backstab. If attacking from behind with this mod selected, +1 damage."
 icon = SubResource("AtlasTexture_4hmwo")
 bigSpriteBlue = ExtResource("29_f6raa")
 bigSpriteRed = ExtResource("30_757k5")
 bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
 
-[node name="BishopArmPassive" type="Sprite2D" parent="."]
+[node name="ResourcerArmRestore" type="Sprite2D" parent="."]
 script = ExtResource("23_e3hlw")
 bodyPart = 1
-uid = "BishopArmPassive"
+uid = "ResourcerArmRestore"
 durability = 4
-cost = 300
+cost = 200
 description = "Adds 1 energy to opposite arm every turn."
 icon = SubResource("AtlasTexture_2pyi2")
 bigSpriteBlue = ExtResource("26_3uh7n")
 bigSpriteRed = ExtResource("27_lfiau")
 bodyPartTint = Color(0.25098, 0.27451, 0.313726, 1)
 
-[node name="QueenHead" type="Sprite2D" parent="."]
+[node name="ResourcerHeadRestore" type="Sprite2D" parent="."]
 script = ExtResource("24_fbidt")
-uid = "QueenHead"
+uid = "ResourcerHeadRestore"
 durability = 4
-cost = 500
+cost = 400
 description = "Adds 1 energy to all other mods every turn."
 icon = SubResource("AtlasTexture_slia6")
 bigSpriteBlue = ExtResource("35_x2mwt")
 bigSpriteRed = ExtResource("36_e8edl")
 bodyPartTint = Color(0.25098, 0.27451, 0.313726, 1)
 
-[node name="KingHead" type="Sprite2D" parent="."]
+[node name="ResourcerHeadIncome" type="Sprite2D" parent="."]
 script = ExtResource("25_43jfj")
-uid = "KingHead"
+uid = "ResourcerHeadIncome"
 durability = 4
-cost = 250
+cost = 150
 description = "Doubles Scrap Income"
 icon = SubResource("AtlasTexture_klqnm")
 bigSpriteBlue = ExtResource("35_5aphe")
 bigSpriteRed = ExtResource("36_vty28")
 bodyPartTint = Color(0.25098, 0.27451, 0.313726, 1)
 
-[node name="RookHead" type="Sprite2D" parent="."]
+[node name="ZonerHeadScrapArmor" type="Sprite2D" parent="."]
 script = ExtResource("26_845eg")
-uid = "RookHead"
+uid = "ZonerHeadScrapArmor"
 durability = 4
-cost = 300
+cost = 200
 description = "Summoned scrap has double armor."
 icon = SubResource("AtlasTexture_4vwvm")
 bigSpriteBlue = ExtResource("39_17653")
 bigSpriteRed = ExtResource("40_2ftwj")
 bodyPartTint = Color(0.0588235, 0.482353, 0.501961, 1)
 
-[node name="BishopHead" type="Sprite2D" parent="."]
+[node name="ZonerHeadScrapNoValue" type="Sprite2D" parent="."]
 script = ExtResource("27_lwu32")
-uid = "BishopHead"
+uid = "ZonerHeadScrapNoValue"
 durability = 4
-cost = 200
+cost = 100
 description = "Summoned scrap gives no value."
 icon = SubResource("AtlasTexture_5q1hf")
 bigSpriteBlue = ExtResource("42_lw21r")
 bigSpriteRed = ExtResource("43_lycex")
 bodyPartTint = Color(0.0588235, 0.482353, 0.501961, 1)
 
-[node name="KnightArm" type="Sprite2D" parent="."]
+[node name="ResourcerArmDoubleScrap" type="Sprite2D" parent="."]
 script = ExtResource("46_oboi8")
 bodyPart = 1
-uid = "KnightArm"
+uid = "ResourcerArmDoubleScrap"
 durability = 4
-cost = 250
+cost = 150
 description = "With this passive mod equipped, you get double scrap from scrap piles."
 icon = SubResource("AtlasTexture_mi0f5")
 bigSpriteBlue = ExtResource("47_5boac")
 bigSpriteRed = ExtResource("48_vnan7")
 bodyPartTint = Color(0.25098, 0.27451, 0.313726, 1)
+
+[node name="ScalerArmDmg" type="Sprite2D" parent="."]
+script = ExtResource("49_ydtdh")
+bonusDmg = 1
+bodyPart = 1
+buffType = 1
+uid = "ScalerArmDmg"
+durability = 2
+cost = 150
+description = "For two turns, gain +1 dmg to attacks made with this mod. "
+icon = SubResource("AtlasTexture_30gou")
+bigSpriteBlue = ExtResource("10_mdwgv")
+bigSpriteRed = ExtResource("11_wicdv")
+bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)
+
+[node name="ScalerArmRange" type="Sprite2D" parent="."]
+script = ExtResource("49_ydtdh")
+attackType = 1
+bonusRange = 2
+bodyPart = 1
+buffType = 1
+uid = "ScalerArmRange"
+durability = 2
+cost = 150
+description = "For two turns, gain +3 range to attacks made with this mod. "
+icon = SubResource("AtlasTexture_30gou")
+bigSpriteBlue = ExtResource("10_mdwgv")
+bigSpriteRed = ExtResource("11_wicdv")
+bodyPartTint = Color(0.980392, 0.462745, 0.243137, 1)

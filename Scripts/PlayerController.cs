@@ -62,7 +62,7 @@ public partial class PlayerController : Area2D
 		switch (playerId)
 		{
 			case 1:
-				// Equip(modDatabase.GetMod("KnightLegPath"), Mod.BodyPart.Leg, 0);
+				// Equip(modDatabase.GetMod("ZonerArmSummon2"), Mod.BodyPart.Arm, 0);
 				// Equip(modDatabase.GetMod("BishopLeg"), Mod.BodyPart.Leg, 1);
 				// Equip(modDatabase.GetMod("KingArm"), Mod.BodyPart.Arm, 1);
 				// Equip(modDatabase.GetMod("BishopHead"), Mod.BodyPart.Head, 0);
