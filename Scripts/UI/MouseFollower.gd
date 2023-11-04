@@ -17,7 +17,7 @@ func _process(_delta):
 	if mousePos.x + self.size.x > screenSize.x:
 		# Hug Left
 		#tooltipOff.x = screenSize.x - (mousePos.x + self.size.x)
-		tooltipOff.x = -self.size.x
+		tooltipOff.x = -(self.size.x * 1.1) # need to make sure it's not over the mouse
 	if mousePos.y + self.size.y > screenSize.y:
 		# Hug Top
 		tooltipOff.y = -self.size.y

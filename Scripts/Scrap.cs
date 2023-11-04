@@ -118,6 +118,7 @@ public partial class Scrap : Sprite2D
 	{
 		currentDurability--;
 		currentScrapValue = (maxScrapValue /= maxDurability) * currentDurability;
+		Modulate -= new Color(.1f, .1f, .1f, 0);
 
 		if (currentDurability <= 0)
 		{

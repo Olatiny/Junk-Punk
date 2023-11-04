@@ -32,7 +32,7 @@ public partial class InventoryMouseOver : Control
 		GodotObject go = (GodotObject)gameMana.tooltipWindow;
 		go.Call("show_tooltip", true);
 		GD.Print((object)slotContainedMod.description);
-		go.Call("display_text", slotContainedMod.description);
+		go.Call("display_text", slotContainedMod.description + $"\n\nBattery: {slotContainedMod.durability}");
 	}
 
 	private void OnMouseExited()

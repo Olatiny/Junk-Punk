@@ -16,14 +16,14 @@ public partial class QueenHeadMod : PassiveMod
 		{
 			foreach(Mod mod in Player.armMods)
 			{
-				if(mod != null) {
+				if(mod != null && mod.buffType != BuffType.Passive) {
 					mod.durability++;
 				}
 			}
 			
 			foreach(Mod mod in Player.legMods)
 			{
-				if(mod != null)
+				if(mod != null && mod.buffType != BuffType.Passive)
 				{
 					mod.durability++;
 				}

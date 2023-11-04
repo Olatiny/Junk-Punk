@@ -7,6 +7,7 @@ public partial class ModSlot : ColorRect
 	[Export] private Mod.BodyPart modType;
 	[Export] private bool slotIsLeft;
 	[Export] private TextureRect bodySprite;
+	[Export] private Texture2D baseTexture;
 	private Mod containedMod = null;
 
 	GameManager gameMana;
@@ -20,6 +21,8 @@ public partial class ModSlot : ColorRect
 		gameMana = GetNode<GameManager>("/root/InventoryShop/GameManager");
 		MouseEntered += OnMouseEntered;
 		MouseExited += OnMouseExited;
+
+		GetNode<Globals>("/root/Globals").ModUnequip += OnUnequip;
 	}
 
 	// Called when the current drag hovers over this control.
@@ -58,7 +61,7 @@ public partial class ModSlot : ColorRect
 		GodotObject go = (GodotObject)gameMana.tooltipWindow;
 		go.Call("show_tooltip", true);
 		GD.Print((object)slotContainedMod.description);
-		go.Call("display_text", slotContainedMod.description);
+		go.Call("display_text", slotContainedMod.description + $"\n\nBattery: {slotContainedMod.durability}");
 	}
 
 	private void OnMouseExited()
@@ -67,5 +70,11 @@ public partial class ModSlot : ColorRect
 
 		GodotObject go = (GodotObject)gameMana.tooltipWindow;
 		go.Call("show_tooltip", false);
+	}
+
+	private void OnUnequip(PlayerController player, Mod mod)
+	{
+		if (containedMod == mod)
+			bodySprite.Texture = baseTexture;
 	}
 }

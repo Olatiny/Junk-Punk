@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public partial class ShopCollection : Node
@@ -18,10 +19,11 @@ public partial class ShopCollection : Node
 	public void RandomizeShop()
 	{
 		invCol = gameMana.GetCurrentPlayer().inventoryCollection;
+		Array<Mod> randomMods = modDatabase.GetShopSpread();
 		
-		for (int i = 0; i < shopSlots?.Length; i++)
+		for (int i = 0; i < shopSlots?.Length && i < randomMods?.Count; i++)
 		{
-			Mod targetMod = modDatabase.GetRandomMod();
+			Mod targetMod = randomMods?[i];
 			shopSlots?[i].SetContainedMod(targetMod);
 		}
 	}

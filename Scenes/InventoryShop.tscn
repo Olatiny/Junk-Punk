@@ -23,7 +23,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/ModSlot.cs" id="17_7oomi"]
 [ext_resource type="Texture2D" uid="uid://nf1o8rrfoxfo" path="res://Assets/Generic Leg Mod (Red).png" id="17_l7cm2"]
 [ext_resource type="Texture2D" uid="uid://cbp2yurr5te7f" path="res://Assets/Generic Arm Mod (Red).png" id="18_046o5"]
-[ext_resource type="PackedScene" uid="uid://b1etpxsxo2thh" path="res://Prefabs (wink)/DurabilityIndicators.tscn" id="21_75udc"]
+[ext_resource type="PackedScene" uid="uid://b1etpxsxo2thh" path="res://Prefabs (wink)/DurabilityIndicatorGroup.tscn" id="21_75udc"]
 [ext_resource type="PackedScene" uid="uid://bt7r26okh38p8" path="res://Prefabs (wink)/score_board.tscn" id="22_l0qi1"]
 [ext_resource type="FontFile" uid="uid://bsynkeioac1v" path="res://Quinquefive-ALoRM.ttf" id="23_hmgjx"]
 [ext_resource type="Texture2D" uid="uid://6g4tl0qadsqg" path="res://Assets/Move Button.png" id="26_f0rpr"]
@@ -257,17 +257,23 @@ tileOffset = Vector2i(13, 9)
 playerId = 1
 currentScrap = 750
 scrapIncome = 100
-durabilityIndicators = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Durability Indicators")
+durabilityIndicators = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Durability Indicators L")
 direction = 0
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Inventory Blu")
+defBigHead = ExtResource("13_366sk")
+defBigArm = ExtResource("15_ttdwm")
+defBigLeg = ExtResource("14_u5di8")
 
 [node name="Player R" parent="GameManager/ChessBoard" node_paths=PackedStringArray("durabilityIndicators", "inventoryCollection") instance=ExtResource("9_uy3x6")]
 gridPosition = Vector2i(4, 0)
 playerId = 2
 currentScrap = 750
 scrapIncome = 100
-durabilityIndicators = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Durability Indicators")
+durabilityIndicators = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Durability Indicators R")
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Inventory Red")
+defBigHead = ExtResource("16_bvq0a")
+defBigArm = ExtResource("18_046o5")
+defBigLeg = ExtResource("17_l7cm2")
 
 [node name="Decoration" type="Node2D" parent="GameManager"]
 
@@ -332,7 +338,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("14_v7f0p")
 
-[node name="Durability Indicators" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)" instance=ExtResource("21_75udc")]
+[node name="Durability Indicators L" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)" instance=ExtResource("21_75udc")]
 offset_left = 14.0
 offset_top = 14.0
 offset_right = 54.0
@@ -387,6 +393,7 @@ script = ExtResource("17_7oomi")
 player = NodePath("../../../../../../ChessBoard/Player B")
 slotIsLeft = true
 bodySprite = NodePath("..")
+baseTexture = ExtResource("13_366sk")
 
 [node name="Right Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
 layout_mode = 1
@@ -424,6 +431,7 @@ player = NodePath("../../../../../../ChessBoard/Player B")
 modType = 2
 slotIsLeft = true
 bodySprite = NodePath("..")
+baseTexture = ExtResource("14_u5di8")
 
 [node name="Left Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
 layout_mode = 1
@@ -459,6 +467,7 @@ script = ExtResource("17_7oomi")
 player = NodePath("../../../../../../ChessBoard/Player B")
 modType = 2
 bodySprite = NodePath("..")
+baseTexture = ExtResource("14_u5di8")
 
 [node name="Right Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
 layout_mode = 1
@@ -496,6 +505,7 @@ player = NodePath("../../../../../../ChessBoard/Player B")
 modType = 1
 slotIsLeft = true
 bodySprite = NodePath("..")
+baseTexture = ExtResource("15_ttdwm")
 
 [node name="Left Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)/Robot Body"]
 layout_mode = 1
@@ -531,6 +541,7 @@ script = ExtResource("17_7oomi")
 player = NodePath("../../../../../../ChessBoard/Player B")
 modType = 1
 bodySprite = NodePath("..")
+baseTexture = ExtResource("15_ttdwm")
 
 [node name="Sidebar Red (R)" type="TextureRect" parent="GameManager/GUI/PlayerUI"]
 layout_mode = 1
@@ -561,7 +572,7 @@ mouse_filter = 2
 texture = ExtResource("14_v7f0p")
 flip_h = true
 
-[node name="Durability Indicators" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)" instance=ExtResource("21_75udc")]
+[node name="Durability Indicators R" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)" instance=ExtResource("21_75udc")]
 offset_left = 13.0
 offset_top = 15.0
 offset_right = 53.0
@@ -616,6 +627,7 @@ script = ExtResource("17_7oomi")
 player = NodePath("../../../../../../ChessBoard/Player R")
 slotIsLeft = true
 bodySprite = NodePath("..")
+baseTexture = ExtResource("16_bvq0a")
 
 [node name="Right Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
 layout_mode = 1
@@ -653,6 +665,7 @@ player = NodePath("../../../../../../ChessBoard/Player R")
 modType = 2
 slotIsLeft = true
 bodySprite = NodePath("..")
+baseTexture = ExtResource("17_l7cm2")
 
 [node name="Left Leg" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
 layout_mode = 1
@@ -688,6 +701,7 @@ script = ExtResource("17_7oomi")
 player = NodePath("../../../../../../ChessBoard/Player R")
 modType = 2
 bodySprite = NodePath("..")
+baseTexture = ExtResource("17_l7cm2")
 
 [node name="Right Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
 layout_mode = 1
@@ -725,6 +739,7 @@ player = NodePath("../../../../../../ChessBoard/Player R")
 modType = 1
 slotIsLeft = true
 bodySprite = NodePath("..")
+baseTexture = ExtResource("18_046o5")
 
 [node name="Left Arm" type="TextureRect" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)/Robot Body"]
 layout_mode = 1
@@ -760,6 +775,7 @@ script = ExtResource("17_7oomi")
 player = NodePath("../../../../../../ChessBoard/Player R")
 modType = 1
 bodySprite = NodePath("..")
+baseTexture = ExtResource("18_046o5")
 
 [node name="ScoreBoard" parent="GameManager/GUI/PlayerUI" instance=ExtResource("22_l0qi1")]
 layout_mode = 1

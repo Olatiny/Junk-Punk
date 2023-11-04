@@ -22,12 +22,12 @@ public abstract partial class PassiveMod : Mod
 		globals.Upkeep += OnUpkeep;
 		globals.SummonedScrap += OnSummonedScrap;
 		globals.CollectedScrap += OnCollectedScrap;
+		globals.ModUnequip += OnModUnequip;
 
 		// These ones aren't emitted in board/game manager yet. If we decide we need them we can add those calls where we'd need them
 		globals.Setup += OnSetup;
 		globals.ActionPhase += OnActionPhase;
 		globals.ModDamaged += OnModDamaged;
-		globals.ModBreak += OnModBreak;
 		globals.PlayerAttack += OnPlayerAttack;
 		globals.ModEquip += OnModEquip;
 		globals.Movement += OnMovement;
@@ -49,7 +49,7 @@ public abstract partial class PassiveMod : Mod
 		globals.Setup -= OnSetup;
 		globals.ActionPhase -= OnActionPhase;
 		globals.ModDamaged -= OnModDamaged;
-		globals.ModBreak -= OnModBreak;
+		globals.ModBreak -= OnModUnequip;
 		globals.PlayerAttack -= OnPlayerAttack;
 		globals.ModEquip -= OnModEquip;
 		globals.Movement -= OnMovement;
@@ -80,7 +80,7 @@ public abstract partial class PassiveMod : Mod
 	public virtual void OnModDamaged(PlayerController player, Mod mod)
 	{ }
 
-	public virtual void OnModBreak(PlayerController Player, Mod mod)
+	public virtual void OnModUnequip(PlayerController Player, Mod mod)
 	{ }
 
 	public virtual void OnPlayerAttack(PlayerController Player, Node2D enemy)

@@ -5,6 +5,16 @@ public partial class Globals : Node
 {
 	public int victoryIndex = -1;
 
+	bool fullscreen = false;
+
+	public override void _Input(InputEvent @event)
+	{
+		base._Input(@event);
+
+		if (@event.IsActionPressed("Fullscreen"))
+			DisplayServer.WindowSetMode((fullscreen = !fullscreen) ? DisplayServer.WindowMode.Fullscreen : DisplayServer.WindowMode.Windowed);
+	}
+
 	[Signal]
 	public delegate void PlayerTookDamageEventHandler(PlayerController player, int damageAmount);
 
@@ -49,4 +59,7 @@ public partial class Globals : Node
 
 	[Signal]
 	public delegate void RoundStartEventHandler();
+
+	[Signal]
+	public delegate void ModUnequipEventHandler(PlayerController player, Mod mod);
 }

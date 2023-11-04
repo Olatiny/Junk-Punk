@@ -41,4 +41,42 @@ public partial class ModDatabase : Node
 
 		return null;
 	}
+
+	public Mod GetRandomModByBodyPart(Mod.BodyPart bodyPart)
+	{
+		Mod returnMod;
+
+		do
+		{
+			returnMod = GetRandomMod();
+		}
+		while (returnMod.bodyPart != bodyPart);
+
+		return returnMod;
+	}
+
+	public Array<Mod> GetShopSpread()
+	{
+		Array<Mod> returnArray = new();
+		returnArray.Add(GetRandomModByBodyPart(Mod.BodyPart.Head));
+		returnArray.Add(GetRandomModByBodyPart(Mod.BodyPart.Arm));
+
+		while (returnArray.Count < 3)
+		{
+			Mod mod = GetRandomModByBodyPart(Mod.BodyPart.Arm);
+			if (mod.uid != returnArray[^1].uid)
+				returnArray.Add(mod);
+		}
+
+		returnArray.Add(GetRandomModByBodyPart(Mod.BodyPart.Leg));
+
+		while (returnArray.Count < 5)
+		{
+			Mod mod = GetRandomModByBodyPart(Mod.BodyPart.Leg);
+			if (mod.uid != returnArray[^1].uid)
+				returnArray.Add(mod);
+		}
+
+		return returnArray;
+	}
 }

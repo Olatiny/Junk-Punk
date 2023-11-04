@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.ComponentModel;
 
-public partial class DurabilityIndicators : Control
+public partial class DurabilityIndicatorGroup : Control
 {
 	[Export] DurabilityIndicator head;
 	[Export] DurabilityIndicator leftArm;

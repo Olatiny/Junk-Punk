@@ -14,18 +14,18 @@ public partial class DurabilityIndicator : Control
 
 	public Array<TextureRect> durabilityUIArray;
 
-	// float timePassed = 0;
+	float timePassed = 0;
 
 	public override void _Ready()
 	{
 		base._Ready();
 
+		durabilityUIArray = new();
+
 		// Mod mod = new LegMod()
 		// {
-		// 	durability = 4
+		// 	durability = 2
 		// };
-
-		durabilityUIArray = new();
 
 		// InitDurability(mod);
 	}
@@ -72,13 +72,16 @@ public partial class DurabilityIndicator : Control
 
 		TextureRect bot = new();
 		bot.Texture = durabilityBottom.Duplicate() as AtlasTexture;
-		bot.Position = durabilityUIArray.Count > 0 ? durabilityUIArray[^1].Position + new Vector2(0, durabilityMid.GetHeight()) : top.Position + new Vector2(0, durabilityTop.GetHeight());
+		bot.Position = durabilityUIArray.Count > 1 ? durabilityUIArray[^1].Position + new Vector2(0, durabilityMid.GetHeight()) : new(top.Position.X, top.Position.Y + top.Texture.GetHeight());
 		durabilityUIArray.Add(bot);
 		AddChild(bot);
 	}
 
 	public void UpdateDurability()
 	{
+		if (trackedMod == null)
+			return;
+
 		currentDurability = trackedMod.durability;
 
 		int i = 0;

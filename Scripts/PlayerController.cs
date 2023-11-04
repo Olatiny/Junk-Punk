@@ -16,7 +16,7 @@ public partial class PlayerController : Area2D
 	[Export] public int currentScrap = 0;
 	[Export] public int scrapIncome = 10;
 	[Export] PackedScene sparks;
-	[Export] DurabilityIndicators durabilityIndicators;
+	[Export] DurabilityIndicatorGroup durabilityIndicators;
 
 	public enum Direction
 	{
@@ -216,7 +216,7 @@ public partial class PlayerController : Area2D
 			mod.durability--;
 			if (mod.durability <= 0)
 				Unequip(mod);
-			
+
 			durabilityIndicators.UpdateDurability(Mod.BodyPart.Leg, idx == 1);
 			idx++;
 		}
@@ -350,6 +350,9 @@ public partial class PlayerController : Area2D
 		sparksEmitter.Position = Position;
 		sparksEmitter.ZIndex = head.ZIndex + 10;
 		GetTree().Root.AddChild(sparksEmitter);
+
+		Globals globals = GetNode<Globals>("/root/Globals");
+		globals.EmitSignal(Globals.SignalName.ModUnequip, this, mod);
 
 		GetNode<AudioManager>("/root/AudioManager").FXequip();
 		mod.DisconnectSignals();

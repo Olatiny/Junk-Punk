@@ -97,6 +97,13 @@ public partial class ArmMod : Mod
 				if (dist.Length() <= player.baseAttackRange + bonusRange)
 					validModTileCoords.Add(otherPlayer.gridPosition);
 			}
+
+			if (possibleTarget is Scrap scrap)
+			{
+				Vector2I dist = scrap.gridPosition - player.gridPosition;
+				if (dist.Length() <= player.baseAttackRange + bonusRange)
+					validModTileCoords.Add(scrap.gridPosition);
+			}
 		}
 
 		return validModTileCoords;

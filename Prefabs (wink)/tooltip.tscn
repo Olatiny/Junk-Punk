@@ -22,6 +22,7 @@ tile_size = Vector2i(5, 5)
 sources/0 = SubResource("TileSetAtlasSource_dvjx5")
 
 [node name="Tooltip" type="ColorRect" node_paths=PackedStringArray("textLbl")]
+z_index = 30
 custom_minimum_size = Vector2(160, 80)
 anchors_preset = 8
 anchor_left = 0.5
@@ -43,6 +44,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TileMap" type="TileMap" parent="MarginContainer"]
 scale = Vector2(2, 2)
