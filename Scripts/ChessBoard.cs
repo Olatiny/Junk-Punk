@@ -523,8 +523,8 @@ public partial class ChessBoard : TileMap
 		Node2D nodeA = GetNodeAtTile(nodeAPos);
 		Node2D nodeB = GetNodeAtTile(nodeBPos);
 
-		SetNodeGridPosition(nodeA, nodeBPos);
-		SetNodeGridPosition(nodeB, nodeAPos);
+		SetNodeGridPosition(nodeA, nodeAPos, nodeBPos);
+		SetNodeGridPosition(nodeB, nodeBPos, nodeAPos);
 	}
 
 	public Array<Node2D> GetAllNodesOnBoard()

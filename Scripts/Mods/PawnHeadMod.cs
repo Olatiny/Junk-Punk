@@ -15,6 +15,7 @@ public partial class PawnHeadMod : PassiveMod
 		{
 			player.health += damageAmount;
 			player.Unequip(this);
+			player.gameManager.UpdateScoreBoard();
 		}
 	}
 }

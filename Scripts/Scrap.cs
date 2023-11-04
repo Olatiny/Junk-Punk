@@ -117,7 +117,10 @@ public partial class Scrap : Sprite2D
 	public void CheckDurability()
 	{
 		currentDurability--;
-		currentScrapValue = (maxScrapValue /= maxDurability) * currentDurability;
+		currentScrapValue -= 10;
+		if (currentScrapValue <= 0)
+			currentScrapValue = 0;
+		
 		Modulate -= new Color(.1f, .1f, .1f, 0);
 
 		if (currentDurability <= 0)
