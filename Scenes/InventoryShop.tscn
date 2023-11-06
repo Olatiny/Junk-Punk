@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://xk3l1h3kto6c"]
+[gd_scene load_steps=65 format=3 uid="uid://xk3l1h3kto6c"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_dey36"]
 [ext_resource type="Texture2D" uid="uid://cb4g6t2q8bkhn" path="res://Assets/TileHighlights.png" id="2_d3dcp"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/ModSlot.cs" id="17_7oomi"]
 [ext_resource type="Texture2D" uid="uid://nf1o8rrfoxfo" path="res://Assets/Generic Leg Mod (Red).png" id="17_l7cm2"]
 [ext_resource type="Texture2D" uid="uid://cbp2yurr5te7f" path="res://Assets/Generic Arm Mod (Red).png" id="18_046o5"]
+[ext_resource type="PackedScene" uid="uid://b1etpxsxo2thh" path="res://Prefabs (wink)/DurabilityIndicators.tscn" id="21_75udc"]
 [ext_resource type="PackedScene" uid="uid://bt7r26okh38p8" path="res://Prefabs (wink)/score_board.tscn" id="22_l0qi1"]
 [ext_resource type="FontFile" uid="uid://bsynkeioac1v" path="res://Quinquefive-ALoRM.ttf" id="23_hmgjx"]
 [ext_resource type="Texture2D" uid="uid://6g4tl0qadsqg" path="res://Assets/Move Button.png" id="26_f0rpr"]
@@ -241,16 +242,20 @@ script = ExtResource("8_ysby6")
 tileSize = Vector2i(26, 18)
 tileOffset = Vector2i(13, 9)
 
-[node name="Player B" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection") instance=ExtResource("9_uy3x6")]
+[node name="Player B" parent="GameManager/ChessBoard" node_paths=PackedStringArray("durabilityIndicators", "inventoryCollection") instance=ExtResource("9_uy3x6")]
 playerId = 1
-scrapIncome = 50
+currentScrap = 750
+scrapIncome = 100
+durabilityIndicators = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Durability Indicators")
 direction = 0
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Blue (L)/Inventory Blu")
 
-[node name="Player R" parent="GameManager/ChessBoard" node_paths=PackedStringArray("inventoryCollection") instance=ExtResource("9_uy3x6")]
+[node name="Player R" parent="GameManager/ChessBoard" node_paths=PackedStringArray("durabilityIndicators", "inventoryCollection") instance=ExtResource("9_uy3x6")]
 gridPosition = Vector2i(4, 0)
 playerId = 2
-scrapIncome = 50
+currentScrap = 750
+scrapIncome = 100
+durabilityIndicators = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Durability Indicators")
 inventoryCollection = NodePath("../../GUI/PlayerUI/Sidebar Red (R)/Inventory Red")
 
 [node name="Decoration" type="Node2D" parent="GameManager"]
@@ -315,6 +320,12 @@ anchor_bottom = 0.5
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("14_v7f0p")
+
+[node name="Durability Indicators" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)" instance=ExtResource("21_75udc")]
+offset_left = 14.0
+offset_top = 14.0
+offset_right = 54.0
+offset_bottom = 54.0
 
 [node name="Robot Body" type="Control" parent="GameManager/GUI/PlayerUI/Sidebar Blue (L)"]
 layout_mode = 1
@@ -539,6 +550,12 @@ mouse_filter = 2
 texture = ExtResource("14_v7f0p")
 flip_h = true
 
+[node name="Durability Indicators" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)" instance=ExtResource("21_75udc")]
+offset_left = 13.0
+offset_top = 15.0
+offset_right = 53.0
+offset_bottom = 55.0
+
 [node name="Robot Body" type="Control" parent="GameManager/GUI/PlayerUI/Sidebar Red (R)"]
 layout_mode = 1
 anchors_preset = 8
@@ -745,6 +762,7 @@ grow_vertical = 1
 pivot_offset = Vector2(124, 0)
 
 [node name="ActionUI" type="Control" parent="GameManager/GUI/PlayerUI"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1122,9 +1140,9 @@ custom_minimum_size = Vector2(160, 50)
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Basic" to="GameManager" method="ChangeActiveEquip" binds= [-1]]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Left" to="GameManager" method="ChangeActiveEquip" binds= [0]]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Right" to="GameManager" method="ChangeActiveEquip" binds= [1]]
-[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Basic2" to="GameManager" method="ChangeActiveEquip"]
-[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Left2" to="GameManager" method="ChangeActiveEquip"]
-[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Right2" to="GameManager" method="ChangeActiveEquip"]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Basic2" to="GameManager" method="ChangeActiveEquip" binds= [-1]]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Left2" to="GameManager" method="ChangeActiveEquip" binds= [0]]
+[connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Right2" to="GameManager" method="ChangeActiveEquip" binds= [1]]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Move" to="GameManager" method="GetValidMoveTiles"]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/Action" to="GameManager" method="GetValidAttackTiles"]
 [connection signal="pressed" from="GameManager/GUI/PlayerUI/ActionUI/End Turn" to="GameManager" method="EndTurn"]

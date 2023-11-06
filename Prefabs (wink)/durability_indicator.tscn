@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=3 uid="uid://ddlvg7312q8la"]
+
+[ext_resource type="Script" path="res://Scripts/DurabilityIndicator.cs" id="1_58ucc"]
+[ext_resource type="Texture2D" uid="uid://cmswfrj001bxf" path="res://Assets/Durability UI/Durability UI (Top).png" id="2_vauye"]
+[ext_resource type="Texture2D" uid="uid://dp5r5mmw4cqyp" path="res://Assets/Durability UI/Durability UI (Middle).png" id="3_qv1i6"]
+[ext_resource type="Texture2D" uid="uid://bjqalxs30cd1m" path="res://Assets/Durability UI/Durability UI (Bottom).png" id="4_kji6n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xddnb"]
+atlas = ExtResource("2_vauye")
+region = Rect2(0, 0, 10, 7)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_55tvk"]
+load_path = "res://.godot/imported/Durability UI (Middle).png-0cc49ed52fefa5c52bff9f34f486be4d.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mpob"]
+atlas = SubResource("CompressedTexture2D_55tvk")
+region = Rect2(0, 0, 10, 5)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_d2qb5"]
+load_path = "res://.godot/imported/Durability UI (Bottom).png-316a82d3fde4320e3543d641687e4723.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhcdt"]
+atlas = SubResource("CompressedTexture2D_d2qb5")
+region = Rect2(0, 0, 10, 8)
+
+[node name="DurabilityIndicator" type="Control"]
+layout_mode = 3
+anchor_right = 0.055
+anchor_bottom = 0.094
+offset_bottom = -0.0560017
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_58ucc")
+durabilityTop = SubResource("AtlasTexture_xddnb")
+durabilityMid = SubResource("AtlasTexture_4mpob")
+durabilityBottom = SubResource("AtlasTexture_hhcdt")
+
+[node name="DurabilityUi(bottom)" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(11, 16.5)
+texture = ExtResource("4_kji6n")
+
+[node name="DurabilityUi(middle)" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(11, 10.5)
+texture = ExtResource("3_qv1i6")
+
+[node name="DurabilityUi(top)" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(11, 4.5)
+texture = ExtResource("2_vauye")
