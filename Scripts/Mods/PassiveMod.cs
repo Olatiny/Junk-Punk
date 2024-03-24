@@ -86,7 +86,7 @@ public abstract partial class PassiveMod : Mod
 	public virtual void OnPlayerAttack(PlayerController Player, Node2D enemy)
 	{ }
 
-	public virtual void OnModEquip(PlayerController Player, Mod mod)
+	public virtual void OnModEquip(PlayerController Player, Mod mod, bool isLeft)
 	{ }
 
 	public virtual void OnMovement(PlayerController Player)

@@ -131,7 +131,6 @@ script = ExtResource("1_hioff")
 players = [NodePath("ChessBoard/Player1"), NodePath("ChessBoard/Player2")]
 board = NodePath("ChessBoard")
 camera = NodePath("../Camera2D")
-cameraStartPos = Vector2i(59, 72)
 cameraLerpDistance = 90
 playerUI = NodePath("GUI/PlayerUI")
 pausedCtrl = NodePath("GUI/Pause GUI")

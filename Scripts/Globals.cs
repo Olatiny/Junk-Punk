@@ -43,7 +43,7 @@ public partial class Globals : Node
 	public delegate void PlayerAttackEventHandler(PlayerController Player, Node2D enemy);
 
 	[Signal]
-	public delegate void ModEquipEventHandler(PlayerController Player, Mod mod);
+	public delegate void ModEquipEventHandler(PlayerController Player, Mod mod, bool isLeft);
 
 	[Signal]
 	public delegate void MovementEventHandler(PlayerController Player);

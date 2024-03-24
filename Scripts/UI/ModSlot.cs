@@ -23,6 +23,7 @@ public partial class ModSlot : ColorRect
 		MouseExited += OnMouseExited;
 
 		GetNode<Globals>("/root/Globals").ModUnequip += OnUnequip;
+		GetNode<Globals>("/root/Globals").ModEquip += OnEquip;
 	}
 
 	// Called when the current drag hovers over this control.
@@ -45,6 +46,7 @@ public partial class ModSlot : ColorRect
 
 		GD.Print("Calling slot is " + this);
 		GD.Print("slotIsLeft is " + slotIsLeft);
+		GetNode<Globals>("/root/Globals").EmitSignal(Globals.SignalName.ModEquip, player, containedMod, slotIsLeft);
 		player.Equip(containedMod, modType, slotIsLeft ? 0 : 1);
 	}
 
@@ -76,5 +78,23 @@ public partial class ModSlot : ColorRect
 	{
 		if (containedMod == mod)
 			bodySprite.Texture = baseTexture;
+	}
+
+	private void OnEquip(PlayerController player, Mod mod, bool isLeft)
+	{
+		if (player == this.player && mod.bodyPart == modType && isLeft == slotIsLeft)
+			containedMod = mod;
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (modType != Mod.BodyPart.Arm)
+			return;
+
+		if (@event is InputEventMouseButton mouseEvent && mouseOver)
+		{
+			if (mouseEvent.IsReleased() && mouseEvent.ButtonIndex == MouseButton.Left)
+				gameMana.ChangeActiveEquip(slotIsLeft ? 0 : 1);
+		}
 	}
 }

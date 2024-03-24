@@ -94,7 +94,7 @@ public partial class AudioManager : Node2D
 
 	public void SetVolume(float vol)
 	{
-		musicPlayer.VolumeDb = fxPlayer.VolumeDb = vol;
+		musicPlayer.VolumeDb = fxPlayer.VolumeDb = Mathf.LinearToDb(vol);
 		musicPlayer.VolumeDb *= .8f;
 	}
 }

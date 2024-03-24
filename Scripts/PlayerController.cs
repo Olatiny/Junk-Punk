@@ -27,6 +27,8 @@ public partial class PlayerController : Area2D
 
 	[ExportCategory("UI References")]
 	[Export] public InventoryCollection inventoryCollection;
+	[Export] public ColorRect leftSelect;
+	[Export] public ColorRect rightSelect;
 
 	[ExportCategory("Sprite References")]
 	[Export] Texture defBigHead;
@@ -58,6 +60,8 @@ public partial class PlayerController : Area2D
 
 		modDatabase = GetNode<ModDatabase>("/root/ModDatabase");
 		gameManager = GetParent().GetParent<GameManager>();
+
+		SetActiveAttackMod(0);
 
 		switch (playerId)
 		{
@@ -245,6 +249,8 @@ public partial class PlayerController : Area2D
 				if (arms != null)
 					arms[limbIdx].Modulate = mod.bodyPartTint;
 
+				SetActiveAttackMod(limbIdx);
+
 				break;
 			case Mod.BodyPart.Leg:
 				Unequip(bodyPart, limbIdx);
@@ -368,6 +374,9 @@ public partial class PlayerController : Area2D
 			{
 				activeAttackModIdx = -1;
 
+				leftSelect.Visible = false;
+				rightSelect.Visible = false;	
+
 				if (primedToAttack)
 					gameManager.GetValidAttackTiles();
 
@@ -376,6 +385,17 @@ public partial class PlayerController : Area2D
 		}
 
 		activeAttackModIdx = attackModIdx;
+
+		if (activeAttackModIdx == 0)
+		{
+			leftSelect.Visible = true;
+			rightSelect.Visible = false;
+		}
+		else if (activeAttackModIdx == 1)
+		{
+			leftSelect.Visible = false;
+			rightSelect.Visible = true;
+		}
 
 		if (primedToAttack)
 			gameManager.GetValidAttackTiles();
